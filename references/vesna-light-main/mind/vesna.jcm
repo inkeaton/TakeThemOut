@@ -1,0 +1,42 @@
+mas vesna {
+    
+    agent alice:alice.asl {
+        beliefs:    address( localhost )
+                    port( 9081 )
+        goals:      start
+        ag-class:   vesna.VesnaAgent
+        join:       wp
+    }
+
+    agent bob:bob.asl {
+        beliefs:    address( localhost )
+                    port( 9080 )
+        goals:      start
+        ag-class:   vesna.VesnaAgent
+        join:       wp
+    }
+
+    agent charlie:charlie.asl {
+        beliefs:    address( localhost )
+                    port( 9082 )
+        goals:      start
+        ag-class:   vesna.VesnaAgent
+        join:       wp
+    }
+
+    agent david:david.asl {
+        beliefs:    address( localhost )
+                    port( 9083 )
+        goals:      start
+        ag-class:   vesna.VesnaAgent
+        join:       wp
+    }
+
+    workspace wp {
+        artifact coffee_machine: vesna.playgrounds.office.CoffeeMachine( "common", 1 )
+        artifact cup1: vesna.playgrounds.office.Cup( "common" )
+        artifact cup2: vesna.playgrounds.office.Cup( "common" )
+        artifact cup3: vesna.playgrounds.office.Cup( "common" )
+    }
+
+}
