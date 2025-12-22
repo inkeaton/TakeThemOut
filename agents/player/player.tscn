@@ -1,13 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://d2bes6s2x63nn"]
+[gd_scene load_steps=4 format=3 uid="uid://d2bes6s2x63nn"]
 
 [ext_resource type="PackedScene" uid="uid://lms00lsdbkvh" path="res://agents/agent/agent.tscn" id="1_2mkl1"]
 [ext_resource type="Texture2D" uid="uid://fflsxqgfc6ve" path="res://agents/player/res/playerTMP.png" id="2_0csw4"]
 [ext_resource type="Script" uid="uid://ck5g66iimnqo4" path="res://agents/player/src/player.gd" id="2_atwkx"]
-[ext_resource type="Material" uid="uid://cyutonnakdbcg" path="res://agents/player/res/lineboil.tres" id="3_depcx"]
 
 [node name="Player" instance=ExtResource("1_2mkl1")]
 script = ExtResource("2_atwkx")
 
 [node name="Sprite" parent="." index="2"]
-material = ExtResource("3_depcx")
 texture = ExtResource("2_0csw4")
