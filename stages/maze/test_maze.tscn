@@ -1,0 +1,63 @@
+[gd_scene load_steps=5 format=3 uid="uid://j3t0toej2ldq"]
+
+[ext_resource type="Texture2D" uid="uid://c3v7jojtu5mst" path="res://stages/maze/res/paper18.png" id="1_q6fnj"]
+[ext_resource type="PackedScene" uid="uid://d2bes6s2x63nn" path="res://bodies/player/player.tscn" id="2_5s84a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3fd7v"]
+size = Vector2(34.950012, 3269.7725)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_q6fnj"]
+vertices = PackedVector2Array(1057.8594, -1527.8516, 1040.5, 1551.1563, -1079.2422, 1564.6328, -1071.5313, -1539.3906)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-1089.2769, 1574.6945, 1050.4437, 1561.1028, 1067.9185, -1537.8027, -1081.5104, -1549.4528)])
+
+[node name="test_maze" type="Node2D"]
+
+[node name="background" type="Sprite2D" parent="."]
+rotation = 1.5707964
+scale = Vector2(0.51502055, 0.51502055)
+texture = ExtResource("1_q6fnj")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="background"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/StaticBody2D"]
+position = Vector2(-1133.936, 17.475105)
+shape = SubResource("RectangleShape2D_3fd7v")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="background"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/StaticBody2D2"]
+position = Vector2(1133.9353, -4.9565886e-05)
+shape = SubResource("RectangleShape2D_3fd7v")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="background"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/StaticBody2D3"]
+position = Vector2(500.95096, 1634.8862)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_3fd7v")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="background"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/StaticBody2D4"]
+position = Vector2(483.47577, -1634.8862)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_3fd7v")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="background"]
+navigation_polygon = SubResource("NavigationPolygon_q6fnj")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(0.15, 0.15)
+limit_left = -833
+limit_top = -575
+limit_right = 833
+limit_bottom = 575
+editor_draw_limits = true
+editor_draw_drag_margin = true
+
+[node name="Player" parent="." instance=ExtResource("2_5s84a")]
+DEFAULT_SPEED = 300.0
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
+remote_path = NodePath("../../Camera2D")

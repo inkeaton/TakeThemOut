@@ -1,0 +1,514 @@
+# Detailed Comparison: vesna-light-main vs vesna-temper
+
+## Overview
+
+vesna-light-main is the original/older version, while vesna-temper adds a personality/mood system that influences agent decision-making.
+
+---
+
+## 1. Project Configuration (vesna.jcm)
+
+### vesna-light-main
+
+```jcm
+mas vesna {
+
+    agent alice:alice.asl {
+        beliefs:    address( localhost )
+                    port( 9081 )
+        ag-class:   vesna.VesnaAgent
+    }
+
+    agent bob:bob.asl {
+        beliefs:    address( localhost )
+                    port( 9082 )
+        ag-class:   vesna.VesnaAgent
+    }
+
+    agent charlie:charlie.asl {
+        beliefs:    address( localhost )
+                    port( 9083 )
+        ag-class:   vesna.VesnaAgent
+    }
+
+    agent david:david.asl {
+        beliefs:    address( localhost )
+                    port( 9084 )
+        ag-class:   vesna.VesnaAgent
+    }
+
+}
+```
+
+### vesna-temper
+
+```jcm
+mas vesna {
+
+    agent alice:alice.asl {
+        ag-class:   vesna.VesnaAgent
+        temper:     temper( prop1(0.2), prop2(0.3), prop3(-0.5)[mood], prop4(0.3)[mood] )
+        address:    localhost
+        port:       9080
+        strategy:   most_similar
+        goals:      start
+    }
+
+}
+```
+
+### Key Changes
+
+| Aspect | vesna-light-main | vesna-temper |
+|--------|------------------|--------------|
+| Configuration method | beliefs: block | User parameters |
+| Address/port | Inside beliefs | Direct parameters |
+| Temper system | Not present | temper: parameter |
+| Selection strategy | Not present | strategy: parameter |
+| Initial goals | Not present | goals: parameter |
+| Agent count | 4 agents (alice, bob, charlie, david) | 1 agent (alice) |
+
+---
+
+## 2. VesnaAgent.java - Core Agent Class
+
+### vesna-light-main
+
+```java
+package vesna;
+
+import jason.asSemantics.Agent;
+import jason.asSyntax.Literal;
+import jason.bb.BeliefBase;
+
+public class VesnaAgent extends Agent implements WsClientMsgHandler {
+
+    private WsClient wsClient;
+
+    @Override
+    public void initAg() {
+        super.initAg();
+        BeliefBase bb = getBB();
+
+        // Get address and port FROM BELIEFS
+        String address = bb.contains(Literal.parseLiteral("address(X)")) 
+            ? /* extract value */ : "localhost";
+        int port = /* extract from beliefs */;
+
+        wsClient = new WsClient(URI.create("ws://" + address + ":" + port), this);
+        wsClient.connect();
+    }
+
+    // Snake_case method names
+    public void handle_msg(String msg) {
+        // Handle incoming messages from Godot
+    }
+
+    public void handle_error(String msg) {
+        // Handle WebSocket errors
+    }
+}
+```
+
+### vesna-temper
+
+```java
+package vesna;
+
+import jason.asSemantics.Agent;
+import jason.asSemantics.Option;
+import jason.asSemantics.Intention;
+import jason.asSyntax.*;
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class VesnaAgent extends Agent implements WsClientMsgHandler {
+
+    private WsClient wsClient;
+    private Temper temper;                           // NEW
+    private String selectionStrategy = "most_similar"; // NEW
+
+    @Override
+    public void initAg() {
+        super.initAg();
+        
+        // Get parameters FROM USER SETTINGS (not beliefs)
+        Settings stts = getTS().getSettings();
+        String address = parseUserParameter(stts, "address", "localhost");
+        int port = parseUserParameter(stts, "port", 9080);
+        selectionStrategy = parseUserParameter(stts, "strategy", "most_similar");
+        
+        // NEW: Parse temper configuration
+        temper = parseTemperFromSettings(stts);
+        
+        wsClient = new WsClient(URI.create("ws://" + address + ":" + port), this);
+        wsClient.connect();
+    }
+
+    // NEW: Override plan selection based on temper
+    @Override
+    public Option selectOption(List<Option> options) {
+        if (options == null || options.isEmpty()) {
+            return null;
+        }
+        
+        List<OptionWrapper> wrappers = options.stream()
+            .map(OptionWrapper::new)
+            .collect(Collectors.toList());
+        
+        OptionWrapper selected = selectByTemper(wrappers);
+        
+        if (selected != null && selected.getEffects() != null) {
+            temper.applyEffects(selected.getEffects());
+        }
+        
+        return selected != null ? selected.getOption() : options.get(0);
+    }
+
+    // NEW: Override intention selection based on temper
+    @Override
+    public Intention selectIntention(Queue<Intention> intentions) {
+        // Similar temper-based selection for intentions
+    }
+
+    // NEW: Temper-based selection algorithm
+    private <T extends TemperSelectable> T selectByTemper(List<T> candidates) {
+        if (selectionStrategy.equals("most_similar")) {
+            return selectMostSimilar(candidates);
+        } else {
+            return selectRandom(candidates);
+        }
+    }
+
+    // CamelCase method names (changed from snake_case)
+    public void handleMsg(String msg) {
+        // Handle incoming messages from Godot
+    }
+
+    public void handleError(String msg) {
+        // Handle WebSocket errors
+    }
+}
+```
+
+### Key Changes in VesnaAgent
+
+| Feature | vesna-light-main | vesna-temper |
+|---------|------------------|--------------|
+| Configuration source | Belief base | User settings/parameters |
+| selectOption() | Not overridden (default Jason) | Overridden for temper-based selection |
+| selectIntention() | Not overridden | Overridden for temper-based selection |
+| Temper system | Not present | Full implementation |
+| Method naming | handle_msg, handle_error | handleMsg, handleError |
+
+---
+
+## 3. New Files in vesna-temper
+
+### Temper.java (NEW)
+
+```java
+package vesna;
+
+import java.util.*;
+
+public class Temper {
+    
+    // Personality: immutable traits (0 to 1)
+    private Map<String, Double> personality = new HashMap<>();
+    
+    // Mood: mutable traits (-1 to 1)
+    private Map<String, Double> mood = new HashMap<>();
+    
+    public void addTrait(String name, double value, boolean isMood) {
+        if (isMood) {
+            mood.put(name, clamp(value, -1.0, 1.0));
+        } else {
+            personality.put(name, clamp(value, 0.0, 1.0));
+        }
+    }
+    
+    public double getTrait(String name) {
+        if (personality.containsKey(name)) return personality.get(name);
+        if (mood.containsKey(name)) return mood.get(name);
+        return 0.5; // default neutral
+    }
+    
+    public double similarity(Temper other) {
+        // Calculate how similar this temper is to another
+        // Used for plan selection
+    }
+    
+    public void applyEffects(Temper effects) {
+        // Modify mood based on effects from executed plan
+        for (Map.Entry<String, Double> effect : effects.getAllMoods().entrySet()) {
+            if (this.mood.containsKey(effect.getKey())) {
+                double current = this.mood.get(effect.getKey());
+                double delta = effect.getValue();
+                this.mood.put(effect.getKey(), clamp(current + delta, -1.0, 1.0));
+            }
+        }
+    }
+    
+    private double clamp(double value, double min, double max) {
+        return Math.max(min, Math.min(max, value));
+    }
+}
+```
+
+### TemperSelectable.java (NEW)
+
+```java
+package vesna;
+
+public interface TemperSelectable {
+    Temper getTemper();
+    Temper getEffects();
+}
+```
+
+### OptionWrapper.java (NEW)
+
+```java
+package vesna;
+
+import jason.asSemantics.Option;
+import jason.asSyntax.*;
+
+public class OptionWrapper implements TemperSelectable {
+    
+    private Option option;
+    private Temper temper;
+    private Temper effects;
+    
+    public OptionWrapper(Option option) {
+        this.option = option;
+        parseAnnotations();
+    }
+    
+    private void parseAnnotations() {
+        Plan plan = option.getPlan();
+        if (plan.getLabel() != null) {
+            // Extract: @planName[temper([trait1(0.5), trait2(0.3)])]
+            ListTerm temperAnnot = plan.getLabel().getAnnot("temper");
+            if (temperAnnot != null) {
+                this.temper = parseTemperList(temperAnnot);
+            }
+            
+            // Extract: @planName[effects([mood1(0.1), mood2(-0.2)])]
+            ListTerm effectsAnnot = plan.getLabel().getAnnot("effects");
+            if (effectsAnnot != null) {
+                this.effects = parseTemperList(effectsAnnot);
+            }
+        }
+    }
+    
+    @Override
+    public Temper getTemper() { return temper; }
+    
+    @Override
+    public Temper getEffects() { return effects; }
+    
+    public Option getOption() { return option; }
+}
+```
+
+### IntentionWrapper.java (NEW)
+
+```java
+package vesna;
+
+import jason.asSemantics.Intention;
+import jason.asSemantics.IntendedMeans;
+
+public class IntentionWrapper implements TemperSelectable {
+    
+    private Intention intention;
+    private Temper temper;
+    private Temper effects;
+    
+    public IntentionWrapper(Intention intention) {
+        this.intention = intention;
+        parseFromIntention();
+    }
+    
+    private void parseFromIntention() {
+        IntendedMeans im = intention.peek();
+        if (im != null && im.getPlan() != null) {
+            // Similar parsing to OptionWrapper
+        }
+    }
+    
+    @Override
+    public Temper getTemper() { return temper; }
+    
+    @Override
+    public Temper getEffects() { return effects; }
+    
+    public Intention getIntention() { return intention; }
+}
+```
+
+---
+
+## 4. Agent Definition Files (.asl)
+
+### vesna-light-main - alice.asl
+
+```asl
+{ include("vesna.asl") }
+
+// Simple plans without temper annotations
++!start
+    <-  .print("Hello from Alice");
+        vesna.via.walk(office).
+
++obstacle(X)
+    <-  .print("Obstacle detected: ", X).
+```
+
+### vesna-temper - alice.asl
+
+```asl
+{ include("vesna.asl") }
+
+// Plans WITH temper annotations
+@p1[temper( [ prop1( 0.0 ), prop2( 0.3 ) ] ), effects( [ prop3( 0.7 ), prop4( -0.05 ) ] ) ]
++!p
+    <-  .print( "ciao" ).
+
+@p2[temper( [ prop1( 0.8 ), prop2( 0.1 ) ] ), effects( [ prop3( -0.2 ), prop4( 0.1 ) ] ) ]
++!p
+    <-  .print( "hello" ).
+
++!start
+    <-  !p.
+```
+
+### Key Difference in ASL
+
+| Aspect | vesna-light-main | vesna-temper |
+|--------|------------------|--------------|
+| Plan annotations | None or basic | temper([...]) and effects([...]) |
+| Multiple plans for same trigger | Not demonstrated | Multiple plans selected by temper |
+| Mood modification | Not present | Via effects annotation |
+
+---
+
+## 5. File Structure Comparison
+
+### Files Only in vesna-light-main
+
+```
+mind/src/agt/
+├── bob.asl
+├── charlie.asl
+├── david.asl
+└── playgrounds/     (folder exists but empty/minimal)
+
+env/office/          (full Godot project)
+├── scripts/
+│   ├── actor.gd
+│   ├── coffee_machine.gd
+│   ├── user.gd
+│   └── vesna.gd
+├── office.tscn
+└── addons/          (Kenney assets)
+```
+
+### Files Only in vesna-temper
+
+```
+src/agt/vesna/
+├── Temper.java           # NEW: Personality/mood system
+├── TemperSelectable.java # NEW: Interface for selection
+├── OptionWrapper.java    # NEW: Plan wrapper
+├── IntentionWrapper.java # NEW: Intention wrapper
+
+bin/                      # Compiled classes
+build/                    # Build outputs
+styles.css               # UI styling (purpose unclear)
+.project                 # Eclipse project file
+```
+
+---
+
+## 6. WebSocket Handler Interface
+
+### vesna-light-main
+
+```java
+package vesna;
+
+public interface WsClientMsgHandler {
+    void handle_msg(String msg);   // snake_case
+    void handle_error(String msg); // snake_case
+}
+```
+
+### vesna-temper
+
+```java
+package vesna;
+
+public interface WsClientMsgHandler {
+    void handleMsg(String msg);    // camelCase
+    void handleError(String msg);  // camelCase
+}
+```
+
+---
+
+## 7. Internal Actions (via/)
+
+Both versions have the same internal actions, but implementation may differ slightly:
+
+| Action | Purpose | Both Versions |
+|--------|---------|---------------|
+| walk.java | Move agent to target | Yes |
+| rotate.java | Rotate agent by angle | Yes |
+| jump.java | Make agent jump | Yes |
+
+---
+
+## Summary of Changes
+
+| Category | Change Type | Description |
+|----------|-------------|-------------|
+| **Architecture** | Major | Added temper-based decision making |
+| **Configuration** | Breaking | Changed from beliefs to user parameters |
+| **Plan Selection** | New | selectOption() override with temper matching |
+| **Intention Selection** | New | selectIntention() override with temper matching |
+| **Plan Annotations** | New | temper([...]) and effects([...]) syntax |
+| **Code Style** | Minor | snake_case -> camelCase for handlers |
+| **New Classes** | 4 files | Temper, TemperSelectable, OptionWrapper, IntentionWrapper |
+| **Godot Project** | Removed | No Godot project in vesna-temper (reference only) |
+| **Agent Count** | Reduced | 4 demo agents -> 1 demo agent |
+
+---
+
+## Core Concept: What is "Temper"?
+
+Temper is a personality system that makes agents behave differently based on:
+
+1. **Personality Traits** (immutable): Stable characteristics set at agent creation
+   - Example: aggression(0.7) - this agent is naturally aggressive
+
+2. **Mood Traits** (mutable): Dynamic emotional states that change during execution
+   - Example: fear(0.5)[mood] - current fear level that can increase/decrease
+
+3. **Plan Selection**: When multiple plans are available for the same situation:
+   - Agent chooses plans whose temper annotation matches its current state
+   - Different agents with different tempers choose different plans
+
+4. **Effects**: When a plan is executed, it can modify the agent's mood:
+   - effects([fear(-0.2)]) - reduces fear by 0.2
+   - This creates dynamic behavior that changes over time
+
+Example Scenario:
+- Aggressive agent (aggression=0.8) sees an enemy
+  - Prefers @attack_plan[temper([aggression(0.9)])]
+- Timid agent (aggression=0.1) sees same enemy
+  - Prefers @flee_plan[temper([aggression(0.0)])]
+
+This creates realistic, personality-driven behavior without hard-coding rules.
