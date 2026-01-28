@@ -1,0 +1,31 @@
+mas vesna {
+
+    // Sentry agents - IMPORTANT: agent names MUST match Godot node names
+    // Each sentry runs on a unique port to connect to its Godot body
+    // Note: JaCaMo requires lowercase names, so use sentry1, sentry2, etc.
+    
+    agent sentry1:sentry.asl {
+        ag-class:   vesna.VesnaAgent
+        temper:     temper( prop1(0.2) )
+        address:    localhost
+        port:       9081
+        strategy:   most_similar
+    }
+
+    agent sentry2:sentry.asl {
+        ag-class:   vesna.VesnaAgent
+        temper:     temper( prop1(0.2) )
+        address:    localhost
+        port:       9082
+        strategy:   most_similar
+    }
+
+    agent sentry3:sentry.asl {
+        ag-class:   vesna.VesnaAgent
+        temper:     temper( prop1(0.2) )
+        address:    localhost
+        port:       9083
+        strategy:   most_similar
+    }
+
+}

@@ -1,7 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://62bib23hxt5c"]
+[gd_scene format=3 uid="uid://62bib23hxt5c"]
 
-[ext_resource type="PackedScene" uid="uid://lms00lsdbkvh" path="res://bodies/agent/agent.tscn" id="1_37qb1"]
+[ext_resource type="Material" uid="uid://cyutonnakdbcg" path="res://bodies/player/res/lineboil.tres" id="2_aopm4"]
 [ext_resource type="Texture2D" uid="uid://bmjs63b1lkfp0" path="res://bodies/guards/patrols/res/patrol4_marianna.png" id="2_j4i18"]
+[ext_resource type="Script" uid="uid://bkf5ponw7u0pp" path="res://bodies/guards/patrols/patrol.gd" id="2_vnkut"]
+[ext_resource type="Script" uid="uid://tn1u48npidyk" path="res://bodies/guards/vesnaManager.gd" id="4_aopm4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_naond"]
+radius = 16.25534
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7dh5t"]
+size = Vector2(21.904758, 33.33333)
+
+[sub_resource type="AnimationRootNode" id="AnimationRootNode_7dh5t"]
 
 [sub_resource type="Animation" id="Animation_ln2m6"]
 length = 0.001
@@ -65,22 +75,40 @@ _data = {
 &"walk_down": SubResource("Animation_depcx")
 }
 
-[node name="Patrol" instance=ExtResource("1_37qb1")]
+[node name="Patrol" type="CharacterBody2D" unique_id=1481715262]
 scale = Vector2(0.15, 0.15)
+collision_layer = 2
+script = ExtResource("2_vnkut")
 
-[node name="CollisionShape2D" parent="Hand" index="0"]
+[node name="Hand" type="Area2D" parent="." unique_id=35048869]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand" unique_id=513507528]
+position = Vector2(0, 13.333334)
 scale = Vector2(16, 16)
+shape = SubResource("CircleShape2D_naond")
+debug_color = Color(0.7019608, 0, 0.3254902, 0.41960785)
 
-[node name="Hitbox" parent="." index="1"]
+[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=509441090]
+position = Vector2(4.7683716e-06, 13.333336)
 scale = Vector2(14.000001, 14.000001)
+shape = SubResource("RectangleShape2D_7dh5t")
+debug_color = Color(0.7019608, 0.59607846, 0, 0.41960785)
 
-[node name="Sprite" parent="." index="2"]
-scale = Vector2(1, 1)
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1460783650]
+material = ExtResource("2_aopm4")
 texture = ExtResource("2_j4i18")
 
-[node name="AnimationPlayer" parent="AnimationTree" index="0"]
-libraries = {
-&"": SubResource("AnimationLibrary_yh7se")
-}
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=784210420]
+root_node = NodePath("")
+tree_root = SubResource("AnimationRootNode_7dh5t")
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="4"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationTree" unique_id=165476596]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_yh7se")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=45141480]
+
+[node name="VesnaManager" type="Node2D" parent="." unique_id=1491732810]
+script = ExtResource("4_aopm4")
+
+[connection signal="command_received" from="VesnaManager" to="." method="_on_vesna_manager_command_received"]

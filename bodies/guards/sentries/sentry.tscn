@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://cv8gsa8vpvj1a"]
+
+[ext_resource type="Script" uid="uid://c8nt6oesxpsdc" path="res://bodies/guards/sentries/sentry.gd" id="1_bmsg8"]
+[ext_resource type="Material" uid="uid://cyutonnakdbcg" path="res://bodies/player/res/lineboil.tres" id="1_e2b8b"]
+[ext_resource type="Texture2D" uid="uid://chquvldyxdsn2" path="res://bodies/guards/sentries/res/sentry_lasse.png" id="2_e2b8b"]
+[ext_resource type="Script" uid="uid://tn1u48npidyk" path="res://bodies/guards/vesnaManager.gd" id="3_eym0j"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bmsg8"]
+radius = 2000.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_naond"]
+radius = 233.71397
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7dh5t"]
+size = Vector2(293.3333, 486.6667)
+
+[sub_resource type="AnimationRootNode" id="AnimationRootNode_7dh5t"]
+
+[node name="sentry1" type="CharacterBody2D" unique_id=603938135 groups=["sentries"]]
+scale = Vector2(0.15, 0.15)
+collision_layer = 7
+script = ExtResource("1_bmsg8")
+
+[node name="AlertRadius" type="Area2D" parent="." unique_id=918870137]
+collision_layer = 0
+collision_mask = 7
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AlertRadius" unique_id=403030984]
+shape = SubResource("CircleShape2D_bmsg8")
+
+[node name="Hand" type="Area2D" parent="." unique_id=35048869]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand" unique_id=513507528]
+shape = SubResource("CircleShape2D_naond")
+debug_color = Color(0.7019608, 0, 0.3254902, 0.41960785)
+
+[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=509441090]
+position = Vector2(-5.5631e-06, 10.000008)
+shape = SubResource("RectangleShape2D_7dh5t")
+debug_color = Color(0.7019608, 0.59607846, 0, 0.41960785)
+
+[node name="VisionCone" type="Area2D" parent="." unique_id=1712278353]
+collision_layer = 16
+collision_mask = 4
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="VisionCone" unique_id=1702472445]
+polygon = PackedVector2Array(900, -370, 900, 370, 0, 0)
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1460783650]
+material = ExtResource("1_e2b8b")
+texture = ExtResource("2_e2b8b")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=784210420]
+root_node = NodePath("")
+tree_root = SubResource("AnimationRootNode_7dh5t")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationTree" unique_id=165476596]
+root_node = NodePath("../..")
+
+[node name="VesnaManager" type="Node2D" parent="." unique_id=897468463]
+script = ExtResource("3_eym0j")
+PORT = 9081
+
+[node name="SwitchSide" type="Timer" parent="." unique_id=1589174787]
+wait_time = 3.0
+autostart = true
+
+[node name="LineOfSight" type="RayCast2D" parent="." unique_id=762473499]
+target_position = Vector2(0, 0)
+collision_mask = 5
+
+[node name="CooldownTimer" type="Timer" parent="." unique_id=1480351454]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="body_entered" from="VisionCone" to="." method="_on_vision_body_entered"]
+[connection signal="body_exited" from="VisionCone" to="." method="_on_vision_body_exited"]
+[connection signal="timeout" from="SwitchSide" to="." method="_on_patrol_timer_timeout"]

@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://j3t0toej2ldq"]
+[gd_scene format=3 uid="uid://j3t0toej2ldq"]
 
 [ext_resource type="Texture2D" uid="uid://c3v7jojtu5mst" path="res://stages/maze/res/paper18.png" id="1_q6fnj"]
 [ext_resource type="PackedScene" uid="uid://d2bes6s2x63nn" path="res://bodies/player/player.tscn" id="2_5s84a"]
+[ext_resource type="PackedScene" uid="uid://62bib23hxt5c" path="res://bodies/guards/patrols/patrol.tscn" id="3_5s84a"]
+[ext_resource type="PackedScene" uid="uid://cv8gsa8vpvj1a" path="res://bodies/guards/sentries/sentry.tscn" id="4_r6spc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3fd7v"]
 size = Vector2(34.950012, 3269.7725)
@@ -11,43 +13,44 @@ vertices = PackedVector2Array(1057.8594, -1527.8516, 1040.5, 1551.1563, -1079.24
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-1089.2769, 1574.6945, 1050.4437, 1561.1028, 1067.9185, -1537.8027, -1081.5104, -1549.4528)])
 
-[node name="test_maze" type="Node2D"]
+[node name="test_maze" type="Node2D" unique_id=1783431065]
 
-[node name="background" type="Sprite2D" parent="."]
+[node name="background" type="Sprite2D" parent="." unique_id=93462752]
 rotation = 1.5707964
 scale = Vector2(0.51502055, 0.51502055)
 texture = ExtResource("1_q6fnj")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="background"]
+[node name="StaticBody2D" type="StaticBody2D" parent="background" unique_id=1281835448]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="background/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/StaticBody2D" unique_id=4362551]
 position = Vector2(-1133.936, 17.475105)
 shape = SubResource("RectangleShape2D_3fd7v")
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="background"]
+[node name="StaticBody2D2" type="StaticBody2D" parent="background" unique_id=1769982585]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="background/StaticBody2D2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/StaticBody2D2" unique_id=986386055]
 position = Vector2(1133.9353, -4.9565886e-05)
 shape = SubResource("RectangleShape2D_3fd7v")
 
-[node name="StaticBody2D3" type="StaticBody2D" parent="background"]
+[node name="StaticBody2D3" type="StaticBody2D" parent="background" unique_id=1168276074]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="background/StaticBody2D3"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/StaticBody2D3" unique_id=453226808]
 position = Vector2(500.95096, 1634.8862)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_3fd7v")
 
-[node name="StaticBody2D4" type="StaticBody2D" parent="background"]
+[node name="StaticBody2D4" type="StaticBody2D" parent="background" unique_id=1333073154]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="background/StaticBody2D4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/StaticBody2D4" unique_id=21658022]
 position = Vector2(483.47577, -1634.8862)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_3fd7v")
 
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="background"]
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="background" unique_id=405890198]
+position = Vector2(-1.9416697, 0)
 navigation_polygon = SubResource("NavigationPolygon_q6fnj")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=176139884]
 scale = Vector2(0.15, 0.15)
 limit_left = -833
 limit_top = -575
@@ -56,8 +59,38 @@ limit_bottom = 575
 editor_draw_limits = true
 editor_draw_drag_margin = true
 
-[node name="Player" parent="." instance=ExtResource("2_5s84a")]
+[node name="Player" parent="." unique_id=202696612 instance=ExtResource("2_5s84a")]
 DEFAULT_SPEED = 300.0
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player" unique_id=599018791]
 remote_path = NodePath("../../Camera2D")
+
+[node name="Patrol" parent="." unique_id=613598746 instance=ExtResource("3_5s84a")]
+position = Vector2(188, -286)
+
+[node name="sentry1" parent="." unique_id=603938135 instance=ExtResource("4_r6spc")]
+position = Vector2(410, -64)
+
+[node name="sentry2" parent="." unique_id=1706122423 instance=ExtResource("4_r6spc")]
+position = Vector2(472.00003, 175)
+metadata/_edit_group_ = true
+
+[node name="AnimationTree" parent="sentry2" index="5" unique_id=784210420]
+root_node = NodePath("..")
+
+[node name="VesnaManager" parent="sentry2" index="6" unique_id=897468463]
+PORT = 9082
+
+[node name="sentry3" parent="." unique_id=241026246 instance=ExtResource("4_r6spc")]
+position = Vector2(214, 109)
+metadata/_edit_group_ = true
+
+[node name="AnimationTree" parent="sentry3" index="5" unique_id=784210420]
+root_node = NodePath("..")
+
+[node name="VesnaManager" parent="sentry3" index="6" unique_id=897468463]
+PORT = 9083
+
+[editable path="sentry1"]
+[editable path="sentry2"]
+[editable path="sentry3"]
