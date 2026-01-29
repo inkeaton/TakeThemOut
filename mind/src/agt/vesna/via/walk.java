@@ -26,11 +26,11 @@ public class walk extends DefaultInternalAction {
         else if ( args.length == 1 ){
             if ( args[0].isNumeric() )
                 type = "step";
-            else if ( args[0].isLiteral() )
+            else if ( args[0].isLiteral() || args[0].isString() )
                 type = "goto";
-        } else if ( args.length == 2 && args[0].isLiteral() && args[1].isNumeric() )
+        } else if ( args.length == 2 && (args[0].isLiteral() || args[0].isString()) && args[1].isNumeric() )
             type = "goto";
-        else if ( args.length == 2 && args[0].isLiteral() && !args[1].isGround() )
+        else if ( args.length == 2 && (args[0].isLiteral() || args[0].isString()) && !args[1].isGround() )
             type = "goto";
         else 
             return false;
@@ -53,7 +53,12 @@ public class walk extends DefaultInternalAction {
                 data.put( "length", ( ( NumberTerm ) args[1] ).solve() );
             }
         } else if ( type.equals( "goto" ) ) {
-            data.put( "target", args[0].toString() );
+            String targetName = args[0].toString();
+            // If it's a StringTerm, remove surrounding quotes
+            if ( args[0].isString() ) {
+                targetName = ((jason.asSyntax.StringTerm) args[0]).getString();
+            }
+            data.put( "target", targetName );
             if ( args.length == 2 && args[1].isGround() )
                 data.put( "id", ( ( NumberTerm ) args[1] ).solve() );
         }

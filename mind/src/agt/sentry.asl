@@ -1,5 +1,5 @@
 // sentry.asl - Sentry agent with player detection and ally alerting
-// This agent reacts to visual input and coordinates with other sentries
+// This agent reacts to visual input and coordinates with other allies
 
 // --- Initial Beliefs ---
 state(scanning).  // scanning | alerting
@@ -74,14 +74,14 @@ state(scanning).  // scanning | alerting
 // --- Signal Handlers ---
 
 // Body finished alert sequence (arrives as belief via sense() mechanism)
-+alert(completed, _)
++signal_alert(completed, _)
     :   state(alerting)
     <-  .print("Alert sequence completed. Returning to scan.");
         -state(alerting);
         +state(scanning);
         -last_player_pos(_, _);
         -allies_nearby(_);
-        -alert(completed, _).
+        -signal_alert(completed, _).
 
 // --- Utility ---
 

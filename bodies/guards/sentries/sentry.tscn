@@ -16,18 +16,16 @@ size = Vector2(293.3333, 486.6667)
 
 [sub_resource type="AnimationRootNode" id="AnimationRootNode_7dh5t"]
 
-[node name="sentry1" type="CharacterBody2D" unique_id=603938135 groups=["sentries"]]
+[node name="sentry1" type="CharacterBody2D" unique_id=603938135 groups=["guards", "sentries"]]
 scale = Vector2(0.15, 0.15)
 collision_layer = 7
 script = ExtResource("1_bmsg8")
 
-[node name="AlertRadius" type="Area2D" parent="." unique_id=918870137]
-collision_layer = 0
-collision_mask = 7
-monitoring = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AlertRadius" unique_id=403030984]
+[node name="AlertScanner" type="ShapeCast2D" parent="." unique_id=702588969]
+enabled = false
 shape = SubResource("CircleShape2D_bmsg8")
+target_position = Vector2(0, 0)
+collision_mask = 7
 
 [node name="Hand" type="Area2D" parent="." unique_id=35048869]
 
@@ -76,4 +74,6 @@ one_shot = true
 
 [connection signal="body_entered" from="VisionCone" to="." method="_on_vision_body_entered"]
 [connection signal="body_exited" from="VisionCone" to="." method="_on_vision_body_exited"]
+[connection signal="command_received" from="VesnaManager" to="." method="_on_mind_command"]
 [connection signal="timeout" from="SwitchSide" to="." method="_on_patrol_timer_timeout"]
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timeout"]

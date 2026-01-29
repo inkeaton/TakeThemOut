@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "04_TUTORIAL.md",
+                "file": "01_JASON_SIDE.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "04_TUTORIAL"
+              "title": "01_JASON_SIDE"
             }
           }
         ]
@@ -185,6 +185,7 @@
   },
   "active": "eeaba424ad6945f4",
   "lastOpenFiles": [
+    "04_TUTORIAL.md",
     "01_JASON_SIDE.md"
   ]
 }

@@ -28,4 +28,24 @@ mas vesna {
         strategy:   most_similar
     }
 
+    agent patrol_lazy:patrol.asl {
+        ag-class:   vesna.VesnaAgent
+        temper:     temper(laziness(0.9), aggressiveness(0.1)) // Lazy guard
+        address:    localhost
+        port:       9084 // Make sure this matches Godot!
+        beliefs:    waypoints(["M1_A", "M1_B", "M1_C", "M1_D"]) // Quoted atoms for uppercase names
+        strategy:   most_similar
+        goals:      start_patrol
+    }
+
+    agent patrol_angry:patrol.asl {
+        ag-class:   vesna.VesnaAgent
+        temper:     temper(laziness(0.1), aggressiveness(0.9)) // Angry guard
+        address:    localhost
+        port:       9085 // Make sure this matches Godot!
+        beliefs:    waypoints(["M2_A", "M2_B", "M2_C", "M2_D"]) // Quoted atoms for uppercase names
+        strategy:   most_similar
+        goals:      start_patrol
+    }
+
 }

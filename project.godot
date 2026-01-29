@@ -35,6 +35,11 @@ folder_colors={
 "res://stages/": "gray"
 }
 
+[global_group]
+
+player=""
+guards=""
+
 [input]
 
 left={

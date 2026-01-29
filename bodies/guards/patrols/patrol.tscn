@@ -75,7 +75,11 @@ _data = {
 &"walk_down": SubResource("Animation_depcx")
 }
 
-[node name="Patrol" type="CharacterBody2D" unique_id=1481715262]
+[sub_resource type="LabelSettings" id="LabelSettings_aopm4"]
+font_size = 80
+font_color = Color(0, 0, 0, 1)
+
+[node name="Patrol" type="CharacterBody2D" unique_id=1481715262 groups=["guards", "patrols"]]
 scale = Vector2(0.15, 0.15)
 collision_layer = 2
 script = ExtResource("2_vnkut")
@@ -94,6 +98,13 @@ scale = Vector2(14.000001, 14.000001)
 shape = SubResource("RectangleShape2D_7dh5t")
 debug_color = Color(0.7019608, 0.59607846, 0, 0.41960785)
 
+[node name="VisionCone" type="Area2D" parent="." unique_id=426821428]
+collision_layer = 16
+collision_mask = 6
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="VisionCone" unique_id=1040574097]
+polygon = PackedVector2Array(900, -370, 900, 370, 0, 100, 0, -100)
+
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1460783650]
 material = ExtResource("2_aopm4")
 texture = ExtResource("2_j4i18")
@@ -107,8 +118,24 @@ root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_yh7se")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=45141480]
+avoidance_enabled = true
+debug_enabled = true
 
 [node name="VesnaManager" type="Node2D" parent="." unique_id=1491732810]
 script = ExtResource("4_aopm4")
+
+[node name="PatienceTimer" type="Timer" parent="." unique_id=726302969]
+wait_time = 2.0
+one_shot = true
+
+[node name="DebugLabel" type="Label" parent="." unique_id=877176446]
+offset_left = -240.0
+offset_top = -520.0
+offset_right = 306.66663
+offset_bottom = -246.66666
+text = "Debug"
+label_settings = SubResource("LabelSettings_aopm4")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="command_received" from="VesnaManager" to="." method="_on_vesna_manager_command_received"]

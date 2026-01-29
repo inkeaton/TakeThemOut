@@ -164,13 +164,15 @@ public class VesnaAgent extends Agent{
 		 *   "reason": "event_reason"
 		 * }
 		* </pre>
-	* It will <i>sense</i> a literal formatted as {@code event_type( event_status, event_reason )}.
+	* It will <i>sense</i> a literal formatted as {@code signal_event_type( event_status, event_reason )}.
+	* Note: Signal beliefs are prefixed with 'signal_' to avoid namespace collision with sight beliefs.
 	*/
 	private void handleEvent( JSONObject event ) {
 		String event_type = event.getString( "type" );
 		String event_status = event.getString( "status" );
 		String event_reason = event.getString( "reason" );
-		Literal perception = createLiteral( event_type, createLiteral( event_status ), createLiteral( event_reason ) );
+		// Prefix with 'signal_' to separate namespace from sight beliefs
+		Literal perception = createLiteral( "signal_" + event_type, createLiteral( event_status ), createLiteral( event_reason ) );
 		sense(perception);
 	}
 
