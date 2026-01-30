@@ -28,24 +28,24 @@ mas vesna {
         strategy:   most_similar
     }
 
+    // Agent 1: Very Lazy
+    // Will mathematically prefer the "lazy_rest" plan (0.9 is closer to 0.8)
     agent patrol_lazy:patrol.asl {
         ag-class:   vesna.VesnaAgent
-        temper:     temper(laziness(0.9), aggressiveness(0.1)) // Lazy guard
+        temper:     temper(laziness(0.9), aggressiveness(0.2)) 
+        strategy:   most_similar          
         address:    localhost
-        port:       9084 // Make sure this matches Godot!
-        beliefs:    waypoints(["M1_A", "M1_B", "M1_C", "M1_D"]) // Quoted atoms for uppercase names
-        strategy:   most_similar
-        goals:      start_patrol
+        port:       9084
     }
 
-    agent patrol_angry:patrol.asl {
+    // Agent 2: Very Active
+    // Will prefer the "active_rest" plan (0.1 is closer to 0.2)
+    agent patrol_active:patrol.asl {
         ag-class:   vesna.VesnaAgent
-        temper:     temper(laziness(0.1), aggressiveness(0.9)) // Angry guard
-        address:    localhost
-        port:       9085 // Make sure this matches Godot!
-        beliefs:    waypoints(["M2_A", "M2_B", "M2_C", "M2_D"]) // Quoted atoms for uppercase names
+        temper:     temper(laziness(0.1), aggressiveness(0.8))
         strategy:   most_similar
-        goals:      start_patrol
+        address:    localhost
+        port:       9085 // Ensure this port matches a second Godot instance if running two
     }
 
 }

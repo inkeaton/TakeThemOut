@@ -1,155 +1,75 @@
-// patrol.asl - Temper-based Patrol Agent
+// patrol.asl
 
-{ include("vesna.asl") }
+/* --- Goals --- */
+!patrol. // Start the loop
 
-// --- Initial Beliefs ---
-// Define your waypoints here. These names must match Node names in Godot.
-// need to add beliefs for waypoints at startup
-state(patrolling).
+/* --- Patrol Loop --- */
 
-/* ========================================================================= */
-/* BEHAVIOR 1: PATROLLING                        */
-/* ========================================================================= */
++!patrol
+    <-  !decide_next_step; // Make a choice based on personality
+        // The choice (sub-goal) will trigger the actual movement
+        // logic below, and then we wait for arrival.
+        .print("Step decision made.").
 
-// Start patrolling when we have waypoints
-+!start_patrol
-    :   waypoints(WPs)
-    <-  .print("Starting patrol!");
-        // Wait for WebSocket connection to be ready
-        .wait(1000);
-        // Clean any stale movement beliefs from previous cycles
-        .abolish(signal_movement(_, _));
-        !patrol(WPs).
+// CHOICE A: Standard Patrol
+@go_next[temper([aggressiveness(0.1)])]
++!decide_next_step
+    <-  .print("Patrolling forward...");
+        vesna.continue_patrol(next). // Passing the atom 'next'
 
-// Loop through waypoints
-+!patrol([])
-    :   waypoints(WPs)
-    <-  !patrol(WPs).
+// CHOICE B: Aggressive Checks
+@go_prev_low[temper([aggressiveness(0.3)])]
++!decide_next_step
+    :   math.random(R) & R < 0.1 
+    <-  .print("Backtracking! (Aggressive Check)");
+        vesna.continue_patrol(prev).
 
-+!patrol([NextWP | Rest])
-    :   state(patrolling)
-    <-  .print("Moving to waypoint: ", NextWP);
-        vesna.walk(NextWP);
-        // Wait for arrival signal from Body
-        .wait({+signal_movement(completed, _)});
+@go_prev_mid[temper([aggressiveness(0.5)])]
++!decide_next_step
+    :   math.random(R) & R < 0.3 
+    <-  .print("Backtracking! (Aggressive Check)");
+        vesna.continue_patrol(prev).
+
+@go_prev_high[temper([aggressiveness(0.9)])]
++!decide_next_step
+    :   math.random(R) & R < 0.5 
+    <-  .print("Backtracking! (Aggressive Check)");
+        vesna.continue_patrol(prev).
+
+// TRIGGER: navigation(reached, Waypoint)
+// This matches the belief created by handleNavigation in Java
++navigation(reached, Waypoint)
+    <-  .print("Arrived at ", Waypoint);
+        
+        -navigation(reached, Waypoint);
         !rest_at_waypoint;
-        !patrol(Rest).
+        !patrol.
 
-// Handle interruption (e.g., if we started chasing mid-patrol)
-+!patrol(_)
-    :   not state(patrolling)
-    <-  .print("Patrol paused for emergency.").
+/* --- Plan Selection (The Personality) --- */
 
-// --- Temper-based Resting ---
-
-// Lazy Guard: Takes a long break
+// Option A: The "Lazy" Plan
+// Selected if agent's temper is close to laziness(0.8)
 @lazy_rest[temper([laziness(0.8)])]
 +!rest_at_waypoint
-    <-  .print("Ugh, my feet hurt. Taking a break...");
+    <-  .print("Ugh, my feet hurt. Taking a long break...");
         .wait(5000).
 
-// Diligent Guard: Short pause
+// Option B: The "Diligent" Plan
+// Selected if agent's temper is close to laziness(0.2)
 @active_rest[temper([laziness(0.2)])]
 +!rest_at_waypoint
-    <-  .print("Sector clear. Moving on.");
+    <-  .print("Sector clear. Moving on immediately.");
         .wait(1000).
 
-// Default fallback
+// Option C: Fallback
+// Selected if no specific temper matches or strategy is random
 @default_rest
 +!rest_at_waypoint
-    <-  .wait(2000).
+    <-  .print("Just a standard pause.");
+        .wait(2000).
 
-/* ========================================================================= */
-/* BEHAVIOR 2: CHASING                           */
-/* ========================================================================= */
-
-// Trigger: Visual Contact
-+sight(player, Id)
-    :   not state(chasing)
-    <-  .print("CONTACT! Engaging target ", Id);
-        // 1. Change State
-        -state(patrolling);
-        +state(chasing);
-        .drop_all_desires; // Stop patrolling immediately
-        
-        // 2. Command Body
-        vesna.chase(Id).
-
-// Trigger: Lost Visuals (LKP Logic)
-+signal_sight(lost, _)
-    :   state(chasing)
-    <-  .print("Visual lost! Moving to Last Known Position...");
-        // Body automatically moves to LKP. We just wait for arrival.
-        !wait_for_lkp.
-
-+!wait_for_lkp
-    <-  .wait({+signal_movement(completed, lkp_reached)}, 10000, _); 
-        // If we timeout (10s), force search
-        -state(chasing);
-        +state(searching);
-        // Clean up sight beliefs to allow re-detection
-        .abolish(sight(player, _));
-        !search_area.
-
-// Trigger: Arrived at LKP
-+signal_movement(completed, lkp_reached)
-    :   state(chasing)
-    <-  .print("Arrived at LKP. Target gone.");
-        -state(chasing);
-        +state(searching);
-        // Clean up sight beliefs to allow re-detection
-        .abolish(sight(player, _));
-        !search_area.
-
-/* ========================================================================= */
-/* BEHAVIOR 3: SEARCHING                         */
-/* ========================================================================= */
-
-// Aggressive Guard: Searches thoroughly
-@angry_search[temper([aggressiveness(0.8)])]
-+!search_area
-    <-  .print("COME OUT! I KNOW YOU'RE HERE!");
-        !check_random_spots(3). // Check 3 spots
-
-// Calm Guard: Gives up easily
-@calm_search[temper([aggressiveness(-0.5)])]
-+!search_area
-    <-  .print("Must have been rats.");
-        !check_random_spots(1). // Check 1 spot
-
-// Search Loop
-+!check_random_spots(0)
-    <-  .print("Search complete. Returning to patrol.");
-        // Clean up all state beliefs to ensure clean transition
-        .abolish(state(_));
-        +state(patrolling);
-        !start_patrol.
-
-+!check_random_spots(N)
-    <-  // Pick a random point relative to current position (simplified)
-        .print("Checking spot ", N);
-        // In a real implementation, you'd calculate coordinates. 
-        // For now, we wait to simulate searching.
+/* --- Failure Handling --- */
++signal(navigation, failed, Reason)
+    <-  .print("Navigation error: ", Reason);
         .wait(2000);
-        !check_random_spots(N-1).
-
-/* ========================================================================= */
-/* BEHAVIOR 4: COORDINATION                      */
-/* ========================================================================= */
-
-// If I see an Ally while chasing
-+sight(Ally, _)
-    :   state(chasing) & not negotiating(_) & .substring("patrol", Ally)
-    <-  +negotiating(Ally);
-        .send(Ally, askOne, dist_to_base(_), Reply);
-        !resolve_chase(Reply).
-
-+!resolve_chase(dist_to_base(AllyDist))
-    :   my_dist(MyDist)
-    <-  if (MyDist < AllyDist) {
-            .print("I'm closer to base. I'll alert them!");
-            -state(chasing);
-            !alert_base;
-        } else {
-            .print("You go alert base! I'm staying on target!");
-        }.
+        !patrol.

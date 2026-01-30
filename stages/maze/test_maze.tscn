@@ -52,28 +52,28 @@ navigation_polygon = SubResource("NavigationPolygon_q6fnj")
 
 [node name="waypoints" type="Node2D" parent="." unique_id=1050702330]
 
-[node name="M1_A" type="Marker2D" parent="waypoints" unique_id=1938916715]
+[node name="m1_a" type="Marker2D" parent="waypoints" unique_id=1938916715 groups=["waypoints"]]
 position = Vector2(-740, -479)
 
-[node name="M1_B" type="Marker2D" parent="waypoints" unique_id=812418843]
+[node name="m1_b" type="Marker2D" parent="waypoints" unique_id=812418843 groups=["waypoints"]]
 position = Vector2(88, -473)
 
-[node name="M1_C" type="Marker2D" parent="waypoints" unique_id=676216336]
+[node name="m1_c" type="Marker2D" parent="waypoints" unique_id=676216336 groups=["waypoints"]]
 position = Vector2(-5, 425)
 
-[node name="M1_D" type="Marker2D" parent="waypoints" unique_id=558119902]
+[node name="m1_d" type="Marker2D" parent="waypoints" unique_id=558119902 groups=["waypoints"]]
 position = Vector2(-711, 255)
 
-[node name="M2_A" type="Marker2D" parent="waypoints" unique_id=950616957]
+[node name="m2_a" type="Marker2D" parent="waypoints" unique_id=950616957 groups=["waypoints"]]
 position = Vector2(-78, -394)
 
-[node name="M2_B" type="Marker2D" parent="waypoints" unique_id=1943081288]
+[node name="m2_b" type="Marker2D" parent="waypoints" unique_id=1943081288 groups=["waypoints"]]
 position = Vector2(-115, 287)
 
-[node name="M2_C" type="Marker2D" parent="waypoints" unique_id=1262389397]
+[node name="m2_c" type="Marker2D" parent="waypoints" unique_id=1262389397 groups=["waypoints"]]
 position = Vector2(657, 510)
 
-[node name="M2_D" type="Marker2D" parent="waypoints" unique_id=897017467]
+[node name="m2_d" type="Marker2D" parent="waypoints" unique_id=897017467 groups=["waypoints"]]
 position = Vector2(-49, 340)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=176139884]
@@ -92,21 +92,11 @@ DEFAULT_SPEED = 300.0
 remote_path = NodePath("../../Camera2D")
 
 [node name="patrol_lazy" parent="." unique_id=613598746 instance=ExtResource("3_5s84a")]
-position = Vector2(-623, -188)
+position = Vector2(-702, -261)
 metadata/_edit_group_ = true
 
 [node name="VesnaManager" parent="patrol_lazy" index="6" unique_id=1491732810]
 PORT = 9084
-
-[node name="patrol_angry" parent="." unique_id=1481715262 instance=ExtResource("3_5s84a")]
-position = Vector2(379, 419)
-metadata/_edit_group_ = true
-
-[node name="AnimationTree" parent="patrol_angry" index="4" unique_id=784210420]
-root_node = NodePath("..")
-
-[node name="VesnaManager" parent="patrol_angry" index="6" unique_id=1491732810]
-PORT = 9085
 
 [node name="sentry1" parent="." unique_id=603938135 instance=ExtResource("4_r6spc")]
 position = Vector2(368, -417)
@@ -131,8 +121,18 @@ root_node = NodePath("..")
 [node name="VesnaManager" parent="sentry3" index="6" unique_id=897468463]
 PORT = 9083
 
+[node name="patrol_active" parent="." unique_id=1481715262 instance=ExtResource("3_5s84a")]
+position = Vector2(230, 357)
+metadata/_edit_group_ = true
+
+[node name="AnimationTree" parent="patrol_active" index="4" unique_id=784210420]
+root_node = NodePath("..")
+
+[node name="VesnaManager" parent="patrol_active" index="6" unique_id=1491732810]
+PORT = 9085
+
 [editable path="patrol_lazy"]
-[editable path="patrol_angry"]
 [editable path="sentry1"]
 [editable path="sentry2"]
 [editable path="sentry3"]
+[editable path="patrol_active"]

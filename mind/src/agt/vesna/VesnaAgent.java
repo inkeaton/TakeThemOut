@@ -68,6 +68,10 @@ public class VesnaAgent extends Agent{
 	/** The logger necessary to print on the JaCaMo log */
 	protected transient Logger logger;
 
+	/****************************************/
+	/* INITIALIZATION                       */
+	/****************************************/
+
 	/** Initialize the agent with body and temper
 	 * <p>
 	 * Override initAg method in order to:
@@ -129,18 +133,79 @@ public class VesnaAgent extends Agent{
 
 		// Connect the body
 		try {
-			client.connect();
-		} catch( Exception e ){
-			stop( e.getMessage() );
-		}
+            // Replaced client.connect() with client.connectBlocking()
+			// to avoid bug with patrols asking to move before connection is established
+            boolean connected = client.connectBlocking(); 
+            
+            if (!connected) {
+                stop( "Failed to establish WebSocket connection to " + address + ":" + port );
+            } else {
+                logger.info("WebSocket connection established successfully.");
+            }
+            
+        } catch( Exception e ){
+            stop( e.getMessage() );
+        }
 
 	}
+
+	/****************************************/
+	/* ACTION ("OUTPUT")                    */
+	/****************************************/
 
 	/** Performs a body action in the environment
 	 * @param action The action to perform formatted into a JSON string
 	*/
 	public void perform( String action ) {
 		client.send( action );
+	}
+
+	/****************************************/
+	/* MSG HANDLER ("INPUT")                */
+	/****************************************/
+
+	/** Handles incoming messages from the body.
+	* Available types are: signal, sight, allies.
+	* @param msg The message received formatted as JSON string:
+	* <pre>
+	 * {
+	 *   "sender": "body",
+	 *   "receiver": "agent_name",
+	 *   "type": "signal | sight | allies",
+	 *   "data": { ... }
+	 * }
+	 * </pre>
+	*/
+	public void vesnaHandleMsg( String msg ) {
+		try {
+			System.out.println( "Received message: " + msg );
+			JSONObject log = new JSONObject( msg );
+			String sender = log.getString( "sender" );
+			String receiver = log.getString( "receiver" );
+			String type = log.getString( "type" );
+			JSONObject data = log.getJSONObject( "data" );
+			switch( type ){
+				case "signal":
+					handleEvent( data );
+					break;
+				case "sight":
+					handleSight( data );
+					break;
+				case "allies":
+					handleAlliesFound( data );
+					break;
+				case "navigation":
+                	handleNavigation( data );
+                	break;
+				default:
+					logger.warning( "Unknown message type: " + type );
+			}
+			
+		} catch (org.json.JSONException e) {
+			logger.warning("Received malformed JSON from body: " + msg);
+		} catch (Exception e) {
+			logger.severe("Error handling message: " + e.getMessage());
+		}
 	}
 
 	/** Signals the mind about a perception
@@ -164,15 +229,13 @@ public class VesnaAgent extends Agent{
 		 *   "reason": "event_reason"
 		 * }
 		* </pre>
-	* It will <i>sense</i> a literal formatted as {@code signal_event_type( event_status, event_reason )}.
-	* Note: Signal beliefs are prefixed with 'signal_' to avoid namespace collision with sight beliefs.
+	* It will <i>sense</i> a literal formatted as {@code event_type( event_status, event_reason )}.
 	*/
 	private void handleEvent( JSONObject event ) {
 		String event_type = event.getString( "type" );
 		String event_status = event.getString( "status" );
 		String event_reason = event.getString( "reason" );
-		// Prefix with 'signal_' to separate namespace from sight beliefs
-		Literal perception = createLiteral( "signal_" + event_type, createLiteral( event_status ), createLiteral( event_reason ) );
+		Literal perception = createLiteral( event_type, createLiteral( event_status ), createLiteral( event_reason ) );
 		sense(perception);
 	}
 
@@ -217,40 +280,6 @@ public class VesnaAgent extends Agent{
 		}
 	}
 
-	/** Handles incoming messages from the body.
-	* Available types are: signal, sight, allies.
-	* @param msg The message received formatted as JSON string:
-	* <pre>
-	 * {
-	 *   "sender": "body",
-	 *   "receiver": "agent_name",
-	 *   "type": "signal | sight | allies",
-	 *   "data": { ... }
-	 * }
-	 * </pre>
-	*/
-	public void vesnaHandleMsg( String msg ) {
-		System.out.println( "Received message: " + msg );
-		JSONObject log = new JSONObject( msg );
-		String sender = log.getString( "sender" );
-		String receiver = log.getString( "receiver" );
-		String type = log.getString( "type" );
-		JSONObject data = log.getJSONObject( "data" );
-		switch( type ){
-			case "signal":
-				handleEvent( data );
-				break;
-			case "sight":
-				handleSight( data );
-				break;
-			case "allies":
-				handleAlliesFound( data );
-				break;
-			default:
-				logger.warning( "Unknown message type: " + type );
-		}
-	}
-
 	/**
 	 * Handles a list of nearby allies found by the body during an alert scan.
 	 * Creates a belief with a list of ally agent names.
@@ -283,44 +312,34 @@ public class VesnaAgent extends Agent{
 		}
 	}
 
-	/** Stops the agent: prints a message and kills the agent
-	 * @param reason The reason why the agent is stopping
-	 */
-	private void stop( String reason ) {
-		logger.severe( reason );
-		kill_agent();
-	}
+	/**
+     * Handles navigation updates.
+     * Expected JSON data: { "status": "reached", "waypoint": "m1_a" }
+     * Creates belief: navigation(reached, m1_a)
+     */
+	
+	private void handleNavigation( JSONObject data ) {
+        String status = data.getString( "status" );
+        String waypoint = data.getString( "waypoint" );
 
-	/** Handles a connection error: prints a message and kills the agent
-	 * @param ex The exception raised
-	 */
-	public void vesnaHandleError( Exception ex ){
-		logger.severe( ex.getMessage() );
-		kill_agent();
-	}
+        // Create the literal: navigation( status, waypoint )
+        // We use createAtom because 'reached' and 'm1_a' are valid Prolog atoms.
+        Literal navBelief = createLiteral( "navigation", 
+                                           createAtom( status ), 
+                                           createAtom( waypoint ) );
 
-	/** Kills the agent
-	 * <p>
-	 * It calls the internal actions to drop all desires, intentions and events and then kill the agent;
-	 * This is necessary to avoid the agent to keep running after the kill_agent call ( that otherwise is simply enqueued ).
-	 * </p>
-	 */
-	private void kill_agent() {
-		logger.severe( "Killing agent" );
-		try {
-			InternalAction drop_all_desires = getIA( ".drop_all_desires" );
-			InternalAction drop_all_intentions = getIA( ".drop_all_intentions" );
-			InternalAction drop_all_events = getIA( ".drop_all_events" );
-			InternalAction action = getIA( ".kill_agent" );
+        try {
+            // Check if belief exists to avoid duplicates, or just add it.
+            // Note: In ASL, we will remove it after processing to handle loops.
+            addBel( navBelief );
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+    }
 
-			drop_all_desires.execute( getTS(), new Unifier(), new Term[] {} );
-			drop_all_intentions.execute( getTS(), new Unifier(), new Term[] {} );
-			drop_all_events.execute( getTS(), new Unifier(), new Term[] {} );
-			action.execute( getTS(), new Unifier(), new Term[] { createString( getTS().getAgArch().getAgName() ) } );
-		} catch ( Exception e ) {
-			e.printStackTrace();
-		}
-	}
+	/****************************************/
+	/* TEMPER OVERRIDES                     */
+	/****************************************/
 
 	/** Overrides the selectOption in order to consider Temper if needed
 	 * <p>
@@ -424,6 +443,49 @@ public class VesnaAgent extends Agent{
 			}
 		}
 		return false;
+	}
+
+	/****************************************/
+	/* STOPPING THE AGENT                   */
+	/****************************************/
+
+	/** Stops the agent: prints a message and kills the agent
+	 * @param reason The reason why the agent is stopping
+	 */
+	private void stop( String reason ) {
+		logger.severe( reason );
+		kill_agent();
+	}
+
+	/** Handles a connection error: prints a message and kills the agent
+	 * @param ex The exception raised
+	 */
+	public void vesnaHandleError( Exception ex ){
+		logger.severe( ex.getMessage() );
+		kill_agent();
+	}
+
+	/** Kills the agent
+	 * <p>
+	 * It calls the internal actions to drop all desires, intentions and events and then kill the agent;
+	 * This is necessary to avoid the agent to keep running after the kill_agent call ( that otherwise is simply enqueued ).
+	 * </p>
+	 */
+	private void kill_agent() {
+		logger.severe( "Killing agent" );
+		try {
+			InternalAction drop_all_desires = getIA( ".drop_all_desires" );
+			InternalAction drop_all_intentions = getIA( ".drop_all_intentions" );
+			InternalAction drop_all_events = getIA( ".drop_all_events" );
+			InternalAction action = getIA( ".kill_agent" );
+
+			drop_all_desires.execute( getTS(), new Unifier(), new Term[] {} );
+			drop_all_intentions.execute( getTS(), new Unifier(), new Term[] {} );
+			drop_all_events.execute( getTS(), new Unifier(), new Term[] {} );
+			action.execute( getTS(), new Unifier(), new Term[] { createString( getTS().getAgArch().getAgName() ) } );
+		} catch ( Exception e ) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -45,10 +45,10 @@ func _process(delta: float) -> void:
 		# 4. Read incoming packets (Only when OPEN)
 		while ws.get_available_packet_count():
 			var msg : String = ws.get_packet().get_string_from_ascii()
-			Messages.print_variable(msg, "Received Raw Message", "NetworkManager")
 			
 			var intention = JSON.parse_string(msg)
 			if intention:
+				Messages.print_json(intention, "Received Raw Message")
 				command_received.emit(intention)
 			else:
 				Warnings.print_warning("Failed to parse JSON message", "NetworkManager")
@@ -65,7 +65,7 @@ func send_data(data: Dictionary) -> void:
 	if ws.get_ready_state() == WebSocketPeer.STATE_OPEN:
 		var json_str = JSON.stringify(data)
 		ws.send_text(json_str)
-		Messages.print_variable(json_str, "Sent Data", "NetworkManager")
+		Messages.print_json(data, "Sent Data")
 	else:
 		Warnings.print_warning("Cannot send data: WebSocket not open", "NetworkManager")
 
@@ -115,6 +115,18 @@ func send_allies_found(allies: Array[String]) -> void:
 		"type": "allies",
 		"data": {
 			"allies": allies
+		}
+	}
+	send_data(data)
+
+func send_navigation_update(status: String, waypoint_name: String):
+	var data = {
+		"sender": "body",
+		"receiver": "vesna", # Or specific agent name
+		"type": "navigation",
+		"data": {
+			"status": status,
+			"waypoint": waypoint_name
 		}
 	}
 	send_data(data)

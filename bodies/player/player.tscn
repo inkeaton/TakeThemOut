@@ -78,6 +78,9 @@ _data = {
 scale = Vector2(0.15, 0.15)
 collision_layer = 4
 script = ExtResource("2_atwkx")
+crumb_spacing = 70.0
+max_crumbs = 5
+debug_crumbs = true
 
 [node name="Hand" type="Area2D" parent="." unique_id=35048869]
 
