@@ -46,53 +46,52 @@ var last_dpad_direction: Vector2 = Vector2.ZERO
 
 # --- BREADCRUMBS SYSTEM ---
 @export_category("Breadcrumbs")
-## How many pixels to move before dropping a new crumb
+@export var crumb_scene : PackedScene 
 @export var crumb_spacing: float = 30.0 
-## Maximum number of crumbs to keep in memory (history length)
-@export var max_crumbs: int = 50
-## Toggle to visualize crumbs in game
-@export var debug_crumbs: bool = false
+@export var max_crumbs_in_world : int = 50
 
-# Array of Vector2 positions (0 = oldest, -1 = newest)
-var breadcrumbs: Array[Vector2] = []
+var crumb_container : Node = null 
 var last_crumb_pos: Vector2 = Vector2.ZERO
-
-#//////////////////////////////////////////////////////////////////////////////#
 
 func _ready() -> void:
 	$AnimationTree/AnimationPlayer.current_animation = "walk_down"
-	# Initialize first crumb at start position
+	
+	# FIX: Defer the crumb setup to the next frame to avoid "Parent is busy" error
+	call_deferred("_setup_crumb_container")
+
+func _setup_crumb_container() -> void:
+	# This runs one frame later, when the Scene Tree is unlocked
+	var scene_root = get_tree().current_scene
+	
+	if not scene_root.has_node("Crumbs"):
+		crumb_container = Node2D.new()
+		crumb_container.name = "Crumbs"
+		scene_root.add_child(crumb_container)
+	else:
+		crumb_container = scene_root.get_node("Crumbs")
+	
+	# Now that container exists, drop the first crumb
 	drop_crumb()
 
 func _physics_process(_delta: float) -> void:
 	compute_movement()
 	move_and_slide()
 	
-	# Check if we moved far enough to drop a crumb
 	if global_position.distance_to(last_crumb_pos) >= crumb_spacing:
 		drop_crumb()
-	
-	# Redraw debug lines if enabled
-	if debug_crumbs:
-		queue_redraw()
 
 func drop_crumb() -> void:
-	last_crumb_pos = global_position
-	breadcrumbs.push_back(last_crumb_pos)
+	# Safety Check: If setup isn't finished or scene is missing, abort
+	if not crumb_scene or not crumb_container: 
+		return
 	
-	# Maintain the size limit
-	if breadcrumbs.size() > max_crumbs:
-		breadcrumbs.pop_front() # Remove oldest
-
-# Draw the path for debugging
-func _draw() -> void:
-	if debug_crumbs and breadcrumbs.size() > 1:
-		for i in range(breadcrumbs.size() - 1):
-			# Draw line from crumb i to i+1
-			# We must use to_local because draw_line expects local coordinates
-			var start = to_local(breadcrumbs[i])
-			var end = to_local(breadcrumbs[i+1])
-			draw_line(start, end, Color(((i+1)*0.2), 0, 0, 0.5), 20.0)
+	last_crumb_pos = global_position
+	
+	# Instantiate Node
+	var new_crumb = crumb_scene.instantiate()
+	new_crumb.global_position = global_position
+	new_crumb.add_to_group("crumb")  # Singular to match patrol detection
+	crumb_container.add_child(new_crumb)
 
 #//////////////////////////////////////////////////////////////////////////////#
 

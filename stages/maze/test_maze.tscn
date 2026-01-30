@@ -121,18 +121,7 @@ root_node = NodePath("..")
 [node name="VesnaManager" parent="sentry3" index="6" unique_id=897468463]
 PORT = 9083
 
-[node name="patrol_active" parent="." unique_id=1481715262 instance=ExtResource("3_5s84a")]
-position = Vector2(230, 357)
-metadata/_edit_group_ = true
-
-[node name="AnimationTree" parent="patrol_active" index="4" unique_id=784210420]
-root_node = NodePath("..")
-
-[node name="VesnaManager" parent="patrol_active" index="6" unique_id=1491732810]
-PORT = 9085
-
 [editable path="patrol_lazy"]
 [editable path="sentry1"]
 [editable path="sentry2"]
 [editable path="sentry3"]
-[editable path="patrol_active"]

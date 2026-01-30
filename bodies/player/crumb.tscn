@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://b8od50pqogx6w"]
+
+[ext_resource type="Script" uid="uid://chbsnl68k2eh2" path="res://bodies/player/crumb.gd" id="1_u08xt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jqwwu"]
+
+[node name="Crumb" type="Area2D" unique_id=1977054258]
+collision_layer = 128
+script = ExtResource("1_u08xt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=498020725]
+shape = SubResource("CircleShape2D_jqwwu")

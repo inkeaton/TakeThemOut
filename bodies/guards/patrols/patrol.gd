@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 # --- Configuration ---
-@export var speed : float = 80.0
+@export var speed : float = 100.0
 @export var navigation_tolerance : float = 50.0 
 
 # --- State ---
@@ -13,6 +13,7 @@ var sorted_waypoints : Array[Node2D] = []
 # --- Nodes ---
 @onready var nav_agent : NavigationAgent2D = $NavigationAgent2D
 @onready var vesna : Node = $VesnaManager
+@onready var vision_cone : Area2D = $VisionCone
 
 # --- Initialization ---
 
@@ -81,6 +82,8 @@ func _on_vesna_manager_command_received(command: Dictionary) -> void:
 # --- Physics & Movement ---
 
 func _physics_process(_delta: float) -> void:
+	if velocity.length() > 0.1:
+		vision_cone.rotation = velocity.angle()
 	if not is_moving:
 		update_animation(Vector2.ZERO)
 		return

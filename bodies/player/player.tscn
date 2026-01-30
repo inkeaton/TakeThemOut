@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://d2bes6s2x63nn"]
 
 [ext_resource type="Script" uid="uid://ck5g66iimnqo4" path="res://bodies/player/src/player.gd" id="2_atwkx"]
+[ext_resource type="PackedScene" uid="uid://b8od50pqogx6w" path="res://bodies/player/crumb.tscn" id="2_ku522"]
 [ext_resource type="Material" uid="uid://cyutonnakdbcg" path="res://bodies/player/res/lineboil.tres" id="2_r2oif"]
 [ext_resource type="Texture2D" uid="uid://c7jvbmbippix1" path="res://bodies/player/res/spritesheet.png" id="3_atwkx"]
 
@@ -78,9 +79,10 @@ _data = {
 scale = Vector2(0.15, 0.15)
 collision_layer = 4
 script = ExtResource("2_atwkx")
+DEFAULT_SPEED = 30.0
+crumb_scene = ExtResource("2_ku522")
 crumb_spacing = 70.0
-max_crumbs = 5
-debug_crumbs = true
+max_crumbs_in_world = 5
 
 [node name="Hand" type="Area2D" parent="." unique_id=35048869]
 

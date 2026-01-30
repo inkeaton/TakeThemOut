@@ -140,6 +140,19 @@ func send_custom_event(event_type: String, event_data: Dictionary) -> void:
 	}
 	send_data(data)
 
+func send_event(event_type: String, event_data: Dictionary) -> void:
+	"""Send an event to the mind using the 'signal' message type.
+	The event_type becomes part of the data with additional event_data fields."""
+	var data = {
+		"sender": "body",
+		"receiver": "vesna",
+		"type": "signal",
+		"data": event_data.duplicate()
+	}
+	# Add the event type to the data
+	data["data"]["type"] = event_type
+	send_data(data)
+
 func is_mind_connected() -> bool:
 	return ws.get_ready_state() == WebSocketPeer.STATE_OPEN
 

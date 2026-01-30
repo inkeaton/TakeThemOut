@@ -38,14 +38,14 @@ mas vesna {
         port:       9084
     }
 
-    // Agent 2: Very Active
-    // Will prefer the "active_rest" plan (0.1 is closer to 0.2)
-    agent patrol_active:patrol.asl {
-        ag-class:   vesna.VesnaAgent
-        temper:     temper(laziness(0.1), aggressiveness(0.8))
-        strategy:   most_similar
-        address:    localhost
-        port:       9085 // Ensure this port matches a second Godot instance if running two
-    }
+    // // Agent 2: Very Active
+    // // Will prefer the "active_rest" plan (0.1 is closer to 0.2)
+    // agent patrol_active:patrol.asl {
+    //     ag-class:   vesna.VesnaAgent
+    //     temper:     temper(laziness(0.1), aggressiveness(0.8))
+    //     strategy:   most_similar
+    //     address:    localhost
+    //     port:       9085 // Ensure this port matches a second Godot instance if running two
+    // }
 
 }

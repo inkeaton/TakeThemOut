@@ -79,6 +79,9 @@ _data = {
 font_size = 80
 font_color = Color(0, 0, 0, 1)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_aopm4"]
+radius = 1715.8734
+
 [node name="Patrol" type="CharacterBody2D" unique_id=1481715262 groups=["guards", "patrols"]]
 scale = Vector2(0.15, 0.15)
 collision_layer = 2
@@ -100,7 +103,7 @@ debug_color = Color(0.7019608, 0.59607846, 0, 0.41960785)
 
 [node name="VisionCone" type="Area2D" parent="." unique_id=426821428]
 collision_layer = 16
-collision_mask = 6
+collision_mask = 134
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="VisionCone" unique_id=1040574097]
 polygon = PackedVector2Array(900, -370, 900, 370, 0, 100, 0, -100)
@@ -138,5 +141,16 @@ text = "Debug"
 label_settings = SubResource("LabelSettings_aopm4")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="LineOfSight" type="RayCast2D" parent="." unique_id=240829141]
+target_position = Vector2(0, 0)
+collision_mask = 5
+
+[node name="ScentSensor" type="Area2D" parent="." unique_id=319585954]
+collision_mask = 128
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScentSensor" unique_id=753737292]
+shape = SubResource("CircleShape2D_aopm4")
 
 [connection signal="command_received" from="VesnaManager" to="." method="_on_vesna_manager_command_received"]
