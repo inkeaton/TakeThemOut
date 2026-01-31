@@ -81,7 +81,7 @@ collision_layer = 4
 script = ExtResource("2_atwkx")
 DEFAULT_SPEED = 30.0
 crumb_scene = ExtResource("2_ku522")
-crumb_spacing = 70.0
+crumb_spacing = 150.0
 max_crumbs_in_world = 5
 
 [node name="Hand" type="Area2D" parent="." unique_id=35048869]

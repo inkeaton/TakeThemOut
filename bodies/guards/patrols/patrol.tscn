@@ -5,6 +5,9 @@
 [ext_resource type="Script" uid="uid://bkf5ponw7u0pp" path="res://bodies/guards/patrols/patrol.gd" id="2_vnkut"]
 [ext_resource type="Script" uid="uid://tn1u48npidyk" path="res://bodies/guards/vesnaManager.gd" id="4_aopm4"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_aopm4"]
+radius = 1500.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_naond"]
 radius = 16.25534
 
@@ -79,13 +82,23 @@ _data = {
 font_size = 80
 font_color = Color(0, 0, 0, 1)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_aopm4"]
-radius = 1715.8734
-
 [node name="Patrol" type="CharacterBody2D" unique_id=1481715262 groups=["guards", "patrols"]]
 scale = Vector2(0.15, 0.15)
 collision_layer = 2
 script = ExtResource("2_vnkut")
+speed = null
+acceleration = null
+navigation_tolerance = null
+max_crumbs_to_track = null
+detection_interval_ms = null
+chase_path_refresh_interval = null
+
+[node name="ScentCast" type="ShapeCast2D" parent="." unique_id=170193669]
+shape = SubResource("CircleShape2D_aopm4")
+target_position = Vector2(0, 0)
+collision_mask = 128
+collide_with_areas = true
+collide_with_bodies = false
 
 [node name="Hand" type="Area2D" parent="." unique_id=35048869]
 
@@ -146,11 +159,6 @@ vertical_alignment = 1
 target_position = Vector2(0, 0)
 collision_mask = 5
 
-[node name="ScentSensor" type="Area2D" parent="." unique_id=319585954]
-collision_mask = 128
-monitoring = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ScentSensor" unique_id=753737292]
-shape = SubResource("CircleShape2D_aopm4")
-
+[connection signal="body_entered" from="VisionCone" to="." method="_on_vision_body_entered"]
+[connection signal="body_exited" from="VisionCone" to="." method="_on_vision_body_exited"]
 [connection signal="command_received" from="VesnaManager" to="." method="_on_vesna_manager_command_received"]

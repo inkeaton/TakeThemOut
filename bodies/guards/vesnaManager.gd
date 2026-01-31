@@ -131,6 +131,20 @@ func send_navigation_update(status: String, waypoint_name: String):
 	}
 	send_data(data)
 
+func send_target_lost(position: Vector2, reason: String) -> void:
+	var data = {
+		"sender": "body",
+		"receiver": "vesna",
+		"type": "event",
+		"data": {
+			"event": "target_lost",
+			"pos_x": position.x,
+			"pos_y": position.y,
+			"reason": reason
+		}
+	}
+	send_data(data)
+
 func send_custom_event(event_type: String, event_data: Dictionary) -> void:
 	var data = {
 		"sender": "body",

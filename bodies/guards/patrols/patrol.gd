@@ -1,136 +1,268 @@
 extends CharacterBody2D
 
-# --- Configuration ---
-@export var speed : float = 100.0
-@export var navigation_tolerance : float = 50.0 
+# --- Configuration: Movement ---
+@export_group("Movement")
+@export var speed: float = 100.0 # Adjusted from your snippet
+@export var acceleration: float = 100.0
+@export var navigation_tolerance: float = 50.0 
+
+# --- Configuration: Tracking ---
+@export_group("Tracking")
+@export var max_crumbs_to_track: int = 5   # Give up after N crumbs
+@export var detection_interval_ms: int = 300 # Vision throttle
+@export var chase_path_refresh_interval: float = 0.1 # Chase path throttle
 
 # --- State ---
-var current_waypoint_index : int = -1 # Start at -1 so first "next" goes to 0
-var is_moving : bool = false
-# Ordered list of marker nodes
-var sorted_waypoints : Array[Node2D] = []
+enum State { PATROLLING, CHASING, TRACKING, IDLE } # Removed unused SEARCHING
+var current_state: State = State.PATROLLING
+
+# Navigation State
+var current_waypoint_index: int = -1 
+var is_moving: bool = false
+var sorted_waypoints: Array[Node2D] = []
+
+# Logic State
+var target_player: CharacterBody2D = null
+var last_detection_time: int = 0
+var _chase_cooldown: float = 0.0
+
+# Scent State
+var last_crumb_timestamp: int = 0
+var crumbs_tracked_count: int = 0 
 
 # --- Nodes ---
-@onready var nav_agent : NavigationAgent2D = $NavigationAgent2D
-@onready var vesna : Node = $VesnaManager
-@onready var vision_cone : Area2D = $VisionCone
+@onready var vesna: Node = $VesnaManager
+@onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
+@onready var vision_cone: Area2D = $VisionCone
+@onready var line_of_sight: RayCast2D = $LineOfSight
+@onready var scent_cast: ShapeCast2D = $ScentCast
 
 # --- Initialization ---
 
 func _ready() -> void:
-	# 1. Setup Navigation
+	# 1. Optimize Sensor
+	# We disable this to prevent it from scanning every frame.
+	# We will only wake it up manually when we need to sniff.
+	scent_cast.enabled = false 
+
+	# 2. Setup Navigation
 	nav_agent.path_desired_distance = 10.0
 	nav_agent.target_desired_distance = navigation_tolerance
 	
-	# Important: Connect velocity computed for obstacle avoidance
+	# Connect signals
 	nav_agent.velocity_computed.connect(_on_velocity_computed)
 	nav_agent.navigation_finished.connect(_on_navigation_finished)
 	
-	# 2. Cache and Sort Waypoints
+	# 3. Cache Waypoints
 	call_deferred("cache_waypoints")
 
 func cache_waypoints() -> void:
-	# Find all nodes in group "waypoints"
 	var raw_nodes = get_tree().get_nodes_in_group("waypoints")
-	
-	# Filter only Node2D types (Markers/Position2D)
 	for node in raw_nodes:
 		if node is Node2D:
 			sorted_waypoints.append(node)
 	
-	# SORT alphabetically so m1_a comes before m1_b
 	sorted_waypoints.sort_custom(func(a, b): return a.name < b.name)
-	
 	Messages.print_message("Patrol initialized with %d waypoints." % sorted_waypoints.size(), "PatrolBody")
 
-# --- Command Handling ---
+# --- Command Handling (Vesna) ---
 
-# Handles both "next" and "prev"
-func move_cyclic(direction: int) -> void:
-	if sorted_waypoints.is_empty():
-		return
-
-	# Calculate new index
-	# (index + 1) for next, (index - 1) for prev
-	current_waypoint_index = (current_waypoint_index + direction) % sorted_waypoints.size()
-	
-	# GDScript modulo can return negative numbers (e.g., -1 % 5 = -1). 
-	# We need it to wrap around to the end (4).
-	if current_waypoint_index < 0:
-		current_waypoint_index += sorted_waypoints.size()
-	
-	var target_node = sorted_waypoints[current_waypoint_index]
-	
-	Messages.print_message("Moving to index %d (%s)" % [current_waypoint_index, target_node.name], "PatrolBody")
-	
-	nav_agent.target_position = target_node.global_position
-	is_moving = true
-
-# Update command handle
 func _on_vesna_manager_command_received(command: Dictionary) -> void:
 	var type = command.get("type", "")
 	var data = command.get("data", {})
 	
 	match type:
-		"move":
+		# UNIFIED COMMAND: "patrol" handles all movement logic
+		"patrol":
 			var action = data.get("action", "")
-			if action == "next":
-				move_cyclic(1)
-			elif action == "prev": # NEW
-				move_cyclic(-1)
+			match action:
+				"next":
+					move_cyclic(1)
+				"prev":
+					move_cyclic(-1)
+				"resume":
+					# Waking up from IDLE
+					current_state = State.PATROLLING
+					move_cyclic(1)
+					Messages.print_message("Resuming Patrol (Mind Order).", "Patrol")
+					
+		"chase":
+			if data.get("type", "") == "start":
+				# Extract patience from the command, defaulting to 5 if missing
+				var new_patience = data.get("patience", 5)
+				
+				# Apply it to our tracking variable
+				max_crumbs_to_track = int(new_patience)
+				
+				Messages.print_message("Chase started with Patience: %d" % max_crumbs_to_track, "Patrol")
+				
+				trigger_chase_sequence()
 
-# --- Physics & Movement ---
+func move_cyclic(direction: int) -> void:
+	if sorted_waypoints.is_empty(): return
 
-func _physics_process(_delta: float) -> void:
+	current_waypoint_index = (current_waypoint_index + direction) % sorted_waypoints.size()
+	if current_waypoint_index < 0:
+		current_waypoint_index += sorted_waypoints.size()
+	
+	var target_node = sorted_waypoints[current_waypoint_index]
+	Messages.print_message("Moving to index %d (%s)" % [current_waypoint_index, target_node.name], "PatrolBody")
+	
+	nav_agent.target_position = target_node.global_position
+	is_moving = true
+
+# --- Physics & Logic Loop ---
+
+func _physics_process(delta: float) -> void:
+	# 1. State Logic
+	match current_state:
+		State.CHASING:
+			_process_chase_logic(delta)
+		State.TRACKING:
+			_process_tracking_logic()
+
+	# 2. Vision Rotation
 	if velocity.length() > 0.1:
 		vision_cone.rotation = velocity.angle()
-	if not is_moving:
-		update_animation(Vector2.ZERO)
-		return
+		
+	# 3. Vision Check
+	if target_player:
+		check_line_of_sight()
 
-	# If navigation is finished, do nothing (wait for signal to fire)
+	# 4. Movement Execution
 	if nav_agent.is_navigation_finished():
+		_on_velocity_computed(Vector2.ZERO) # Decelerate to stop
 		return
 
-	var next_path_position : Vector2 = nav_agent.get_next_path_position()
-	var current_position : Vector2 = global_position
-	
-	# Compute velocity towards next path point
-	var new_velocity : Vector2 = current_position.direction_to(next_path_position) * speed
-	
-	# Trigger avoidance calculation
+	var next_path_pos: Vector2 = nav_agent.get_next_path_position()
+	var desired_velocity: Vector2 = global_position.direction_to(next_path_pos) * speed
+
 	if nav_agent.avoidance_enabled:
-		nav_agent.set_velocity(new_velocity)
+		nav_agent.set_velocity(desired_velocity)
 	else:
-		_on_velocity_computed(new_velocity)
+		_on_velocity_computed(desired_velocity)
 
 func _on_velocity_computed(safe_velocity: Vector2) -> void:
-	velocity = safe_velocity
+	var current_delta = get_physics_process_delta_time()
+	velocity = velocity.move_toward(safe_velocity, acceleration * current_delta)
 	move_and_slide()
-	update_animation(velocity)
 
-# --- Navigation Events ---
+# --- Logic: Chase ---
+
+func trigger_chase_sequence() -> void:
+	if target_player == null: return
+	current_state = State.CHASING
+	is_moving = true 
+	nav_agent.target_position = target_player.global_position
+	Messages.print_message("STARTING to Chase PLAYER", "Patrol")
+
+func _process_chase_logic(delta: float) -> void:
+	if target_player == null: return
+		
+	_chase_cooldown -= delta
+	if _chase_cooldown <= 0:
+		nav_agent.target_position = target_player.global_position
+		_chase_cooldown = chase_path_refresh_interval
+
+# --- Logic: Tracking (Scent) ---
+
+func _process_tracking_logic() -> void:
+	if not nav_agent.is_navigation_finished():
+		return
+
+	# MANUAL ACTIVATION
+	scent_cast.force_shapecast_update()
+
+	# FAILURE CASE 1: Trail Cold
+	if not scent_cast.is_colliding():
+		Messages.print_message("Trail cold. Reporting to Mind...", "Patrol")
+		_enter_idle_state("cold_trail")
+		return
+
+	# Process Results...
+	var best_crumb: Crumb = null
+	var best_timestamp: int = -1
+
+	for i in scent_cast.get_collision_count():
+		var collider = scent_cast.get_collider(i)
+		if not collider is Crumb: continue
+			
+		if collider.timestamp > last_crumb_timestamp:
+			if collider.timestamp > best_timestamp:
+				best_timestamp = collider.timestamp
+				best_crumb = collider
+	
+	if best_crumb:
+		crumbs_tracked_count += 1
+		
+		# FAILURE CASE 2: Patience Limit
+		if crumbs_tracked_count > max_crumbs_to_track:
+			Messages.print_message("Patience limit (%d). Reporting to Mind..." % crumbs_tracked_count, "Patrol")
+			_enter_idle_state("patience_limit")
+			return
+
+		nav_agent.target_position = best_crumb.global_position
+		last_crumb_timestamp = best_timestamp
+		Messages.print_message("Tracking crumb %d..." % crumbs_tracked_count, "Patrol")
+	else:
+		# FAILURE CASE 3: End of Line (Old crumbs only)
+		Messages.print_message("End of trail. Reporting to Mind...", "Patrol")
+		_enter_idle_state("end_of_trail")
+	
+func _enter_idle_state(reason: String) -> void:
+	current_state = State.IDLE
+	is_moving = false
+	velocity = Vector2.ZERO
+	
+	# Send the report
+	vesna.send_target_lost(global_position, reason)
+
+# --- Navigation & Events ---
 
 func _on_navigation_finished() -> void:
+	if current_state == State.TRACKING: return # Tracking logic handles its own arrival
 	if not is_moving: return
 	
 	is_moving = false
 	velocity = Vector2.ZERO
-	update_animation(Vector2.ZERO)
-	
-	Messages.print_message("Arrived at waypoint index %d" % current_waypoint_index, "PatrolBody")
-	
-	# Notify the Mind
-	# NEW CALL: Send dedicated navigation message
+	Messages.print_message("Reached waypoint %d" % current_waypoint_index, "PatrolBody")
 	vesna.send_navigation_update("reached", "%d" % current_waypoint_index)
 
-# --- Visuals ---
+# --- Vision Events ---
 
-func update_animation(vel: Vector2) -> void:
-	pass
-	#if vel.length() > 0.1:
-		#animation_player.play("walk_down")
-		## Flip sprite if moving left
-		#if sprite: sprite.flip_h = vel.x < 0
-	#else:
-		#animation_player.play("RESET")
+func _on_vision_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		target_player = body
+
+func _on_vision_body_exited(body: Node2D) -> void:
+	if body == target_player:
+		target_player = null
+		
+		# State Transition: Chase -> Tracking
+		if current_state == State.CHASING:
+			current_state = State.TRACKING
+			last_crumb_timestamp = 0 
+			crumbs_tracked_count = 0
+			Messages.print_message("Visual lost! Switching to Tracking.", "Patrol")
+
+func check_line_of_sight() -> void:
+	var current_time = Time.get_ticks_msec()
+	if current_time - last_detection_time < detection_interval_ms:
+		return
+	last_detection_time = current_time
+	
+	line_of_sight.target_position = to_local(target_player.global_position)
+	line_of_sight.enabled = true
+	line_of_sight.force_raycast_update()
+	
+	if line_of_sight.is_colliding() and line_of_sight.get_collider() == target_player:
+		react_to_player()
+	line_of_sight.enabled = false
+
+func react_to_player() -> void:
+	if current_state == State.TRACKING:
+		current_state = State.CHASING
+		
+	Messages.print_message("I SEE YOU! Notifying mind...", "Patrol")
+	vesna.send_sight_with_position("player", 
+	target_player.get_instance_id(), target_player.global_position)

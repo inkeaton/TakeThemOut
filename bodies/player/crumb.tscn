@@ -6,6 +6,7 @@
 
 [node name="Crumb" type="Area2D" unique_id=1977054258]
 collision_layer = 128
+monitoring = false
 script = ExtResource("1_u08xt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=498020725]

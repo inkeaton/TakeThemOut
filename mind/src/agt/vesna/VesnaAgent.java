@@ -194,6 +194,9 @@ public class VesnaAgent extends Agent{
 				case "allies":
 					handleAlliesFound( data );
 					break;
+				case "event":  
+					handleTargetLost( data );
+					break;
 				case "navigation":
                 	handleNavigation( data );
                 	break;
@@ -336,6 +339,33 @@ public class VesnaAgent extends Agent{
             e.printStackTrace();
         }
     }
+
+	/**
+	 * Handles target_lost events.
+	 * Expected JSON: { "event": "target_lost", "pos_x": 10.0, "pos_y": 20.0, "reason": "..." }
+	 * Creates belief: target_lost( pos(X,Y), Reason )
+	 */
+	private void handleTargetLost( JSONObject data ) {
+		String eventName = data.getString("event");
+		
+		if (eventName.equals("target_lost")) {
+			double x = data.getDouble("pos_x");
+			double y = data.getDouble("pos_y");
+			String reason = data.getString("reason");
+
+			// Construct: pos(X, Y)
+			Literal pos = createLiteral("pos", createNumber(x), createNumber(y));
+			
+			// Construct: target_lost( pos(X, Y), reason )
+			Literal belief = createLiteral("target_lost", pos, createAtom(reason));
+			
+			try {
+				addBel(belief);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 	/****************************************/
 	/* TEMPER OVERRIDES                     */

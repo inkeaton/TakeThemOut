@@ -2,10 +2,12 @@
 
 /* --- Goals --- */
 !patrol. // Start the loop
+state(patrolling).  // patrolling | chasing | searching
 
 /* --- Patrol Loop --- */
 
 +!patrol
+    :   state(patrolling)
     <-  !decide_next_step; // Make a choice based on personality
         // The choice (sub-goal) will trigger the actual movement
         // logic below, and then we wait for arrival.
@@ -15,30 +17,31 @@
 @go_next[temper([aggressiveness(0.1)])]
 +!decide_next_step
     <-  .print("Patrolling forward...");
-        vesna.continue_patrol(next). // Passing the atom 'next'
+        vesna.patrol(next). // Passing the atom 'next'
 
 // CHOICE B: Aggressive Checks
 @go_prev_low[temper([aggressiveness(0.3)])]
 +!decide_next_step
     :   math.random(R) & R < 0.1 
     <-  .print("Backtracking! (Aggressive Check)");
-        vesna.continue_patrol(prev).
+        vesna.patrol(prev).
 
 @go_prev_mid[temper([aggressiveness(0.5)])]
 +!decide_next_step
     :   math.random(R) & R < 0.3 
     <-  .print("Backtracking! (Aggressive Check)");
-        vesna.continue_patrol(prev).
+        vesna.patrol(prev).
 
 @go_prev_high[temper([aggressiveness(0.9)])]
 +!decide_next_step
     :   math.random(R) & R < 0.5 
     <-  .print("Backtracking! (Aggressive Check)");
-        vesna.continue_patrol(prev).
+        vesna.patrol(prev).
 
 // TRIGGER: navigation(reached, Waypoint)
 // This matches the belief created by handleNavigation in Java
 +navigation(reached, Waypoint)
+    :   state(patrolling)
     <-  .print("Arrived at ", Waypoint);
         
         -navigation(reached, Waypoint);
@@ -72,4 +75,58 @@
 +signal(navigation, failed, Reason)
     <-  .print("Navigation error: ", Reason);
         .wait(2000);
+        !patrol.
+
+/* --- Player detection & Response --- */
+
+// 1. High Aggressiveness: Relentless pursuit (Track 15 crumbs)
+@chase_aggressive[temper([aggressiveness(0.8)])]
++sight(player, Id, pos(X, Y))
+    :   state(patrolling)
+    <-  .print("PLAYER DETECTED! HUNT THEM DOWN!");
+        -state(patrolling);
+        +state(chasing);
+        +last_player_pos(X, Y);
+        vesna.chase(15). // <--- Passing High Patience
+
+// 2. Low Aggressiveness: Weak pursuit (Track only 4 crumbs)
+@chase_lazy[temper([aggressiveness(0.2)])]
++sight(player, Id, pos(X, Y))
+    :   state(patrolling)
+    <-  .print("Player detected. I'll take a look, I guess...");
+        -state(patrolling);
+        +state(chasing);
+        +last_player_pos(X, Y);
+        vesna.chase(4).  // <--- Passing Low Patience
+
+// 3. Default Fallback (Track 8 crumbs)
+@chase_default
++sight(player, Id, pos(X, Y))
+    :   state(patrolling)
+    <-  .print("Player detected! Engaging.");
+        -state(patrolling);
+        +state(chasing);
+        +last_player_pos(X, Y);
+        vesna.chase(8).
+
+// --- Target Lost Recovery ---
+
+// Triggered when the body sends the target_lost belief
++target_lost(pos(X,Y), Reason)
+    :   state(chasing)
+    <-  .print("TARGET LOST at ", pos(X,Y), " due to ", Reason);
+        
+        // 1. Update Mental State
+        -state(chasing);
+        +state(patrolling);
+        
+        // 2. Clean up memory
+        -target_lost(pos(X,Y), Reason);
+        -sight(player, _, _); // Clear old sight beliefs so we don't instantly re-chase
+        
+        // 3. Command Body
+        .print("Resuming patrol sequence.");
+        vesna.patrol(resume);
+        
+        // 4. Restart Loop
         !patrol.
