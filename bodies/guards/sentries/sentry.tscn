@@ -4,6 +4,10 @@
 [ext_resource type="Material" uid="uid://cyutonnakdbcg" path="res://bodies/player/res/lineboil.tres" id="1_e2b8b"]
 [ext_resource type="Texture2D" uid="uid://chquvldyxdsn2" path="res://bodies/guards/sentries/res/sentry_lasse.png" id="2_e2b8b"]
 [ext_resource type="Script" uid="uid://tn1u48npidyk" path="res://bodies/guards/vesnaManager.gd" id="3_eym0j"]
+[ext_resource type="Script" uid="uid://d0fuh7h7140c6" path="res://bodies/guards/shared/state_machine.gd" id="5_76lny"]
+[ext_resource type="Script" uid="uid://payan0hid8w2" path="res://bodies/guards/sentries/states/scan_state.gd" id="6_humcw"]
+[ext_resource type="Script" uid="uid://c857wmo3vbq2t" path="res://bodies/guards/sentries/states/cooldown_state.gd.gd" id="7_5bve8"]
+[ext_resource type="Script" uid="uid://c8fx5ethfpbhc" path="res://bodies/guards/sentries/states/alert_state.gd.gd" id="8_w5w8p"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bmsg8"]
 radius = 2000.0
@@ -42,8 +46,8 @@ debug_color = Color(0.7019608, 0.59607846, 0, 0.41960785)
 collision_layer = 16
 collision_mask = 4
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="VisionCone" unique_id=1702472445]
-polygon = PackedVector2Array(900, -370, 900, 370, 0, 0)
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="VisionCone" unique_id=1239665097]
+polygon = PackedVector2Array(1050, -650, 1050, 650, 153.333, 320, -150, 320, -320, 100, -320, -100, -150, -320, 160, -320)
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1460783650]
 material = ExtResource("1_e2b8b")
@@ -60,20 +64,24 @@ root_node = NodePath("../..")
 script = ExtResource("3_eym0j")
 PORT = 9081
 
-[node name="SwitchSide" type="Timer" parent="." unique_id=1589174787]
-wait_time = 3.0
-autostart = true
-
 [node name="LineOfSight" type="RayCast2D" parent="." unique_id=762473499]
 target_position = Vector2(0, 0)
 collision_mask = 5
 
-[node name="CooldownTimer" type="Timer" parent="." unique_id=1480351454]
-wait_time = 5.0
-one_shot = true
+[node name="StateMachine" type="Node" parent="." unique_id=1934285666 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("5_76lny")
+initial_state = NodePath("Scan")
+
+[node name="Scan" type="Node" parent="StateMachine" unique_id=748016823]
+script = ExtResource("6_humcw")
+switch_time = 5.0
+
+[node name="Cooldown" type="Node" parent="StateMachine" unique_id=1329784497]
+script = ExtResource("7_5bve8")
+
+[node name="Alert" type="Node" parent="StateMachine" unique_id=1698343659]
+script = ExtResource("8_w5w8p")
 
 [connection signal="body_entered" from="VisionCone" to="." method="_on_vision_body_entered"]
 [connection signal="body_exited" from="VisionCone" to="." method="_on_vision_body_exited"]
-[connection signal="command_received" from="VesnaManager" to="." method="_on_mind_command"]
-[connection signal="timeout" from="SwitchSide" to="." method="_on_patrol_timer_timeout"]
-[connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timeout"]
+[connection signal="command_received" from="VesnaManager" to="." method="_on_vesna_mind_command"]

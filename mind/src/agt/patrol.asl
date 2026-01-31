@@ -12,6 +12,12 @@ state(patrolling).  // patrolling | chasing | searching
         // The choice (sub-goal) will trigger the actual movement
         // logic below, and then we wait for arrival.
         .print("Step decision made.").
+        
+// If !patrol is called but we are NOT patrolling (e.g. switched to chasing), 
+// just exit the loop gracefully.
++!patrol
+    :   not state(patrolling)
+    <-  .print("Patrol loop suspended: Agent is no longer patrolling.").
 
 // CHOICE A: Standard Patrol
 @go_next[temper([aggressiveness(0.1)])]
@@ -22,19 +28,19 @@ state(patrolling).  // patrolling | chasing | searching
 // CHOICE B: Aggressive Checks
 @go_prev_low[temper([aggressiveness(0.3)])]
 +!decide_next_step
-    :   math.random(R) & R < 0.1 
+    :   .random(R) & R < 0.1 
     <-  .print("Backtracking! (Aggressive Check)");
         vesna.patrol(prev).
 
 @go_prev_mid[temper([aggressiveness(0.5)])]
 +!decide_next_step
-    :   math.random(R) & R < 0.3 
+    :   .random(R) & R < 0.3 
     <-  .print("Backtracking! (Aggressive Check)");
         vesna.patrol(prev).
 
 @go_prev_high[temper([aggressiveness(0.9)])]
 +!decide_next_step
-    :   math.random(R) & R < 0.5 
+    :   .random(R) & R < 0.5 
     <-  .print("Backtracking! (Aggressive Check)");
         vesna.patrol(prev).
 

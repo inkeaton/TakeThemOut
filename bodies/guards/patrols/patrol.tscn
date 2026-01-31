@@ -4,6 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://bmjs63b1lkfp0" path="res://bodies/guards/patrols/res/patrol4_marianna.png" id="2_j4i18"]
 [ext_resource type="Script" uid="uid://bkf5ponw7u0pp" path="res://bodies/guards/patrols/patrol.gd" id="2_vnkut"]
 [ext_resource type="Script" uid="uid://tn1u48npidyk" path="res://bodies/guards/vesnaManager.gd" id="4_aopm4"]
+[ext_resource type="Script" uid="uid://d0fuh7h7140c6" path="res://bodies/guards/shared/state_machine.gd" id="5_ed23l"]
+[ext_resource type="Script" uid="uid://dedhbmeq4h0a8" path="res://bodies/guards/patrols/states/idle_state.gd.gd" id="6_gts74"]
+[ext_resource type="Script" uid="uid://brps3pnrnkuaf" path="res://bodies/guards/patrols/states/patrol_state.gd" id="7_0mvvp"]
+[ext_resource type="Script" uid="uid://d4jg2mt8fwh3q" path="res://bodies/guards/patrols/states/chase_state.gd.gd" id="8_qyl7g"]
+[ext_resource type="Script" uid="uid://cdsyguied6la6" path="res://bodies/guards/patrols/states/track_state.gd" id="9_gh7xb"]
+[ext_resource type="Script" uid="uid://drpgv5vnbndte" path="res://bodies/guards/patrols/states/investigate_state.gd.gd" id="10_7liah"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aopm4"]
 radius = 1500.0
@@ -88,6 +94,8 @@ collision_layer = 2
 script = ExtResource("2_vnkut")
 
 [node name="ScentCast" type="ShapeCast2D" parent="." unique_id=170193669]
+unique_name_in_owner = true
+enabled = false
 shape = SubResource("CircleShape2D_aopm4")
 target_position = Vector2(0, 0)
 collision_mask = 128
@@ -152,6 +160,25 @@ vertical_alignment = 1
 [node name="LineOfSight" type="RayCast2D" parent="." unique_id=240829141]
 target_position = Vector2(0, 0)
 collision_mask = 5
+
+[node name="StateMachine" type="Node" parent="." unique_id=1962791099 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("5_ed23l")
+initial_state = NodePath("Patrol")
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=450397130]
+script = ExtResource("6_gts74")
+
+[node name="Patrol" type="Node" parent="StateMachine" unique_id=459811783]
+script = ExtResource("7_0mvvp")
+
+[node name="Chase" type="Node" parent="StateMachine" unique_id=1262401392]
+script = ExtResource("8_qyl7g")
+
+[node name="Track" type="Node" parent="StateMachine" unique_id=1978224779]
+script = ExtResource("9_gh7xb")
+
+[node name="Investigate" type="Node" parent="StateMachine" unique_id=906693549]
+script = ExtResource("10_7liah")
 
 [connection signal="body_entered" from="VisionCone" to="." method="_on_vision_body_entered"]
 [connection signal="body_exited" from="VisionCone" to="." method="_on_vision_body_exited"]
