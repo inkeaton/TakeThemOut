@@ -106,7 +106,7 @@ position = Vector2(114.00001, 90)
 metadata/_edit_group_ = true
 
 [node name="sentry2" parent="." unique_id=1313142815 instance=ExtResource("4_r6spc")]
-position = Vector2(13, 267)
+position = Vector2(-342, 130)
 metadata/_edit_group_ = true
 
 [node name="VesnaManager" parent="sentry2" index="6" unique_id=897468463]

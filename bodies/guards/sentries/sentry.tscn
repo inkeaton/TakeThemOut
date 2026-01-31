@@ -26,6 +26,7 @@ collision_layer = 7
 script = ExtResource("1_bmsg8")
 
 [node name="AlertScanner" type="ShapeCast2D" parent="." unique_id=702588969]
+modulate = Color(1, 1, 1, 0.24705882)
 enabled = false
 shape = SubResource("CircleShape2D_bmsg8")
 target_position = Vector2(0, 0)

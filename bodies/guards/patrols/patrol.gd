@@ -93,6 +93,9 @@ func _on_vesna_manager_command_received(command: Dictionary) -> void:
 				
 		"investigate":
 			state_machine.change_state_by_name("Investigate", data)
+		
+		"move_to":
+			state_machine.change_state_by_name("Travel", data)
 
 # --- Shared Vision Logic ---
 

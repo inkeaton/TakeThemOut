@@ -12,7 +12,7 @@ state(patrolling).  // patrolling | chasing | searching
         // The choice (sub-goal) will trigger the actual movement
         // logic below, and then we wait for arrival.
         .print("Step decision made.").
-        
+
 // If !patrol is called but we are NOT patrolling (e.g. switched to chasing), 
 // just exit the loop gracefully.
 +!patrol
@@ -147,3 +147,28 @@ state(patrolling).  // patrolling | chasing | searching
         
         vesna.patrol(resume);
         !patrol.
+
+// --- Sentry Alert Response ---
+
+// Step 1: Receive Alert -> Move to Location
++player_spotted_at(X, Y)[source(Sender)]
+    :   state(patrolling)
+    <-  .print("HQ ALERT from ", Sender, "! Intercepting at ", X, ",", Y);
+        
+        -state(patrolling);
+        +state(traveling); // New temporary state
+        
+        vesna.move_to(X, Y).
+
+// Step 2: Arrive at Location -> Decide to Investigate
+// This triggers when Godot sends: navigation(reached_target, coords)
++navigation(reached_target, coords)
+    :   state(traveling)
+    <-  .print("Arrived at alert coordinates. Commencing search.");
+        
+        -state(traveling);
+        +state(investigating);
+        -navigation(reached_target, coords); // Clear belief
+        
+        // Now the Mind explicitly decides to investigate
+        vesna.investigate(5).
