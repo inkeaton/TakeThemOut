@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 # --- Configuration: Movement ---
 @export_group("Movement")
-@export var speed: float = 100.0 # Adjusted from your snippet
+@export var speed: float = 100.0
 @export var acceleration: float = 100.0
 @export var navigation_tolerance: float = 50.0 
 
@@ -13,8 +13,13 @@ extends CharacterBody2D
 @export var chase_path_refresh_interval: float = 0.1 # Chase path throttle
 
 # --- State ---
-enum State { PATROLLING, CHASING, TRACKING, IDLE } # Removed unused SEARCHING
+enum State { PATROLLING, CHASING, TRACKING, INVESTIGATING, IDLE }
 var current_state: State = State.PATROLLING
+
+# Investigation State
+var investigation_points: Array[Vector2] = []
+var investigation_index: int = 0
+@export var investigation_radius: float = 400.0
 
 # Navigation State
 var current_waypoint_index: int = -1 
@@ -36,15 +41,15 @@ var crumbs_tracked_count: int = 0
 @onready var vision_cone: Area2D = $VisionCone
 @onready var line_of_sight: RayCast2D = $LineOfSight
 @onready var scent_cast: ShapeCast2D = $ScentCast
+@onready var debug_label: Label = $DebugLabel # <--- Updated Reference
 
 # --- Initialization ---
 
 func _ready() -> void:
 	# 1. Optimize Sensor
 	# We disable this to prevent it from scanning every frame.
-	# We will only wake it up manually when we need to sniff.
 	scent_cast.enabled = false 
-
+	
 	# 2. Setup Navigation
 	nav_agent.path_desired_distance = 10.0
 	nav_agent.target_desired_distance = navigation_tolerance
@@ -54,6 +59,7 @@ func _ready() -> void:
 	nav_agent.navigation_finished.connect(_on_navigation_finished)
 	
 	# 3. Cache Waypoints
+	update_debug_label("Initializing...")
 	call_deferred("cache_waypoints")
 
 func cache_waypoints() -> void:
@@ -64,6 +70,17 @@ func cache_waypoints() -> void:
 	
 	sorted_waypoints.sort_custom(func(a, b): return a.name < b.name)
 	Messages.print_message("Patrol initialized with %d waypoints." % sorted_waypoints.size(), "PatrolBody")
+	
+	if not sorted_waypoints.is_empty():
+		update_debug_label("Ready (Patrol)")
+	else:
+		update_debug_label("Ready (No Waypoints)")
+
+# --- Helper ---
+
+func update_debug_label(text: String) -> void:
+	if debug_label:
+		debug_label.text = text
 
 # --- Command Handling (Vesna) ---
 
@@ -84,6 +101,7 @@ func _on_vesna_manager_command_received(command: Dictionary) -> void:
 					# Waking up from IDLE
 					current_state = State.PATROLLING
 					move_cyclic(1)
+					update_debug_label("Resuming Patrol (Mind Order)")
 					Messages.print_message("Resuming Patrol (Mind Order).", "Patrol")
 					
 		"chase":
@@ -93,10 +111,17 @@ func _on_vesna_manager_command_received(command: Dictionary) -> void:
 				
 				# Apply it to our tracking variable
 				max_crumbs_to_track = int(new_patience)
-				
 				Messages.print_message("Chase started with Patience: %d" % max_crumbs_to_track, "Patrol")
 				
 				trigger_chase_sequence()
+		
+		"investigate":
+			var points = data.get("points", 3)
+			current_state = State.INVESTIGATING
+			generate_investigation_points(int(points))
+			# Start moving to the first point immediately
+			is_moving = true
+			update_debug_label("Starting Investigation...")
 
 func move_cyclic(direction: int) -> void:
 	if sorted_waypoints.is_empty(): return
@@ -106,6 +131,8 @@ func move_cyclic(direction: int) -> void:
 		current_waypoint_index += sorted_waypoints.size()
 	
 	var target_node = sorted_waypoints[current_waypoint_index]
+	
+	update_debug_label("Patrolling: %s" % target_node.name)
 	Messages.print_message("Moving to index %d (%s)" % [current_waypoint_index, target_node.name], "PatrolBody")
 	
 	nav_agent.target_position = target_node.global_position
@@ -120,6 +147,8 @@ func _physics_process(delta: float) -> void:
 			_process_chase_logic(delta)
 		State.TRACKING:
 			_process_tracking_logic()
+		State.INVESTIGATING:
+			_process_investigation_logic()
 
 	# 2. Vision Rotation
 	if velocity.length() > 0.1:
@@ -154,6 +183,7 @@ func trigger_chase_sequence() -> void:
 	current_state = State.CHASING
 	is_moving = true 
 	nav_agent.target_position = target_player.global_position
+	update_debug_label("CHASING PLAYER!")
 	Messages.print_message("STARTING to Chase PLAYER", "Patrol")
 
 func _process_chase_logic(delta: float) -> void:
@@ -175,6 +205,7 @@ func _process_tracking_logic() -> void:
 
 	# FAILURE CASE 1: Trail Cold
 	if not scent_cast.is_colliding():
+		update_debug_label("Trail Cold. Waiting...")
 		Messages.print_message("Trail cold. Reporting to Mind...", "Patrol")
 		_enter_idle_state("cold_trail")
 		return
@@ -197,15 +228,19 @@ func _process_tracking_logic() -> void:
 		
 		# FAILURE CASE 2: Patience Limit
 		if crumbs_tracked_count > max_crumbs_to_track:
+			update_debug_label("Patience Lost. Waiting...")
 			Messages.print_message("Patience limit (%d). Reporting to Mind..." % crumbs_tracked_count, "Patrol")
 			_enter_idle_state("patience_limit")
 			return
 
 		nav_agent.target_position = best_crumb.global_position
 		last_crumb_timestamp = best_timestamp
+		
+		update_debug_label("Tracking: Crumb %d/%d" % [crumbs_tracked_count, max_crumbs_to_track])
 		Messages.print_message("Tracking crumb %d..." % crumbs_tracked_count, "Patrol")
 	else:
 		# FAILURE CASE 3: End of Line (Old crumbs only)
+		update_debug_label("End of Trail. Waiting...")
 		Messages.print_message("End of trail. Reporting to Mind...", "Patrol")
 		_enter_idle_state("end_of_trail")
 	
@@ -213,6 +248,7 @@ func _enter_idle_state(reason: String) -> void:
 	current_state = State.IDLE
 	is_moving = false
 	velocity = Vector2.ZERO
+	update_debug_label("IDLE (Mind Querying)")
 	
 	# Send the report
 	vesna.send_target_lost(global_position, reason)
@@ -243,6 +279,8 @@ func _on_vision_body_exited(body: Node2D) -> void:
 			current_state = State.TRACKING
 			last_crumb_timestamp = 0 
 			crumbs_tracked_count = 0
+			
+			update_debug_label("Lost Visual. Sniffing...")
 			Messages.print_message("Visual lost! Switching to Tracking.", "Patrol")
 
 func check_line_of_sight() -> void:
@@ -260,9 +298,61 @@ func check_line_of_sight() -> void:
 	line_of_sight.enabled = false
 
 func react_to_player() -> void:
-	if current_state == State.TRACKING:
+	if current_state == State.TRACKING or current_state == State.INVESTIGATING:
 		current_state = State.CHASING
+		update_debug_label("CHASING PLAYER!")
 		
 	Messages.print_message("I SEE YOU! Notifying mind...", "Patrol")
 	vesna.send_sight_with_position("player", 
 	target_player.get_instance_id(), target_player.global_position)
+
+# --- Investigating ---
+
+func generate_investigation_points(count: int) -> void:
+	investigation_points.clear()
+	investigation_index = 0
+	
+	# Get the Navigation Map RID (required to query the server directly)
+	var map_rid = nav_agent.get_navigation_map()
+	
+	for i in range(count):
+		# 1. Pick a random point in a circle
+		var random_offset = Vector2.RIGHT.rotated(randf() * TAU) * randf_range(100.0, investigation_radius)
+		var target_pos = global_position + random_offset
+		
+		# 2. Snap it to the nearest valid point on the Navigation Mesh
+		# This ensures we don't try to walk into walls or void
+		var valid_pos = NavigationServer2D.map_get_closest_point(map_rid, target_pos)
+		
+		investigation_points.append(valid_pos)
+	
+	Messages.print_message("Generated %d investigation points." % investigation_points.size(), "Patrol")
+
+# --- Logic: Investigation ---
+func _process_investigation_logic() -> void:
+	# Wait until we arrive at the current point
+	if not nav_agent.is_navigation_finished():
+		return
+		
+	# Are there more points to visit?
+	if investigation_index < investigation_points.size():
+		var next_point = investigation_points[investigation_index]
+		nav_agent.target_position = next_point
+		
+		update_debug_label("Investigating: %d/%d" % [investigation_index + 1, investigation_points.size()])
+		Messages.print_message("Investigating point %d/%d" % [investigation_index + 1, investigation_points.size()], "Patrol")
+		investigation_index += 1
+	else:
+		# We are done
+		update_debug_label("Investigation Done. Waiting...")
+		Messages.print_message("Investigation complete. Reporting to Mind.", "Patrol")
+		
+		# Enter IDLE to wait for orders
+		current_state = State.IDLE
+		is_moving = false
+		
+		# Send standard event format: type(status, reason)
+		vesna.send_event("investigation", {
+			"status": "complete",
+			"reason": "points_finished"
+		})

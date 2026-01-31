@@ -109,24 +109,35 @@ state(patrolling).  // patrolling | chasing | searching
         +last_player_pos(X, Y);
         vesna.chase(8).
 
-// --- Target Lost Recovery ---
+/* --- Target Lost Recovery --- */
 
-// Triggered when the body sends the target_lost belief
+// Aggressive/Diligent Agent: Investigates thoroughly (5 points)
+@recover_diligent[temper([laziness(0.2)])]
 +target_lost(pos(X,Y), Reason)
-    :   state(chasing)
-    <-  .print("TARGET LOST at ", pos(X,Y), " due to ", Reason);
-        
-        // 1. Update Mental State
+    <-  .print("Target lost. I will comb the area!");
         -state(chasing);
+        +state(investigating);
+        -target_lost(pos(X,Y), Reason);
+        
+        vesna.investigate(5). // <--- Action
+
+// Lazy Agent: Minimal check (2 points)
+@recover_lazy[temper([laziness(0.8)])]
++target_lost(pos(X,Y), Reason)
+    <-  .print("Target lost. I'll verify quickly.");
+        -state(chasing);
+        +state(investigating);
+        -target_lost(pos(X,Y), Reason);
+        
+        vesna.investigate(2). // <--- Action
+
+// Completion Handler
+// Triggered when Godot sends {"type": "investigation", "status": "complete", ...}
++investigation(complete, Reason)
+    :   state(investigating)
+    <-  .print("Investigation finished (", Reason, "). Nothing found.");
+        -state(investigating);
         +state(patrolling);
         
-        // 2. Clean up memory
-        -target_lost(pos(X,Y), Reason);
-        -sight(player, _, _); // Clear old sight beliefs so we don't instantly re-chase
-        
-        // 3. Command Body
-        .print("Resuming patrol sequence.");
         vesna.patrol(resume);
-        
-        // 4. Restart Loop
         !patrol.

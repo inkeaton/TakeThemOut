@@ -86,12 +86,6 @@ font_color = Color(0, 0, 0, 1)
 scale = Vector2(0.15, 0.15)
 collision_layer = 2
 script = ExtResource("2_vnkut")
-speed = null
-acceleration = null
-navigation_tolerance = null
-max_crumbs_to_track = null
-detection_interval_ms = null
-chase_path_refresh_interval = null
 
 [node name="ScentCast" type="ShapeCast2D" parent="." unique_id=170193669]
 shape = SubResource("CircleShape2D_aopm4")
@@ -119,7 +113,7 @@ collision_layer = 16
 collision_mask = 134
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="VisionCone" unique_id=1040574097]
-polygon = PackedVector2Array(900, -370, 900, 370, 0, 100, 0, -100)
+polygon = PackedVector2Array(1050, -650, 1050, 650, 153.333, 320, -150, 320, -320, 100, -320, -100, -150, -320, 160, -320)
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1460783650]
 material = ExtResource("2_aopm4")
