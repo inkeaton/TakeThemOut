@@ -1,16 +1,16 @@
-[gd_scene format=3 uid="uid://62bib23hxt5c"]
+[gd_scene format=3 uid="uid://dgu6wes1oogep"]
 
-[ext_resource type="Material" uid="uid://cyutonnakdbcg" path="res://bodies/player/res/lineboil.tres" id="2_aopm4"]
-[ext_resource type="Texture2D" uid="uid://bmjs63b1lkfp0" path="res://bodies/guards/patrols/res/patrol4_marianna.png" id="2_j4i18"]
-[ext_resource type="Script" uid="uid://bkf5ponw7u0pp" path="res://bodies/guards/patrols/patrol.gd" id="2_vnkut"]
-[ext_resource type="Script" uid="uid://tn1u48npidyk" path="res://bodies/guards/vesnaManager.gd" id="4_aopm4"]
-[ext_resource type="Script" uid="uid://d0fuh7h7140c6" path="res://bodies/guards/shared/state_machine.gd" id="5_ed23l"]
-[ext_resource type="Script" uid="uid://dedhbmeq4h0a8" path="res://bodies/guards/patrols/states/idle_state.gd.gd" id="6_gts74"]
-[ext_resource type="Script" uid="uid://brps3pnrnkuaf" path="res://bodies/guards/patrols/states/patrol_state.gd" id="7_0mvvp"]
-[ext_resource type="Script" uid="uid://d4jg2mt8fwh3q" path="res://bodies/guards/patrols/states/chase_state.gd.gd" id="8_qyl7g"]
-[ext_resource type="Script" uid="uid://cdsyguied6la6" path="res://bodies/guards/patrols/states/track_state.gd" id="9_gh7xb"]
-[ext_resource type="Script" uid="uid://drpgv5vnbndte" path="res://bodies/guards/patrols/states/investigate_state.gd.gd" id="10_7liah"]
-[ext_resource type="Script" uid="uid://dfw5cyjnbq30y" path="res://bodies/guards/patrols/states/travel_state.gd" id="11_gts74"]
+[ext_resource type="Script" uid="uid://bx0as15oxe7rs" path="res://bodies/guards/captains/captain.gd" id="1_enb01"]
+[ext_resource type="Material" uid="uid://cyutonnakdbcg" path="res://bodies/player/res/lineboil.tres" id="2_hdb5i"]
+[ext_resource type="Texture2D" uid="uid://bamyjvt4puf7k" path="res://bodies/guards/captains/res/capitan1_daniele.png" id="3_enb01"]
+[ext_resource type="Script" uid="uid://tn1u48npidyk" path="res://bodies/guards/vesnaManager.gd" id="4_bqy8f"]
+[ext_resource type="Script" uid="uid://d0fuh7h7140c6" path="res://bodies/guards/shared/state_machine.gd" id="5_f68wb"]
+[ext_resource type="Script" uid="uid://dedhbmeq4h0a8" path="res://bodies/guards/patrols/states/idle_state.gd.gd" id="6_d136e"]
+[ext_resource type="Script" uid="uid://brps3pnrnkuaf" path="res://bodies/guards/patrols/states/patrol_state.gd" id="7_0abqj"]
+[ext_resource type="Script" uid="uid://d4jg2mt8fwh3q" path="res://bodies/guards/patrols/states/chase_state.gd.gd" id="8_5oinm"]
+[ext_resource type="Script" uid="uid://cdsyguied6la6" path="res://bodies/guards/patrols/states/track_state.gd" id="9_wpfoq"]
+[ext_resource type="Script" uid="uid://drpgv5vnbndte" path="res://bodies/guards/patrols/states/investigate_state.gd.gd" id="10_a1qew"]
+[ext_resource type="Script" uid="uid://dfw5cyjnbq30y" path="res://bodies/guards/patrols/states/travel_state.gd" id="11_kv2yg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aopm4"]
 radius = 1500.0
@@ -89,10 +89,10 @@ _data = {
 font_size = 80
 font_color = Color(0, 0, 0, 1)
 
-[node name="Patrol" type="CharacterBody2D" unique_id=1481715262 groups=["guards", "patrols"]]
+[node name="Captain" type="CharacterBody2D" unique_id=1481715262 groups=["guards", "patrols"]]
 scale = Vector2(0.15, 0.15)
 collision_layer = 2
-script = ExtResource("2_vnkut")
+script = ExtResource("1_enb01")
 
 [node name="ScentCast" type="ShapeCast2D" parent="." unique_id=170193669]
 unique_name_in_owner = true
@@ -126,8 +126,8 @@ collision_mask = 134
 polygon = PackedVector2Array(1050, -650, 1050, 650, 153.333, 320, -150, 320, -320, 100, -320, -100, -150, -320, 160, -320)
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1460783650]
-material = ExtResource("2_aopm4")
-texture = ExtResource("2_j4i18")
+material = ExtResource("2_hdb5i")
+texture = ExtResource("3_enb01")
 
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=784210420]
 tree_root = SubResource("AnimationRootNode_7dh5t")
@@ -143,7 +143,7 @@ radius = 50.0
 debug_enabled = true
 
 [node name="VesnaManager" type="Node2D" parent="." unique_id=1491732810]
-script = ExtResource("4_aopm4")
+script = ExtResource("4_bqy8f")
 
 [node name="PatienceTimer" type="Timer" parent="." unique_id=726302969]
 wait_time = 2.0
@@ -164,26 +164,26 @@ target_position = Vector2(0, 0)
 collision_mask = 5
 
 [node name="StateMachine" type="Node" parent="." unique_id=1962791099 node_paths=PackedStringArray("initial_state")]
-script = ExtResource("5_ed23l")
+script = ExtResource("5_f68wb")
 initial_state = NodePath("Patrol")
 
 [node name="Idle" type="Node" parent="StateMachine" unique_id=450397130]
-script = ExtResource("6_gts74")
+script = ExtResource("6_d136e")
 
 [node name="Patrol" type="Node" parent="StateMachine" unique_id=459811783]
-script = ExtResource("7_0mvvp")
+script = ExtResource("7_0abqj")
 
 [node name="Chase" type="Node" parent="StateMachine" unique_id=1262401392]
-script = ExtResource("8_qyl7g")
+script = ExtResource("8_5oinm")
 
 [node name="Track" type="Node" parent="StateMachine" unique_id=1978224779]
-script = ExtResource("9_gh7xb")
+script = ExtResource("9_wpfoq")
 
 [node name="Investigate" type="Node" parent="StateMachine" unique_id=906693549]
-script = ExtResource("10_7liah")
+script = ExtResource("10_a1qew")
 
 [node name="Travel" type="Node" parent="StateMachine" unique_id=956258312]
-script = ExtResource("11_gts74")
+script = ExtResource("11_kv2yg")
 
 [connection signal="body_entered" from="VisionCone" to="." method="_on_vision_body_entered"]
 [connection signal="body_exited" from="VisionCone" to="." method="_on_vision_body_exited"]

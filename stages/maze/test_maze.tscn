@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://d2bes6s2x63nn" path="res://bodies/player/player.tscn" id="2_5s84a"]
 [ext_resource type="PackedScene" uid="uid://62bib23hxt5c" path="res://bodies/guards/patrols/patrol.tscn" id="3_5s84a"]
 [ext_resource type="PackedScene" uid="uid://cv8gsa8vpvj1a" path="res://bodies/guards/sentries/sentry.tscn" id="4_r6spc"]
+[ext_resource type="PackedScene" uid="uid://dgu6wes1oogep" path="res://bodies/guards/captains/captain.tscn" id="5_5we7h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3fd7v"]
 size = Vector2(34.950012, 3269.7725)
@@ -119,7 +120,15 @@ metadata/_edit_group_ = true
 [node name="VesnaManager" parent="sentry3" index="6" unique_id=897468463]
 PORT = 9083
 
+[node name="captain" parent="." unique_id=1481715262 instance=ExtResource("5_5we7h")]
+position = Vector2(526, -393)
+metadata/_edit_group_ = true
+
+[node name="VesnaManager" parent="captain" index="7" unique_id=1491732810]
+PORT = 9085
+
 [editable path="patrol_lazy"]
 [editable path="sentry1"]
 [editable path="sentry2"]
 [editable path="sentry3"]
+[editable path="captain"]

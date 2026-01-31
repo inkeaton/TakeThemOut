@@ -172,3 +172,18 @@ state(patrolling).  // patrolling | chasing | searching
         
         // Now the Mind explicitly decides to investigate
         vesna.investigate(5).
+
+// --- Intel Reporting (Responding to Captain) ---
+
+// Triggered when Captain broadcasts: .broadcast(achieve, report_sightings)
++!report_sightings[source(Captain)]
+    :   last_player_pos(X, Y)
+    <-  .print("Reporting sighting at ", X, ",", Y, " to ", Captain);
+        .send(Captain, tell, sighting_report(pos(X, Y)));
+        // Critical: Forget the sighting so we don't report old news next time
+        -last_player_pos(X, Y).
+
+// Fallback: If we have seen nothing
++!report_sightings[source(Captain)]
+    :   not last_player_pos(_, _)
+    <-  .send(Captain, tell, sighting_report(none)).

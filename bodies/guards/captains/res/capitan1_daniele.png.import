@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bamyjvt4puf7k"
-path="res://.godot/imported/capitan1_daniele.png-f34e042fd3b423ecaf0336fe9d5e9aa7.ctex"
+path="res://.godot/imported/capitan1_daniele.png-95c6557126a8897c44be29d63e0fa0a7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://bodies/player/res/capitan1_daniele.png"
-dest_files=["res://.godot/imported/capitan1_daniele.png-f34e042fd3b423ecaf0336fe9d5e9aa7.ctex"]
+source_file="res://bodies/guards/captains/res/capitan1_daniele.png"
+dest_files=["res://.godot/imported/capitan1_daniele.png-95c6557126a8897c44be29d63e0fa0a7.ctex"]
 
 [params]
 

@@ -48,4 +48,13 @@ mas vesna {
     //     port:       9085 // Ensure this port matches a second Godot instance if running two
     // }
 
+    // The New Leader
+    agent captain1 : captain.asl {
+        ag-class: vesna.VesnaAgent
+        temper:     temper(laziness(0.1), aggressiveness(0.8))
+        strategy:   most_similar
+        address: localhost
+        port: 9085  // Ensure this matches the port in captain.tscn
+    }
+
 }

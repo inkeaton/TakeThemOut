@@ -103,8 +103,8 @@ texture = ExtResource("3_atwkx")
 hframes = 2
 
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=784210420]
-root_node = NodePath("")
 tree_root = SubResource("AnimationRootNode_7dh5t")
+anim_player = NodePath("AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationTree" unique_id=165476596]
 root_node = NodePath("../..")

@@ -30,6 +30,22 @@ func _handle_action(action: String) -> void:
 		"resume":
 			body.update_debug_label("Resuming Patrol")
 			move_cyclic(1)
+		"random":
+			if sorted_waypoints.is_empty(): return
+			
+			# Pick a random index distinct from the current one (optional polish)
+			var new_index = randi() % sorted_waypoints.size()
+			while sorted_waypoints.size() > 1 and new_index == current_waypoint_index:
+				new_index = randi() % sorted_waypoints.size()
+			
+			current_waypoint_index = new_index
+			var target_node = sorted_waypoints[current_waypoint_index]
+			
+			body.update_debug_label("Patrol: Random (%s)" % target_node.name)
+			Messages.print_message("Moving to random waypoint %s" % target_node.name, "Captain")
+			
+			nav_agent.target_position = target_node.global_position
+			body.is_moving = true
 
 func move_cyclic(direction: int) -> void:
 	if sorted_waypoints.is_empty(): return

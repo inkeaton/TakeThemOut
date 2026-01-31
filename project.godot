@@ -29,6 +29,7 @@ window/stretch/aspect="expand"
 [file_customization]
 
 folder_colors={
+"res://bodies/guards/captains/": "green",
 "res://bodies/guards/patrols/": "red",
 "res://bodies/guards/sentries/": "yellow",
 "res://bodies/player/": "pink",

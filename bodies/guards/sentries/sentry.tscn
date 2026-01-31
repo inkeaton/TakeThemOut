@@ -32,6 +32,9 @@ shape = SubResource("CircleShape2D_bmsg8")
 target_position = Vector2(0, 0)
 collision_mask = 7
 
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="." unique_id=211187770]
+radius = 374.38
+
 [node name="Hand" type="Area2D" parent="." unique_id=35048869]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hand" unique_id=513507528]
@@ -55,8 +58,8 @@ material = ExtResource("1_e2b8b")
 texture = ExtResource("2_e2b8b")
 
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=784210420]
-root_node = NodePath("")
 tree_root = SubResource("AnimationRootNode_7dh5t")
+anim_player = NodePath("AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationTree" unique_id=165476596]
 root_node = NodePath("../..")
