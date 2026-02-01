@@ -6,8 +6,8 @@
 [ext_resource type="Script" uid="uid://tn1u48npidyk" path="res://bodies/guards/vesnaManager.gd" id="3_eym0j"]
 [ext_resource type="Script" uid="uid://d0fuh7h7140c6" path="res://bodies/guards/shared/state_machine.gd" id="5_76lny"]
 [ext_resource type="Script" uid="uid://payan0hid8w2" path="res://bodies/guards/sentries/states/scan_state.gd" id="6_humcw"]
-[ext_resource type="Script" uid="uid://c857wmo3vbq2t" path="res://bodies/guards/sentries/states/cooldown_state.gd.gd" id="7_5bve8"]
-[ext_resource type="Script" uid="uid://c8fx5ethfpbhc" path="res://bodies/guards/sentries/states/alert_state.gd.gd" id="8_w5w8p"]
+[ext_resource type="Script" uid="uid://c857wmo3vbq2t" path="res://bodies/guards/sentries/states/cooldown_state.gd" id="7_5bve8"]
+[ext_resource type="Script" uid="uid://c8fx5ethfpbhc" path="res://bodies/guards/sentries/states/alert_state.gd" id="8_w5w8p"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bmsg8"]
 radius = 2000.0

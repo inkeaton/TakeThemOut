@@ -110,7 +110,10 @@ func _on_vision_body_exited(body: Node2D) -> void:
 		# Global Transition Rule: 
 		# If we lose sight while Chasing, go to Tracking
 		if state_machine.current_state.name == "Chase":
-			state_machine.change_state_by_name("Track")
+			# Get patience from Chase state and pass it to Track
+			var chase_state = state_machine.current_state
+			var patience_msg = {"patience": chase_state.stored_patience}
+			state_machine.change_state_by_name("Track", patience_msg)
 
 func check_line_of_sight() -> void:
 	var current_time = Time.get_ticks_msec()

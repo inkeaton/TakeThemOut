@@ -277,6 +277,10 @@ public class VesnaAgent extends Agent{
 		}
 		
 		try {
+			// Remove any existing sight beliefs for this object/id to ensure +sight triggers again
+			// This is necessary because Jason's addBel() only fires +belief for NEW beliefs
+			Literal oldSight = createLiteral( "sight", createLiteral( object ), createNumber( id ) );
+			abolish( oldSight, null );
 			addBel( sight_belief );
 		} catch ( Exception e ) {
 			e.printStackTrace();

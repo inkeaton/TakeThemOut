@@ -29,6 +29,7 @@ func update_physics(delta: float) -> void:
 		_finish_alert()
 
 func _perform_scan() -> void:
+	alert_scanner.enabled = true
 	alert_scanner.force_shapecast_update()
 	
 	var ally_names: Array[String] = []
@@ -39,6 +40,8 @@ func _perform_scan() -> void:
 		# Filter: Must be a guard, and must not be self
 		if collider.is_in_group("guards") and collider != body:
 			ally_names.append(collider.name)
+	
+	alert_scanner.enabled = false
 	
 	Messages.print_message("Found allies: " + str(ally_names), "Sentry")
 	vesna.send_allies_found(ally_names)

@@ -2,6 +2,7 @@ extends State
 
 @export var chase_path_refresh_interval: float = 0.1
 var _chase_cooldown: float = 0.0
+var stored_patience: int = 5  # Default patience for tracking
 
 func enter(msg: Dictionary = {}) -> void:
 	body.update_debug_label("CHASING PLAYER!")
@@ -9,8 +10,9 @@ func enter(msg: Dictionary = {}) -> void:
 	if body.target_player:
 		nav_agent.target_position = body.target_player.global_position
 		
-	# Store patience if we need to pass it to Track state later
-	# (We can store it on the Body or locally)
+	# Store patience if provided by the mind
+	if msg.has("patience"):
+		stored_patience = int(msg.get("patience", 5))
 
 func update_physics(delta: float) -> void:
 	if not body.target_player:

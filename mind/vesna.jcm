@@ -6,7 +6,7 @@ mas vesna {
     
     agent sentry1:sentry.asl {
         ag-class:   vesna.VesnaAgent
-        temper:     temper( prop1(0.2) )
+        temper:     temper(aggressiveness(0.3), laziness(0.5), fear(0.0)[mood])
         address:    localhost
         port:       9081
         strategy:   most_similar
@@ -14,7 +14,7 @@ mas vesna {
 
     agent sentry2:sentry.asl {
         ag-class:   vesna.VesnaAgent
-        temper:     temper( prop1(0.2) )
+        temper:     temper(aggressiveness(0.3), laziness(0.5), fear(0.0)[mood])
         address:    localhost
         port:       9082
         strategy:   most_similar
@@ -22,7 +22,7 @@ mas vesna {
 
     agent sentry3:sentry.asl {
         ag-class:   vesna.VesnaAgent
-        temper:     temper( prop1(0.2) )
+        temper:     temper(aggressiveness(0.3), laziness(0.5), fear(0.0)[mood])
         address:    localhost
         port:       9083
         strategy:   most_similar
@@ -32,7 +32,7 @@ mas vesna {
     // Will mathematically prefer the "lazy_rest" plan (0.9 is closer to 0.8)
     agent patrol_lazy:patrol.asl {
         ag-class:   vesna.VesnaAgent
-        temper:     temper(laziness(0.9), aggressiveness(0.2)) 
+        temper:     temper(laziness(0.9), aggressiveness(0.2), fear(0.0)[mood]) 
         strategy:   most_similar          
         address:    localhost
         port:       9084
@@ -42,16 +42,16 @@ mas vesna {
     // // Will prefer the "active_rest" plan (0.1 is closer to 0.2)
     // agent patrol_active:patrol.asl {
     //     ag-class:   vesna.VesnaAgent
-    //     temper:     temper(laziness(0.1), aggressiveness(0.8))
+    //     temper:     temper(laziness(0.1), aggressiveness(0.8), fear(0.0)[mood])
     //     strategy:   most_similar
     //     address:    localhost
     //     port:       9085 // Ensure this port matches a second Godot instance if running two
     // }
 
-    // The New Leader
-    agent captain1 : captain.asl {
+    // The New Leader - Starts with negative fear (confidence)
+    agent captain : captain.asl {
         ag-class: vesna.VesnaAgent
-        temper:     temper(laziness(0.1), aggressiveness(0.8))
+        temper:     temper(laziness(0.1), aggressiveness(0.8), fear(-0.2)[mood])
         strategy:   most_similar
         address: localhost
         port: 9085  // Ensure this matches the port in captain.tscn

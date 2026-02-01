@@ -53,28 +53,32 @@ navigation_polygon = SubResource("NavigationPolygon_q6fnj")
 
 [node name="waypoints" type="Node2D" parent="." unique_id=1050702330]
 
-[node name="m1_a" type="Marker2D" parent="waypoints" unique_id=1938916715 groups=["waypoints"]]
+[node name="patrol1" type="Node2D" parent="waypoints" unique_id=1548888524]
+
+[node name="m1_a" type="Marker2D" parent="waypoints/patrol1" unique_id=1938916715 groups=["waypoints"]]
 position = Vector2(-740, -479)
 
-[node name="m1_b" type="Marker2D" parent="waypoints" unique_id=812418843 groups=["waypoints"]]
+[node name="m1_b" type="Marker2D" parent="waypoints/patrol1" unique_id=812418843 groups=["waypoints"]]
 position = Vector2(88, -473)
 
-[node name="m1_c" type="Marker2D" parent="waypoints" unique_id=676216336 groups=["waypoints"]]
+[node name="m1_c" type="Marker2D" parent="waypoints/patrol1" unique_id=676216336 groups=["waypoints"]]
 position = Vector2(-5, 425)
 
-[node name="m1_d" type="Marker2D" parent="waypoints" unique_id=558119902 groups=["waypoints"]]
+[node name="m1_d" type="Marker2D" parent="waypoints/patrol1" unique_id=558119902 groups=["waypoints"]]
 position = Vector2(-711, 255)
 
-[node name="m2_a" type="Marker2D" parent="waypoints" unique_id=950616957 groups=["waypoints"]]
+[node name="patrol2" type="Node2D" parent="waypoints" unique_id=1992076192]
+
+[node name="m2_a" type="Marker2D" parent="waypoints/patrol2" unique_id=950616957 groups=["waypoints"]]
 position = Vector2(-78, -394)
 
-[node name="m2_b" type="Marker2D" parent="waypoints" unique_id=1943081288 groups=["waypoints"]]
+[node name="m2_b" type="Marker2D" parent="waypoints/patrol2" unique_id=1943081288 groups=["waypoints"]]
 position = Vector2(-115, 287)
 
-[node name="m2_c" type="Marker2D" parent="waypoints" unique_id=1262389397 groups=["waypoints"]]
+[node name="m2_c" type="Marker2D" parent="waypoints/patrol2" unique_id=1262389397 groups=["waypoints"]]
 position = Vector2(657, 510)
 
-[node name="m2_d" type="Marker2D" parent="waypoints" unique_id=897017467 groups=["waypoints"]]
+[node name="m2_d" type="Marker2D" parent="waypoints/patrol2" unique_id=897017467 groups=["waypoints"]]
 position = Vector2(-49, 340)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=176139884]
@@ -102,6 +106,9 @@ metadata/_edit_group_ = true
 [node name="VesnaManager" parent="patrol_lazy" index="7" unique_id=1491732810]
 PORT = 9084
 
+[node name="Patrol" parent="patrol_lazy/StateMachine" parent_id_path=PackedInt32Array(613598746, 1962791099) index="1" unique_id=459811783]
+waypoint_parents = Array[NodePath]([NodePath("../../../waypoints/patrol1")])
+
 [node name="sentry1" parent="." unique_id=603938135 instance=ExtResource("4_r6spc")]
 position = Vector2(114.00001, 90)
 metadata/_edit_group_ = true
@@ -110,14 +117,14 @@ metadata/_edit_group_ = true
 position = Vector2(-342, 130)
 metadata/_edit_group_ = true
 
-[node name="VesnaManager" parent="sentry2" index="6" unique_id=897468463]
+[node name="VesnaManager" parent="sentry2" index="7" unique_id=897468463]
 PORT = 9082
 
 [node name="sentry3" parent="." unique_id=428650802 instance=ExtResource("4_r6spc")]
 position = Vector2(242, 271)
 metadata/_edit_group_ = true
 
-[node name="VesnaManager" parent="sentry3" index="6" unique_id=897468463]
+[node name="VesnaManager" parent="sentry3" index="7" unique_id=897468463]
 PORT = 9083
 
 [node name="captain" parent="." unique_id=1481715262 instance=ExtResource("5_5we7h")]
@@ -126,6 +133,9 @@ metadata/_edit_group_ = true
 
 [node name="VesnaManager" parent="captain" index="7" unique_id=1491732810]
 PORT = 9085
+
+[node name="Patrol" parent="captain/StateMachine" parent_id_path=PackedInt32Array(1481715262, 1962791099) index="1" unique_id=459811783]
+waypoint_parents = Array[NodePath]([NodePath("../../../waypoints/patrol1"), NodePath("../../../waypoints/patrol2")])
 
 [editable path="patrol_lazy"]
 [editable path="sentry1"]
