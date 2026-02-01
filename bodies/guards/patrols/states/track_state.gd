@@ -28,6 +28,9 @@ func enter(_msg: Dictionary = {}) -> void:
 	current_max_crumbs = _msg.get("patience", default_max_crumbs)
 
 func update_physics(_delta: float) -> void:
+	# Scan for idle patrol allies who could help coordinate
+	body.scan_for_chase_allies()
+	
 	# 1. Wait until we arrive at the current destination before sniffing
 	if not nav_agent.is_navigation_finished():
 		return

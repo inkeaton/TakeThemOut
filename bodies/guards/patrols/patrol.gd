@@ -25,6 +25,12 @@ var last_detection_time: int = 0
 # ScentCast is now accessed directly by TrackState via Unique Name, 
 # or we can keep a reference here if preferred.
 @onready var scent_cast: ShapeCast2D = $ScentCast
+@onready var ally_scanner: ShapeCast2D = $AllyScanner
+
+# --- Ally Scanning Configuration ---
+@export_group("Ally Scanning")
+@export var ally_scan_interval_ms: int = 1500
+var _last_ally_scan_time: int = 0
 
 func _ready() -> void:
 	# 1. Setup Navigation
@@ -142,3 +148,48 @@ func react_to_player() -> void:
 func update_debug_label(text: String) -> void:
 	if debug_label:
 		debug_label.text = text
+
+# --- Ally Scanning (for chase coordination) ---
+
+## Scans for nearby patrol allies during chase/track to coordinate pursuit.
+## Uses throttling to avoid performance impact.
+## Only reports patrols NOT already in Chase/Track state (recruits idle patrols).
+func scan_for_chase_allies() -> void:
+	# Throttle check
+	var current_time = Time.get_ticks_msec()
+	if current_time - _last_ally_scan_time < ally_scan_interval_ms:
+		return
+	_last_ally_scan_time = current_time
+	
+	# Perform the scan
+	ally_scanner.force_shapecast_update()
+	
+	if not ally_scanner.is_colliding():
+		return
+	
+	# Collect patrol allies that are NOT already chasing
+	var ally_names: Array[String] = []
+	for i in range(ally_scanner.get_collision_count()):
+		var collider = ally_scanner.get_collider(i)
+		
+		# Skip self
+		if collider == self:
+			continue
+		
+		# Only detect other patrols (not sentries, captains, etc.)
+		if not collider.is_in_group("patrols"):
+			continue
+		
+		# Only recruit patrols NOT already in Chase/Track state
+		# (they're available to help)
+		if collider.has_node("StateMachine"):
+			var their_state = collider.get_node("StateMachine").current_state
+			if their_state and their_state.name in ["Chase", "Track"]:
+				continue  # They're already chasing, skip
+		
+		ally_names.append(collider.name)
+	
+	# Report to mind if we found available allies
+	if not ally_names.is_empty():
+		Messages.print_message("Found available patrol allies: %s" % str(ally_names), "Patrol")
+		vesna.send_allies_found(ally_names)

@@ -13,7 +13,10 @@
 [ext_resource type="Script" uid="uid://dfw5cyjnbq30y" path="res://bodies/guards/patrols/states/travel_state.gd" id="11_gts74"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aopm4"]
-radius = 1500.0
+radius = 1495.3
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gts74"]
+radius = 797.64
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_naond"]
 radius = 16.25534
@@ -103,6 +106,13 @@ target_position = Vector2(0, 0)
 collision_mask = 128
 collide_with_areas = true
 collide_with_bodies = false
+
+[node name="AllyScanner" type="ShapeCast2D" parent="." unique_id=1149103698]
+self_modulate = Color(1, 1, 1, 0.26666668)
+enabled = false
+shape = SubResource("CircleShape2D_gts74")
+target_position = Vector2(0, 0)
+collision_mask = 7
 
 [node name="Hand" type="Area2D" parent="." unique_id=35048869]
 

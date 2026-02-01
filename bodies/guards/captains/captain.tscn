@@ -89,6 +89,9 @@ _data = {
 font_size = 80
 font_color = Color(0, 0, 0, 1)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_enb01"]
+radius = 797.64
+
 [node name="Captain" type="CharacterBody2D" unique_id=1481715262 groups=["guards", "patrols"]]
 scale = Vector2(0.15, 0.15)
 collision_layer = 2
@@ -184,6 +187,13 @@ script = ExtResource("10_a1qew")
 
 [node name="Travel" type="Node" parent="StateMachine" unique_id=956258312]
 script = ExtResource("11_kv2yg")
+
+[node name="AllyScanner" type="ShapeCast2D" parent="." unique_id=1448335615]
+self_modulate = Color(1, 1, 1, 0.26666668)
+enabled = false
+shape = SubResource("CircleShape2D_enb01")
+target_position = Vector2(0, 0)
+collision_mask = 7
 
 [connection signal="body_entered" from="VisionCone" to="." method="_on_vision_body_entered"]
 [connection signal="body_exited" from="VisionCone" to="." method="_on_vision_body_exited"]

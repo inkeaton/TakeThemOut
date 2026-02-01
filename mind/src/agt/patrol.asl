@@ -15,6 +15,13 @@
 // Track consecutive failures to compound fear
 consecutive_failures(0).
 
+// Track whether captain has been alerted during current chase
+captain_alerted(no).
+
+// Supersede pattern for captain_alerted
++captain_alerted(Status) : captain_alerted(OldStatus) & OldStatus \== Status
+    <-  -captain_alerted(OldStatus).
+
 // Supersede pattern for player position
 +last_player_pos(X, Y) : last_player_pos(OldX, OldY) & (OldX \== X | OldY \== Y)
     <-  -last_player_pos(OldX, OldY).
@@ -242,8 +249,63 @@ consecutive_failures(0).
         -last_player_pos(_, _);  // Clear last known position
         -consecutive_failures(N);
         +consecutive_failures(0);  // Reset on successful completion
+        -captain_alerted(_);  // Reset captain alert status
+        +captain_alerted(no);
         vesna.patrol(resume);
         !patrol.
+
+// =============================================================================
+// PATROL COORDINATION (When chasing patrols meet idle patrols)
+// =============================================================================
+
+// CHASER: Found idle patrol allies while tracking player
+// Share our position and captain alert status so they can coordinate
+// Note: Once we share, we assume ally will handle captain alert if needed
++allies_nearby(AllyList) : tracking_player & last_player_pos(X, Y) & captain_alerted(Status)
+    <-  .print("Spotted idle patrol allies while chasing: ", AllyList);
+        .member(Ally, AllyList);  // Iterate through all allies
+        .send(Ally, tell, chase_coordination(X, Y, Status));
+        -allies_nearby(AllyList);
+        // Assume coordination will alert captain if needed
+        -captain_alerted(_);
+        +captain_alerted(yes).
+
+// Fallback: If we don't have position info, just acknowledge
++allies_nearby(AllyList) : tracking_player
+    <-  .print("Spotted allies but no position info to share.");
+        -allies_nearby(AllyList).
+
+// RECEIVER: Another patrol is chasing and needs coordination
+// If captain not alerted, we alert captain then join chase
+// If captain already alerted, we just join the chase
++chase_coordination(X, Y, no)[source(Chaser)] : not tracking_player
+    <-  .print("Coordination from ", Chaser, ": Captain NOT alerted. I'll alert and join!");
+        -chase_coordination(X, Y, no)[source(Chaser)];
+        !alert_captain_directly(X, Y);
+        +tracking_player;
+        .drop_intention(patrol);
+        +last_player_pos(X, Y);
+        +captain_alerted(yes);
+        vesna.move_to(X, Y).
+
++chase_coordination(X, Y, yes)[source(Chaser)] : not tracking_player
+    <-  .print("Coordination from ", Chaser, ": Captain already alerted. Joining chase!");
+        -chase_coordination(X, Y, yes)[source(Chaser)];
+        +tracking_player;
+        .drop_intention(patrol);
+        +last_player_pos(X, Y);
+        +captain_alerted(yes);  // Inherit the status
+        vesna.move_to(X, Y).
+
+// Ignore if we're already tracking
++chase_coordination(X, Y, _)[source(Chaser)] : tracking_player
+    <-  .print("Coordination from ", Chaser, " ignored - already engaged.");
+        -chase_coordination(X, Y, _)[source(Chaser)].
+
+// Alert captain directly without moving to them
++!alert_captain_directly(X, Y)
+    <-  .print("Alerting captain directly about player at ", X, ", ", Y);
+        .send(captain, tell, player_spotted_at(X, Y)).
 
 // =============================================================================
 // ALERT RESPONSE (From other agents - Fear modulates response)
