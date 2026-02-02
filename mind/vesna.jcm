@@ -49,12 +49,12 @@ mas vesna {
     // }
 
     // The New Leader - Starts with negative fear (confidence)
-    // agent captain : captain.asl {
-    //     ag-class: vesna.VesnaAgent
-    //     temper:     temper(laziness(0.1), aggressiveness(0.8), fear(-0.2)[mood])
-    //     strategy:   most_similar
-    //     address: localhost
-    //     port: 9085  // Ensure this matches the port in captain.tscn
-    // }
+    agent captain : captain.asl {
+        ag-class: vesna.VesnaAgent
+        temper:     temper(laziness(0.1), aggressiveness(0.8), fear(-0.2)[mood])
+        strategy:   most_similar
+        address: localhost
+        port: 9085  // Ensure this matches the port in captain.tscn
+    }
 
 }

@@ -10,7 +10,6 @@
 [ext_resource type="Script" uid="uid://d4jg2mt8fwh3q" path="res://bodies/guards/patrols/states/chase_state.gd" id="8_5oinm"]
 [ext_resource type="Script" uid="uid://cdsyguied6la6" path="res://bodies/guards/patrols/states/track_state.gd" id="9_wpfoq"]
 [ext_resource type="Script" uid="uid://drpgv5vnbndte" path="res://bodies/guards/patrols/states/investigate_state.gd" id="10_a1qew"]
-[ext_resource type="Script" uid="uid://dfw5cyjnbq30y" path="res://bodies/guards/patrols/states/travel_state.gd" id="11_kv2yg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aopm4"]
 radius = 1500.0
@@ -184,9 +183,6 @@ script = ExtResource("9_wpfoq")
 
 [node name="Investigate" type="Node" parent="StateMachine" unique_id=906693549]
 script = ExtResource("10_a1qew")
-
-[node name="Travel" type="Node" parent="StateMachine" unique_id=956258312]
-script = ExtResource("11_kv2yg")
 
 [node name="AllyScanner" type="ShapeCast2D" parent="." unique_id=1448335615]
 self_modulate = Color(1, 1, 1, 0.26666668)
