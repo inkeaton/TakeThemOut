@@ -2,9 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c3v7jojtu5mst" path="res://stages/maze/res/paper18.png" id="1_q6fnj"]
 [ext_resource type="PackedScene" uid="uid://d2bes6s2x63nn" path="res://bodies/player/player.tscn" id="2_5s84a"]
-[ext_resource type="PackedScene" uid="uid://62bib23hxt5c" path="res://bodies/guards/patrols/patrol.tscn" id="3_5s84a"]
 [ext_resource type="PackedScene" uid="uid://cv8gsa8vpvj1a" path="res://bodies/guards/sentries/sentry.tscn" id="4_r6spc"]
-[ext_resource type="PackedScene" uid="uid://dgu6wes1oogep" path="res://bodies/guards/captains/captain.tscn" id="5_5we7h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3fd7v"]
 size = Vector2(34.950012, 3269.7725)
@@ -99,16 +97,6 @@ metadata/_edit_group_ = true
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player" unique_id=599018791]
 remote_path = NodePath("../../Camera2D")
 
-[node name="patrol_lazy" parent="." unique_id=613598746 instance=ExtResource("3_5s84a")]
-position = Vector2(-702, -261)
-metadata/_edit_group_ = true
-
-[node name="VesnaManager" parent="patrol_lazy" index="7" unique_id=1491732810]
-PORT = 9084
-
-[node name="Patrol" parent="patrol_lazy/StateMachine" parent_id_path=PackedInt32Array(613598746, 1962791099) index="1" unique_id=459811783]
-waypoint_parents = Array[NodePath]([NodePath("../../../waypoints/patrol1")])
-
 [node name="sentry1" parent="." unique_id=603938135 instance=ExtResource("4_r6spc")]
 position = Vector2(114.00001, 90)
 metadata/_edit_group_ = true
@@ -127,18 +115,6 @@ metadata/_edit_group_ = true
 [node name="VesnaManager" parent="sentry3" index="7" unique_id=897468463]
 PORT = 9083
 
-[node name="captain" parent="." unique_id=1481715262 instance=ExtResource("5_5we7h")]
-position = Vector2(526, -393)
-metadata/_edit_group_ = true
-
-[node name="VesnaManager" parent="captain" index="7" unique_id=1491732810]
-PORT = 9085
-
-[node name="Patrol" parent="captain/StateMachine" parent_id_path=PackedInt32Array(1481715262, 1962791099) index="1" unique_id=459811783]
-waypoint_parents = Array[NodePath]([NodePath("../../../waypoints/patrol1"), NodePath("../../../waypoints/patrol2")])
-
-[editable path="patrol_lazy"]
 [editable path="sentry1"]
 [editable path="sentry2"]
 [editable path="sentry3"]
-[editable path="captain"]

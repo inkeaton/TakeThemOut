@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://tn1u48npidyk" path="res://bodies/guards/vesnaManager.gd" id="3_eym0j"]
 [ext_resource type="Script" uid="uid://d0fuh7h7140c6" path="res://bodies/guards/shared/state_machine.gd" id="5_76lny"]
 [ext_resource type="Script" uid="uid://payan0hid8w2" path="res://bodies/guards/sentries/states/scan_state.gd" id="6_humcw"]
-[ext_resource type="Script" uid="uid://c857wmo3vbq2t" path="res://bodies/guards/sentries/states/cooldown_state.gd" id="7_5bve8"]
+[ext_resource type="Script" uid="uid://c857wmo3vbq2t" path="res://bodies/guards/sentries/states/idle_state.gd" id="7_5bve8"]
 [ext_resource type="Script" uid="uid://c8fx5ethfpbhc" path="res://bodies/guards/sentries/states/alert_state.gd" id="8_w5w8p"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bmsg8"]
@@ -19,6 +19,10 @@ radius = 233.71397
 size = Vector2(293.3333, 486.6667)
 
 [sub_resource type="AnimationRootNode" id="AnimationRootNode_7dh5t"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_76lny"]
+font_size = 80
+font_color = Color(0, 0, 0, 1)
 
 [node name="sentry1" type="CharacterBody2D" unique_id=603938135 groups=["guards", "sentries"]]
 scale = Vector2(0.15, 0.15)
@@ -78,13 +82,25 @@ initial_state = NodePath("Scan")
 
 [node name="Scan" type="Node" parent="StateMachine" unique_id=748016823]
 script = ExtResource("6_humcw")
-switch_time = 5.0
 
-[node name="Cooldown" type="Node" parent="StateMachine" unique_id=1329784497]
+[node name="Idle" type="Node" parent="StateMachine" unique_id=1329784497]
 script = ExtResource("7_5bve8")
 
 [node name="Alert" type="Node" parent="StateMachine" unique_id=1698343659]
 script = ExtResource("8_w5w8p")
+
+[node name="AlertTimer" type="Timer" parent="." unique_id=520460901]
+one_shot = true
+
+[node name="DebugLabel" type="Label" parent="." unique_id=1915315286]
+offset_left = -240.0
+offset_top = -520.0
+offset_right = 306.66663
+offset_bottom = -246.66666
+text = "Debug"
+label_settings = SubResource("LabelSettings_76lny")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="body_entered" from="VisionCone" to="." method="_on_vision_body_entered"]
 [connection signal="body_exited" from="VisionCone" to="." method="_on_vision_body_exited"]

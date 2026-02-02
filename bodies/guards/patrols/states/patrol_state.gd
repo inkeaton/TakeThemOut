@@ -105,5 +105,12 @@ func update_physics(_delta: float) -> void:
 		
 	if body.is_moving and nav_agent.is_navigation_finished():
 		body.is_moving = false
+		
+		# Suppress navigation signal if alert_lock is active
+		# This prevents the mind's patrol loop from restarting during alert response
+		if body.alert_lock:
+			body.update_debug_label("Arrived (alert lock active)")
+			return
+		
 		vesna.send_navigation_update("reached", "%d" % current_waypoint_index)
 		body.update_debug_label("Waiting at Waypoint...")

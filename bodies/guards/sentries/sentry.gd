@@ -17,6 +17,7 @@ var current_look_index: int = 0
 @onready var line_of_sight: RayCast2D = $LineOfSight
 @onready var alert_scanner: ShapeCast2D = $AlertScanner
 @onready var sprite: Sprite2D = $Sprite
+@onready var debug_label: Label = $DebugLabel
 
 func _ready() -> void:
 	# 1. Setup Scanner (Ensure it is off by default)
@@ -69,8 +70,8 @@ func react_to_player() -> void:
 		vesna.send_sight_with_position("player", 
 		target_player.get_instance_id(), target_player.global_position)
 		
-		# Freeze the Sentry locally while waiting for orders
-		state_machine.change_state_by_name("Cooldown")
+		# Transition to Idle, wait for mind instructions
+		state_machine.change_state_by_name("Idle")
 
 # --- Command Handling ---
 
@@ -79,9 +80,53 @@ func _on_vesna_mind_command(intention: Dictionary) -> void:
 	var data = intention.get("data", {})
 	
 	match action_type:
+		"transition_to":
+			_handle_transition_to(data)
+		
 		"alert":
+			# Legacy support - treat as transition to Alert
 			if data.get("type", "") == "start":
 				state_machine.change_state_by_name("Alert")
+		
+		"set_var":
+			_handle_set_var(data)
+
+## Handles the transition_to command from the mind.
+func _handle_transition_to(data: Dictionary) -> void:
+	var target_state = data.get("target_state", "")
+	var params = data.get("params", {})
+	
+	if target_state.is_empty():
+		push_warning("transition_to: Empty target state")
+		return
+	
+	Messages.print_message("Mind orders: Transition to %s" % target_state, "Sentry")
+	state_machine.change_state_by_name(target_state, params)
+
+## Handles the set_var command from the mind.
+## Searches for the variable in self, then in child states.
+func _handle_set_var(data: Dictionary) -> void:
+	var var_name = data.get("name", "")
+	var var_value = data.get("value")
+	
+	if var_name.is_empty():
+		push_warning("set_var: Empty variable name received")
+		return
+	
+	# Try to set on self first
+	if var_name in self:
+		set(var_name, var_value)
+		Messages.print_message("Set %s = %s" % [var_name, str(var_value)], "Sentry")
+		return
+	
+	# Try to set on state machine states
+	for state in state_machine.states.values():
+		if var_name in state:
+			state.set(var_name, var_value)
+			Messages.print_message("Set %s.%s = %s" % [state.name, var_name, str(var_value)], "Sentry")
+			return
+	
+	push_warning("set_var: Variable '%s' not found in sentry or states" % var_name)
 
 # --- Signals ---
 
@@ -92,3 +137,7 @@ func _on_vision_body_entered(body: Node2D) -> void:
 func _on_vision_body_exited(body: Node2D) -> void:
 	if body == target_player:
 		target_player = null
+
+func update_debug_label(text: String) -> void:
+	if debug_label:
+		debug_label.text = text

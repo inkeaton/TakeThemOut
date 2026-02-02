@@ -26,22 +26,22 @@
 +!alert_about_player(X, Y)
     <-  .print("EMERGENCY! ENEMY CONTACT!");
         +last_player_pos(X, Y);
-        vesna.set_var(switch_time, 1.0); // Panic scanning after alert
-        vesna.transition_to("Alert", [duration(3)]). // Shorter panic alert
+        vesna.set_var(switch_time, 1.0); // Panic scanning
+        vesna.alert.
 
 // MEDIUM FEAR (0.4-0.7): Urgent alert with emphasis
 @alert_nervous[temper([fear(0.5)]), effects([fear(0.2)])]
 +!alert_about_player(X, Y)
     <-  .print("INTRUDER ALERT! Position logged");
         +last_player_pos(X, Y);
-        vesna.transition_to("Alert", [duration(5)]). // Standard alert
+        vesna.alert.
 
 // LOW FEAR (< 0.4): Calm, efficient alert
 @alert_calm[temper([fear(0.2)]), effects([fear(0.15)])]
 +!alert_about_player(X, Y)
     <-  .print("Target acquired. Notifying squad.");
         +last_player_pos(X, Y);
-        vesna.transition_to("Alert", [duration(5)]). // Standard alert
+        vesna.alert.
 
 // =============================================================================
 // FOUND ALLIES AND CONTACT THEM
@@ -72,7 +72,7 @@
 // =============================================================================
 
 // Body finished alert sequence, clean up and adjust scan rate based on fear
-// Now in Idle state - mind decides to resume scanning
+// Completing duty reduces fear slightly
 @alert_complete_scared[temper([fear(0.6)]), effects([fear(-0.05)])]
 +signal_alert(completed, _)
     <-  .print("Alert complete. Staying vigilant!");
@@ -80,8 +80,7 @@
         // need to reset beliefs
         -signal_alert(completed, _);
         -allies_nearby(_);
-        .abolish(sight(player, _, _));
-        vesna.transition_to("Scan"). // Resume scanning
+        .abolish(sight(player, _, _)).
 
 @alert_complete_calm[temper([fear(0.2)]), effects([fear(-0.05)])]
 +signal_alert(completed, _)
@@ -90,8 +89,7 @@
         // need to reset beliefs
         -signal_alert(completed, _);
         -allies_nearby(_);
-        .abolish(sight(player, _, _));
-        vesna.transition_to("Scan"). // Resume scanning
+        .abolish(sight(player, _, _)).
 
 // =============================================================================
 // INTEL REPORTING TO CAPTAIN

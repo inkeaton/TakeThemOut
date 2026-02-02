@@ -30,13 +30,13 @@ mas vesna {
 
     // Agent 1: Very Lazy
     // Will mathematically prefer the "lazy_rest" plan (0.9 is closer to 0.8)
-    agent patrol_lazy:patrol.asl {
-        ag-class:   vesna.VesnaAgent
-        temper:     temper(laziness(0.9), aggressiveness(0.2), fear(0.0)[mood]) 
-        strategy:   most_similar          
-        address:    localhost
-        port:       9084
-    }
+    // agent patrol_lazy:patrol.asl {
+    //     ag-class:   vesna.VesnaAgent
+    //     temper:     temper(laziness(0.9), aggressiveness(0.2), fear(0.0)[mood]) 
+    //     strategy:   most_similar          
+    //     address:    localhost
+    //     port:       9084
+    // }
 
     // // Agent 2: Very Active
     // // Will prefer the "active_rest" plan (0.1 is closer to 0.2)
@@ -49,12 +49,12 @@ mas vesna {
     // }
 
     // The New Leader - Starts with negative fear (confidence)
-    agent captain : captain.asl {
-        ag-class: vesna.VesnaAgent
-        temper:     temper(laziness(0.1), aggressiveness(0.8), fear(-0.2)[mood])
-        strategy:   most_similar
-        address: localhost
-        port: 9085  // Ensure this matches the port in captain.tscn
-    }
+    // agent captain : captain.asl {
+    //     ag-class: vesna.VesnaAgent
+    //     temper:     temper(laziness(0.1), aggressiveness(0.8), fear(-0.2)[mood])
+    //     strategy:   most_similar
+    //     address: localhost
+    //     port: 9085  // Ensure this matches the port in captain.tscn
+    // }
 
 }

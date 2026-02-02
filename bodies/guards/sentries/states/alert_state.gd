@@ -1,5 +1,8 @@
 extends State
 
+## Alert state: Vision disabled, scans for allies, notifies mind.
+## On timeout, transitions to Idle and notifies mind.
+
 @export var alert_duration: float = 5.0
 var _timer: float = 0.0
 
@@ -7,6 +10,7 @@ var _timer: float = 0.0
 var alert_scanner: ShapeCast2D 
 
 func enter(_msg: Dictionary = {}) -> void:
+	body.update_debug_label("ALERT!")
 	# FIX: Assign reference here, the first time we enter the state
 	if not alert_scanner:
 		alert_scanner = body.alert_scanner
@@ -20,8 +24,9 @@ func enter(_msg: Dictionary = {}) -> void:
 	# 2. Perform the Ally Scan
 	_perform_scan()
 	
-	# 3. Start timer to return to normal
-	_timer = alert_duration
+	# 3. Start timer - use passed duration or default
+	var duration = _msg.get("duration", alert_duration)
+	_timer = duration
 
 func update_physics(delta: float) -> void:
 	_timer -= delta
@@ -49,4 +54,4 @@ func _perform_scan() -> void:
 func _finish_alert() -> void:
 	alert_scanner.enabled = false
 	vesna.send_signal("alert", "completed", "Alert sequence finished")
-	state_machine.change_state_by_name("Scan")
+	state_machine.change_state_by_name("Idle")

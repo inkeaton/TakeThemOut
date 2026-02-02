@@ -9,11 +9,19 @@ extends CharacterBody2D
 @export_group("Vision")
 @export var detection_interval_ms: int = 300
 
+@export_group("Alert Lock")
+@export var alert_lock_timeout_ms: int = 60000  # 60 second failsafe timeout
+
 # --- Shared State (Context) ---
 # These are accessed by the individual States
 var target_player: CharacterBody2D = null
 var is_moving: bool = false
 var last_detection_time: int = 0
+
+# --- Alert Lock State ---
+# When true, patrol commands are ignored and navigation signals are suppressed
+var alert_lock: bool = false
+var _alert_lock_start_time: int = 0
 
 # --- Nodes ---
 @onready var state_machine: StateMachine = $StateMachine
@@ -49,6 +57,14 @@ func _ready() -> void:
 # --- Physics Loop ---
 
 func _physics_process(delta: float) -> void:
+	# 0. Alert Lock Timeout Failsafe
+	# Prevents permanent stuck state if mind fails to unlock
+	if alert_lock:
+		var elapsed = Time.get_ticks_msec() - _alert_lock_start_time
+		if elapsed > alert_lock_timeout_ms:
+			Messages.print_message("Alert lock timeout! Auto-unlocking after %ds" % (elapsed / 1000), "Patrol")
+			_release_alert_lock()
+	
 	# 1. Vision Check (Global priority)
 	# This runs regardless of state.
 	if target_player:
@@ -87,21 +103,94 @@ func _on_vesna_manager_command_received(command: Dictionary) -> void:
 	var type = command.get("type", "")
 	var data = command.get("data", {})
 	
-	# The Puppet decides WHICH state handles the command
+	# Handle lock and set_var first (they don't change state)
+	match type:
+		"lock":
+			_handle_lock(data)
+			return
+		
+		"set_var":
+			_handle_set_var(data)
+			return
+	
+	# Check alert_lock for patrol commands only
+	if type == "patrol" and alert_lock:
+		Messages.print_message("Ignoring patrol command during alert lock", "Patrol")
+		return
+	
+	# State-changing commands
 	match type:
 		"patrol":
-			# Switch to Patrol State (if not already) and pass the data
 			state_machine.change_state_by_name("Patrol", data)
 			
 		"chase":
+			# Chase sets alert lock (we're pursuing)
 			if data.get("type", "") == "start":
+				_set_alert_lock()
 				state_machine.change_state_by_name("Chase", data)
 				
 		"investigate":
 			state_machine.change_state_by_name("Investigate", data)
 		
 		"move_to":
+			# move_to sets alert lock (responding to alert)
+			_set_alert_lock()
 			state_machine.change_state_by_name("Travel", data)
+
+## Handles lock command - sets or releases alert lock.
+func _handle_lock(data: Dictionary) -> void:
+	var action = data.get("action", "")
+	
+	match action:
+		"set":
+			nav_agent.target_position = global_position
+			is_moving = false
+			velocity = Vector2.ZERO
+			_set_alert_lock()
+			Messages.print_message("Stopped. Alert lock engaged.", "Patrol")
+		
+		"release":
+			_release_alert_lock()
+			Messages.print_message("Alert lock released.", "Patrol")
+		
+		_:
+			push_warning("lock: Unknown action '%s'" % action)
+
+## Sets alert lock with timestamp for timeout tracking.
+func _set_alert_lock() -> void:
+	if not alert_lock:
+		alert_lock = true
+		_alert_lock_start_time = Time.get_ticks_msec()
+
+## Releases alert lock.
+func _release_alert_lock() -> void:
+	alert_lock = false
+	_alert_lock_start_time = 0
+
+## Handles the set_var command from the mind.
+## Searches for the variable in self, then in child states.
+func _handle_set_var(data: Dictionary) -> void:
+	var var_name = data.get("name", "")
+	var var_value = data.get("value")
+	
+	if var_name.is_empty():
+		push_warning("set_var: Empty variable name received")
+		return
+	
+	# Try to set on self first
+	if var_name in self:
+		set(var_name, var_value)
+		Messages.print_message("Set %s = %s" % [var_name, str(var_value)], "Patrol")
+		return
+	
+	# Try to set on state machine states
+	for state in state_machine.states.values():
+		if var_name in state:
+			state.set(var_name, var_value)
+			Messages.print_message("Set %s.%s = %s" % [state.name, var_name, str(var_value)], "Patrol")
+			return
+	
+	push_warning("set_var: Variable '%s' not found in patrol or states" % var_name)
 
 # --- Shared Vision Logic ---
 
