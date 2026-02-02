@@ -9,19 +9,15 @@ extends CharacterBody2D
 @export_group("Vision")
 @export var detection_interval_ms: int = 300
 
-@export_group("Alert Lock")
-@export var alert_lock_timeout_ms: int = 60000  # 60 second failsafe timeout
-
 # --- Shared State (Context) ---
 # These are accessed by the individual States
 var target_player: CharacterBody2D = null
 var is_moving: bool = false
 var last_detection_time: int = 0
 
-# --- Alert Lock State ---
-# When true, patrol commands are ignored and navigation signals are suppressed
-var alert_lock: bool = false
-var _alert_lock_start_time: int = 0
+# --- Chase State ---
+# When true, patrol is in Chase/Track mode - some commands may be blocked
+var is_chasing: bool = false
 
 # --- Nodes ---
 @onready var state_machine: StateMachine = $StateMachine
@@ -57,14 +53,6 @@ func _ready() -> void:
 # --- Physics Loop ---
 
 func _physics_process(delta: float) -> void:
-	# 0. Alert Lock Timeout Failsafe
-	# Prevents permanent stuck state if mind fails to unlock
-	if alert_lock:
-		var elapsed = Time.get_ticks_msec() - _alert_lock_start_time
-		if elapsed > alert_lock_timeout_ms:
-			Messages.print_message("Alert lock timeout! Auto-unlocking after %ds" % (elapsed / 1000), "Patrol")
-			_release_alert_lock()
-	
 	# 1. Vision Check (Global priority)
 	# This runs regardless of state.
 	if target_player:
@@ -103,69 +91,62 @@ func _on_vesna_manager_command_received(command: Dictionary) -> void:
 	var type = command.get("type", "")
 	var data = command.get("data", {})
 	
-	# Handle lock and set_var first (they don't change state)
-	match type:
-		"lock":
-			_handle_lock(data)
-			return
-		
-		"set_var":
-			_handle_set_var(data)
-			return
-	
-	# Check alert_lock for patrol commands only
-	if type == "patrol" and alert_lock:
-		Messages.print_message("Ignoring patrol command during alert lock", "Patrol")
+	# Handle set_var (doesn't change state)
+	if type == "set_var":
+		_handle_set_var(data)
 		return
 	
-	# State-changing commands
+	# Handle transition_to (primary command)
+	if type == "transition_to":
+		_handle_transition_to(data)
+		return
+	
+	# Legacy command support (for backward compatibility)
 	match type:
 		"patrol":
+			# Block if chasing
+			if is_chasing:
+				Messages.print_message("Ignoring patrol command while chasing", "Patrol")
+				return
 			state_machine.change_state_by_name("Patrol", data)
 			
 		"chase":
-			# Chase sets alert lock (we're pursuing)
 			if data.get("type", "") == "start":
-				_set_alert_lock()
+				is_chasing = true
 				state_machine.change_state_by_name("Chase", data)
 				
 		"investigate":
 			state_machine.change_state_by_name("Investigate", data)
 		
 		"move_to":
-			# move_to sets alert lock (responding to alert)
-			_set_alert_lock()
-			state_machine.change_state_by_name("Travel", data)
+			# Block if chasing
+			if is_chasing:
+				Messages.print_message("Ignoring move_to command while chasing", "Patrol")
+				return
+			# Use Patrol state with coordinates (unified)
+			var patrol_data = {"target": {"x": data.get("pos_x", 0), "y": data.get("pos_y", 0)}}
+			state_machine.change_state_by_name("Patrol", patrol_data)
 
-## Handles lock command - sets or releases alert lock.
-func _handle_lock(data: Dictionary) -> void:
-	var action = data.get("action", "")
+## Handles the transition_to command from the mind.
+func _handle_transition_to(data: Dictionary) -> void:
+	var target_state = data.get("target_state", "")
+	var params = data.get("params", {})
 	
-	match action:
-		"set":
-			nav_agent.target_position = global_position
-			is_moving = false
-			velocity = Vector2.ZERO
-			_set_alert_lock()
-			Messages.print_message("Stopped. Alert lock engaged.", "Patrol")
-		
-		"release":
-			_release_alert_lock()
-			Messages.print_message("Alert lock released.", "Patrol")
-		
-		_:
-			push_warning("lock: Unknown action '%s'" % action)
-
-## Sets alert lock with timestamp for timeout tracking.
-func _set_alert_lock() -> void:
-	if not alert_lock:
-		alert_lock = true
-		_alert_lock_start_time = Time.get_ticks_msec()
-
-## Releases alert lock.
-func _release_alert_lock() -> void:
-	alert_lock = false
-	_alert_lock_start_time = 0
+	if target_state.is_empty():
+		push_warning("transition_to: Empty target state")
+		return
+	
+	# Block non-Chase transitions if currently chasing (Chase has priority)
+	if is_chasing and target_state not in ["Chase", "Track"]:
+		Messages.print_message("Ignoring %s transition while chasing" % target_state, "Patrol")
+		return
+	
+	# Set is_chasing for Chase state
+	if target_state == "Chase":
+		is_chasing = true
+	
+	Messages.print_message("Mind orders: Transition to %s" % target_state, "Patrol")
+	state_machine.change_state_by_name(target_state, params)
 
 ## Handles the set_var command from the mind.
 ## Searches for the variable in self, then in child states.

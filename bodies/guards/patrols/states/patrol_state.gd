@@ -1,5 +1,9 @@
 extends State
 
+## Patrol state: Handles both waypoint navigation and coordinate navigation.
+## Unified from previous Patrol + Travel states.
+## On arrival, transitions to Idle and notifies mind.
+
 ## Export variable for assigning specific waypoint zones to this agent
 ## Supports multiple parent nodes - waypoints from all parents will be combined
 ## Leave empty to use all waypoints from the global "waypoints" group (backward compatibility)
@@ -8,13 +12,20 @@ extends State
 var current_waypoint_index: int = -1 
 var sorted_waypoints: Array[Node2D] = []
 
+## Tracks whether we're navigating to coords (true) or waypoint (false)
+var _navigating_to_coords: bool = false
+var _target_coords: Vector2 = Vector2.ZERO
+
 func enter(msg: Dictionary = {}) -> void:
 	# If this is the first run, cache waypoints
 	if sorted_waypoints.is_empty():
 		_cache_waypoints()
 	
-	# Handle immediate commands (e.g., "Resume", "Next")
-	if msg.has("action"):
+	# Handle target parameter (new unified system)
+	if msg.has("target"):
+		_handle_target(msg["target"])
+	# Legacy: Handle action parameter for backward compatibility
+	elif msg.has("action"):
 		_handle_action(msg["action"])
 	else:
 		body.update_debug_label("Patrolling")
@@ -56,6 +67,7 @@ func _cache_waypoints() -> void:
 		Messages.print_message("Cached %d waypoints from global group" % sorted_waypoints.size(), "Patrol")
 
 func _handle_action(action: String) -> void:
+	_navigating_to_coords = false  # Waypoint navigation
 	match action:
 		"next":
 			move_cyclic(1)
@@ -76,12 +88,29 @@ func _handle_action(action: String) -> void:
 			var target_node = sorted_waypoints[current_waypoint_index]
 			
 			body.update_debug_label("Patrol: Random (%s)" % target_node.name)
-			Messages.print_message("Moving to random waypoint %s" % target_node.name, "Captain")
+			Messages.print_message("Moving to random waypoint %s" % target_node.name, "Patrol")
 			
 			nav_agent.target_position = target_node.global_position
 			body.is_moving = true
 
+## Handles unified target parameter - can be action string or coordinates
+func _handle_target(target) -> void:
+	# Check if target is a dictionary with coordinates
+	if target is Dictionary and target.has("x") and target.has("y"):
+		_navigating_to_coords = true
+		_target_coords = Vector2(target["x"], target["y"])
+		nav_agent.target_position = _target_coords
+		body.is_moving = true
+		body.update_debug_label("Patrol: Coords (%s)" % str(_target_coords))
+		Messages.print_message("Moving to coordinates %s" % str(_target_coords), "Patrol")
+	# Otherwise treat as action string
+	elif target is String:
+		_handle_action(target)
+	else:
+		push_warning("patrol_state: Unknown target type: %s" % str(target))
+
 func move_cyclic(direction: int) -> void:
+	_navigating_to_coords = false  # Waypoint navigation
 	if sorted_waypoints.is_empty(): return
 
 	current_waypoint_index = (current_waypoint_index + direction) % sorted_waypoints.size()
@@ -96,7 +125,9 @@ func move_cyclic(direction: int) -> void:
 
 # If we receive a command while ALREADY in this state
 func enter_with_command(msg: Dictionary) -> void:
-	if msg.has("action"):
+	if msg.has("target"):
+		_handle_target(msg["target"])
+	elif msg.has("action"):
 		_handle_action(msg["action"])
 
 func update_physics(_delta: float) -> void:
@@ -106,11 +137,19 @@ func update_physics(_delta: float) -> void:
 	if body.is_moving and nav_agent.is_navigation_finished():
 		body.is_moving = false
 		
-		# Suppress navigation signal if alert_lock is active
-		# This prevents the mind's patrol loop from restarting during alert response
-		if body.alert_lock:
-			body.update_debug_label("Arrived (alert lock active)")
+		# Suppress if chasing (body handles Chase→Track internally)
+		if body.is_chasing:
+			body.update_debug_label("Arrived (chasing)")
 			return
 		
-		vesna.send_navigation_update("reached", "%d" % current_waypoint_index)
-		body.update_debug_label("Waiting at Waypoint...")
+		# Notify mind based on navigation type
+		if _navigating_to_coords:
+			vesna.send_navigation_update("reached_target", "coords")
+			body.update_debug_label("Arrived at coords")
+		else:
+			vesna.send_navigation_update("reached", "%d" % current_waypoint_index)
+			body.update_debug_label("Arrived at waypoint")
+		
+		# Transition to Idle - mind decides next action
+		Messages.print_message("Arrived. Awaiting orders...", "Patrol")
+		state_machine.change_state_by_name("Idle")

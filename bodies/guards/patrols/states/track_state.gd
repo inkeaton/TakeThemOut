@@ -20,6 +20,9 @@ func enter(_msg: Dictionary = {}) -> void:
 
 	body.update_debug_label("Lost Visual. Sniffing...")
 	
+	# Track is part of Chase conceptually - keep is_chasing true
+	body.is_chasing = true
+	
 	# Reset Memory
 	last_crumb_timestamp = 0 
 	crumbs_tracked_count = 0

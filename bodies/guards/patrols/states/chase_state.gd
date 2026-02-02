@@ -6,6 +6,10 @@ var stored_patience: int = 5  # Default patience for tracking
 
 func enter(msg: Dictionary = {}) -> void:
 	body.update_debug_label("CHASING PLAYER!")
+	
+	# Mark as chasing (blocks patrol/move_to commands)
+	body.is_chasing = true
+	
 	# Start moving immediately
 	if body.target_player:
 		nav_agent.target_position = body.target_player.global_position
