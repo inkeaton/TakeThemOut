@@ -26,6 +26,19 @@ is_chasing(no).
 // Prevents patrol loop from overriding alert response
 responding_to_alert(no).
 
+// Track whether we are acting as a messenger to inform captain
+is_messenger(no).
+
+// Track the captain we need to deliver message to
+messenger_target(none).
+
+// Track the player position to report to captain
+messenger_report_pos(none).
+
+// Track whether we've already sent a messenger during this chase
+// Prevents sending multiple messengers
+messenger_sent(no).
+
 // Supersede patterns
 +captain_alerted(Status) : captain_alerted(OldStatus) & OldStatus \== Status
     <-  -captain_alerted(OldStatus).
@@ -35,6 +48,18 @@ responding_to_alert(no).
 
 +responding_to_alert(Status) : responding_to_alert(OldStatus) & OldStatus \== Status
     <-  -responding_to_alert(OldStatus).
+
++is_messenger(Status) : is_messenger(OldStatus) & OldStatus \== Status
+    <-  -is_messenger(OldStatus).
+
++messenger_target(Target) : messenger_target(OldTarget) & OldTarget \== Target
+    <-  -messenger_target(OldTarget).
+
++messenger_report_pos(Pos) : messenger_report_pos(OldPos) & OldPos \== Pos
+    <-  -messenger_report_pos(OldPos).
+
++messenger_sent(Status) : messenger_sent(OldStatus) & OldStatus \== Status
+    <-  -messenger_sent(OldStatus).
 
 +last_player_pos(X, Y) : last_player_pos(OldX, OldY) & (OldX \== X | OldY \== Y)
     <-  -last_player_pos(OldX, OldY).
@@ -281,12 +306,14 @@ responding_to_alert(no).
         +consecutive_failures(0);
         -captain_alerted(_);
         +captain_alerted(no);
+        -messenger_sent(_);
+        +messenger_sent(no);
         .abolish(sight(player, _, _));
         vesna.transition_to("Patrol", [target("resume")]);
         !patrol.
 
 // =============================================================================
-// PATROL COORDINATION (Stub for future implementation)
+// PATROL COORDINATION (Messenger System)
 // =============================================================================
 
 // Handle empty ally list
@@ -294,21 +321,144 @@ responding_to_alert(no).
     <-  .print("Scanned for allies, none found.");
         -allies_nearby([]).
 
-// STUB: Found idle patrol allies while tracking player
-// Future: Ask them to alert captain
-+allies_nearby(AllyList) : is_chasing(yes) & last_player_pos(X, Y) & not .empty(AllyList)
-    <-  .print("STUB: Found allies while chasing: ", AllyList);
-        .print("TODO: Ask ally to alert captain");
+// Found idle patrol allies while tracking player - recruit first as messenger
++allies_nearby(AllyList) : is_chasing(yes) & last_player_pos(X, Y) & not .empty(AllyList) & messenger_sent(no)
+    <-  .print("Found available allies: ", AllyList, ". Recruiting messenger.");
+        -allies_nearby(AllyList);
+        // Get first ally from list
+        .nth(0, AllyList, FirstAlly);
+        .print("Sending ", FirstAlly, " to inform captain about player at ", X, ",", Y);
+        // Ask ally to become messenger with current player position
+        .send(FirstAlly, achieve, become_messenger(pos(X, Y)));
+        // Mark that we've already sent a messenger this chase
+        -messenger_sent(no);
+        +messenger_sent(yes).
+
+// Already sent a messenger this chase - don't send another
++allies_nearby(AllyList) : is_chasing(yes) & messenger_sent(yes)
+    <-  .print("Allies nearby, but already sent a messenger.");
         -allies_nearby(AllyList).
 
-// Fallback
+// Fallback - chasing but no position info
 +allies_nearby(AllyList) : is_chasing(yes)
     <-  .print("Spotted allies but no position info to share.");
         -allies_nearby(AllyList).
 
 // =============================================================================
+// MESSENGER GOAL (Received request from another patrol)
+// =============================================================================
+
+// Become messenger - store info and navigate to nearest captain
++!become_messenger(pos(X, Y))[source(Sender)] : is_chasing(no) & is_messenger(no)
+    <-  .print("Accepted messenger duty from ", Sender, ". Finding nearest captain.");
+        // Store the position to report
+        -messenger_report_pos(_);
+        +messenger_report_pos(pos(X, Y));
+        // Enter messenger mode
+        -is_messenger(no);
+        +is_messenger(yes);
+        // Stop current intentions
+        .drop_intention(patrol);
+        // Navigate to find nearest captain (body computes who)
+        vesna.transition_to("Patrol", [target("find_captain")]).
+
+// Can't become messenger - already chasing
++!become_messenger(pos(X, Y))[source(Sender)] : is_chasing(yes)
+    <-  .print("Can't be messenger - I'm already chasing the player!");
+        .send(Sender, tell, messenger_rejected(busy_chasing)).
+
+// Can't become messenger - already a messenger
++!become_messenger(pos(X, Y))[source(Sender)] : is_messenger(yes)
+    <-  .print("Can't be messenger - I'm already on a messenger mission!");
+        .send(Sender, tell, messenger_rejected(already_messenger)).
+
+// Messenger goal failure
+-!become_messenger(Pos)[source(Sender)]
+    <-  .print("Failed to become messenger. Resuming patrol.");
+        -is_messenger(_);
+        +is_messenger(no);
+        -messenger_report_pos(_);
+        +messenger_report_pos(none);
+        vesna.transition_to("Patrol", [target("resume")]);
+        !patrol.
+
+// =============================================================================
+// MESSENGER ARRIVAL (Reached captain, deliver message)
+// =============================================================================
+
+// Arrived at captain - deliver the message
++navigation(reached_agent, Captain) : is_messenger(yes) & messenger_report_pos(pos(X, Y))
+    <-  .print("Reached captain ", Captain, ". Reporting player at ", X, ",", Y);
+        -navigation(reached_agent, Captain);
+        // Deliver message to captain
+        .send(Captain, tell, player_spotted_at(X, Y));
+        .print("Message delivered. Returning to patrol duty.");
+        // Clear messenger state
+        -is_messenger(yes);
+        +is_messenger(no);
+        -messenger_report_pos(pos(X, Y));
+        +messenger_report_pos(none);
+        -messenger_target(_);
+        +messenger_target(none);
+        // Resume patrol
+        vesna.transition_to("Patrol", [target("resume")]);
+        !patrol.
+
+// Arrived at agent but not in messenger mode - ignore
++navigation(reached_agent, Agent) : is_messenger(no)
+    <-  .print("Arrived at ", Agent, " (not messenger, ignoring)");
+        -navigation(reached_agent, Agent).
+
+// No captain found (body couldn't find one)
++navigation(no_captain_found, _) : is_messenger(yes)
+    <-  .print("No captain nearby! Aborting messenger mission.");
+        -navigation(no_captain_found, _);
+        -is_messenger(yes);
+        +is_messenger(no);
+        -messenger_report_pos(_);
+        +messenger_report_pos(none);
+        vesna.transition_to("Patrol", [target("resume")]);
+        !patrol.
+
+// Target agent was lost/destroyed during navigation
++navigation(agent_lost, _) : is_messenger(yes)
+    <-  .print("Target captain lost! Aborting messenger mission.");
+        -navigation(agent_lost, _);
+        -is_messenger(yes);
+        +is_messenger(no);
+        -messenger_report_pos(_);
+        +messenger_report_pos(none);
+        -messenger_target(_);
+        +messenger_target(none);
+        vesna.transition_to("Patrol", [target("resume")]);
+        !patrol.
+
+// Agent lost but not in messenger mode - just ignore
++navigation(agent_lost, _) : is_messenger(no)
+    <-  .print("Agent lost (not messenger, ignoring)");
+        -navigation(agent_lost, _).
+
+// =============================================================================
 // ALERT RESPONSE (From other agents)
 // =============================================================================
+
+// Messenger receives alert - drop messenger mission and respond
++player_spotted_at(X, Y)[source(Sender)] : is_messenger(yes)
+    <-  .print("ALERT from ", Sender, " while on messenger duty! Dropping mission.");
+        -player_spotted_at(X, Y)[source(Sender)];
+        // Clear messenger state
+        -is_messenger(yes);
+        +is_messenger(no);
+        -messenger_report_pos(_);
+        +messenger_report_pos(none);
+        -messenger_target(_);
+        +messenger_target(none);
+        // Respond to alert
+        .drop_all_intentions;
+        +last_player_pos(X, Y);
+        -responding_to_alert(no);
+        +responding_to_alert(yes);
+        vesna.transition_to("Patrol", [target(coords(X, Y))]).
 
 // Already chasing - just update position
 +player_spotted_at(X, Y)[source(Sender)] : is_chasing(yes)

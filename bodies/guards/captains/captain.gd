@@ -12,7 +12,3 @@ func react_to_player() -> void:
 	# 2. Standard Sight Report
 	vesna.send_sight_with_position("player", 
 	target_player.get_instance_id(), target_player.global_position)
-	
-	# 3. EXTRA: Trigger the 'Alert' signal (Just like Sentry)
-	# This tells the Mind to broadcast "player_spotted_at" to everyone else.
-	vesna.send_signal("alert", "triggered", "Captain spotted player")

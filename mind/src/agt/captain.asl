@@ -234,12 +234,12 @@ responding_to_alert(no).
         vesna.transition_to("Chase", [patience(20)]).
 
 // =============================================================================
-// RECEIVING ALERTS (From sentries/patrols)
+// RECEIVING ALERTS (From sentries/patrols/messengers)
 // =============================================================================
 
-// Already chasing - just update position
+// Already chasing - acknowledge but continue chase (message from messenger)
 +player_spotted_at(X, Y)[source(Sender)] : is_chasing(yes)
-    <-  .print("ALERT from ", Sender, " acknowledged. Updating target.");
+    <-  .print("ALERT from ", Sender, " acknowledged. I'm already engaged!");
         -player_spotted_at(X, Y)[source(Sender)];
         +last_player_pos(X, Y).
 
@@ -248,15 +248,19 @@ responding_to_alert(no).
     <-  .print("ALERT from ", Sender, " - updating intercept coordinates.");
         -player_spotted_at(X, Y)[source(Sender)];
         +last_alert_pos(X, Y);
+        // Re-broadcast to ensure everyone knows
+        .broadcast(tell, player_spotted_at(X, Y));
         vesna.transition_to("Patrol", [target(coords(X, Y))]).
 
-// New alert - interrupt patrol and investigate (minimal fear for captain)
+// New alert - interrupt patrol, broadcast to all, and respond (from messenger/sentry)
 @alert_received[effects([fear(0.03)])]
 +player_spotted_at(X, Y)[source(Sender)] : is_chasing(no) & responding_to_alert(no)
-    <-  .print("ALERT received from ", Sender, "! Redirecting to (", X, ", ", Y, ")");
+    <-  .print("ALERT received from ", Sender, "! Broadcasting and redirecting to (", X, ", ", Y, ")");
         -player_spotted_at(X, Y)[source(Sender)];
         -responding_to_alert(no);
         +responding_to_alert(yes);
+        // Broadcast alert to all agents
+        .broadcast(tell, player_spotted_at(X, Y));
         .drop_all_intentions;
         +last_alert_pos(X, Y);
         vesna.transition_to("Patrol", [target(coords(X, Y))]).
@@ -266,7 +270,7 @@ responding_to_alert(no).
 // =============================================================================
 
 // Multiple failures increase frustration (but less than patrols)
-@target_lost_repeated[effects([fear(0.04)])]
+@target_lost_repeated[effects([fear(0.1)])]
 +target_lost(pos(X, Y), Reason) : consecutive_failures(N) & N > 2
     <-  .print("Lost contact at (", X, ", ", Y, "). This is getting frustrating.");
         -target_lost(pos(X, Y), Reason);

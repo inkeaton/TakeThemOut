@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://b4tjlc72bl10f"]
+
+[ext_resource type="Script" uid="uid://c3ei67xigdetr" path="res://stages/chat/chat_interface.gd" id="1_7b7ue"]
+
+[node name="ChatInterface" type="Control" unique_id=394792516]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_7b7ue")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1694371376]
+layout_mode = 0
+offset_right = 472.0
+offset_bottom = 354.0
+
+[node name="ChatLog" type="RichTextLabel" parent="VBoxContainer" unique_id=744961412]
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="InputBox" type="LineEdit" parent="VBoxContainer" unique_id=578774240]
+layout_mode = 2
+
+[node name="SendButton" type="Button" parent="VBoxContainer" unique_id=283956339]
+layout_mode = 2
+
+[node name="RasaRequest" type="HTTPRequest" parent="." unique_id=1999268383]

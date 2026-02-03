@@ -45,6 +45,7 @@ folder_colors={
 player=""
 guards=""
 waypoints=""
+captains=""
 
 [input]
 

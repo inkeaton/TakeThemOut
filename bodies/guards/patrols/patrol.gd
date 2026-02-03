@@ -19,6 +19,10 @@ var last_detection_time: int = 0
 # When true, patrol is in Chase/Track mode - some commands may be blocked
 var is_chasing: bool = false
 
+# --- Messenger State ---
+# When true, patrol is acting as a messenger to inform captain
+var is_messenger: bool = false
+
 # --- Nodes ---
 @onready var state_machine: StateMachine = $StateMachine
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
@@ -263,3 +267,31 @@ func scan_for_chase_allies() -> void:
 	if not ally_names.is_empty():
 		Messages.print_message("Found available patrol allies: %s" % str(ally_names), "Patrol")
 		vesna.send_allies_found(ally_names)
+
+# --- Captain Discovery (for messenger coordination) ---
+
+## Finds the nearest captain by searching the scene tree.
+## Returns the name of the closest captain, or empty string if none found.
+func find_nearest_captain() -> String:
+	var captains = get_tree().get_nodes_in_group("captains")
+	
+	if captains.is_empty():
+		return ""
+	
+	var nearest_captain: Node2D = null
+	var nearest_distance: float = INF
+	
+	for captain in captains:
+		if not captain is Node2D:
+			continue
+		
+		var dist = global_position.distance_to(captain.global_position)
+		if dist < nearest_distance:
+			nearest_distance = dist
+			nearest_captain = captain
+	
+	if nearest_captain:
+		Messages.print_message("Nearest captain: %s (%.1f units)" % [nearest_captain.name, nearest_distance], "Patrol")
+		return nearest_captain.name
+	
+	return ""

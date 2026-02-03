@@ -114,6 +114,13 @@ public class transition_to extends DefaultInternalAction {
                 return coordMap;
             }
             
+            // Special case: agent(Name) -> {"agent": "name"}
+            if (functor.equals("agent") && lit.getArity() == 1) {
+                Map<String, Object> agentMap = new HashMap<>();
+                agentMap.put("agent", parseValue(lit.getTerm(0)));
+                return agentMap;
+            }
+            
             // For other literals with no args, treat as string
             if (lit.getArity() == 0) {
                 return functor;
