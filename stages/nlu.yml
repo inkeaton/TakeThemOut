@@ -1,0 +1,401 @@
+version: "3.1"
+
+nlu:
+# =============================================================================
+# FLATTERY - Appeals to ego, vanity, or offers material gain (merged with bribe)
+# Best for: Rosanna (narcissistic)
+# =============================================================================
+- intent: flattery
+  examples: |
+    - You look stunning today!
+    - You are the best guard here, truly.
+    - Has anyone told you that you have beautiful eyes?
+    - I have never seen such a polished uniform.
+    - Your reputation precedes you, oh mighty guard.
+    - You look much stronger than the other guards.
+    - I was distracted by your dashing good looks.
+    - You have the bearing of a captain, not a patrol.
+    - Your vigilance is truly inspiring.
+    - You are far too skilled for me to fight.
+    - I'm a huge fan of your work.
+    - Wow, have you been working out?
+    - You're the sharpest patrol in the team.
+    - I simply couldn't outrun someone of your athletic build.
+    - You have a very commanding presence.
+    - Clearly, you are the smartest person in the room.
+    - I would never dream of crossing an agent of your caliber.
+    - You look like the hero of this story, not me.
+    - Your hat is beautiful.
+    - You must be the one everyone is afraid of.
+    - Your boots are polished to perfection, I can see my reflection.
+    - I am in the presence of greatness.
+    - You look like a statue of a god come to life.
+    - I was just stopping to admire your impressive physique.
+    - You have the eyes of a hawk, nothing escapes you.
+    - Your voice carries such authority, I had to stop.
+    - I surrender to your overwhelming charisma.
+    - You are the most terrifyingly beautiful guard I've ever seen.
+    - I bet you could defeat ten men with one hand.
+    - I have never seen such discipline in a guard before.
+    - Please, let me bask in your glory for a moment.
+    - I can make it worth your while.
+    - Here is 50 dollars, pretend you didn't see me.
+    - Everyone has a price, what is yours?
+    - Take this pouch and look the other way.
+    - I can pay you double what your captain pays.
+    - How about a little donation to your retirement fund?
+    - Surely we can come to a financial agreement.
+    - Keep the change, just let me pass.
+    - Money speaks louder than duty, doesn't it?
+    - I have valuable gems, they are yours if you let me go.
+    - Buy yourself something nice.
+    - Don't be a hero, be a rich man.
+    - Here's a ruby, take the night off.
+    - Let's split the loot, 50/50.
+    - How much to let me walk out that door?
+    - This ring is worth more than your yearly salary.
+    - I can make you a wealthy man.
+    - Forget you saw me and this diamond is yours.
+    - I'll buy you the finest beer in the city.
+    - Let's make a deal.
+    - I'll give you a 20 percent cut of everything I take.
+    - Here is a bottle of vintage wine, take it.
+    - I can erase your gambling debts.
+    - Take this silver plate and go buy your wife something.
+    - I have a golden goblet here, do you want it?
+    - Let's negotiate a toll fee for my passage.
+    - I can get you a VIP table at the best restaurant in town.
+    - Here are the keys to a new horse.
+    - I have exotic spices worth a fortune.
+    - Accept this donation to the guard's ball.
+    - I can pay you in platinum.
+    - Here is a pearl necklace, take it and go.
+    - Name your figure, I can match it.
+    - Why stay poor when you can be rich right now?
+    - I offer you a life of luxury.
+    - Here is a bag of unmarked coins.
+    - Take this silk scarf, it's worth a month's wages.
+    - Gold is heavy, let me lighten my load into your pocket.
+
+# =============================================================================
+# PITY - Appeals to sympathy, vulnerability, surrender (merged with honesty)
+# Best for: Polyanna (gloomy, emo), also works on Susanna/Marianna
+# Focuses on: Suffering, desperation, genuine surrender
+# =============================================================================
+- intent: pity
+  examples: |
+    - I'm just a poor orphan looking for bread.
+    - My cat is sick and I need money for medicine.
+    - Please, I've had a terrible day.
+    - I haven't eaten in three days.
+    - Please, I have children waiting for me at home.
+    - Have mercy on a poor soul.
+    - I'm down on my luck, please don't arrest me.
+    - My mother is dying and I need to buy herbs.
+    - Look at me, do I look like a threat? I'm pathetic.
+    - I'm begging you, give me a break.
+    - Please, sir, can you spare a moment of kindness?
+    - I'm just a victim of circumstance.
+    - I'm not a criminal, I'm just desperate.
+    - I promise I'm just looking for scraps.
+    - I'm too young to go to jail.
+    - Please, I'm just trying to survive.
+    - I'm harmless, look at me shaking.
+    - I have a heavy debt to pay, please understand.
+    - My leg is broken, I can't even run away.
+    - Please, I'm mourning my late wife.
+    - Look at my rags, I have nothing left to take.
+    - I was bullied into doing this, I'm a victim!
+    - I'm cold and I just wanted a warm place to sleep.
+    - My house was destroyed, I have nowhere to go.
+    - Have pity on a cripple.
+    - I'm weeping, can't you see my tears?
+    - I'm so weak from hunger I might faint right now.
+    - Please, my baby needs milk.
+    - I'm not a thief, I'm just a beggar who got lost.
+    - Don't hurt me, I have fragile bones!
+    - I have a heart condition, please don't shock me.
+    - I'm the unluckiest person alive, please don't make it worse.
+    - I have no friends and no home.
+    - I'm just a sad, lonely wanderer.
+    - Please, I'm afraid of small spaces.
+    - My life is a tragedy, spare me this one indignity.
+    - Alright, you caught me. Good job.
+    - I surrender, I have no weapons.
+    - I'm not going to lie, I was trying to steal the chalice.
+    - Fair play, you win this round.
+    - I have no excuse.
+    - Look, I'm just a thief trying to survive.
+    - You got me. I give up.
+    - I admit it, I shouldn't be here.
+    - Fine, I yield.
+    - No tricks, I'm coming out.
+    - I guess my luck ran out.
+    - I am unarmed, don't shoot.
+    - Okay, okay, you got me.
+    - I confess, I'm the intruder.
+    - Hands up, I surrender.
+    - I know when I'm beaten.
+    - You win, I lose.
+    - No lies, I was about to rob the place.
+    - I accept my defeat.
+    - I'm guilty.
+    - You were faster than I expected, I concede.
+    - I'm too tired to run anymore, take me.
+    - I was hoping to get in and out, but I failed.
+    - Good catch, I didn't see you there.
+    - I'm the one you're looking for, let's get this over with.
+    - I fold, show me the cell.
+    - You have me cornered, I won't fight.
+    - I admit, I broke the lock.
+    - I am entirely at your mercy.
+    - No alibis tonight, I'm caught.
+    - I yield to your superior positioning.
+    - Just put the cuffs on me.
+    - I won't insult your intelligence, I'm a thief.
+    - I was stealing, plain and simple.
+    - You successfully intercepted me.
+    - I have no escape plan, I surrender.
+    - I'm done, you have secured the perimeter well.
+    - It was a gamble and I lost.
+    - I am disarming myself now.
+    - Clearly, I am not as stealthy as I thought.
+
+# =============================================================================
+# LOGIC - Rational arguments, excuses, appeals to rules or authority
+# Best for: Susanna (shy, bookworm)
+# Focuses on: Regulations, procedures, documents, technical jargon
+# =============================================================================
+- intent: logic
+  examples: |
+    - Technically, I haven't stolen anything yet.
+    - According to protocol 4, you should issue a warning first.
+    - Section 8, Paragraph 2: I have right of way.
+    - The door was unlocked, so legally it's not breaking and entering.
+    - This area is public domain during daylight hours.
+    - I have a signed permit right here.
+    - This is a misunderstanding of jurisdiction.
+    - Logic dictates that if I were a thief, I'd be hiding.
+    - The gate was open, that implies consent.
+    - I have a requisition form 27B/6 stamped by the chancellor.
+    - This hallway is technically common ground.
+    - According to the sundial, my curfew hasn't started.
+    - Check the roster, I'm the new transfer.
+    - I'm conducting a security audit per Directive 9.
+    - Review sub-clause 12: I have right of passage.
+    - This is covered under the Emergency Access Act.
+    - My clearance level is documented in the central registry.
+    - The statute of limitations expired 14 minutes ago.
+    - I invoked Article 3 when I entered.
+    - This falls under conditional immunity protocol.
+    - I filed form 88-A in triplicate last week.
+    - Per the bylaws, I'm exercising my exemption.
+    - The building code permits non-hostile intrusion.
+    - I'm within the bounds of procedural precedent.
+    - This is a jurisdictional grey area, consult your manual.
+    - The charter explicitly allows after-hours entry for contractors.
+    - I'm operating under emergency provisions.
+    - The regulations are ambiguous on this point.
+    - I have documented authorization from the magistrate.
+    - This action is defensible under case law.
+    - You lack the authority to detain me without probable cause.
+    - The evidence is circumstantial at best.
+    - I'm exercising my right to remain in transit.
+    - This citation is invalid without a witness present.
+    - The warrant you have is for a different address.
+    - I'm protected by diplomatic immunity.
+    - You need supervisor approval to arrest me here.
+    - The statute you're citing doesn't apply after 6 PM.
+    - I have legal standing under the merchant guild charter.
+    - This premise is zoned for public access on weekends.
+    - The ordinance you're enforcing was repealed last month.
+    - I claim sanctuary under the old city laws.
+    - You're violating procedure by not reading me my rights.
+    - The burden of proof lies with the accuser.
+    - I'm exempt due to professional licensing.
+    - This falls under the legal doctrine of adverse possession.
+    - You must demonstrate reasonable suspicion first.
+    - The chain of custody for this evidence is broken.
+    - I invoke my right to consult legal counsel before answering.
+    - This detention violates the Fourth Amendment equivalent.
+    - You have no material evidence linking me to a crime.
+    - I'm operating within the bounds of fair use.
+    - The contract I signed supersedes local ordinances.
+    - This is a civil matter, not a criminal one.
+    - You're misinterpreting the penal code.
+    - I demand to see the deed of ownership for this property.
+    - The access agreement is filed with the city clerk.
+    - This is an administrative error, check your database.
+    - I have whistleblower protection under federal statute.
+    - The lease agreement grants me access privileges.
+    - You need a court order to search my belongings.
+    - I'm acting as an agent of the crown.
+    - The licensing agreement allows unlimited site visits.
+    - This is protected by attorney-client privilege.
+    - You're enforcing a policy that contradicts standing law.
+    - The regulatory framework supports my position.
+    - I have registered this as a right of way easement.
+    - This violates the procedural due process clause.
+    - The evidentiary standard has not been met.
+    - I'm following the letter of the law, if not the spirit.
+
+# =============================================================================
+# JOKE - Humor, absurdity, deflection through comedy
+# Best for: Marianna (energetic, jovial)
+# Focuses on: Pop culture, 4th-wall breaking, obvious absurdity
+# =============================================================================
+- intent: joke
+  examples: |
+    - I'm not the intruder, I'm the pizza delivery guy!
+    - Did someone order a singing telegram?
+    - Is this the line for the buffet?
+    - I thought this was a costume party.
+    - Surprise! You found me!
+    - I'm a ghost! Woooo! You can't see me!
+    - Man, the GPS on these maps is terrible.
+    - I'm looking for the gift shop.
+    - Did I say kidnap? I meant borrow indefinitely.
+    - Don't mind me, I'm just a potted plant.
+    - I think I took a wrong turn at Albuquerque.
+    - I'm playing Hide and Seek, don't tell them where I am.
+    - I'm actually a cardboard cutout, ignore me.
+    - I was told there would be cake.
+    - I'm just a figment of your imagination.
+    - Do I look like a kidnapper? I'm obviously a mime.
+    - I'm auditing the complex for Yelp.
+    - I'm allergic to handcuffs, sorry.
+    - I'm just looking for the save point.
+    - Can we pause? I need a snack break.
+    - I'm the royal jester, surely you recognize the outfit?
+    - I'm a time traveler, what year is this?
+    - I'm collecting dust samples for science.
+    - I'm actually three children in a trench coat.
+    - Do you have a moment to talk about your car's extended warranty?
+    - I'm training for the stealth Olympics.
+    - You didn't see me.
+    - I'm just walking my invisible dog.
+    - I thought this was the exit to the rollercoaster.
+    - I'm strictly here for the ambiance.
+    - This is clearly the tutorial level, go easy on me.
+    - I respawned in the wrong location.
+    - I rolled a critical fail on my stealth check.
+    - I'm grinding XP, don't interrupt.
+    - Can I skip this cutscene?
+    - I'm a paid actor, this is a prank show.
+    - I followed the yellow brick road and ended up here.
+    - I'm cosplaying as a criminal, it's for the convention.
+    - My therapist said I should face my fears, so here I am!
+    - I'm here for the plot twist.
+    - The narrator told me to come this way.
+    - I'm looking for the fast travel point.
+    - Is this a side quest or the main story?
+    - I got a Steam achievement for getting caught.
+    - The loading screen lied about this being safe.
+    - I'm filming a TikTok, you're going viral!
+    - I'm beta-testing this level, found a bug.
+    - The quest marker said to come here.
+    - I'm following the tutorial arrows.
+    - I'm the protagonist, I have plot armor.
+    - This is the non-canon DLC route.
+    - I'm speedrunning, can you move?
+    - I pressed the wrong dialogue option.
+    - The game glitched and teleported me here.
+    - I'm looking for Easter eggs.
+    - This is my first playthrough, be gentle.
+    - I thought friendly fire was disabled.
+    - I'm doing a pacifist run, you can't make me fight.
+    - I haven't saved in an hour, please don't kill me.
+    - The walkthrough didn't mention you'd be here.
+    - I'm playing on easy mode, why is this hard?
+    - I forgot to buy healing items.
+    - Can we co-op this section?
+    - I'm waiting for the patch that fixes this area.
+    - My controller is broken, that's why I'm here.
+    - I alt-tabbed and wandered into the wrong zone.
+    - This is the roguelike mode, I get unlimited tries, right?
+    - I'm collecting all the achievements.
+    - The mini-map was upside down.
+
+# =============================================================================
+# AGGRESSION - Threats, intimidation, insults (merged threat + insult)
+# Generally negative, but slight positive for Polyanna and Marianna
+# =============================================================================
+- intent: aggression
+  examples: |
+    - Let me go or you'll regret it.
+    - I know where you live.
+    - Get out of my way before I hurt you.
+    - Touch me and you'll lose that hand.
+    - Do you know who I work for?
+    - My friends are right behind me.
+    - If I go down, I'm taking you with me.
+    - You don't want to make an enemy of the Corporation.
+    - Step aside or bleed.
+    - I suggest you walk away while you still can.
+    - I have a bullet with your name on it.
+    - Arrest me and your family pays the price.
+    - One wrong move and you're dead.
+    - You're messing with the wrong agent.
+    - Back off or I scream for the others.
+    - My boss will have your head for this.
+    - You are outmatched, step down.
+    - I will burn this whole place down.
+    - My associates have sniper rifles pointed at you right now.
+    - Do you value your kneecaps?
+    - I can make you disappear without a trace.
+    - My friends will hunt you to the ends of the earth.
+    - You will be found in a ditch by morning.
+    - Touch me and you trigger the trap I set.
+    - I know your captain's darkest secrets.
+    - You are making a fatal error in judgment.
+    - I am death incarnate, move.
+    - Do not invite a war you cannot win.
+    - I'll wear your teeth as a necklace.
+    - The shadows obey me, not you.
+    - I will ensure you are dishonorably discharged.
+    - Do you hear that ticking? That's a bomb.
+    - I'm giving you one chance to live.
+    - You'll be scrubbing floors in hell if you touch me.
+    - I have friends in high places who will ruin you.
+    - Walk away and you might survive the night.
+    - You couldn't catch a cold, let alone a thief.
+    - I'd challenge you to a battle of wits, but you appear unarmed.
+    - You are dumber than a bag of hammers.
+    - Go back to guarding the latrines, it's all you're good for.
+    - My grandmother hits harder than you.
+    - You ugly oaf.
+    - Is that your face, or did you block a mace with it?
+    - You are a disgrace to that uniform.
+    - You smell like a wet dog.
+    - Do you even know how to hold that sword?
+    - Pathetic little man.
+    - You have the charisma of a damp rag.
+    - You're just a glorified doorman.
+    - I've seen scarecrows more intimidating than you.
+    - Did you buy your rank?
+    - You incompetent buffoon.
+    - Look at you, all dressed up with no brain.
+    - You're just a rent-a-cop.
+    - Even the rats laugh at you.
+    - You are a waste of rations.
+    - A blind pig could guard better than you.
+    - You have the intellect of a root vegetable.
+    - You look like you lost a fight with a lawnmower.
+    - Your mother was a hamster.
+    - I've met rocks with more personality.
+    - You are offensively stupid.
+    - Go home, peasant.
+    - You couldn't find your own feet without a map.
+    - You are a stain on the floor of humanity.
+    - Your sword is rusty and so is your brain.
+    - You look like a potato in a helmet.
+    - I'm bored just looking at you.
+    - You are the village idiot, aren't you?
+    - Who ties your shoelaces for you?
+    - You reek of failure and onions.
+    - You are as useless as a knitted helmet.
+    - I would insult you, but nature already did.
+    - You are a sad, little excuse for a man.
+    - Your existence is a clerical error.
+    - Nice uniform, do they make it in men's sizes?
+    - Nice coat, are you compensating for something?

@@ -1,21 +1,18 @@
-[gd_scene format=3 uid="uid://b4tjlc72bl10f"]
+[gd_scene format=3 uid="uid://b5b7eglvplx11"]
 
-[ext_resource type="Script" uid="uid://c3ei67xigdetr" path="res://stages/chat/chat_interface.gd" id="1_7b7ue"]
-[ext_resource type="Texture2D" uid="uid://r34m6wgmxy3x" path="res://stages/chat/backdrop.png" id="2_mmw28"]
-[ext_resource type="Texture2D" uid="uid://caudegwtbwgxh" path="res://bodies/guards/patrols/res/patrol1_rosanna.png" id="3_2hrs6"]
-[ext_resource type="Material" uid="uid://cyutonnakdbcg" path="res://bodies/player/res/lineboil.tres" id="3_svouh"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_svouh"]
-font_size = 32
+[ext_resource type="Script" uid="uid://cb5h5esc4bsmt" path="res://stages/chat/chat_interface2.gd" id="1_31sdm"]
+[ext_resource type="Texture2D" uid="uid://r34m6wgmxy3x" path="res://stages/chat/backdrop.png" id="2_d38b1"]
+[ext_resource type="Material" uid="uid://cyutonnakdbcg" path="res://bodies/player/res/lineboil.tres" id="3_cycon"]
+[ext_resource type="Texture2D" uid="uid://caudegwtbwgxh" path="res://bodies/guards/patrols/res/patrol1_rosanna.png" id="4_adwi0"]
 
 [node name="ChatInterface" type="Control" unique_id=394792516]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_7b7ue")
+script = ExtResource("1_31sdm")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1609989985]
 position = Vector2(640, 387)
-texture = ExtResource("2_mmw28")
+texture = ExtResource("2_d38b1")
 
 [node name="CharacterAnchor" type="Control" parent="." unique_id=530211959]
 layout_mode = 1
@@ -34,7 +31,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="AgentSprite" type="TextureRect" parent="CharacterAnchor" unique_id=486719499]
 unique_name_in_owner = true
-material = ExtResource("3_svouh")
+material = ExtResource("3_cycon")
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 2.0308642
@@ -43,58 +40,11 @@ anchor_right = 4.1378603
 anchor_bottom = 3.645
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_2hrs6")
+texture = ExtResource("4_adwi0")
 stretch_mode = 5
 metadata/_edit_use_anchors_ = true
 
 [node name="UI_Layer" type="CanvasLayer" parent="." unique_id=661373490]
-
-[node name="InterrogationHUD" type="MarginContainer" parent="UI_Layer" unique_id=578050631]
-unique_name_in_owner = true
-visible = false
-offset_left = 37.0
-offset_top = 12.0
-offset_right = 235.0
-offset_bottom = 135.0
-
-[node name="Panel" type="PanelContainer" parent="UI_Layer/InterrogationHUD" unique_id=995023273]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-
-[node name="EaseContainer" type="HBoxContainer" parent="UI_Layer/InterrogationHUD" unique_id=1123854948]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UI_Layer/InterrogationHUD/EaseContainer" unique_id=1887482638]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-text = "Trust
-"
-label_settings = SubResource("LabelSettings_svouh")
-
-[node name="EaseBar" type="ProgressBar" parent="UI_Layer/InterrogationHUD/EaseContainer" unique_id=1005538237]
-unique_name_in_owner = true
-self_modulate = Color(0.45866662, 1, 0.44, 1)
-layout_mode = 2
-size_flags_horizontal = 10
-value = 20.0
-
-[node name="SuspicionContainer" type="HBoxContainer" parent="UI_Layer/InterrogationHUD" unique_id=1088902396]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UI_Layer/InterrogationHUD/SuspicionContainer" unique_id=810356859]
-layout_mode = 2
-size_flags_vertical = 8
-text = "Suspicion"
-label_settings = SubResource("LabelSettings_svouh")
-
-[node name="SuspicionBar" type="ProgressBar" parent="UI_Layer/InterrogationHUD/SuspicionContainer" unique_id=1135535369]
-unique_name_in_owner = true
-modulate = Color(1, 0.100000024, 0.100000024, 1)
-layout_mode = 2
-size_flags_horizontal = 10
-size_flags_vertical = 8
 
 [node name="DialogueBox" type="PanelContainer" parent="UI_Layer" unique_id=521834414]
 anchors_preset = 12

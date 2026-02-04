@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://da1oo3bsyfw43"]
+
+[ext_resource type="PackedScene" uid="uid://b4tjlc72bl10f" path="res://stages/chat/chat_interface.tscn" id="1_7slsg"]
+[ext_resource type="Script" uid="uid://dho8y7hn6371" path="res://stages/chat/debug_chat.gd" id="1_avhhd"]
+
+[node name="debug_chat" type="Node2D" unique_id=1362188876]
+script = ExtResource("1_avhhd")
+
+[node name="ChatInterface" parent="." unique_id=394792516 instance=ExtResource("1_7slsg")]
+
+[node name="BtnSusanna" type="Button" parent="." unique_id=736900276]
+offset_left = 1075.0
+offset_top = 263.0
+offset_right = 1244.0
+offset_bottom = 321.0
+text = "Switch to Susanna"
+
+[node name="BtnRosanna" type="Button" parent="." unique_id=2815418]
+offset_left = 1065.0
+offset_top = 334.0
+offset_right = 1243.0
+offset_bottom = 402.0
+text = "Switch to Rosanna
+"
+
+[node name="BtnPolyanna" type="Button" parent="." unique_id=1483110524]
+offset_left = 1078.0
+offset_top = 186.0
+offset_right = 1249.0
+offset_bottom = 246.0
+text = "Switch to Polyanna
+"
+
+[node name="BtnMarianna" type="Button" parent="." unique_id=728163784]
+offset_left = 1086.0
+offset_top = 119.0
+offset_right = 1248.0
+offset_bottom = 172.0
+text = "Switch to Marianna"
+
+[node name="BtnEugenia" type="Button" parent="." unique_id=783397635]
+offset_left = 1063.0
+offset_top = 420.0
+offset_right = 1241.0
+offset_bottom = 493.0
+text = "Switch to Eugenia 
+(DATE MODE)
+"
