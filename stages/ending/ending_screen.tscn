@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://ctrhvihluc8qt"]
+
+[ext_resource type="Script" uid="uid://cvi7b42qr41l7" path="res://stages/ending/ending_screen.gd" id="1_wwstc"]
+[ext_resource type="Texture2D" uid="uid://r34m6wgmxy3x" path="res://stages/chat/backdrop.png" id="2_05q4g"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_n3os0"]
+font_size = 90
+
+[sub_resource type="LabelSettings" id="LabelSettings_b1iun"]
+font_size = 40
+
+[node name="EndingScreen" type="Control" unique_id=243802305]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wwstc")
+
+[node name="Backdrop" type="Sprite2D" parent="." unique_id=1894975217]
+position = Vector2(634, 366)
+texture = ExtResource("2_05q4g")
+
+[node name="TitleLabel" type="Label" parent="." unique_id=813215982]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 138.0
+offset_top = 131.0
+offset_right = 1163.0
+offset_bottom = 313.0
+text = "YOU WIN!"
+label_settings = SubResource("LabelSettings_n3os0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DetailsLabel" type="Label" parent="." unique_id=584869565]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 138.0
+offset_top = 297.0
+offset_right = 1163.0
+offset_bottom = 479.0
+text = "You're Cool!"
+label_settings = SubResource("LabelSettings_b1iun")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuitButton" type="Button" parent="." unique_id=1258332235]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 531.0
+offset_top = 539.0
+offset_right = 770.0
+offset_bottom = 618.0
+text = "Quit Game"

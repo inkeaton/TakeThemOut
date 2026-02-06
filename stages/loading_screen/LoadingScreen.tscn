@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://bi7kkgv08wr0o"]
+
+[ext_resource type="Script" uid="uid://yr8u6q8hk5rv" path="res://stages/loading_screen/loading_screen.gd" id="1_4723l"]
+[ext_resource type="Texture2D" uid="uid://r34m6wgmxy3x" path="res://stages/chat/backdrop.png" id="1_afbuh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_afbuh"]
+font_size = 35
+
+[node name="LoadingScreen" type="Control" unique_id=1396641477]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4723l")
+
+[node name="Backdrop" type="Sprite2D" parent="." unique_id=1794429081]
+position = Vector2(645, 360)
+texture = ExtResource("1_afbuh")
+
+[node name="StatusLabel" type="Label" parent="." unique_id=957375034]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 295.0
+offset_top = 167.0
+offset_right = 976.0
+offset_bottom = 267.0
+text = "Connecting To AI Agents..."
+label_settings = SubResource("LabelSettings_afbuh")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=817767889]
+layout_mode = 0
+offset_left = 285.0
+offset_top = 495.0
+offset_right = 948.0
+offset_bottom = 522.0

@@ -1,6 +1,10 @@
 extends CharacterBody2D
 
 # --- Configuration ---
+@export_group("Identity")
+## Name used in the chat system (e.g. "susanna", "rosanna")
+@export var personality_name: String = ""
+
 @export_group("Movement")
 @export var speed: float = 100.0
 @export var acceleration: float = 100.0
@@ -34,6 +38,7 @@ var is_messenger: bool = false
 # or we can keep a reference here if preferred.
 @onready var scent_cast: ShapeCast2D = $ScentCast
 @onready var ally_scanner: ShapeCast2D = $AllyScanner
+@onready var hand: Area2D = $Hand
 
 # --- Ally Scanning Configuration ---
 @export_group("Ally Scanning")
@@ -48,11 +53,30 @@ func _ready() -> void:
 	# Connect signals
 	nav_agent.velocity_computed.connect(_on_velocity_computed)
 	
-	# 2. Initialize Brain
+	# 2. Connect Hand (catching) Area2D
+	hand.body_entered.connect(_on_hand_body_entered)
+	
+	# 3. Initialize Brain
 	# Pass "self" so states can access our variables
 	state_machine.init(self, nav_agent, vesna)
 	
 	update_debug_label("Initialized")
+
+# --- Catching Mechanic ---
+
+## When the player physically touches the guard's Hand area, trigger an encounter.
+## Only catches during active pursuit (Chase/Track states).
+func _on_hand_body_entered(body: Node2D) -> void:
+	if not body.is_in_group("player"):
+		return
+	
+	# Only catch if actively pursuing
+	if not is_chasing:
+		return
+	
+	var chat_name = personality_name if personality_name != "" else name
+	Messages.print_message("CAUGHT the player! Triggering encounter as '%s'" % chat_name, "Patrol")
+	get_tree().current_scene.trigger_encounter(chat_name)
 
 # --- Physics Loop ---
 

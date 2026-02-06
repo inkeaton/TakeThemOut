@@ -70,4 +70,13 @@ mas vesna {
         port: 9085  // Ensure this matches the port in captain.tscn
     }
 
+    // Need to sync startup and add other properties
+    agent director : ready_agent.asl {
+        ag-class: vesna.VesnaAgent
+        temper:     temper(laziness(0.1), aggressiveness(0.8))
+        strategy:   most_similar
+        address: localhost
+        port: 9200
+    }
+
 }

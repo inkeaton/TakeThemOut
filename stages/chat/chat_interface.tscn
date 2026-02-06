@@ -135,7 +135,17 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
-[node name="SendButton" type="Button" parent="UI_Layer/DialogueBox/MarginContainer/VBoxContainer/InputArea" unique_id=485607029]
+[node name="ContinueButton" type="Button" parent="UI_Layer/DialogueBox/MarginContainer/VBoxContainer/InputArea" unique_id=485607029]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Continue
+
+"
+
+[node name="SendButton" type="Button" parent="UI_Layer/DialogueBox/MarginContainer/VBoxContainer/InputArea" unique_id=1937810122]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8

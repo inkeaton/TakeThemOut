@@ -15,6 +15,7 @@ var ws := WebSocketPeer.new()
 var _was_open_last_frame : bool = false
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS  # Must keep running while tree is paused
 	if tcp_server.listen(PORT) != OK:
 		Warnings.print_warning("Unable to start server on port " + str(PORT), "NetworkManager")
 		set_process(false)

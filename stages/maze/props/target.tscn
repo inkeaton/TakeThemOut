@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cwc8lwou5bxiy"]
+
+[ext_resource type="Texture2D" uid="uid://cp8m1tryoi72i" path="res://stages/maze/props/target_eugenia.png" id="1_d8e6h"]
+[ext_resource type="Script" uid="uid://b4qq3o2eda67p" path="res://stages/maze/props/target.gd" id="1_script"]
+[ext_resource type="Material" uid="uid://cyutonnakdbcg" path="res://bodies/player/res/lineboil.tres" id="1_smpsk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n7t2p"]
+radius = 269.02972
+
+[node name="Target" type="Area2D" unique_id=1503970670]
+scale = Vector2(0.15, 0.15)
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=191080851]
+position = Vector2(-3, 23)
+shape = SubResource("CircleShape2D_n7t2p")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1220763456]
+material = ExtResource("1_smpsk")
+texture = ExtResource("1_d8e6h")

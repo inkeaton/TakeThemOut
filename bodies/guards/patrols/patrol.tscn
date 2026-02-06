@@ -114,6 +114,9 @@ target_position = Vector2(0, 0)
 collision_mask = 7
 
 [node name="Hand" type="Area2D" parent="." unique_id=35048869]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hand" unique_id=513507528]
 position = Vector2(0, 13.333334)
