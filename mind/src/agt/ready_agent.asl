@@ -10,3 +10,6 @@
    <- .print("MIND IS READY - Sending signal to Godot...");
       vesna.signal_ready;
       .print("Signal sent successfully.").
+
+// Ignore Captain's requests for intel (we have no body/eyes)
++!report_sightings[source(_)].

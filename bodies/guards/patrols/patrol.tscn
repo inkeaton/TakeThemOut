@@ -150,6 +150,7 @@ root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_yh7se")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=45141480]
+path_postprocessing = 1
 avoidance_enabled = true
 radius = 50.0
 debug_enabled = true

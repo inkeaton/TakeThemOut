@@ -6,16 +6,19 @@
 [ext_resource type="PackedScene" uid="uid://62bib23hxt5c" path="res://bodies/guards/patrols/patrol.tscn" id="3_5s84a"]
 [ext_resource type="PackedScene" uid="uid://cv8gsa8vpvj1a" path="res://bodies/guards/sentries/sentry.tscn" id="4_r6spc"]
 [ext_resource type="PackedScene" uid="uid://dgu6wes1oogep" path="res://bodies/guards/captains/captain.tscn" id="5_5we7h"]
+[ext_resource type="Texture2D" uid="uid://csayouo1buwfn" path="res://stages/chat/sprites/patrol1_rosanna.png" id="6_pw6kw"]
+[ext_resource type="Texture2D" uid="uid://do6dujeggi5gw" path="res://stages/chat/sprites/patrol2_susanna.png" id="7_8lvci"]
 [ext_resource type="Texture2D" uid="uid://r34m6wgmxy3x" path="res://stages/chat/backdrop.png" id="8_4ddt3"]
 [ext_resource type="PackedScene" uid="uid://cwc8lwou5bxiy" path="res://stages/maze/props/target.tscn" id="8_v3o7v"]
+[ext_resource type="Texture2D" uid="uid://bxl138q7sho0y" path="res://stages/chat/sprites/patrol3_polyanna.png" id="8_xfp0m"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3fd7v"]
-size = Vector2(34.950012, 3269.7725)
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_4ddt3"]
+vertices = PackedVector2Array(-512.4219, -932.3594, -512.4219, -1221.4375, -425.71875, -1381.2266, -425.71875, -444.27344, 1109.9063, -1607.7109, 1109.9063, 173.78125, 1073.4063, 16.882813, 1073.4063, -38.367188, -226.5, 384.3203, -163.09375, -32.84375, -163.09375, 644.35156, -249.67188, 644.35156, -226.5, 329.0703, 212.07031, 694.8672, 267.35938, 25.476563, 267.35938, 860.7969, 208.47656, 860.7969, 212.07031, 386.10938, 566.90625, 1105.8281, 625.46094, 438.39063, 625.46094, 1274.6016, 563.9922, 1274.6016, 566.90625, 1050.5938, 21.382813, -1018.2578, 21.382813, -31.203125, -36.226563, -190.67969, -36.226563, -497.14844, -438.67188, 1249.5703, -438.67188, 1606.2891, -505.96875, 1473.2734, -505.96875, 1418.0313, 880.8281, 1494.2188, 880.8281, 1438.9688, 945.35156, 1434.2969, 945.35156, 1606.2891, 198.59375, 1606.2891, 441.3828, 1494.2188, -874.8906, -1381.2266, -514.2031, -1221.4531, -839.78906, -1225.7734, -918.21094, 1606.2891, -872.27344, 1473.2734, -918.21094, 1289.7891, -872.27344, 1418.0313, 1029.2188, 1329.8516, 1077.5313, 1431.4063, 949.90625, 1431.4063, 563.9922, 1329.8516, 198.59375, 1480.4531, 368.3828, 1480.4531, -521.0469, 1249.5703, -677.52344, 1418.0313, -126.27344, -31.203125, -126.27344, -32.84375, -73.046875, -190.67969, -779.78906, 1289.7891, -714.3281, 1418.0313, -714.3281, 331.22656, -779.78906, 1234.5469, -770.22656, 809.8672, 887.7422, 173.78125, 887.7422, 172.3125, 752.1328, 16.882813, 850.9297, 172.3125, 752.1328, 835.47656, 850.9297, 699.8828, 935.5469, 835.47656, 887.7422, 699.8828, 935.5469, 400.27344, 887.7422, 229.03125, 1036.0391, 229.03125, 972.3594, 400.27344, 1036.0391, 451.29688, 972.3594, 612.4219, 1065.1094, 612.4219, 1072.8594, 451.29688, 441.3828, 1438.9688, 368.3828, 1425.2031, 159.14844, 25.476563, 175.25781, 386.10938, 159.84375, 137.38281, -918.21094, 1233.8984, -936.9297, 1233.8984, -908.96094, 1015.1875, -944.02344, 995.4922, -1106.3281, 850.59375, -813, 850.59375, -838.8828, 1053, -424.54688, 384.3203, 1032.2813, -1607.7109, 1032.2813, -1320.3828, 432.1172, -1449.8594, 432.1172, -1449.8516, 310.60938, -1449.8594, 235.09375, -1451.2891, -306.90625, -1398.1016, -301.85156, -1398.1016, -301.85156, -1396.0391, -155.57031, -1396.0391, -155.57031, -972.1172, -280.57813, -972.1172, -280.57813, -975.8125, -226.79688, -1159.1328, -317.39063, -975.8125, -317.39063, -972.1172, -318.3828, -972.1172, -388.89844, -1159.1328, -318.3828, -916.8672, -317.39063, -916.8672, -317.39063, -692.4297, -280.57813, -692.4297, -280.57813, -693.15625, -59.03125, -693.15625, -59.03125, -748.40625, -280.57813, -748.40625, -280.57813, -916.8672, -120.34375, -916.8672, -120.34375, -917.46094, -118.75, -917.46094, -118.75, -1396.0391, 121.64844, -1396.0391, 158.46094, -677.40625, 158.46094, -680.27344, 298.35938, -680.27344, 298.35938, -681.47656, 306, -681.47656, 482.46875, -1252.9922, 306, -1252.9922, 306, -1254.7813, 310.60938, -1394.6094, 550.90625, -1394.6094, 269.1797, -1254.8125, 269.1797, -735.52344, 158.46094, -735.52344, 158.46094, -1396.0391, 235.09375, -1396.0391, 158.46094, -1451.2891, 158.46094, -1452.9531, 640.0469, -1607.7109, 121.64844, -1452.9531, 121.64844, -1451.2891, -270.09375, -1451.2891, -270.09375, -1607.7109, 640.0469, -1137.0469, 639.1797, -1137.0469, 587.72656, -1448.2109, 486.85938, -847.59375, 639.1797, -847.59375, 639.1797, -689.6328, 588.65625, -740.1328, 676, -689.6328, 676, -691.8125, 744.0078, -691.8125, 744.0078, -432.54688, 682.5625, -481.3125, 744.2578, -432.54688, 744.2578, -431.3203, 682.5625, -426.0625, 883.5703, -431.3203, 883.5703, -430.27344, 920.3828, -430.27344, 920.3828, -431.3203, 920.46094, -431.3203, 991.8125, -285.8828, 920.46094, -486.5703, 920.3828, -486.5703, 920.3828, -958.8594, 883.5703, -958.8594, 883.5703, -957.78125, 749.65625, -957.78125, 749.65625, -902.53125, 883.5703, -902.53125, 883.5703, -486.5703, 780.8281, -747.65625, 780.8281, -486.5703, 744.0078, -747.65625, 676, -1106.4063, 744.0078, -747.0625, 676, -747.0625, 676.8672, -1106.4063, 748.97656, -1086.9688, 676.8672, -1607.7109, 995.46094, -1607.7109, 995.46094, -1377.2969, 748.2578, -1377.2969, 748.2578, -1322.0625, 995.46094, -1322.0625, 995.46094, -1320.3828, 748.97656, -1142.2188, 648.46094, -38.382813, 648.46094, -36.726563, 643.2422, -36.726563, 624.03906, -213.21875, 522.8203, -60.15625, 522.8203, -291.03906, 522.90625, -291.03906, 551.85156, -157.40625, 450.15625, -4.90625, 486, -4.90625, 486, 150.36719, 431.15625, 150.36719, 431.15625, -149.13281, 450.15625, -60.15625, 472.75, -149.13281, 486, -60.15625, 486, -291.03906, 472.75, -204.38281, 445.54688, -291.03906, 431.15625, -204.38281, 431.15625, -426.0625, 445.54688, -346.28906, 551.85156, -426.0625, 522.90625, -346.28906, 574.14844, -60.15625, 553.1406, -155.89844, 553.1406, -157.40625, 587.22656, -155.89844, 587.22656, 42.179688, 574.14844, -4.90625, 537.5469, 42.179688, 522.8203, -4.90625, 522.8203, 150.36719, 537.5469, 97.42969, 643.2422, 150.36719, 624.8828, 97.42969, 624.8828, 42.179688, 624.03906, 42.179688, 588.65625, -213.21875, 588.65625, -426.0625, 645.0703, -426.0625, 645.0703, -229.64063, 681.8828, -229.64063, 681.8828, -230.63281, 991.8125, -230.63281, 991.8125, -230.17188, 1028.6328, -1138.6797, 1017.85156, -1138.6797, 1017.85156, -1142.2188, 681.8828, -285.8828, 681.8828, -426.0625, 588.65625, -481.3125, 587.53906, -740.1328, 587.53906, -740.3672, 587.53906, -1010.03906, 587.53906, -1033.1719, 587.72656, -1033.1719, 586.77344, -1448.2109, 586.77344, -1449.8516, 550.90625, -1065.2891, 440.96094, -1065.2891, 440.96094, -1065.7188, 482.46875, -1197.7422, 440.96094, -684.8594, 440.96094, -685.1328, 551.85156, -685.1328, 551.85156, -481.3125, 431.15625, -481.3125, 431.15625, -482.40625, 404.14063, -684.8594, 394.34375, -482.40625, 301.3203, -488, 431.15625, 206.1875, 431.15625, 205.61719, 679.27344, 205.61719, 662.28125, 438.39063, 566.7578, 428.20313, 679.27344, 201.22656, 680.0625, 201.22656, 715.2969, 835.47656, 715.1328, 835.47656, 680.0625, 16.882813, 715.2969, 16.882813, 968.8125, 890.72656, 968.8125, 889.89844, 972.3594, 889.89844, 972.3594, 667.6719, 1065.1094, 667.6719, 1024, 791.6328, 1072.8594, 229.03125, 1109.9063, 229.03125, 1109.9063, 1036.7266, 1060.8125, 1036.7266, 1060.8125, 791.6328, 1109.9063, 1606.2891, 982.15625, 1606.2891, 982.15625, 1486.6563, 1077.5313, 1486.6563, 1109.9063, 1091.9766, 1029.2188, 1274.6016, 725.60156, 1091.9766, 662.28125, 1274.6016, 725.60156, 1036.7266, 715.1328, 890.72656, 566.7578, 1050.5938, 529.9531, 428.20313, 529.9531, 638.1406, 432.0703, 638.1406, 432.0703, 386.79688, 395.25, 690.3672, 410.6875, 690.3672, 410.6875, 693.3906, 304.17188, 860.7969, 529.9531, 693.3906, 529.9531, 1050.5938, 472.42188, 1050.5938, 472.64844, 916.0469, 472.42188, 916.0469, 472.64844, 860.7969, 472.42188, 860.7969, 472.42188, 856.6797, 435.60156, 856.6797, 435.60156, 860.7969, 395.25, 386.79688, 304.17188, -240.79688, 394.34375, 206.1875, 267.35938, -240.79688, 267.35938, -29.773438, 159.14844, -29.773438, 159.14844, -432.75, 301.3203, -432.75, 127.65625, -488, 127.65625, -486.5078, 122.328125, -486.5078, 58.203125, -1018.2578, 121.640625, -677.40625, 122.328125, 137.38281, -18.179688, 137.38281, -18.179688, 136.82813, 56.140625, 24.046875, -54.992188, 136.82813, -54.992188, 137.38281, -56.5, 137.38281, -56.5, 192.63281, -54.992188, 192.63281, -54.992188, 461.3672, -18.179688, 461.3672, -18.179688, 192.63281, 159.84375, 192.63281, 63.726563, 388.3203, 159.14844, 137.38281, 175.25781, 388.3203, 63.726563, 443.5703, -126.27344, 644.35156, 175.25781, 443.5703, 175.25781, 644.35156, -126.27344, 24.046875, 56.140625, 14.0625, 58.203125, 14.0625, -36.4375, -497.14844, -36.4375, -497.54688, -226.79688, -1214.3672, -388.89844, -1214.3672, -388.89844, -1433.5234, -391.65625, -1433.5234, -391.65625, -1436.4766, -306.90625, -1607.7109, -514.2031, -1221.4375, -839.78906, -1221.4531, -876.6094, -1225.7734, -968.40625, -1332.0938, -876.6094, -529.64844, -1017.4219, -529.64844, -1017.4219, -531.03125, -1054.2266, -137.85156, -1052.4531, -137.85156, -1052.4531, -133.24219, -1106.3281, 114.92969, -715.46875, -133.24219, -715.46875, 110.140625, -845.71875, 109.109375, -715.46875, -283.03906, -715.46875, -188.47656, -1017.4219, -188.47656, -1017.4219, -474.40625, -852.59375, -474.40625, -852.59375, -479.21094, -839.78906, -479.21094, -678.65625, -283.03906, -839.78906, -1166.2109, -549.2422, -1166.2109, -549.2422, -985.8906, -713.84375, -985.8906, -713.84375, -930.6406, -714.53125, -709.71094, -512.90625, -704.6172, -515.7969, -930.6406, -515.7969, -932.3594, -424.79688, -182.96094, -424.79688, 376.03125, -424.97656, -444.27344, -424.97656, -442.3125, -307.8203, -442.3125, -307.8203, 110.64844, -387.97656, -182.96094, -271, -442.3125, -73.046875, -442.3125, -73.046875, -246.78125, -201.29688, -246.78125, -271, 110.64844, -201.29688, -191.53125, -73.046875, -191.53125, -387.9922, 329.0703, -424.54688, 376.03125, -512.90625, 379.6172, -249.67188, 647.15625, -249.71875, 647.15625, -336.6172, 642.0469, -513.97656, 382.40625, -513.97656, 379.6172, -249.71875, 921.5703, -410.64063, 921.5703, -336.6172, 697.2969, -410.64063, 976.8203, -249.71875, 976.8203, -249.71875, 1243.3594, -323.0078, 1194.3281, -247.82031, 1243.3594, -247.82031, 1244.7969, 12.8984375, 911.0469, -59.09375, 1189.5469, -59.210938, 1189.5469, -59.210938, 868.1406, 12.8984375, 699.60156, -96.03125, 868.1406, -96.03125, 1189.5469, -212.90625, 1189.5469, -212.59375, 976.8203, -212.90625, 976.8203, -212.59375, 921.5703, -212.90625, 921.5703, -212.90625, 699.60156, 49.71875, 911.0469, 49.71875, 699.60156, 209.86719, 699.60156, 209.86719, 694.8672, 208.47656, 916.0469, 102.38281, 1098.0313, 65.5625, 1098.0313, 435.60156, 916.0469, 435.60156, 1106.4609, 366.60156, 1140.7734, 329.78125, 1140.7734, 261.0078, 1098.3672, 472.42188, 1106.4609, 472.42188, 1105.8281, 529.9531, 1105.8281, 529.9531, 1106.6563, 502.7578, 1274.1328, 566.7578, 1106.6563, 566.7578, 1105.8281, 502.7578, 1329.3672, 949.90625, 1434.2969, 366.60156, 1329.3672, 366.60156, 1425.2031, 366.60156, 1274.1328, 329.78125, 1425.2031, 198.59375, 1425.2031, 198.59375, 1294.9531, 261.0078, 1153.6094, 161.77344, 1606.2891, -212.86719, 1606.2891, -212.86719, 1471.3672, -85.47656, 1472.7969, -85.47656, 1471.3672, 103.25, 1472.7969, 161.77344, 1294.9531, 103.25, 1417.5469, 102.38281, 1417.5469, 102.38281, 1153.6094, 102.38281, 1098.3672, 65.5625, 1417.5469, -60.429688, 1417.5469, -60.429688, 1416.1172, -59.09375, 1244.7969, -249.15625, 1416.1172, -249.15625, 1428.8438, -249.67969, 1428.8438, -401.85938, 1249.5703, -323.0078, 1249.5703, -249.67969, 1606.2891, -401.85938, 1606.2891, -501.47656, 1194.3281, -501.47656, 697.2969, -501.47656, 642.0469, -501.47656, 640.6875, -538.2969, 1249.1094, -521.0469, 1249.1094, -677.52344, 382.40625, -538.2969, 640.6875, -516.47656, -704.6172, -516.47656, -709.71094, -714.53125, -654.46094, -549.72656, -654.46094, -549.72656, 327.15625, -712.02344, 327.15625, -712.02344, 331.22656, -918.21094, 1234.5469, -803.8281, 1072.6797, -977.84375, 1289.7891, -955.03125, 1289.7891, -955.03125, 1606.2891, -974.39844, 1492.0078, -1106.3281, 1606.2891, -1106.3281, 1547.2578, -974.39844, 1547.2578, -1106.3281, 1492.0078, -1106.3281, 1191.3594, -1077.4531, 1191.3594, -1077.4531, 1353.7734, -1040.6328, 1353.7734, -1077.4531, 960.59375, -1077.4531, 1136.1094, -1106.3281, 1136.1094, -782.8281, 795.34375, -1008.7578, 795.34375, -1008.7578, 509.4297, -845.52344, 509.4297, -845.52344, 454.1797, -845.71875, 454.1797, -882.53125, 109.109375, -882.53125, 454.1797, -1008.7578, 454.1797, -1008.7578, 449.46094, -957.6719, 170.17969, -1045.5703, 449.46094, -1045.5703, 795.34375, -1106.3281, 795.34375, -1106.3281, 170.17969, -957.6719, 114.92969, -972.75, -918.52344, -1106.3281, -918.52344, -1106.3281, -1607.7109, -1005.22656, -1332.0938, -1005.22656, -1607.7109, 1024, 1036.7266, -974.5703, 1234.5469, -977.84375, 1234.5469, -1040.6328, 960.59375, 1028.6328, -230.17188, 991.8203, -1086.9688, 440.96094, -740.3672, 440.96094, -1010.03906, 486.85938, -902.8281, 639.1797, -902.8281, -1054.2266, -531.03125, -972.75, -863.27344, -782.8281, 802.78125, -979.5703, 1273.6875, -977.84375, 1274.6719, 306, -1197.7422, 404.14063, -1065.7188, -388.89844, -497.54688, -968.40625, -1607.7109, -874.8906, -1436.4766, -678.65625, 110.140625, -977.84375, 1260.0313, -1106.3281, -863.27344)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(8, 9, 10, 11), PackedInt32Array(9, 8, 12), PackedInt32Array(13, 14, 15, 16), PackedInt32Array(14, 13, 17), PackedInt32Array(18, 19, 20, 21), PackedInt32Array(19, 18, 22), PackedInt32Array(23, 24, 25, 26), PackedInt32Array(27, 28, 29, 30), PackedInt32Array(31, 32, 33, 34), PackedInt32Array(31, 34, 35, 36), PackedInt32Array(37, 2, 1, 38, 39), PackedInt32Array(29, 28, 40, 41), PackedInt32Array(41, 40, 42, 43), PackedInt32Array(44, 45, 46, 47), PackedInt32Array(36, 35, 48, 49), PackedInt32Array(50, 27, 30, 51), PackedInt32Array(25, 24, 52, 53, 54), PackedInt32Array(43, 42, 55, 56), PackedInt32Array(57, 56, 55, 58, 59), PackedInt32Array(6, 5, 60, 61), PackedInt32Array(62, 6, 61, 63), PackedInt32Array(64, 62, 63, 65), PackedInt32Array(66, 64, 65, 67), PackedInt32Array(68, 66, 67, 69), PackedInt32Array(68, 69, 70, 71), PackedInt32Array(71, 70, 72, 73), PackedInt32Array(74, 73, 72, 75), PackedInt32Array(76, 36, 49, 77), PackedInt32Array(78, 14, 17, 79, 80), PackedInt32Array(81, 82, 83), PackedInt32Array(84, 85, 86, 87, 83), PackedInt32Array(88, 8, 11), PackedInt32Array(89, 4, 7, 90), PackedInt32Array(91, 92, 93, 94), PackedInt32Array(95, 96, 97), PackedInt32Array(98, 99, 100, 101, 102), PackedInt32Array(103, 104, 105, 106), PackedInt32Array(107, 108, 109), PackedInt32Array(110, 111, 112), PackedInt32Array(113, 114, 115, 116), PackedInt32Array(116, 117, 118, 113), PackedInt32Array(113, 118, 119, 120, 23), PackedInt32Array(121, 122, 123), PackedInt32Array(123, 124, 125), PackedInt32Array(126, 127, 128, 129, 130), PackedInt32Array(131, 132, 133, 134, 135), PackedInt32Array(94, 136, 137, 138), PackedInt32Array(139, 140, 141, 142), PackedInt32Array(139, 142, 138, 137), PackedInt32Array(138, 143, 144, 145), PackedInt32Array(146, 147, 148, 149), PackedInt32Array(150, 151, 152, 153, 154), PackedInt32Array(153, 155, 156, 157), PackedInt32Array(156, 158, 159, 157), PackedInt32Array(160, 161, 162, 163), PackedInt32Array(164, 165, 166), PackedInt32Array(167, 168, 169), PackedInt32Array(170, 171, 172, 173), PackedInt32Array(172, 174, 173), PackedInt32Array(170, 173, 175, 176), PackedInt32Array(175, 177, 178, 176), PackedInt32Array(169, 170, 176, 179, 180), PackedInt32Array(181, 182, 183, 184), PackedInt32Array(179, 181, 184, 185), PackedInt32Array(185, 186, 187, 188, 179), PackedInt32Array(189, 190, 191, 192), PackedInt32Array(193, 194, 195, 196), PackedInt32Array(197, 198, 199, 200), PackedInt32Array(197, 200, 201, 202), PackedInt32Array(202, 201, 203, 204), PackedInt32Array(205, 204, 203, 206), PackedInt32Array(207, 205, 206, 208), PackedInt32Array(207, 208, 209, 210), PackedInt32Array(210, 209, 211, 212), PackedInt32Array(212, 211, 196, 195), PackedInt32Array(213, 193, 196, 214), PackedInt32Array(196, 215, 214), PackedInt32Array(213, 214, 216), PackedInt32Array(213, 216, 217, 218), PackedInt32Array(218, 217, 219, 220), PackedInt32Array(221, 220, 219, 222), PackedInt32Array(223, 221, 222, 224), PackedInt32Array(191, 223, 224, 225), PackedInt32Array(225, 226, 192, 191), PackedInt32Array(192, 227, 228, 229, 230), PackedInt32Array(231, 232, 233, 234), PackedInt32Array(235, 236, 237, 90), PackedInt32Array(163, 238, 239, 157), PackedInt32Array(154, 240, 149, 148), PackedInt32Array(149, 241, 242), PackedInt32Array(243, 244, 245), PackedInt32Array(145, 246, 247, 138), PackedInt32Array(130, 248, 249, 250, 251), PackedInt32Array(252, 253, 254, 255), PackedInt32Array(252, 255, 256, 257), PackedInt32Array(258, 252, 257, 259, 260), PackedInt32Array(261, 262, 263, 264, 19, 265), PackedInt32Array(263, 266, 267, 268, 269), PackedInt32Array(267, 270, 271, 268), PackedInt32Array(272, 273, 274), PackedInt32Array(274, 275, 276, 277), PackedInt32Array(75, 278, 279, 280), PackedInt32Array(74, 75, 280, 276), PackedInt32Array(276, 280, 281, 282), PackedInt32Array(283, 284, 285, 286), PackedInt32Array(287, 283, 286, 45), PackedInt32Array(287, 45, 44, 288), PackedInt32Array(289, 287, 288, 290), PackedInt32Array(291, 289, 290, 264, 292), PackedInt32Array(22, 293, 265, 19), PackedInt32Array(294, 295, 296, 297), PackedInt32Array(298, 299, 300, 301), PackedInt32Array(302, 303, 304, 305), PackedInt32Array(304, 306, 305), PackedInt32Array(302, 305, 307), PackedInt32Array(307, 308, 309, 302), PackedInt32Array(300, 302, 309, 310), PackedInt32Array(310, 311, 301, 300), PackedInt32Array(312, 298, 301, 313, 314), PackedInt32Array(315, 316, 317, 318), PackedInt32Array(315, 318, 319, 313), PackedInt32Array(320, 321, 322, 323, 324), PackedInt32Array(325, 326, 327, 328), PackedInt32Array(329, 330, 331), PackedInt32Array(332, 333, 334), PackedInt32Array(335, 336, 337, 338), PackedInt32Array(80, 339, 78), PackedInt32Array(337, 80, 79), PackedInt32Array(79, 340, 338, 337), PackedInt32Array(335, 338, 341, 342), PackedInt32Array(341, 343, 344, 342), PackedInt32Array(334, 335, 342), PackedInt32Array(334, 342, 345, 332), PackedInt32Array(331, 332, 345), PackedInt32Array(331, 345, 328, 329), PackedInt32Array(327, 329, 328), PackedInt32Array(328, 346, 347, 325), PackedInt32Array(26, 348, 349, 23), PackedInt32Array(350, 351, 352, 95), PackedInt32Array(352, 353, 354, 355), PackedInt32Array(1, 356, 38), PackedInt32Array(38, 357, 39), PackedInt32Array(37, 39, 358, 359), PackedInt32Array(358, 360, 361, 362), PackedInt32Array(363, 364, 365, 366), PackedInt32Array(365, 367, 368, 369), PackedInt32Array(370, 371, 372, 373, 374), PackedInt32Array(370, 374, 375, 376, 377), PackedInt32Array(378, 379, 380, 381), PackedInt32Array(376, 378, 381, 382, 383), PackedInt32Array(384, 385, 386, 0, 3, 387, 388), PackedInt32Array(3, 389, 390), PackedInt32Array(390, 391, 392, 393), PackedInt32Array(394, 395, 396, 397), PackedInt32Array(398, 394, 397, 399), PackedInt32Array(399, 400, 54, 53, 9), PackedInt32Array(398, 399, 9, 12), PackedInt32Array(398, 12, 401, 392), PackedInt32Array(392, 401, 393), PackedInt32Array(390, 393, 387, 3), PackedInt32Array(388, 402, 88, 403), PackedInt32Array(403, 88, 11, 404, 405, 406, 407, 408), PackedInt32Array(405, 409, 410, 411), PackedInt32Array(412, 413, 414, 415), PackedInt32Array(414, 416, 417), PackedInt32Array(418, 419, 420, 421, 422), PackedInt32Array(423, 424, 425, 426), PackedInt32Array(425, 427, 426), PackedInt32Array(423, 426, 428), PackedInt32Array(423, 428, 429, 430, 422), PackedInt32Array(421, 423, 422), PackedInt32Array(431, 432, 433, 16), PackedInt32Array(433, 434, 13), PackedInt32Array(433, 13, 16), PackedInt32Array(431, 16, 435, 436, 437), PackedInt32Array(435, 438, 439, 440, 441, 442), PackedInt32Array(443, 444, 445, 446, 447), PackedInt32Array(448, 449, 18), PackedInt32Array(448, 18, 21), PackedInt32Array(447, 446, 448, 21, 450), PackedInt32Array(46, 451, 33, 47), PackedInt32Array(450, 47, 33, 32, 76, 77, 452), PackedInt32Array(77, 453, 452), PackedInt32Array(21, 47, 450), PackedInt32Array(443, 447, 454, 440, 439), PackedInt32Array(441, 455, 456, 457, 458), PackedInt32Array(459, 460, 461, 462), PackedInt32Array(461, 463, 462), PackedInt32Array(459, 462, 464), PackedInt32Array(465, 459, 464, 466), PackedInt32Array(466, 467, 468, 465), PackedInt32Array(465, 468, 458, 457), PackedInt32Array(441, 458, 442), PackedInt32Array(435, 442, 469, 436), PackedInt32Array(437, 470, 471, 472, 473), PackedInt32Array(474, 475, 476, 477, 478), PackedInt32Array(476, 479, 480, 477), PackedInt32Array(481, 482, 411, 410), PackedInt32Array(406, 483, 484), PackedInt32Array(485, 486, 50, 51), PackedInt32Array(485, 51, 487, 488), PackedInt32Array(488, 487, 407, 484), PackedInt32Array(384, 489, 490, 385), PackedInt32Array(491, 492, 493, 377), PackedInt32Array(494, 495, 57, 368), PackedInt32Array(58, 496, 81, 83, 87, 497), PackedInt32Array(498, 499, 500, 501), PackedInt32Array(500, 502, 503, 504), PackedInt32Array(505, 506, 507, 508), PackedInt32Array(501, 505, 508, 509), PackedInt32Array(510, 511, 512, 85), PackedInt32Array(513, 514, 515, 516), PackedInt32Array(517, 518, 369, 368, 57), PackedInt32Array(519, 520, 521, 522, 523), PackedInt32Array(524, 525, 526, 527), PackedInt32Array(524, 527, 523, 522), PackedInt32Array(519, 523, 528), PackedInt32Array(529, 530, 531, 532), PackedInt32Array(531, 533, 532), PackedInt32Array(529, 532, 359, 358), PackedInt32Array(276, 282, 277), PackedInt32Array(274, 277, 534), PackedInt32Array(274, 534, 291, 272), PackedInt32Array(292, 272, 291), PackedInt32Array(269, 292, 264, 263), PackedInt32Array(261, 265, 294, 297), PackedInt32Array(261, 297, 312, 314), PackedInt32Array(259, 314, 313, 319, 260), PackedInt32Array(406, 484, 407), PackedInt32Array(419, 418, 431, 437, 473), PackedInt32Array(84, 535, 536, 537), PackedInt32Array(7, 189, 192, 230, 231), PackedInt32Array(7, 231, 234, 538), PackedInt32Array(90, 7, 538, 235), PackedInt32Array(187, 90, 237, 188), PackedInt32Array(179, 188, 180), PackedInt32Array(169, 180, 539, 167), PackedInt32Array(166, 167, 539), PackedInt32Array(166, 539, 163, 164), PackedInt32Array(162, 164, 163), PackedInt32Array(160, 163, 157, 159), PackedInt32Array(153, 157, 154), PackedInt32Array(148, 150, 154), PackedInt32Array(146, 149, 242), PackedInt32Array(146, 242, 540), PackedInt32Array(146, 540, 541, 542), PackedInt32Array(542, 541, 243, 543), PackedInt32Array(144, 543, 243, 245), PackedInt32Array(144, 245, 145), PackedInt32Array(94, 138, 247, 91), PackedInt32Array(131, 135, 94, 93, 129, 128), PackedInt32Array(358, 362, 544, 545), PackedInt32Array(537, 510, 85), PackedInt32Array(417, 472, 474, 478, 415, 414), PackedInt32Array(125, 258, 260, 320, 123), PackedInt32Array(59, 546, 513), PackedInt32Array(547, 548, 498), PackedInt32Array(417, 473, 472), PackedInt32Array(412, 415, 481), PackedInt32Array(322, 325, 347, 323), PackedInt32Array(57, 59, 513, 516, 517), PackedInt32Array(251, 126, 130), PackedInt32Array(549, 251, 250, 550), PackedInt32Array(125, 549, 550, 258), PackedInt32Array(121, 123, 320), PackedInt32Array(324, 121, 320), PackedInt32Array(120, 324, 323), PackedInt32Array(120, 323, 23), PackedInt32Array(113, 23, 349, 112), PackedInt32Array(112, 349, 551, 110), PackedInt32Array(109, 110, 551), PackedInt32Array(109, 551, 106, 107), PackedInt32Array(105, 107, 106), PackedInt32Array(103, 106, 102, 101), PackedInt32Array(98, 102, 350), PackedInt32Array(97, 98, 350), PackedInt32Array(95, 97, 350), PackedInt32Array(355, 95, 352), PackedInt32Array(552, 355, 354, 553), PackedInt32Array(359, 552, 553, 37), PackedInt32Array(498, 501, 509, 537, 547), PackedInt32Array(410, 412, 481), PackedInt32Array(405, 411, 406), PackedInt32Array(388, 403, 384), PackedInt32Array(382, 385, 490, 383), PackedInt32Array(376, 383, 491), PackedInt32Array(377, 376, 491), PackedInt32Array(554, 377, 493), PackedInt32Array(554, 493, 494, 368), PackedInt32Array(500, 504, 501), PackedInt32Array(555, 547, 537, 536), PackedInt32Array(84, 537, 85), PackedInt32Array(545, 529, 358), PackedInt32Array(556, 545, 544), PackedInt32Array(366, 556, 544, 363), PackedInt32Array(528, 366, 365, 519), PackedInt32Array(369, 519, 365), PackedInt32Array(59, 58, 497)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-1131.3088, 1647.0497, -1126.9774, -1648.9607, 1127.4409, -1647.0498, 1127.4409, 1642.749)])
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_q6fnj"]
-vertices = PackedVector2Array(1057.8594, -1527.8516, 1040.5, 1551.1563, -1079.2422, 1564.6328, -1071.5313, -1539.3906)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-1089.2769, 1574.6945, 1050.4437, 1561.1028, 1067.9185, -1537.8027, -1081.5104, -1549.4528)])
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ddt3"]
+size = Vector2(1278.0886, 776.208)
 
 [sub_resource type="LabelSettings" id="LabelSettings_4ddt3"]
 font_size = 54
@@ -24,131 +27,2101 @@ font_size = 54
 script = ExtResource("1_1uv8l")
 
 [node name="background" type="Sprite2D" parent="." unique_id=93462752]
+position = Vector2(2872.829, 4160.795)
 rotation = 1.5707964
-scale = Vector2(0.51502055, 0.51502055)
+scale = Vector2(3.7217338, 1.7756693)
 texture = ExtResource("1_q6fnj")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="background" unique_id=1281835448]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="background/StaticBody2D" unique_id=4362551]
-position = Vector2(-1133.936, 17.475105)
-shape = SubResource("RectangleShape2D_3fd7v")
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="background" unique_id=1769982585]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="background/StaticBody2D2" unique_id=986386055]
-position = Vector2(1133.9353, -4.9565886e-05)
-shape = SubResource("RectangleShape2D_3fd7v")
-
-[node name="StaticBody2D3" type="StaticBody2D" parent="background" unique_id=1168276074]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="background/StaticBody2D3" unique_id=453226808]
-position = Vector2(500.95096, 1634.8862)
-rotation = 1.5707964
-shape = SubResource("RectangleShape2D_3fd7v")
-
-[node name="StaticBody2D4" type="StaticBody2D" parent="background" unique_id=1333073154]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="background/StaticBody2D4" unique_id=21658022]
-position = Vector2(483.47577, -1634.8862)
-rotation = 1.5707964
-shape = SubResource("RectangleShape2D_3fd7v")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="background" unique_id=405890198]
 position = Vector2(-1.9416697, 0)
-navigation_polygon = SubResource("NavigationPolygon_q6fnj")
+navigation_polygon = SubResource("NavigationPolygon_4ddt3")
 
-[node name="waypoints" type="Node2D" parent="." unique_id=1050702330]
+[node name="Bricks" type="Node2D" parent="background/NavigationRegion2D" unique_id=1734593549]
+position = Vector2(-932.9444, 1062.5548)
+scale = Vector2(0.16378692, 0.34329098)
 
-[node name="patrol1" type="Node2D" parent="waypoints" unique_id=1548888524]
+[node name="brick" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=680146981]
+position = Vector2(-714.3359, 1331.5767)
+scale = Vector2(0.628918, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
 
-[node name="m1_a" type="Marker2D" parent="waypoints/patrol1" unique_id=1938916715 groups=["waypoints"]]
-position = Vector2(-740, -479)
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick" unique_id=1817427054]
 
-[node name="m1_b" type="Marker2D" parent="waypoints/patrol1" unique_id=812418843 groups=["waypoints"]]
-position = Vector2(88, -473)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick/Area2D" unique_id=750008394]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
 
-[node name="m1_c" type="Marker2D" parent="waypoints/patrol1" unique_id=676216336 groups=["waypoints"]]
-position = Vector2(-5, 425)
+[node name="brick2" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=169572876]
+position = Vector2(-22.56961, 1074.0781)
+rotation = 1.5707964
+scale = Vector2(0.8505349, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
 
-[node name="m1_d" type="Marker2D" parent="waypoints/patrol1" unique_id=558119902 groups=["waypoints"]]
-position = Vector2(-711, 255)
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick2" unique_id=762414143]
 
-[node name="patrol2" type="Node2D" parent="waypoints" unique_id=1992076192]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick2/Area2D" unique_id=1316003919]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
 
-[node name="m2_a" type="Marker2D" parent="waypoints/patrol2" unique_id=950616957 groups=["waypoints"]]
-position = Vector2(-78, -394)
+[node name="brick3" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1056446041]
+position = Vector2(-770.0112, 277.9207)
+rotation = 1.5707964
+scale = Vector2(0.8505349, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
 
-[node name="m2_b" type="Marker2D" parent="waypoints/patrol2" unique_id=1943081288 groups=["waypoints"]]
-position = Vector2(-115, 287)
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick3" unique_id=1967656573]
 
-[node name="m2_c" type="Marker2D" parent="waypoints/patrol2" unique_id=1262389397 groups=["waypoints"]]
-position = Vector2(657, 510)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick3/Area2D" unique_id=1554880208]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
 
-[node name="m2_d" type="Marker2D" parent="waypoints/patrol2" unique_id=897017467 groups=["waypoints"]]
-position = Vector2(-49, 340)
+[node name="brick4" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=943714914]
+position = Vector2(-958.3712, 294.6234)
+rotation = 3.1415927
+scale = Vector2(0.3619124, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick4" unique_id=1049124655]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick4/Area2D" unique_id=1161301683]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick5" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1756018369]
+position = Vector2(328.18506, 581.3514)
+rotation = 3.1415927
+scale = Vector2(0.8505349, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick5" unique_id=172536389]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick5/Area2D" unique_id=601049304]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick6" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1231790090]
+position = Vector2(-68.64625, 237.0223)
+rotation = 4.9741883
+scale = Vector2(0.60598147, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick6" unique_id=137740974]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick6/Area2D" unique_id=1565113525]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick7" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=2133246830]
+position = Vector2(-162.67207, -697.78955)
+rotation = 6.2831855
+scale = Vector2(1.6000245, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick7" unique_id=1761665444]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick7/Area2D" unique_id=1676535317]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick11" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1223080885]
+position = Vector2(1484.221, 1115.8347)
+rotation = 9.424778
+scale = Vector2(1.6542494, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick11" unique_id=797812390]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick11/Area2D" unique_id=2056671347]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick12" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1913722190]
+position = Vector2(1447.2605, -511.79663)
+rotation = 10.995575
+scale = Vector2(2.4976835, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick12" unique_id=1655944750]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick12/Area2D" unique_id=758259073]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick15" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=93599902]
+position = Vector2(-575.14734, -1215.5706)
+rotation = 10.995575
+scale = Vector2(0.8505349, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick15" unique_id=1169740896]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick15/Area2D" unique_id=1338458720]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick16" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1186136805]
+position = Vector2(-68.50186, -1691.5947)
+rotation = 12.566371
+scale = Vector2(0.8505349, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick16" unique_id=1858825939]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick16/Area2D" unique_id=855774952]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick19" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1528785718]
+position = Vector2(420.04898, -2202.4158)
+rotation = 14.137167
+scale = Vector2(0.8505349, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick19" unique_id=245301022]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick19/Area2D" unique_id=938372465]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick20" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1532470138]
+position = Vector2(1951.1213, -2061.836)
+rotation = 15.707964
+scale = Vector2(0.8505349, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick20" unique_id=1787969028]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick20/Area2D" unique_id=1207665914]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick29" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=433773180]
+position = Vector2(3706.2864, -2056.2678)
+rotation = 15.707964
+scale = Vector2(0.8505349, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick29" unique_id=849068108]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick29/Area2D" unique_id=39868716]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick37" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1836213496]
+position = Vector2(3214.952, -2817.3135)
+rotation = 17.27876
+scale = Vector2(1.2284608, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick37" unique_id=1332945317]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick37/Area2D" unique_id=178338905]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick39" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=144677816]
+position = Vector2(3709.0698, -6552.052)
+rotation = 18.849556
+scale = Vector2(0.8505349, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick39" unique_id=239374584]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick39/Area2D" unique_id=797106869]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick61" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1961090726]
+position = Vector2(4359.0796, -5846.367)
+rotation = 18.849556
+scale = Vector2(0.8505349, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick61" unique_id=1158463000]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick61/Area2D" unique_id=1604086770]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick62" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1819213744]
+position = Vector2(3870.5286, -5523.3555)
+rotation = 20.420353
+scale = Vector2(0.6002827, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick62" unique_id=1566867700]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick62/Area2D" unique_id=48957610]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick63" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=425836524]
+position = Vector2(4545.1157, -5194.9653)
+rotation = 21.99115
+scale = Vector2(1.1367195, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick63" unique_id=1685292418]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick63/Area2D" unique_id=1849629441]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick65" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1042101096]
+position = Vector2(4282.733, -4464.228)
+rotation = 21.99115
+scale = Vector2(1.760569, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick65" unique_id=2118604727]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick65/Area2D" unique_id=1228815336]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick66" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1550521007]
+position = Vector2(5362.6284, -4098.7734)
+rotation = 23.561945
+scale = Vector2(0.65291333, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick66" unique_id=109708639]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick66/Area2D" unique_id=594665861]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick67" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1194552694]
+position = Vector2(4953.414, -3733.4883)
+rotation = 25.132742
+scale = Vector2(0.66272026, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick67" unique_id=1103582786]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick67/Area2D" unique_id=1656985793]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick73" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=788827892]
+position = Vector2(5485.619, -7242.427)
+rotation = 28.274334
+scale = Vector2(2.4694965, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick73" unique_id=1390871657]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick73/Area2D" unique_id=1530918399]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick74" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=709085108]
+position = Vector2(6551.296, -6202.6895)
+rotation = 29.84513
+scale = Vector2(1.7220027, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick74" unique_id=1499697961]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick74/Area2D" unique_id=1382479471]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick75" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=2023370262]
+position = Vector2(4283.919, -345.22827)
+rotation = 29.84513
+scale = Vector2(1.3132699, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick75" unique_id=1390952511]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick75/Area2D" unique_id=1542077917]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick76" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=273545138]
+position = Vector2(4283.9194, 1376.8475)
+rotation = 32.986725
+scale = Vector2(0.43744102, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick76" unique_id=505412568]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick76/Area2D" unique_id=1767707761]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick77" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=685927810]
+position = Vector2(4748.8076, 1110.2673)
+rotation = 34.55752
+scale = Vector2(0.8060188, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick77" unique_id=1648940138]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick77/Area2D" unique_id=1821413383]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick78" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=762877510]
+position = Vector2(5748.18, 1114.443)
+rotation = 34.55752
+scale = Vector2(0.8060188, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick78" unique_id=1543893741]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick78/Area2D" unique_id=1545270744]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick79" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1350919479]
+position = Vector2(6208.8945, 645.37805)
+rotation = 36.128315
+scale = Vector2(0.8060188, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick79" unique_id=2008674662]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick79/Area2D" unique_id=734222356]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick80" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=2098371837]
+position = Vector2(4761.335, 450.5144)
+rotation = 37.699112
+scale = Vector2(0.8060188, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick80" unique_id=1038064218]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick80/Area2D" unique_id=273311004]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick81" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=65857189]
+position = Vector2(5222.0483, -19.94226)
+rotation = 39.26991
+scale = Vector2(0.8060188, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick81" unique_id=1003117527]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick81/Area2D" unique_id=28728393]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick83" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=921619520]
+position = Vector2(6711.3633, 184.66455)
+rotation = 40.840706
+scale = Vector2(0.8060188, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick83" unique_id=596811259]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick83/Area2D" unique_id=902306445]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick84" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=100101137]
+position = Vector2(6711.3633, 184.66455)
+rotation = 40.840706
+scale = Vector2(0.8060188, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick84" unique_id=1758147783]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick84/Area2D" unique_id=1455841035]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick111" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=919373924]
+position = Vector2(7366.9404, 1136.7129)
+rotation = 40.840706
+scale = Vector2(0.8060188, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick111" unique_id=1377669173]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick111/Area2D" unique_id=1979177967]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick112" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1580341648]
+position = Vector2(6796.269, 1165.4769)
+rotation = 42.411503
+scale = Vector2(0.7219285, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick112" unique_id=1554172201]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick112/Area2D" unique_id=291396049]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick113" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1836988826]
+position = Vector2(7822.0864, 716.3641)
+rotation = 42.411503
+scale = Vector2(0.7219285, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick113" unique_id=784641248]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick113/Area2D" unique_id=2038692726]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick114" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1627412857]
+position = Vector2(8245.218, 696.8777)
+rotation = 43.9823
+scale = Vector2(0.7219285, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick114" unique_id=1540989991]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick114/Area2D" unique_id=1897187204]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick115" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1314077560]
+position = Vector2(8467.921, -234.48746)
+rotation = 45.553093
+scale = Vector2(0.5237154, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick115" unique_id=1531890232]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick115/Area2D" unique_id=1347374049]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick116" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1656572542]
+position = Vector2(8760.216, 45.47603)
+rotation = 47.12389
+scale = Vector2(0.5237154, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick116" unique_id=1965401536]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick116/Area2D" unique_id=1618417905]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick117" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1649286799]
+position = Vector2(9044.16, -863.76025)
+rotation = 48.694687
+scale = Vector2(1.5007341, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick117" unique_id=1211715771]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick117/Area2D" unique_id=1853389511]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick118" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=61219255]
+position = Vector2(8679.329, -1155.7188)
+rotation = 50.265484
+scale = Vector2(0.64627904, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick118" unique_id=907811750]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick118/Area2D" unique_id=775476727]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick119" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1981238833]
+position = Vector2(8221.558, -1524.5686)
+rotation = 51.83628
+scale = Vector2(0.64627904, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick119" unique_id=972361231]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick119/Area2D" unique_id=1681551419]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick120" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=744540153]
+position = Vector2(8215.99, -3493.3965)
+rotation = 51.83628
+scale = Vector2(1.5238312, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick120" unique_id=1264870643]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick120/Area2D" unique_id=819766079]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick122" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1801610666]
+position = Vector2(8979.828, -2576.8313)
+rotation = 53.407078
+scale = Vector2(1.2504019, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick122" unique_id=807706364]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick122/Area2D" unique_id=1399364821]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick128" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=495308654]
+position = Vector2(10947.292, -3126.6248)
+rotation = 53.407078
+scale = Vector2(1.934439, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick128" unique_id=1457966836]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick128/Area2D" unique_id=1597553215]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick129" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=157272486]
+position = Vector2(10806.508, -3847.62)
+rotation = 53.407078
+scale = Vector2(1.7209861, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick129" unique_id=734011140]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick129/Area2D" unique_id=714437113]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick150" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=664397479]
+position = Vector2(11746.866, -2508.6304)
+rotation = 53.407078
+scale = Vector2(1.2367731, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick150" unique_id=2010296588]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick150/Area2D" unique_id=1658158114]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick155" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1827557955]
+position = Vector2(11003.933, -1827.9995)
+rotation = 54.977875
+scale = Vector2(1.1568273, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick155" unique_id=292582204]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick155/Area2D" unique_id=1914158245]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick157" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=221057657]
+position = Vector2(10839.741, -580.87164)
+rotation = 56.548668
+scale = Vector2(1.1163052, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick157" unique_id=2079057928]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick157/Area2D" unique_id=629829036]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick158" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=379913544]
+position = Vector2(11520.322, -1213.1934)
+rotation = 58.119465
+scale = Vector2(1.0703605, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick158" unique_id=1554037142]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick158/Area2D" unique_id=1555692624]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick161" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=185985275]
+position = Vector2(11580.175, 1401.8486)
+rotation = 58.119465
+scale = Vector2(0.4515969, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick161" unique_id=2111926538]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick161/Area2D" unique_id=703280231]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick162" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1930220792]
+position = Vector2(11883.943, 1154.8069)
+rotation = 59.69026
+scale = Vector2(0.5141384, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick162" unique_id=2139798497]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick162/Area2D" unique_id=430529775]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick159" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=265623897]
+position = Vector2(12060.374, -378.37317)
+rotation = 58.119465
+scale = Vector2(0.59479743, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick159" unique_id=1706625891]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick159/Area2D" unique_id=881221198]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick167" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1280790340]
+position = Vector2(11817.281, -1230.8815)
+rotation = 59.69026
+scale = Vector2(0.49986455, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick167" unique_id=1199637338]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick167/Area2D" unique_id=1721650918]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick168" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1358222483]
+position = Vector2(12134.143, -2178.34)
+rotation = 61.26106
+scale = Vector2(0.574455, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick168" unique_id=148322323]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick168/Area2D" unique_id=623655192]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick160" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1149720888]
+position = Vector2(11360.959, 5.1113415)
+rotation = 59.69026
+scale = Vector2(1.8443818, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick160" unique_id=2001610496]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick160/Area2D" unique_id=2030375324]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick163" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1878255330]
+position = Vector2(5632.327, 1664.2454)
+rotation = 59.69026
+scale = Vector2(10.757748, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick163" unique_id=1574113114]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick163/Area2D" unique_id=2015197411]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick164" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=927200043]
+position = Vector2(5644.858, -7859.0303)
+rotation = 59.69026
+scale = Vector2(10.741205, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick164" unique_id=2104552584]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick164/Area2D" unique_id=449430237]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick165" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=740812581]
+position = Vector2(-1170.87, -3111.9978)
+rotation = 61.26106
+scale = Vector2(7.53732, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick165" unique_id=1856214639]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick165/Area2D" unique_id=1597244117]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick166" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1421767617]
+position = Vector2(12585.112, -3123.8435)
+rotation = 61.26106
+scale = Vector2(7.53732, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick166" unique_id=1626257932]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick166/Area2D" unique_id=603476517]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick151" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1534269874]
+position = Vector2(10175.886, -1843.7228)
+rotation = 54.977875
+scale = Vector2(2.043978, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick151" unique_id=684752733]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick151/Area2D" unique_id=337147673]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick152" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=51451576]
+position = Vector2(9627.359, -537.1826)
+rotation = 54.977875
+scale = Vector2(1.9672774, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick152" unique_id=952557635]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick152/Area2D" unique_id=2094806300]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick154" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1517857429]
+position = Vector2(10565.489, 698.2694)
+rotation = 56.548668
+scale = Vector2(2.1268897, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick154" unique_id=1555455969]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick154/Area2D" unique_id=1981714890]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick153" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1801204587]
+position = Vector2(9737.847, 1177.0774)
+rotation = 56.548668
+scale = Vector2(2.0037568, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick153" unique_id=271315181]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick153/Area2D" unique_id=438682]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick134" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=987063070]
+position = Vector2(11864.121, -5094.398)
+rotation = 54.977875
+scale = Vector2(2.0250552, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick134" unique_id=1598241397]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick134/Area2D" unique_id=1625056978]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick135" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1906601701]
+position = Vector2(11886.388, -7389.967)
+rotation = 54.977875
+scale = Vector2(0.6535476, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick135" unique_id=279184231]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick135/Area2D" unique_id=1202064673]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick137" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1763355444]
+position = Vector2(11128.013, -7026.6855)
+rotation = 56.548668
+scale = Vector2(1.250339, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick137" unique_id=715429832]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick137/Area2D" unique_id=1099964981]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick138" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=2144501051]
+position = Vector2(11092.994, -6341.88)
+rotation = 56.548668
+scale = Vector2(1.188873, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick138" unique_id=875731758]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick138/Area2D" unique_id=2009261382]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick139" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=209800695]
+position = Vector2(9710.875, -5753.1113)
+rotation = 58.119465
+scale = Vector2(0.9741422, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick139" unique_id=1169653772]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick139/Area2D" unique_id=575563425]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick140" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1651790196]
+position = Vector2(10351.141, -4815.974)
+rotation = 61.26106
+scale = Vector2(0.67261815, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick140" unique_id=215476021]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick140/Area2D" unique_id=1862349229]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick141" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1005519387]
+position = Vector2(10789.774, -5804.612)
+rotation = 62.831856
+scale = Vector2(0.7098569, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick141" unique_id=1321756761]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick141/Area2D" unique_id=1627413790]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick142" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1163334069]
+position = Vector2(11202.971, -5115.3276)
+rotation = 64.40265
+scale = Vector2(1.1591392, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick142" unique_id=1176647395]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick142/Area2D" unique_id=1032807357]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick143" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1502933065]
+position = Vector2(10776.033, -4432.214)
+rotation = 65.97345
+scale = Vector2(0.74619615, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick143" unique_id=1965879053]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick143/Area2D" unique_id=1019007401]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick144" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1716033277]
+position = Vector2(9999.452, -5190.79)
+rotation = 69.11504
+scale = Vector2(0.5215556, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick144" unique_id=186265582]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick144/Area2D" unique_id=1356794869]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick125" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=538065394]
+position = Vector2(8983.034, -4416.9043)
+rotation = 53.407078
+scale = Vector2(1.2767936, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick125" unique_id=139736752]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick125/Area2D" unique_id=1299060602]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick126" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1465054139]
+position = Vector2(9735.928, -2856.962)
+rotation = 54.977875
+scale = Vector2(0.4967802, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick126" unique_id=441079011]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick126/Area2D" unique_id=323460144]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick156" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=2011088895]
+position = Vector2(8824.367, -3189.8496)
+rotation = 56.548668
+scale = Vector2(0.4967802, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick156" unique_id=1107716858]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick156/Area2D" unique_id=1299815004]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick169" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=651528193]
+position = Vector2(8775.652, -3262.5986)
+rotation = 58.119465
+scale = Vector2(1.1215333, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick169" unique_id=967201131]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick169/Area2D" unique_id=1106012561]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick170" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1171044777]
+position = Vector2(8345.562, -3610.1982)
+rotation = 59.69026
+scale = Vector2(0.27401668, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick170" unique_id=831428522]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick170/Area2D" unique_id=1980474889]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick171" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1303335611]
+position = Vector2(8651.774, -4023.5876)
+rotation = 59.69026
+scale = Vector2(0.27401668, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick171" unique_id=2087385444]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick171/Area2D" unique_id=1778520538]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick172" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1242428499]
+position = Vector2(9177.907, -4405.915)
+rotation = 61.26106
+scale = Vector2(1.282536, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick172" unique_id=1604614587]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick172/Area2D" unique_id=1467611013]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick173" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=9305600]
+position = Vector2(9288.585, -3629.6855)
+rotation = 62.831856
+scale = Vector2(0.24039216, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick173" unique_id=598842096]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick173/Area2D" unique_id=479170119]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick174" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=2013666570]
+position = Vector2(9393.65, -3292.8452)
+rotation = 64.40265
+scale = Vector2(0.6144665, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick174" unique_id=53634015]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick174/Area2D" unique_id=1170331412]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick175" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=482975324]
+position = Vector2(9243.828, -2891.9868)
+rotation = 65.97345
+scale = Vector2(0.3216517, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick175" unique_id=691409850]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick175/Area2D" unique_id=1051605030]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick176" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=83287112]
+position = Vector2(9243.828, -2891.9868)
+rotation = 65.97345
+scale = Vector2(0.3216517, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick176" unique_id=90073489]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick176/Area2D" unique_id=1067829212]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick177" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=442883908]
+position = Vector2(9243.828, -2891.9868)
+rotation = 65.97345
+scale = Vector2(0.3216517, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick177" unique_id=182295511]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick177/Area2D" unique_id=38735188]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick178" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=196128338]
+position = Vector2(9243.828, -2891.9868)
+rotation = 65.97345
+scale = Vector2(0.3216517, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick178" unique_id=991148403]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick178/Area2D" unique_id=1857555138]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick127" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=838617640]
+position = Vector2(9747.0625, -4112.0806)
+rotation = 54.977875
+scale = Vector2(0.4967802, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick127" unique_id=665106516]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick127/Area2D" unique_id=676024798]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick85" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=819277887]
+position = Vector2(5887.3677, -827.00195)
+rotation = 42.411503
+scale = Vector2(0.55555075, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick85" unique_id=1716005995]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick85/Area2D" unique_id=1533051542]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick93" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1121953173]
+position = Vector2(7778.533, -507.10107)
+rotation = 43.9823
+scale = Vector2(1.1664052, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick93" unique_id=1229958080]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick93/Area2D" unique_id=311931890]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick96" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1880752212]
+position = Vector2(7440.711, -2112.829)
+rotation = 45.553093
+scale = Vector2(2.5784402, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick96" unique_id=1164115318]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick96/Area2D" unique_id=1827303289]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick97" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1647494129]
+position = Vector2(6979.8823, -3101.5732)
+rotation = 47.12389
+scale = Vector2(0.734068, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick97" unique_id=183514602]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick97/Area2D" unique_id=2141269579]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick98" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=473319919]
+position = Vector2(7003.659, -4436.389)
+rotation = 47.12389
+scale = Vector2(0.734068, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick98" unique_id=1181117821]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick98/Area2D" unique_id=540507709]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick99" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1792016440]
+position = Vector2(7003.659, -4436.389)
+rotation = 47.12389
+scale = Vector2(0.734068, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick99" unique_id=498637538]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick99/Area2D" unique_id=2089572599]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick100" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=705613925]
+position = Vector2(6985.5645, -5157.385)
+rotation = 47.12389
+scale = Vector2(0.734068, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick100" unique_id=2083953766]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick100/Area2D" unique_id=595137024]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick102" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=798663910]
+position = Vector2(7451.845, -5911.9517)
+rotation = 51.83628
+scale = Vector2(1.2611041, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick102" unique_id=752763924]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick102/Area2D" unique_id=1778972547]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick103" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1128986939]
+position = Vector2(7991.304, -6664.796)
+rotation = 53.407078
+scale = Vector2(0.91849804, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick103" unique_id=1175872937]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick103/Area2D" unique_id=589069108]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick104" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=202668868]
+position = Vector2(8062.883, -7238.252)
+rotation = 53.407078
+scale = Vector2(0.6432207, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick104" unique_id=79151109]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick104/Area2D" unique_id=1384398082]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick105" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=127030535]
+position = Vector2(8062.883, -7238.252)
+rotation = 53.407078
+scale = Vector2(0.6432207, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick105" unique_id=673415323]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick105/Area2D" unique_id=907830657]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick106" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1559586468]
+position = Vector2(8062.883, -7238.252)
+rotation = 53.407078
+scale = Vector2(0.6432207, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick106" unique_id=1049434896]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick106/Area2D" unique_id=477423121]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick107" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=2066174799]
+position = Vector2(8804.756, -7238.2534)
+rotation = 53.407078
+scale = Vector2(0.6432207, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick107" unique_id=399057797]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick107/Area2D" unique_id=2027317602]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick108" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1171186517]
+position = Vector2(9716.44, -7081.025)
+rotation = 54.977875
+scale = Vector2(1.1433387, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick108" unique_id=1343093836]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick108/Area2D" unique_id=1510692806]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick109" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=999998543]
+position = Vector2(9172.216, -6711.742)
+rotation = 54.977875
+scale = Vector2(0.90035, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick109" unique_id=631621489]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick109/Area2D" unique_id=1238780324]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick110" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1313092440]
+position = Vector2(8730.987, -6117.785)
+rotation = 56.548668
+scale = Vector2(0.7720306, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick110" unique_id=1973107349]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick110/Area2D" unique_id=415232807]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick145" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1534120741]
+position = Vector2(8275.842, -5642.678)
+rotation = 58.119465
+scale = Vector2(0.82246774, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick145" unique_id=2072158744]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick145/Area2D" unique_id=1123784139]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick146" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=794094816]
+position = Vector2(8730.988, -5171.3037)
+rotation = 62.831856
+scale = Vector2(0.7720306, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick146" unique_id=1397731396]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick146/Area2D" unique_id=1562448973]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick147" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1412189014]
+position = Vector2(9225.1045, -5644.544)
+rotation = 62.831856
+scale = Vector2(0.7720306, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick147" unique_id=1755209786]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick147/Area2D" unique_id=71145646]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick87" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1688538473]
+position = Vector2(6878.3896, -1518.9932)
+rotation = 45.553093
+scale = Vector2(0.6581189, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick87" unique_id=414646857]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick87/Area2D" unique_id=439965882]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick88" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=952727291]
+position = Vector2(6555.472, -3530.2302)
+rotation = 42.411503
+scale = Vector2(1.4976782, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick88" unique_id=1570894691]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick88/Area2D" unique_id=436867113]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick90" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=953683310]
+position = Vector2(6014.092, -2614.414)
+rotation = 43.9823
+scale = Vector2(0.93792915, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick90" unique_id=953845858]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick90/Area2D" unique_id=271428936]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick91" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=2082521437]
+position = Vector2(5472.5864, -2222.0657)
+rotation = 45.553093
+scale = Vector2(0.6940942, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick91" unique_id=1437749685]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick91/Area2D" unique_id=956194574]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick92" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=876622319]
+position = Vector2(6514.136, -1883.6742)
+rotation = 47.12389
+scale = Vector2(0.5781726, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick92" unique_id=1693524530]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick92/Area2D" unique_id=1863180469]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick69" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=319789810]
+position = Vector2(5938.868, -4551.5723)
+rotation = 26.703539
+scale = Vector2(2.3072395, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick69" unique_id=1170908540]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick69/Area2D" unique_id=1231951374]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick70" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1604644195]
+position = Vector2(5369.2134, -3105.7485)
+rotation = 28.274334
+scale = Vector2(0.94829786, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick70" unique_id=482785010]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick70/Area2D" unique_id=417453664]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick71" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=555542020]
+position = Vector2(4812.8345, -2155.2148)
+rotation = 29.84513
+scale = Vector2(1.5816982, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick71" unique_id=1287568409]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick71/Area2D" unique_id=2114474626]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick72" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1171754021]
+position = Vector2(5580.2456, -1137.6239)
+rotation = 31.415928
+scale = Vector2(2.099707, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick72" unique_id=485822279]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick72/Area2D" unique_id=923487585]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick56" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1108152909]
+position = Vector2(3934.5552, -7541.881)
+rotation = 20.420353
+scale = Vector2(0.5420207, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick56" unique_id=1986270946]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick56/Area2D" unique_id=967332057]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick64" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1450956618]
+position = Vector2(4858.766, -6548.354)
+rotation = 23.561945
+scale = Vector2(1.1709785, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick64" unique_id=29557322]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick64/Area2D" unique_id=223411682]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick40" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1332034780]
+position = Vector2(2454.9827, -6230.5264)
+rotation = 20.420353
+scale = Vector2(0.61327976, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick40" unique_id=467335063]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick40/Area2D" unique_id=2138378103]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick42" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=592625544]
+position = Vector2(1935.8103, -5082.223)
+rotation = 21.99115
+scale = Vector2(0.8505349, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick42" unique_id=1757836207]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick42/Area2D" unique_id=2043076194]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick45" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=47737798]
+position = Vector2(1939.9862, -5886.732)
+rotation = 21.99115
+scale = Vector2(0.8505349, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick45" unique_id=1408484470]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick45/Area2D" unique_id=1543612244]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick47" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1267491661]
+position = Vector2(3209.384, -5836.1567)
+rotation = 23.561945
+scale = Vector2(2.2090664, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick47" unique_id=508812030]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick47/Area2D" unique_id=720796367]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick54" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1342921320]
+position = Vector2(3928.9875, -3648.141)
+rotation = 26.703539
+scale = Vector2(1.3296859, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick54" unique_id=437304423]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick54/Area2D" unique_id=1530343084]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick43" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=555191130]
+position = Vector2(-711.64636, -5690.476)
+rotation = 21.99115
+scale = Vector2(0.6350807, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick43" unique_id=854791574]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick43/Area2D" unique_id=1643153072]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick44" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=135725686]
+position = Vector2(-328.78458, -7412.237)
+rotation = 23.561945
+scale = Vector2(0.6350807, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick44" unique_id=1190624584]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick44/Area2D" unique_id=1504483973]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick30" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1508444713]
+position = Vector2(2452.2004, -3575.111)
+rotation = 17.27876
+scale = Vector2(2.4255693, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick30" unique_id=691569424]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick30/Area2D" unique_id=324165502]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick32" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1494102179]
+position = Vector2(-628.0388, -4071.715)
+rotation = 17.27876
+scale = Vector2(0.8505349, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick32" unique_id=75590844]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick32/Area2D" unique_id=1326231906]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick33" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=2125589852]
+position = Vector2(-111.65062, -4557.4824)
+rotation = 18.849556
+scale = Vector2(0.8505349, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick33" unique_id=1378607519]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick33/Area2D" unique_id=71706821]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick34" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1589392089]
+position = Vector2(456.23825, -5574.024)
+rotation = 20.420353
+scale = Vector2(1.6559461, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick34" unique_id=681876525]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick34/Area2D" unique_id=908194910]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick36" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=465790765]
+position = Vector2(1455.6309, -6572.9287)
+rotation = 21.99115
+scale = Vector2(1.6204528, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick36" unique_id=1360419536]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick36/Area2D" unique_id=1703488860]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick49" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=623950994]
+position = Vector2(1823.6669, -7199.2773)
+rotation = 21.99115
+scale = Vector2(2.2129076, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick49" unique_id=1075100428]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick49/Area2D" unique_id=176438222]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick21" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1791964772]
+position = Vector2(1440.2997, -3349.328)
+rotation = 17.27876
+scale = Vector2(0.8505349, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick21" unique_id=911382854]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick21/Area2D" unique_id=1368865349]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick23" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1705167836]
+position = Vector2(381.8377, -3563.6782)
+rotation = 18.849556
+scale = Vector2(1.636834, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick23" unique_id=791850106]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick23/Area2D" unique_id=1554977719]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick25" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1553918367]
+position = Vector2(3121.6953, 464.43335)
+rotation = 18.849556
+scale = Vector2(0.8505349, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick25" unique_id=315479709]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick25/Area2D" unique_id=990413654]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick28" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=222724239]
+position = Vector2(3034.007, -1144.5842)
+rotation = 21.99115
+scale = Vector2(0.8505349, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick28" unique_id=24160320]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick28/Area2D" unique_id=1402295236]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick58" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=167436268]
+position = Vector2(3791.1914, -330.3322)
+rotation = 21.99115
+scale = Vector2(0.8505349, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick58" unique_id=1171448805]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick58/Area2D" unique_id=960524494]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick27" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1337559825]
+position = Vector2(2521.793, -339.10004)
+rotation = 20.420353
+scale = Vector2(1.3411125, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick27" unique_id=757159884]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick27/Area2D" unique_id=1360998631]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick24" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=265111359]
+position = Vector2(-670.008, -2679.8318)
+rotation = 18.849556
+scale = Vector2(0.71971434, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick24" unique_id=762884036]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick24/Area2D" unique_id=593150843]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick18" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=1952128166]
+position = Vector2(3130.0474, 1060.1592)
+rotation = 14.137167
+scale = Vector2(0.8505349, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick18" unique_id=176136256]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick18/Area2D" unique_id=2085067827]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="brick9" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=505021476]
+position = Vector2(783.37366, -380.5)
+rotation = 8.115781
+scale = Vector2(0.56964165, 0.13227813)
+texture = ExtResource("8_4ddt3")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick9" unique_id=420022255]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick9/Area2D" unique_id=290029410]
+position = Vector2(-2.7008057, -0.8935547)
+shape = SubResource("RectangleShape2D_4ddt3")
+
+[node name="waypoints" type="Node2D" parent="background" unique_id=1050702330]
+position = Vector2(-1117.9763, 1617.9026)
+rotation = -1.5707964
+scale = Vector2(0.47782117, 0.22797233)
+
+[node name="patrol1" type="Node2D" parent="background/waypoints" unique_id=1548888524]
+
+[node name="WP_p1_0" type="Marker2D" parent="background/waypoints/patrol1" unique_id=107783769]
+position = Vector2(2001, 603)
+
+[node name="WP_p1_1" type="Marker2D" parent="background/waypoints/patrol1" unique_id=1246839509]
+position = Vector2(1843, 1629)
+
+[node name="WP_p1_2" type="Marker2D" parent="background/waypoints/patrol1" unique_id=531598761]
+position = Vector2(1392, 478)
+
+[node name="WP_p1_3" type="Marker2D" parent="background/waypoints/patrol1" unique_id=1926025898]
+position = Vector2(155, 989)
+
+[node name="WP_p1_4" type="Marker2D" parent="background/waypoints/patrol1" unique_id=2146987776]
+position = Vector2(367, 2841)
+
+[node name="WP_p1_5" type="Marker2D" parent="background/waypoints/patrol1" unique_id=936056384]
+position = Vector2(2308, 2275)
+
+[node name="WP_p1_6" type="Marker2D" parent="background/waypoints/patrol1" unique_id=2041703477]
+position = Vector2(5102, 2858)
+
+[node name="WP_p1_7" type="Marker2D" parent="background/waypoints/patrol1" unique_id=42263529]
+position = Vector2(4360, 1842)
+
+[node name="WP_p1_8" type="Marker2D" parent="background/waypoints/patrol1" unique_id=1561767245]
+position = Vector2(2699, 1504)
+
+[node name="patrol2" type="Node2D" parent="background/waypoints" unique_id=1992076192]
+position = Vector2(19, 25)
+
+[node name="WP_p2_0" type="Marker2D" parent="background/waypoints/patrol2" unique_id=698023622]
+position = Vector2(5724, 319)
+
+[node name="WP_p2_1" type="Marker2D" parent="background/waypoints/patrol2" unique_id=90140698]
+position = Vector2(6540, 3340)
+
+[node name="WP_p2_2" type="Marker2D" parent="background/waypoints/patrol2" unique_id=1751009021]
+position = Vector2(4588, 4801)
+
+[node name="WP_p2_3" type="Marker2D" parent="background/waypoints/patrol2" unique_id=1662524240]
+position = Vector2(2259, 3963)
+
+[node name="WP_p2_4" type="Marker2D" parent="background/waypoints/patrol2" unique_id=1693624795]
+position = Vector2(5071, 1529)
+
+[node name="WP_p2_5" type="Marker2D" parent="background/waypoints/patrol2" unique_id=976745185]
+position = Vector2(3344, 1400)
+
+[node name="patrol3" type="Node2D" parent="background/waypoints" unique_id=1255767690]
+position = Vector2(31, 14)
+
+[node name="WP_p3_0" type="Marker2D" parent="background/waypoints/patrol3" unique_id=864024448]
+position = Vector2(2250, 4521)
+
+[node name="WP_p3_1" type="Marker2D" parent="background/waypoints/patrol3" unique_id=588008287]
+position = Vector2(4575, 5361)
+
+[node name="WP_p3_2" type="Marker2D" parent="background/waypoints/patrol3" unique_id=1362344406]
+position = Vector2(2697, 6448)
+
+[node name="WP_p3_3" type="Marker2D" parent="background/waypoints/patrol3" unique_id=152108269]
+position = Vector2(1335, 8009)
+
+[node name="WP_p3_4" type="Marker2D" parent="background/waypoints/patrol3" unique_id=1712892859]
+position = Vector2(839, 9629)
+
+[node name="WP_p3_5" type="Marker2D" parent="background/waypoints/patrol3" unique_id=254845172]
+position = Vector2(861, 6749)
+
+[node name="patrol4" type="Node2D" parent="background/waypoints" unique_id=667397909]
+position = Vector2(34, 30)
+
+[node name="WP_p4_0" type="Marker2D" parent="background/waypoints/patrol4" unique_id=1865969306]
+position = Vector2(5911, 9501)
+
+[node name="WP_p4_1" type="Marker2D" parent="background/waypoints/patrol4" unique_id=774985451]
+position = Vector2(4107, 8029)
+
+[node name="WP_p4_2" type="Marker2D" parent="background/waypoints/patrol4" unique_id=556784154]
+position = Vector2(6132, 6088)
+
+[node name="WP_p4_3" type="Marker2D" parent="background/waypoints/patrol4" unique_id=897874742]
+position = Vector2(3983, 6440)
+
+[node name="WP_p4_4" type="Marker2D" parent="background/waypoints/patrol4" unique_id=2128131189]
+position = Vector2(2668, 7886)
+
+[node name="WP_p4_5" type="Marker2D" parent="background/waypoints/patrol4" unique_id=501114128]
+position = Vector2(1802, 8374)
+
+[node name="WP_p4_6" type="Marker2D" parent="background/waypoints/patrol4" unique_id=1428792720]
+position = Vector2(3860, 9481)
+
+[node name="WP_p4_7" type="Marker2D" parent="background/waypoints/patrol4" unique_id=871349821]
+position = Vector2(3860, 9481)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=176139884]
-position = Vector2(-10, -23)
+position = Vector2(84, 121)
 scale = Vector2(0.15, 0.15)
-limit_left = -833
-limit_top = -575
-limit_right = 833
-limit_bottom = 575
+limit_left = 0
+limit_top = 0
+limit_right = 5746
+limit_bottom = 8321
 editor_draw_limits = true
 editor_draw_drag_margin = true
 
 [node name="sentry1" parent="." unique_id=603938135 instance=ExtResource("4_r6spc")]
-position = Vector2(-545, 471)
+position = Vector2(371, 371)
 personality_name = "rosanna"
+look_angles = Array[float]([315.0, 90.0])
 metadata/_edit_group_ = true
 
+[node name="VesnaManager" parent="sentry1" index="7" unique_id=897468463]
+PORT = 9071
+
 [node name="sentry2" parent="." unique_id=1313142815 instance=ExtResource("4_r6spc")]
-position = Vector2(-689, -170)
+position = Vector2(4310, 1287)
 personality_name = "rosanna"
 metadata/_edit_group_ = true
 
 [node name="VesnaManager" parent="sentry2" index="7" unique_id=897468463]
-PORT = 9082
+PORT = 9072
 
 [node name="sentry3" parent="." unique_id=428650802 instance=ExtResource("4_r6spc")]
-position = Vector2(396, 126)
+position = Vector2(459, 3046.0002)
 personality_name = "rosanna"
+look_angles = Array[float]([0.0, 90.0, 235.0])
 metadata/_edit_group_ = true
 
 [node name="VesnaManager" parent="sentry3" index="7" unique_id=897468463]
-PORT = 9083
+PORT = 9073
 
-[node name="patrol_lazy" parent="." unique_id=1481715262 instance=ExtResource("3_5s84a")]
-position = Vector2(503, -431)
-personality_name = "marianna"
+[node name="sentry4" parent="." unique_id=1478456468 instance=ExtResource("4_r6spc")]
+position = Vector2(3284, 3269)
+personality_name = "rosanna"
+look_angles = Array[float]([0.0, 90.0, 180.0])
 metadata/_edit_group_ = true
 
-[node name="VesnaManager" parent="patrol_lazy" index="8" unique_id=1491732810]
-PORT = 9084
+[node name="VesnaManager" parent="sentry4" index="7" unique_id=897468463]
+PORT = 9074
 
-[node name="Patrol" parent="patrol_lazy/StateMachine" parent_id_path=PackedInt32Array(1481715262, 1962791099) index="1" unique_id=459811783]
-waypoint_parents = Array[NodePath]([NodePath("../../../waypoints/patrol1")])
-
-[node name="captain" parent="." unique_id=224910995 instance=ExtResource("5_5we7h")]
-position = Vector2(-398, -455)
+[node name="sentry5" parent="." unique_id=945089018 instance=ExtResource("4_r6spc")]
+position = Vector2(5010, 4103)
 personality_name = "rosanna"
 metadata/_edit_group_ = true
 
-[node name="VesnaManager" parent="captain" index="7" unique_id=1491732810]
-PORT = 9085
+[node name="VesnaManager" parent="sentry5" index="7" unique_id=897468463]
+PORT = 9075
+
+[node name="sentry6" parent="." unique_id=1838934497 instance=ExtResource("4_r6spc")]
+position = Vector2(3898, 5475.0005)
+personality_name = "rosanna"
 metadata/_edit_group_ = true
 
-[node name="Patrol" parent="captain/StateMachine" parent_id_path=PackedInt32Array(224910995, 1962791099) index="1" unique_id=459811783]
-waypoint_parents = Array[NodePath]([NodePath("../../../waypoints/patrol1"), NodePath("../../../waypoints/patrol2")])
+[node name="VesnaManager" parent="sentry6" index="7" unique_id=897468463]
+PORT = 9076
+
+[node name="sentry7" parent="." unique_id=191800596 instance=ExtResource("4_r6spc")]
+position = Vector2(114, 7550)
+personality_name = "rosanna"
+look_angles = Array[float]([0.0, 270.0])
+metadata/_edit_group_ = true
+
+[node name="VesnaManager" parent="sentry7" index="7" unique_id=897468463]
+PORT = 9077
+
+[node name="sentry8" parent="." unique_id=604718379 instance=ExtResource("4_r6spc")]
+position = Vector2(5062, 6809)
+personality_name = "rosanna"
+look_angles = Array[float]([0.0, 90.0, 180.0])
+metadata/_edit_group_ = true
+
+[node name="VesnaManager" parent="sentry8" index="7" unique_id=897468463]
+PORT = 9078
+
+[node name="patrol_rosanna" parent="." unique_id=1481715262 instance=ExtResource("3_5s84a")]
+position = Vector2(1721, 980)
+personality_name = "rosanna"
+metadata/_edit_group_ = true
+
+[node name="Sprite" parent="patrol_rosanna" index="5" unique_id=1460783650]
+texture = ExtResource("6_pw6kw")
+
+[node name="Patrol" parent="patrol_rosanna/StateMachine" parent_id_path=PackedInt32Array(1481715262, 1962791099) index="1" unique_id=459811783]
+waypoint_parents = Array[NodePath]([NodePath("../../../background/waypoints/patrol1")])
+
+[node name="patrol_susanna" parent="." unique_id=656699391 instance=ExtResource("3_5s84a")]
+position = Vector2(5475.0005, 216)
+personality_name = "susanna"
+metadata/_edit_group_ = true
+
+[node name="Sprite" parent="patrol_susanna" index="5" unique_id=1460783650]
+texture = ExtResource("7_8lvci")
+
+[node name="VesnaManager" parent="patrol_susanna" index="8" unique_id=1491732810]
+PORT = 9081
+
+[node name="Patrol" parent="patrol_susanna/StateMachine" parent_id_path=PackedInt32Array(656699391, 1962791099) index="1" unique_id=459811783]
+waypoint_parents = Array[NodePath]([NodePath("../../../background/waypoints/patrol2")])
+
+[node name="patrol_polyanna" parent="." unique_id=258279592 instance=ExtResource("3_5s84a")]
+position = Vector2(2235, 5481)
+personality_name = "polyanna"
+metadata/_edit_group_ = true
+
+[node name="Sprite" parent="patrol_polyanna" index="5" unique_id=1460783650]
+texture = ExtResource("8_xfp0m")
+
+[node name="VesnaManager" parent="patrol_polyanna" index="8" unique_id=1491732810]
+PORT = 9082
+
+[node name="Patrol" parent="patrol_polyanna/StateMachine" parent_id_path=PackedInt32Array(258279592, 1962791099) index="1" unique_id=459811783]
+waypoint_parents = Array[NodePath]([NodePath("../../../background/waypoints/patrol3")])
+
+[node name="patrol_marianna" parent="." unique_id=1335603263 instance=ExtResource("3_5s84a")]
+position = Vector2(4155, 8128)
+personality_name = "marianna"
+metadata/_edit_group_ = true
+
+[node name="VesnaManager" parent="patrol_marianna" index="8" unique_id=1491732810]
+PORT = 9083
+
+[node name="Patrol" parent="patrol_marianna/StateMachine" parent_id_path=PackedInt32Array(1335603263, 1962791099) index="1" unique_id=459811783]
+waypoint_parents = Array[NodePath]([NodePath("../../../background/waypoints/patrol4")])
+
+[node name="captain_daniele" parent="." unique_id=224910995 instance=ExtResource("5_5we7h")]
+position = Vector2(1179.0001, 2428)
+personality_name = "rosanna"
+metadata/_edit_group_ = true
+
+[node name="VesnaManager" parent="captain_daniele" index="7" unique_id=1491732810]
+PORT = 9090
+metadata/_edit_group_ = true
+
+[node name="Patrol" parent="captain_daniele/StateMachine" parent_id_path=PackedInt32Array(224910995, 1962791099) index="1" unique_id=459811783]
+waypoint_parents = Array[NodePath]([NodePath("../../../background/waypoints/patrol1"), NodePath("../../../background/waypoints/patrol2")])
+
+[node name="captain_samuele" parent="." unique_id=2124198004 instance=ExtResource("5_5we7h")]
+position = Vector2(3053.0002, 6703)
+personality_name = "rosanna"
+metadata/_edit_group_ = true
+
+[node name="VesnaManager" parent="captain_samuele" index="7" unique_id=1491732810]
+PORT = 9091
+metadata/_edit_group_ = true
+
+[node name="Patrol" parent="captain_samuele/StateMachine" parent_id_path=PackedInt32Array(2124198004, 1962791099) index="1" unique_id=459811783]
+waypoint_parents = Array[NodePath]([NodePath("../../../background/waypoints/patrol3"), NodePath("../../../background/waypoints/patrol4")])
 
 [node name="Target" parent="." unique_id=1503970670 instance=ExtResource("8_v3o7v")]
-position = Vector2(137, 475)
+position = Vector2(2750, 5855.0005)
 metadata/_edit_group_ = true
 
 [node name="Player" parent="." unique_id=202696612 instance=ExtResource("2_5s84a")]
 unique_name_in_owner = true
-position = Vector2(-10, -23)
+position = Vector2(84, 121)
 DEFAULT_SPEED = 300.0
 metadata/_edit_group_ = true
 
@@ -176,5 +2149,14 @@ vertical_alignment = 1
 [editable path="sentry1"]
 [editable path="sentry2"]
 [editable path="sentry3"]
-[editable path="patrol_lazy"]
-[editable path="captain"]
+[editable path="sentry4"]
+[editable path="sentry5"]
+[editable path="sentry6"]
+[editable path="sentry7"]
+[editable path="sentry8"]
+[editable path="patrol_rosanna"]
+[editable path="patrol_susanna"]
+[editable path="patrol_polyanna"]
+[editable path="patrol_marianna"]
+[editable path="captain_daniele"]
+[editable path="captain_samuele"]

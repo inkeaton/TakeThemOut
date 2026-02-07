@@ -6,72 +6,122 @@ mas vesna {
     
     agent sentry1:sentry.asl {
         ag-class:   vesna.VesnaAgent
-        temper:     temper(aggressiveness(0.3), laziness(0.5), fear(0.0)[mood])
+        temper:     temper(aggressiveness(0.6), laziness(0.2), fear(0.0)[mood], sympathy(0.0)[mood])
         address:    localhost
-        port:       9081
+        port:       9071
         strategy:   most_similar
     }
 
     agent sentry2:sentry.asl {
         ag-class:   vesna.VesnaAgent
-        temper:     temper(aggressiveness(0.3), laziness(0.5), fear(0.0)[mood])
+        temper:     temper(aggressiveness(0.1), laziness(0.5), fear(0.0)[mood], sympathy(0.0)[mood])
         address:    localhost
-        port:       9082
+        port:       9072
         strategy:   most_similar
     }
 
     agent sentry3:sentry.asl {
         ag-class:   vesna.VesnaAgent
-        temper:     temper(aggressiveness(0.3), laziness(0.5), fear(0.0)[mood])
+        temper:     temper(aggressiveness(0.5), laziness(0.4), fear(-0.1)[mood], sympathy(0.0)[mood])
         address:    localhost
-        port:       9083
+        port:       9073
         strategy:   most_similar
     }
+
+    agent sentry4:sentry.asl {
+        ag-class:   vesna.VesnaAgent
+        temper:     temper(aggressiveness(0.1), laziness(0.2), fear(0.3)[mood], sympathy(0.0)[mood])
+        address:    localhost
+        port:       9074
+        strategy:   most_similar
+    }
+
+    agent sentry5:sentry.asl {
+        ag-class:   vesna.VesnaAgent
+        temper:     temper(aggressiveness(0.6), laziness(0.4), fear(0.0)[mood], sympathy(0.0)[mood])
+        address:    localhost
+        port:       9075
+        strategy:   most_similar
+    }
+
+    agent sentry6:sentry.asl {
+        ag-class:   vesna.VesnaAgent
+        temper:     temper(aggressiveness(0.2), laziness(0.7), fear(-0.2)[mood], sympathy(0.0)[mood])
+        address:    localhost
+        port:       9076
+        strategy:   most_similar
+    }
+
+    agent sentry7:sentry.asl {
+        ag-class:   vesna.VesnaAgent
+        temper:     temper(aggressiveness(0.3), laziness(0.5), fear(0.5)[mood], sympathy(0.0)[mood])
+        address:    localhost
+        port:       9077
+        strategy:   most_similar
+    }
+
+    agent sentry8:sentry.asl {
+        ag-class:   vesna.VesnaAgent
+        temper:     temper(aggressiveness(0.3), laziness(0.1), fear(0.0)[mood], sympathy(0.0)[mood])
+        address:    localhost
+        port:       9078
+        strategy:   most_similar
+    }
+
+
 
     // Agent 1: lazy but aggressive patrol agent
-    agent patrol_lazy:patrol.asl {
+    agent patrol_rosanna:patrol.asl {
         ag-class:   vesna.VesnaAgent
-        temper:     temper(laziness(0.3), aggressiveness(0.7), fear(0.0)[mood]) 
+        temper:     temper(laziness(0.7), aggressiveness(0.7), fear(0.0)[mood], sympathy(-0.3)[mood]) 
         strategy:   most_similar          
         address:    localhost
-        port:       9084
+        port:       9080
     }
 
-    // agent susanna:patrol.asl {
-    //     ag-class:   vesna.VesnaAgent
-    //     temper:     temper(laziness(0.9), aggressiveness(0.2), fear(0.0)[mood]) 
-    //     strategy:   most_similar          
-    //     address:    localhost
-    //     port:       9085
-    // }
+    agent patrol_susanna:patrol.asl {
+        ag-class:   vesna.VesnaAgent
+        temper:     temper(laziness(0.3), aggressiveness(0.2), fear(0.0)[mood], sympathy(0.3)[mood]) 
+        strategy:   most_similar          
+        address:    localhost
+        port:       9081
+    }
 
-    // agent polyanna:patrol.asl {
-    //     ag-class:   vesna.VesnaAgent
-    //     temper:     temper(laziness(0.3), aggressiveness(0.2), fear(0.0)[mood]) 
-    //     strategy:   most_similar          
-    //     address:    localhost
-    //     port:       9086
-    // }
+    agent patrol_polyanna:patrol.asl {
+        ag-class:   vesna.VesnaAgent
+        temper:     temper(laziness(0.7), aggressiveness(0.2), fear(0.0)[mood], sympathy(0.0)[mood]) 
+        strategy:   most_similar          
+        address:    localhost
+        port:       9082
+    }
 
-    // agent marianna:patrol.asl {
-    //     ag-class:   vesna.VesnaAgent
-    //     temper:     temper(laziness(0.6), aggressiveness(0.7), fear(0.0)[mood]) 
-    //     strategy:   most_similar          
-    //     address:    localhost
-    //     port:       9087
-    // }
+    agent patrol_marianna:patrol.asl {
+        ag-class:   vesna.VesnaAgent
+        temper:     temper(laziness(0.2), aggressiveness(0.7), fear(0.0)[mood], sympathy(0.0)[mood]) 
+        strategy:   most_similar          
+        address:    localhost
+        port:       9083
+    }
 
     // The New Leader - Starts with negative fear (confidence)
-    agent captain : captain.asl {
+    agent captain_daniele:captain.asl {
         ag-class: vesna.VesnaAgent
-        temper:     temper(laziness(0.1), aggressiveness(0.8), fear(-0.2)[mood])
+        temper:     temper(laziness(0.1), aggressiveness(0.7), fear(-0.2)[mood], sympathy(-0.5)[mood])
         strategy:   most_similar
-        address: localhost
-        port: 9085  // Ensure this matches the port in captain.tscn
+        address:    localhost
+        port:       9090  
+    }
+
+    agent captain_samuele:captain.asl {
+        ag-class: vesna.VesnaAgent
+        temper:     temper(laziness(0.5), aggressiveness(0.4), fear(-0.2)[mood], sympathy(-0.5)[mood])
+        strategy:   most_similar
+        address:    localhost
+        port:       9091
     }
 
     // Need to sync startup and add other properties
-    agent director : ready_agent.asl {
+    agent director:ready_agent.asl {
         ag-class: vesna.VesnaAgent
         temper:     temper(laziness(0.1), aggressiveness(0.8))
         strategy:   most_similar

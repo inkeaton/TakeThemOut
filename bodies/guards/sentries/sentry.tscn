@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://c8fx5ethfpbhc" path="res://bodies/guards/sentries/states/alert_state.gd" id="8_w5w8p"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bmsg8"]
-radius = 2000.0
+radius = 8000.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_naond"]
 radius = 233.71397
@@ -58,7 +58,7 @@ collision_layer = 16
 collision_mask = 4
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="VisionCone" unique_id=1239665097]
-polygon = PackedVector2Array(1050, -650, 1050, 650, 153.333, 320, -150, 320, -320, 100, -320, -100, -150, -320, 160, -320)
+polygon = PackedVector2Array(1850, -1550, 1850, 1550, 153.333, 320, -150, 320, -320, 100, -320, -100, -150, -320, 160, -320)
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1460783650]
 material = ExtResource("1_e2b8b")
