@@ -34,53 +34,60 @@ responding_to_alert(no).
 
 // 2. Analyze Intel (Decision Logic)
 
-/* SABOTEUR: Ignores reports to help player.
-   "Looks clear to me." -> Patrols Randomly.
-*/
+/* SABOTEUR: Ignores reports to help player. */
 @analyze_saboteur[temper([sympathy(0.8)]), effects([sympathy(0.05)])]
 +!analyze_intel
-    <-  .findall(Pos, sighting_report(Pos)[source(_)], Reports);
+    <-  .findall(Pos, sighting_report(Pos)[source(_)] & Pos \== none, Reports);
         .abolish(sighting_report(_));
         .print("Intel ignored. (Sabotage)");
         vesna.transition_to("Patrol", [target("random")]).
 
-/* ARMCHAIR GENERAL: Too scared/lazy to coordinate complex maneuvers.
-   Just goes to next waypoint.
-*/
+/* ARMCHAIR GENERAL: Too scared/lazy to coordinate. */
 @analyze_lazy[temper([laziness(0.8), fear(0.6)])]
 +!analyze_intel
-    <-  .findall(Pos, sighting_report(Pos)[source(_)], Reports);
+    <-  .findall(Pos, sighting_report(Pos)[source(_)] & Pos \== none, Reports);
         .abolish(sighting_report(_));
         .print("Too much noise. Maintaining course.");
         vesna.transition_to("Patrol", [target("next")]).
 
-/* TACTICIAN/WARLORD: Processes intel properly. */
-@analyze_default[temper([fear(0.0)]), effects([fear(-0.05)])]
+/* DEFAULT:
+   Added sympathy(0.0) and laziness(0.5) to ensure it loses to Saboteur/Lazy traits.
+*/
+@analyze_default[temper([sympathy(0.0), laziness(0.5), fear(0.0)]), effects([fear(-0.05)])]
 +!analyze_intel
-    <-  .findall(Pos, sighting_report(Pos)[source(_)], Reports);
+    <-  .findall(Pos, sighting_report(Pos)[source(_)] & Pos \== none, Reports);
         .abolish(sighting_report(_));
         .print("Analyzing intel: ", Reports);
         !act_on_intel(Reports).
 
 // 3. Act on Intel (Intercept Logic)
 
-// No Reports -> Patrol Randomly (Aggro) or Next (Default)
+// Case 1: List is empty (Only 'none' reports received)
+
+/* NO INTEL - DEFAULT
+   Added aggressiveness(0.5) to compete with Aggro plans.
+*/
+@no_intel_default[temper([aggressiveness(0.5), fear(0.0)])]
++!act_on_intel([]) 
+    <-  .print("No actionable intel (Sector clear).");
+        vesna.transition_to("Patrol", [target("next")]).
+
+/* NO INTEL - AGGRESSIVE */
 @no_intel_aggro[temper([aggressiveness(0.8)])]
-+!act_on_intel([]) <- .print("No targets. Hunting randomly."); vesna.transition_to("Patrol", [target("random")]).
++!act_on_intel([])
+    <- .print("No targets. Hunting randomly.");
+       vesna.transition_to("Patrol", [target("random")]).
 
-@no_intel_default[temper([fear(0.0)])]
-+!act_on_intel([]) <- .print("Sector clear. Proceeding."); vesna.transition_to("Patrol", [target("next")]).
+// Case 2: Valid reports exist
 
-// Reports Exist -> Intercept
-
-/* WARLORD: Precision Intercept */
+/* INTERCEPT - WARLORD (Aggressive) */
 @intercept_warlord[temper([aggressiveness(0.8)]), effects([fear(-0.05)])]
 +!act_on_intel(Reports) : not .empty(Reports)
     <-  vesna.calc_centroid(Reports, AvgX, AvgY);
         .print("INTERCEPT COURSE SET: ", AvgX, ",", AvgY);
         vesna.transition_to("Patrol", [target(coords(AvgX, AvgY))]).
 
-/* CAUTIOUS: Hesitate */
+/* INTERCEPT - CAUTIOUS (High Fear) */
 @intercept_cautious[temper([fear(0.8)])]
 +!act_on_intel(Reports) : not .empty(Reports)
     <-  vesna.calc_centroid(Reports, AvgX, AvgY);
@@ -88,8 +95,10 @@ responding_to_alert(no).
         .wait(1500);
         vesna.transition_to("Patrol", [target(coords(AvgX, AvgY))]).
 
-/* DEFAULT */
-@intercept_default[temper([fear(0.0)])]
+/* INTERCEPT - DEFAULT
+   Added aggressiveness(0.5) to compete with Warlord.
+*/
+@intercept_default[temper([aggressiveness(0.5), fear(0.0)])]
 +!act_on_intel(Reports) : not .empty(Reports)
     <-  vesna.calc_centroid(Reports, AvgX, AvgY);
         .print("Converging on target.");
@@ -107,14 +116,12 @@ responding_to_alert(no).
 // NAVIGATION & ARRIVAL
 // =============================================================================
 
-// Reaching patrol waypoint -> Loop
 @nav_waypoint[effects([fear(-0.02)])]
 +navigation(reached, W) : is_chasing(no) & responding_to_alert(no)
     <-  .print("Arrived at ", W);
         -navigation(reached, W);
         !patrol.
 
-// Reaching Intercept Point -> Investigate
 @nav_intercept[effects([fear(-0.05)])]
 +navigation(reached_target, C) : is_chasing(no)
     <-  .print("Intercept complete. Investigating.");
@@ -122,7 +129,6 @@ responding_to_alert(no).
         -responding_to_alert(_); +responding_to_alert(no);
         vesna.transition_to("Investigate", [points(5)]).
 
-// Clean up stray nav messages
 +navigation(Status, _) : is_chasing(yes) <- -navigation(Status, _).
 
 // =============================================================================
@@ -149,7 +155,10 @@ responding_to_alert(no).
         +last_player_pos(X, Y);
         vesna.transition_to("Chase", [patience(25)]).
 
-@chase_default[temper([fear(0.0)])]
+/* CHASE - DEFAULT
+   Added sympathy(0.0) and aggressiveness(0.5).
+*/
+@chase_default[temper([sympathy(0.0), aggressiveness(0.5), fear(0.0)])]
 +sight(player, Id, pos(X, Y)) : is_chasing(no)
     <-  .print("Contact! Taking command.");
         -is_chasing(no); +is_chasing(yes);
@@ -167,28 +176,31 @@ responding_to_alert(no).
 // INCOMING ALERTS (From Squad)
 // =============================================================================
 
-/* SABOTEUR: Breaks the chain of command.
-   Does NOT re-broadcast. Does NOT intercept effectively.
-*/
 @alert_saboteur[temper([sympathy(0.8)])]
 +player_spotted_at(X, Y)[source(Sender)] : is_chasing(no)
     <-  .print("Alert from ", Sender, ". Disregarding. (Sabotage)");
         -player_spotted_at(X, Y)[source(Sender)];
-        // Fake response - just patrol to random point
         vesna.transition_to("Patrol", [target("random")]).
 
-/* ARMCHAIR GENERAL: Broadcasts but stays put (or moves slowly).
-*/
 @alert_lazy[temper([laziness(0.8)])]
 +player_spotted_at(X, Y)[source(Sender)] : is_chasing(no)
     <-  .print("Alert from ", Sender, ". Squad, handle it.");
         -player_spotted_at(X, Y)[source(Sender)];
-        .broadcast(tell, player_spotted_at(X, Y)); // Delegate
-        // Minimal effort response
+        
+        // CHECK: Only broadcast if sender is NOT another captain
+        .term2string(Sender, SenderStr);
+        if (not .substring("captain", SenderStr)) {
+            .broadcast(tell, player_spotted_at(X, Y)); 
+        } else {
+            .print("Received from HQ/Captain. Not echoing.");
+        }
+
         vesna.transition_to("Patrol", [target(coords(X, Y))]).
 
-/* DEFAULT/WARLORD: Relays and Intercepts. */
-@alert_default[temper([fear(0.0)])]
+/* ALERT - DEFAULT 
+   Added sympathy(0.0) and laziness(0.5).
+*/
+@alert_default[temper([sympathy(0.0), laziness(0.5), fear(0.0)])]
 +player_spotted_at(X, Y)[source(Sender)] : is_chasing(no)
     <-  .print("Alert from ", Sender, ". Redirecting squad.");
         -player_spotted_at(X, Y)[source(Sender)];
@@ -236,6 +248,9 @@ responding_to_alert(no).
     <-  .print("They are gone. I'm not wasting time.");
         vesna.transition_to("Investigate", [points(2)]).
 
+/* RECOVER - DEFAULT
+   No changes needed, fear(0.0) is the baseline here.
+*/
 @recover_default[temper([fear(0.0)])]
 +!investigate_area
     <-  vesna.transition_to("Investigate", [points(5)]).
@@ -258,3 +273,12 @@ responding_to_alert(no).
 
 // Ignore Captain's requests for intel (If we knew, we'd tell)
 +!report_sightings[source(_)].
+
+// =============================================================================
+// SETUP & CONFIGURATION
+// =============================================================================
+
+/* Triggered by the Director (ready_agent) at game start. */
++!update_sympathy(Value)[source(Sender)]
+    <-  .print("Received sympathy update: ", Value, " from ", Sender);
+        vesna.add_temper(sympathy, Value).

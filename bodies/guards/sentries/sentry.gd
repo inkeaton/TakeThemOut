@@ -1,10 +1,6 @@
 extends CharacterBody2D
 
 # --- Configuration ---
-@export_group("Identity")
-## Name used in the chat system (e.g. "marianna")
-@export var personality_name: String = ""
-
 @export_group("Sentry Settings")
 @export var look_angles: Array[float] = [0.0, 90.0, 180.0, 270.0]
 @export var detection_interval_ms: int = 200
@@ -22,15 +18,11 @@ var current_look_index: int = 0
 @onready var alert_scanner: ShapeCast2D = $AlertScanner
 @onready var sprite: Sprite2D = $Sprite
 @onready var debug_label: Label = $DebugLabel
-@onready var hand: Area2D = $Hand
 
 func _ready() -> void:
 	# 1. Setup Scanner (Ensure it is off by default)
 	alert_scanner.enabled = false
 	alert_scanner.target_position = Vector2.ZERO
-	
-	# 2. Connect Hand (catching) Area2D
-	hand.body_entered.connect(_on_hand_body_entered)
 	
 	# 3. Initialize Brain
 	state_machine.init(self, null, vesna) # Sentry has no NavigationAgent, pass null
@@ -135,18 +127,6 @@ func _handle_set_var(data: Dictionary) -> void:
 			return
 	
 	push_warning("set_var: Variable '%s' not found in sentry or states" % var_name)
-
-# --- Catching Mechanic ---
-
-## When the player physically touches the sentry's Hand area, trigger an encounter.
-## Sentries are stationary — they catch the player if they walk right into them.
-func _on_hand_body_entered(body: Node2D) -> void:
-	if not body.is_in_group("player"):
-		return
-	
-	var chat_name = personality_name if personality_name != "" else name
-	Messages.print_message("CAUGHT the player! Triggering encounter as '%s'" % chat_name, "Sentry")
-	get_tree().current_scene.trigger_encounter(chat_name)
 
 # --- Signals ---
 

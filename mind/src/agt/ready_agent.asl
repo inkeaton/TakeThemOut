@@ -1,15 +1,23 @@
 // ready_agent.asl
+
 !start.
 
-/* When this agent starts, it means the Jason infrastructure is up.
-   It sends a signal_ready message to Godot via the WebSocket connection
-   on port 9200 (handled by ServerManager). Godot reads the JSON message
-   and emits jason_service_ready to unblock the maze.
-*/
 +!start : true 
-   <- .print("MIND IS READY - Sending signal to Godot...");
-      vesna.signal_ready;
-      .print("Signal sent successfully.").
+   <- .wait(1000); // Wait for 1 second to ensure everything is initialized
+      .print("MIND IS READY - Sending signal to Godot...");
+      vesna.signal_ready.
+
+// Handle the setup signal from Godot
+// Belief format: sympathy_updates([[agent_name, value], [agent_name, value]])
++sympathy_updates(List)
+    <- .print("Received sympathy updates: ", List);
+       !distribute_updates(List).
+
++!distribute_updates([]).
++!distribute_updates([ [Agent, Value] | Rest ])
+    <- .print("Updating ", Agent, " with sympathy ", Value);
+       .send(Agent, achieve, update_sympathy(Value));
+       !distribute_updates(Rest).
 
 // Ignore Captain's requests for intel (we have no body/eyes)
 +!report_sightings[source(_)].

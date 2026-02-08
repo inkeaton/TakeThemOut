@@ -32,6 +32,8 @@ var current_guard_name: String = "unknown"
 var current_mode: String = "GUARD" # "GUARD" or "DATE"
 var current_api_url: String = URL_GUARD_BOT
 var last_score: float = 0.0
+var debug_mode: bool = false  # When true: no input locking, no scene changes, score shown inline
+var _debug_cumulative_score: float = 0.0  # Running total for debug display
 
 # --- ASSETS ---
 @export var guard_sprites: Dictionary = {
@@ -85,8 +87,15 @@ func configure_bot(guard_name: String) -> void:
 	# 2. Reset UI
 	user_input.editable = true
 	%SendButton.disabled = false
+	%SendButton.visible = true
 	continue_button.hide()
 	continue_button.text = "Return to Maze" # Reset default text
+	last_score = 0.0
+	
+	# In debug mode: clear the log and reset cumulative score on guard switch
+	if debug_mode:
+		log_text_label.clear()
+		_debug_cumulative_score = 0.0
 
 	# 3. Context Switch (Guard vs Date)
 	if current_guard_name == "eugenia":
@@ -156,7 +165,7 @@ func _process_single_message(message: Dictionary) -> void:
 		_add_to_log(current_guard_name.capitalize(), message["text"])
 		
 		# LOGIC: If in Guard Mode, the turn ends immediately after the bot replies.
-		if current_mode == "GUARD":
+		if current_mode == "GUARD" and not debug_mode:
 			_end_skirmish_turn()
 	
 	# 2. Custom Data Handling
@@ -164,9 +173,16 @@ func _process_single_message(message: Dictionary) -> void:
 		var data: Dictionary = message["custom"]
 		
 		# Capture Score
-		if "ai_score_modifier" in data:
-			last_score = data["ai_score_modifier"]
+		if "sympathy_score" in data:
+			last_score = data["sympathy_score"]
 			_handle_guard_visuals(last_score)
+			
+			# In debug mode: show score and intent inline in the log
+			if debug_mode:
+				_debug_cumulative_score += last_score
+				var intent: String = data.get("detected_intent", "?")
+				var score_color: String = "#66ff66" if last_score > 0 else "#ff6666"
+				_add_to_log("System", "[color=%s]Score: %+.2f[/color]  |  Intent: %s  |  Total: %+.2f" % [score_color, last_score, intent, _debug_cumulative_score])
 			
 		# Date Mode Scores
 		if "ease_score" in data:
@@ -181,6 +197,7 @@ func _end_skirmish_turn() -> void:
 	# Lock input to prevent spamming
 	user_input.editable = false
 	%SendButton.disabled = true
+	%SendButton.visible = false
 	
 	# Show "Return to Maze" button
 	continue_button.show()
@@ -232,6 +249,7 @@ func _end_date_encounter() -> void:
 	# Lock input
 	user_input.editable = false
 	%SendButton.disabled = true
+	%SendButton.visible = false
 	
 	# Show button with special text
 	continue_button.text = "Finish Mission"
@@ -240,6 +258,15 @@ func _end_date_encounter() -> void:
 
 # --- EXIT LOGIC (BRANCHING) ---
 func _on_continue_pressed() -> void:
+	# In debug mode, just reset the UI for another round
+	if debug_mode:
+		user_input.editable = true
+		%SendButton.disabled = false
+		%SendButton.visible = true
+		continue_button.hide()
+		user_input.grab_focus()
+		return
+	
 	if current_mode == "DATE":
 		# BRANCH A: Go to Ending Screen
 		get_tree().change_scene_to_file("res://stages/ending/ending_screen.tscn")
@@ -253,6 +280,13 @@ func _on_continue_pressed() -> void:
 			GameManager.pacified_guards.append(current_guard_name)
 		else:
 			GameManager.last_encounter_result = "alarm"
+		
+		# Accumulate sympathy delta for the encountered guard's Jason agent
+		var jason_name: String = GameManager.GUARD_NAME_MAP.get(current_guard_name, "")
+		if jason_name != "":
+			var current_delta: float = GameManager.sympathy_updates.get(jason_name, 0.0)
+			GameManager.sympathy_updates[jason_name] = current_delta + last_score
+			print("Sympathy update queued: %s += %s (total: %s)" % [jason_name, last_score, GameManager.sympathy_updates[jason_name]])
 
 		get_tree().change_scene_to_file("res://stages/maze/test_maze.tscn")
 

@@ -43,17 +43,15 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	# --- Readiness WebSocket Handling ---
-	if is_jason_ready:
-		return  # Already ready, stop polling
 	
 	# 1. Accept new TCP connections and upgrade to WebSocket
-	if readiness_server.is_listening() and readiness_server.is_connection_available():
+	if not is_jason_ready and readiness_server.is_listening() and readiness_server.is_connection_available():
 		var conn = readiness_server.take_connection()
 		if conn:
 			readiness_ws.accept_stream(conn)
 			print("ServerManager: TCP connection on 9200, upgrading to WebSocket...")
 	
-	# 2. Poll the WebSocket peer
+	# 2. Poll the WebSocket peer (must keep polling even after ready to flush outgoing packets)
 	readiness_ws.poll()
 	var state = readiness_ws.get_ready_state()
 	
@@ -63,7 +61,7 @@ func _process(_delta: float) -> void:
 			_readiness_ws_connected = true
 			print("ServerManager: WebSocket handshake on 9200 complete.")
 		
-		# 4. Read incoming packets — wait for signal_ready message
+		# 4. Read incoming packets
 		while readiness_ws.get_available_packet_count():
 			var msg: String = readiness_ws.get_packet().get_string_from_ascii()
 			var parsed = JSON.parse_string(msg)
@@ -73,7 +71,6 @@ func _process(_delta: float) -> void:
 				jason_service_ready.emit()
 				# Keep WebSocket open — director stays connected
 				readiness_server.stop()  # No longer need to accept new connections
-				return
 	
 	# 5. Handle unexpected close
 	elif state == WebSocketPeer.STATE_CLOSED and _readiness_ws_connected:
@@ -189,6 +186,16 @@ func _spawn_rasa_process(working_dir: String, args: Array) -> int:
 		print("Spawned PID %s in %s" % [pid, working_dir])
 		
 	return pid
+
+# --- DIRECTOR COMMUNICATION ---
+# Send a JSON message to the director (ready_agent) over the port 9200 WebSocket
+func send_to_director(data: Dictionary) -> void:
+	if readiness_ws.get_ready_state() == WebSocketPeer.STATE_OPEN:
+		var json_str = JSON.stringify(data)
+		readiness_ws.send_text(json_str)
+		print("ServerManager: Sent to director: ", json_str)
+	else:
+		printerr("ServerManager: Cannot send to director — WebSocket not open.")
 
 # --- STOP COMMANDS ---
 

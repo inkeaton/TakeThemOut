@@ -73,7 +73,7 @@ mas vesna {
     // Agent 1: lazy but aggressive patrol agent
     agent patrol_rosanna:patrol.asl {
         ag-class:   vesna.VesnaAgent
-        temper:     temper(laziness(0.7), aggressiveness(0.7), fear(0.0)[mood], sympathy(-0.3)[mood]) 
+        temper:     temper(laziness(0.2), aggressiveness(0.7), fear(0.0)[mood], sympathy(-0.1)[mood]) 
         strategy:   most_similar          
         address:    localhost
         port:       9080
@@ -103,7 +103,6 @@ mas vesna {
         port:       9083
     }
 
-    // The New Leader - Starts with negative fear (confidence)
     agent captain_daniele:captain.asl {
         ag-class: vesna.VesnaAgent
         temper:     temper(laziness(0.1), aggressiveness(0.7), fear(-0.2)[mood], sympathy(-0.5)[mood])

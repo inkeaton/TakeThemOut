@@ -51,6 +51,9 @@ func _enter_loading_state() -> void:
 func _on_mind_ready() -> void:
 	print("Mind Connected. Starting Game.")
 	
+	# Send any queued sympathy updates to the director (ready_agent)
+	_send_sympathy_updates()
+	
 	# Hide UI
 	if loading_overlay: loading_overlay.hide()
 	if loading_label: loading_label.hide()
@@ -61,6 +64,26 @@ func _on_mind_ready() -> void:
 	# Cleanup connection
 	if ServerManager.jason_service_ready.is_connected(_on_mind_ready):
 		ServerManager.jason_service_ready.disconnect(_on_mind_ready)
+
+# --- SYMPATHY RELAY ---
+
+func _send_sympathy_updates() -> void:
+	var payload: Array = GameManager.get_sympathy_payload()
+	if payload.is_empty():
+		print("No sympathy updates to send.")
+		return
+	
+	# Build the setup message matching VesnaAgent.handleSetup() format
+	var setup_msg: Dictionary = {
+		"sender": "body",
+		"receiver": "director",
+		"type": "setup",
+		"data": {
+			"sympathies": payload
+		}
+	}
+	ServerManager.send_to_director(setup_msg)
+	print("Sent sympathy updates to director: ", payload)
 
 # --- ENCOUNTER LOGIC ---
 

@@ -192,4 +192,15 @@ public class Temper {
         }
     }
 
+    // added to modify sympathy at startup
+    public void modifyMood( String traitName, double delta ) {
+        double current = mood.getOrDefault( traitName, 0.0 );
+        double newValue = current + delta;
+
+        if ( newValue > 1.0 ) newValue = 1.0;
+        if ( newValue < -1.0 ) newValue = -1.0;
+
+        mood.put( traitName, newValue );
+    }
+
 }

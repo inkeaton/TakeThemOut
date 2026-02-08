@@ -41,12 +41,16 @@ messenger_sent(no).
         .wait(4000);
         !decide_next_step.
 
-@step_paranoid[temper([aggressiveness(0.5), fear(0.4)])]
+@step_paranoid[temper([aggressiveness(0.8), fear(0.4)])]
 +!decide_next_step : .random(R) & R < 0.3
     <-  .print("Checking my six! (Aggressive Check)");
         vesna.transition_to("Patrol", [target("prev")]).
 
-@step_default[temper([fear(0.0)])]
+/* DEFAULT:
+   Represents "Average" personality.
+   An aggressive agent (0.8) is closer to 'step_paranoid' (Dist 0.0) than 'step_default' (Dist 0.3).
+*/
+@step_default[temper([aggressiveness(0.5), laziness(0.5), fear(0.0)])]
 +!decide_next_step
     <-  vesna.transition_to("Patrol", [target("next")]).
 
@@ -65,11 +69,7 @@ messenger_sent(no).
 +navigation(reached, W) : is_chasing(yes) | responding_to_alert(yes) | is_messenger(yes)
     <- -navigation(reached, W).
 
-/* REST LOGIC:
-   - Corrupt: Long wait (Let player pass).
-   - Lazy: Long wait (Tired).
-   - Vigilant (Aggro): Short wait.
-*/
+/* REST LOGIC */
 
 @rest_corrupt[temper([sympathy(0.8)])]
 +!rest_at_waypoint
@@ -86,42 +86,37 @@ messenger_sent(no).
     <-  .print("Sector clear. Moving.");
         .wait(500).
 
-@rest_default[temper([fear(0.0)])]
+// DEFAULT: Added sympathy(0.0) so it loses to Corrupt(0.8) for sympathetic agents
+@rest_default[temper([aggressiveness(0.5), laziness(0.5), fear(0.0), sympathy(0.0)])]
 +!rest_at_waypoint
     <-  .wait(2000).
 
 // =============================================================================
-// INTEL REPORTING (Responding to Captain) - ADDED THIS SECTION
+// INTEL REPORTING (Responding to Captain)
 // =============================================================================
 
-/* If I like the player (Corrupt), I lie to the captain saying I saw nothing.
-   This protects the player from a coordinated intercept.
-*/
 @report_corrupt[temper([sympathy(0.8)])]
 +!report_sightings[source(Captain)] : last_player_pos(X, Y)
     <-  .print("Lying to Captain (Corrupt)");
         .send(Captain, tell, sighting_report(none));
         -last_player_pos(X, Y).
 
-/* Default behavior: Report the position and clear memory 
-   so we don't report stale data next time.
-*/
-@report_default[temper([fear(0.0)])]
+// DEFAULT: Added sympathy(0.0)
+@report_default[temper([aggressiveness(0.5), laziness(0.5), fear(0.0), sympathy(0.0)])]
 +!report_sightings[source(Captain)] : last_player_pos(X, Y)
     <-  .print("Reporting sighting to ", Captain);
         .send(Captain, tell, sighting_report(pos(X, Y)));
         -last_player_pos(X, Y).
 
-/* No intel to report */
-@report_none[temper([fear(0.0)])]
+/* No intel to report - Context specific, no temper needed */
+@report_none
 +!report_sightings[source(Captain)] : not last_player_pos(_, _)
     <-  .send(Captain, tell, sighting_report(none)).
 
 // =============================================================================
-// CHASE BEHAVIOR (Player Detection)
+// CHASE BEHAVIOR
 // =============================================================================
 
-// Sight increases Fear slightly (startle)
 @chase_trigger[effects([fear(0.05)])]
 +sight(player, Id, pos(X, Y)) : is_chasing(no)
     <-  .print("CONTACT!");
@@ -131,15 +126,10 @@ messenger_sent(no).
         +last_player_pos(X, Y);
         !start_chase.
 
-// Keep tracking
 +sight(player, Id, pos(X, Y)) : is_chasing(yes)
     <-  -last_player_pos(_, _); +last_player_pos(X, Y).
 
-/* CHASE LOGIC:
-   - Corrupt: Fake chase (2 crumbs patience).
-   - Relentless: Long chase (25 crumbs patience).
-   - Lazy: Short chase (5 crumbs patience).
-*/
+/* CHASE LOGIC */
 
 @chase_corrupt[temper([sympathy(0.8)]), effects([sympathy(0.05)])]
 +!start_chase
@@ -156,7 +146,8 @@ messenger_sent(no).
     <-  .print("I'll check, but I'm not running.");
         vesna.transition_to("Chase", [patience(5)]).
 
-@chase_default[temper([fear(0.0)])]
+// DEFAULT: Added sympathy(0.0)
+@chase_default[temper([aggressiveness(0.5), laziness(0.5), fear(0.0), sympathy(0.0)])]
 +!start_chase
     <-  .print("Engaging target.");
         vesna.transition_to("Chase", [patience(10)]).
@@ -165,7 +156,6 @@ messenger_sent(no).
 // RECOVERY (Target Lost -> Investigate)
 // =============================================================================
 
-// Losing target increases fear
 @target_lost_trigger[effects([fear(0.05)])]
 +target_lost(pos(X, Y), Reason) : consecutive_failures(N)
     <-  .print("Target lost at ", X, ",", Y);
@@ -173,10 +163,7 @@ messenger_sent(no).
         -consecutive_failures(N); +consecutive_failures(N+1);
         !investigate_area.
 
-/* INVESTIGATE LOGIC:
-   - Corrupt/Lazy: 1 point (Give up).
-   - Vengeful/Paranoid: 8 points (Thorough).
-*/
+/* INVESTIGATE LOGIC */
 
 @recover_corrupt[temper([sympathy(0.8)])]
 +!investigate_area
@@ -193,12 +180,12 @@ messenger_sent(no).
     <-  .print("I know you're here somewhere...");
         vesna.transition_to("Investigate", [points(8)]).
 
-@recover_default[temper([fear(0.0)])]
+// DEFAULT: Added sympathy(0.0)
+@recover_default[temper([aggressiveness(0.5), laziness(0.5), fear(0.0), sympathy(0.0)])]
 +!investigate_area
     <-  .print("Scanning area.");
         vesna.transition_to("Investigate", [points(3)]).
 
-// Investigation Complete (Reset State)
 @investigation_done[effects([fear(-0.05)])]
 +signal_investigation(complete, Reason)
     <-  .print("Area secure.");
@@ -213,20 +200,15 @@ messenger_sent(no).
         !patrol.
 
 // =============================================================================
-// MESSENGER SYSTEM (Coordination)
+// MESSENGER SYSTEM
 // =============================================================================
 
-// 1. RECRUITING (We are chasing, see an ally)
 +allies_nearby(AllyList) : is_chasing(yes) & last_player_pos(X, Y) & not .empty(AllyList) & messenger_sent(no)
     <-  .nth(0, AllyList, FirstAlly);
         .print("Recruiting ", FirstAlly, " as messenger.");
         .send(FirstAlly, achieve, become_messenger(pos(X, Y)));
         -messenger_sent(no); +messenger_sent(yes);
         -allies_nearby(AllyList).
-
-// 2. BECOMING MESSENGER
-// TBD: If Corrupt/Lazy, we might reject the duty
-//      If Scared, we might accept eagerly.
 
 @messenger_accept[temper([fear(0.0)])]
 +!become_messenger(pos(X, Y))[source(Sender)] : is_chasing(no) & is_messenger(no)
@@ -236,13 +218,11 @@ messenger_sent(no).
         .drop_intention(patrol);
         vesna.transition_to("Patrol", [target("find_captain")]).
 
-// Rejection cases
 +!become_messenger(_)[source(Sender)] : is_chasing(yes)
     <- .send(Sender, tell, messenger_rejected(busy)).
 +!become_messenger(_)[source(Sender)] : is_messenger(yes)
     <- .send(Sender, tell, messenger_rejected(already_messenger)).
 
-// 3. DELIVERING MESSAGE
 +navigation(reached_agent, Captain) : is_messenger(yes) & messenger_report_pos(pos(X, Y))
     <-  .print("Reporting to ", Captain);
         -navigation(reached_agent, Captain);
@@ -262,7 +242,8 @@ messenger_sent(no).
         .wait(3000); // Drag feet
         !respond_to_alert(X, Y).
 
-@alert_respond_default[temper([fear(0.0)])]
+// DEFAULT: Added sympathy(0.0)
+@alert_respond_default[temper([aggressiveness(0.5), laziness(0.5), fear(0.0), sympathy(0.0)])]
 +player_spotted_at(X, Y)[source(Sender)] : is_chasing(no)
     <-  .print("Alert from ", Sender, "! Intercepting.");
         !respond_to_alert(X, Y).
@@ -273,8 +254,15 @@ messenger_sent(no).
         -responding_to_alert(no); +responding_to_alert(yes);
         vesna.transition_to("Patrol", [target(coords(X, Y))]).
 
-// Clean up
 +player_spotted_at(X, Y) <- -player_spotted_at(X, Y).
 +allies_nearby(L) <- -allies_nearby(L).
 +navigation(reached_target, _) : is_chasing(no) 
     <- -navigation(reached_target, _); vesna.transition_to("Investigate", [points(2)]).
+
+// =============================================================================
+// SETUP & CONFIGURATION
+// =============================================================================
+
++!update_sympathy(Value)[source(Sender)]
+    <-  .print("Received sympathy update: ", Value, " from ", Sender);
+        vesna.add_temper(sympathy, Value).

@@ -200,6 +200,9 @@ public class VesnaAgent extends Agent{
 				case "navigation":
                 	handleNavigation( data );
                 	break;
+				case "setup": 
+					handleSetup( data ); // to modify sympathy at startup
+					break;
 				default:
 					logger.warning( "Unknown message type: " + type );
 			}
@@ -367,6 +370,42 @@ public class VesnaAgent extends Agent{
 			try {
 				addBel(belief);
 			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	// getter to modify temper in add_temper.java
+	public Temper getTemper() {
+		return this.temper;
+	}
+
+	/**
+	 * Handles setup messages.
+	 * Expected JSON: { "sympathies": [ {"agent": "sentry1", "value": 0.5}, ... ] }
+	 * Creates belief: sympathy_updates([ [sentry1, 0.5], ... ])
+	 */
+	private void handleSetup( JSONObject data ) {
+		if ( data.has( "sympathies" ) ) {
+			org.json.JSONArray list = data.getJSONArray( "sympathies" );
+			ListTerm updates = new ListTermImpl();
+
+			for ( int i = 0; i < list.length(); i++ ) {
+				JSONObject item = list.getJSONObject( i );
+				String agentName = item.getString( "agent" );
+				double value = item.getDouble( "value" );
+
+				// Create tuple [agent, value]
+				ListTerm tuple = new ListTermImpl();
+				tuple.add( createAtom( agentName ) );
+				tuple.add( createNumber( value ) );
+				
+				updates.add( tuple );
+			}
+
+			try {
+				addBel( createLiteral( "sympathy_updates", updates ) );
+			} catch ( Exception e ) {
 				e.printStackTrace();
 			}
 		}

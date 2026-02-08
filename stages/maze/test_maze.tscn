@@ -377,23 +377,10 @@ metadata/_edit_group_ = true
 position = Vector2(-2.7008057, -0.8935547)
 shape = SubResource("RectangleShape2D_4ddt3")
 
-[node name="brick77" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=685927810]
-position = Vector2(4748.8076, 1110.2673)
-rotation = 34.55752
-scale = Vector2(0.8060188, 0.13227813)
-texture = ExtResource("8_4ddt3")
-metadata/_edit_group_ = true
-
-[node name="Area2D" type="StaticBody2D" parent="background/NavigationRegion2D/Bricks/brick77" unique_id=1648940138]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="background/NavigationRegion2D/Bricks/brick77/Area2D" unique_id=1821413383]
-position = Vector2(-2.7008057, -0.8935547)
-shape = SubResource("RectangleShape2D_4ddt3")
-
 [node name="brick78" type="Sprite2D" parent="background/NavigationRegion2D/Bricks" unique_id=762877510]
-position = Vector2(5748.18, 1114.443)
+position = Vector2(5248.3667, 1114.4417)
 rotation = 34.55752
-scale = Vector2(0.8060188, 0.13227813)
+scale = Vector2(1.5869772, 0.13227813)
 texture = ExtResource("8_4ddt3")
 metadata/_edit_group_ = true
 
@@ -1866,9 +1853,6 @@ scale = Vector2(0.47782117, 0.22797233)
 
 [node name="patrol1" type="Node2D" parent="background/waypoints" unique_id=1548888524]
 
-[node name="WP_p1_0" type="Marker2D" parent="background/waypoints/patrol1" unique_id=107783769]
-position = Vector2(2001, 603)
-
 [node name="WP_p1_1" type="Marker2D" parent="background/waypoints/patrol1" unique_id=1246839509]
 position = Vector2(1843, 1629)
 
@@ -1892,6 +1876,9 @@ position = Vector2(4360, 1842)
 
 [node name="WP_p1_8" type="Marker2D" parent="background/waypoints/patrol1" unique_id=1561767245]
 position = Vector2(2699, 1504)
+
+[node name="WP_p1_9" type="Marker2D" parent="background/waypoints/patrol1" unique_id=107783769]
+position = Vector2(2001, 603)
 
 [node name="patrol2" type="Node2D" parent="background/waypoints" unique_id=1992076192]
 position = Vector2(19, 25)
@@ -1974,71 +1961,63 @@ editor_draw_drag_margin = true
 
 [node name="sentry1" parent="." unique_id=603938135 instance=ExtResource("4_r6spc")]
 position = Vector2(371, 371)
-personality_name = "rosanna"
 look_angles = Array[float]([315.0, 90.0])
 metadata/_edit_group_ = true
 
-[node name="VesnaManager" parent="sentry1" index="7" unique_id=897468463]
+[node name="VesnaManager" parent="sentry1" index="6" unique_id=897468463]
 PORT = 9071
 
 [node name="sentry2" parent="." unique_id=1313142815 instance=ExtResource("4_r6spc")]
 position = Vector2(4310, 1287)
-personality_name = "rosanna"
 metadata/_edit_group_ = true
 
-[node name="VesnaManager" parent="sentry2" index="7" unique_id=897468463]
+[node name="VesnaManager" parent="sentry2" index="6" unique_id=897468463]
 PORT = 9072
 
 [node name="sentry3" parent="." unique_id=428650802 instance=ExtResource("4_r6spc")]
 position = Vector2(459, 3046.0002)
-personality_name = "rosanna"
 look_angles = Array[float]([0.0, 90.0, 235.0])
 metadata/_edit_group_ = true
 
-[node name="VesnaManager" parent="sentry3" index="7" unique_id=897468463]
+[node name="VesnaManager" parent="sentry3" index="6" unique_id=897468463]
 PORT = 9073
 
 [node name="sentry4" parent="." unique_id=1478456468 instance=ExtResource("4_r6spc")]
 position = Vector2(3284, 3269)
-personality_name = "rosanna"
 look_angles = Array[float]([0.0, 90.0, 180.0])
 metadata/_edit_group_ = true
 
-[node name="VesnaManager" parent="sentry4" index="7" unique_id=897468463]
+[node name="VesnaManager" parent="sentry4" index="6" unique_id=897468463]
 PORT = 9074
 
 [node name="sentry5" parent="." unique_id=945089018 instance=ExtResource("4_r6spc")]
 position = Vector2(5010, 4103)
-personality_name = "rosanna"
 metadata/_edit_group_ = true
 
-[node name="VesnaManager" parent="sentry5" index="7" unique_id=897468463]
+[node name="VesnaManager" parent="sentry5" index="6" unique_id=897468463]
 PORT = 9075
 
 [node name="sentry6" parent="." unique_id=1838934497 instance=ExtResource("4_r6spc")]
 position = Vector2(3898, 5475.0005)
-personality_name = "rosanna"
 metadata/_edit_group_ = true
 
-[node name="VesnaManager" parent="sentry6" index="7" unique_id=897468463]
+[node name="VesnaManager" parent="sentry6" index="6" unique_id=897468463]
 PORT = 9076
 
 [node name="sentry7" parent="." unique_id=191800596 instance=ExtResource("4_r6spc")]
 position = Vector2(114, 7550)
-personality_name = "rosanna"
 look_angles = Array[float]([0.0, 270.0])
 metadata/_edit_group_ = true
 
-[node name="VesnaManager" parent="sentry7" index="7" unique_id=897468463]
+[node name="VesnaManager" parent="sentry7" index="6" unique_id=897468463]
 PORT = 9077
 
 [node name="sentry8" parent="." unique_id=604718379 instance=ExtResource("4_r6spc")]
 position = Vector2(5062, 6809)
-personality_name = "rosanna"
 look_angles = Array[float]([0.0, 90.0, 180.0])
 metadata/_edit_group_ = true
 
-[node name="VesnaManager" parent="sentry8" index="7" unique_id=897468463]
+[node name="VesnaManager" parent="sentry8" index="6" unique_id=897468463]
 PORT = 9078
 
 [node name="patrol_rosanna" parent="." unique_id=1481715262 instance=ExtResource("3_5s84a")]
@@ -2067,7 +2046,7 @@ PORT = 9081
 waypoint_parents = Array[NodePath]([NodePath("../../../background/waypoints/patrol2")])
 
 [node name="patrol_polyanna" parent="." unique_id=258279592 instance=ExtResource("3_5s84a")]
-position = Vector2(2235, 5481)
+position = Vector2(1892, 4326)
 personality_name = "polyanna"
 metadata/_edit_group_ = true
 

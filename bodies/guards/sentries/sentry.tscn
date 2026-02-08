@@ -12,9 +12,6 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_bmsg8"]
 radius = 8000.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_naond"]
-radius = 233.71397
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7dh5t"]
 size = Vector2(293.3333, 486.6667)
 
@@ -38,15 +35,6 @@ collision_mask = 7
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="." unique_id=211187770]
 radius = 374.38
-
-[node name="Hand" type="Area2D" parent="." unique_id=35048869]
-collision_layer = 0
-collision_mask = 4
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand" unique_id=513507528]
-shape = SubResource("CircleShape2D_naond")
-debug_color = Color(0.7019608, 0, 0.3254902, 0.41960785)
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=509441090]
 position = Vector2(-5.5631e-06, 10.000008)
