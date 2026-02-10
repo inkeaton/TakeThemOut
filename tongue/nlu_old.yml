@@ -1,0 +1,719 @@
+version: "3.1"
+
+nlu:
+# =============================================================================
+# FLATTERY 
+# Best for Rosanna (narcissistic)
+# =============================================================================
+- intent: flattery
+  examples: |
+    - You look stunning today!
+    - You are the best guard here, truly.
+    - Has anyone told you that you have beautiful eyes?
+    - I have never seen such a polished uniform.
+    - Your reputation precedes you, oh mighty guard.
+    - You look much stronger than the other guards.
+    - I was distracted by your dashing good looks.
+    - You have the bearing of a captain, not a patrol.
+    - Your vigilance is truly inspiring.
+    - You are far too skilled for me to fight.
+    - I'm a huge fan of your work.
+    - Wow, have you been working out?
+    - You're the sharpest patrol in the team.
+    - I simply couldn't outrun someone of your athletic build.
+    - You have a very commanding presence.
+    - Clearly, you are the smartest person in the room.
+    - I would never dream of crossing an agent of your caliber.
+    - You look like the hero of this story, not me.
+    - Your hat is beautiful.
+    - You must be the one everyone is afraid of.
+    - Your boots are polished to perfection, I can see my reflection.
+    - I am in the presence of greatness.
+    - You look like a statue of a god come to life.
+    - I was just stopping to admire your impressive physique.
+    - You have the eyes of a hawk, nothing escapes you.
+    - Your voice carries such authority, I had to stop.
+    - I surrender to your overwhelming charisma.
+    - You are the most terrifyingly beautiful guard I've ever seen.
+    - I bet you could defeat ten men with one hand.
+    - I have never seen such discipline in a guard before.
+    - Please, let me bask in your glory for a moment.
+    - You carry yourself like an officer, not a guard.
+    - Your vigilance is legendary among the security detail.
+    - I've heard about your sharp instincts from others.
+    - They say you're the best on the night shift.
+    - You have the bearing of a seasoned professional.
+    - Your reputation precedes you in the building.
+    - I can tell you're destined for management.
+    - You patrol with the discipline of a field agent.
+    - Your judgment is clearly superior to your colleagues.
+    - That's a sharp uniform, perfectly pressed.
+    - You work this detail with military precision.
+    - The facility is safer with you on watch.
+    - Your commanding presence stopped me immediately.
+    - You're clearly too skilled for routine patrol.
+    - I'd wager you've caught dozens of intruders.
+    - You have the eyes of a trained observer.
+    - Your situational awareness is impressive.
+    - You could be training the rookies.
+    - That's the posture of someone who takes pride in their work.
+    - I can see why they assigned you to this sector.
+    - You are absolutely gorgeous, has anyone told you that?
+    - What a handsome face, you should be in movies.
+    - I'm in awe of your magnificent presence.
+    - You're the most attractive guard I've ever seen.
+    - Those eyes are mesmerizing, I couldn't look away.
+    - Your jawline could cut glass, truly stunning.
+    - I bet all the ladies swoon when you walk by.
+    - You have movie star looks, wasted on patrol duty.
+    - That uniform fits you like it was tailored by angels.
+    - I'm starstruck by your incredible appearance.
+    - You radiate confidence and beauty.
+    - What a striking figure you cut standing there.
+    - I've never seen anyone wear that uniform so well.
+    - Your smile alone could disarm any intruder.
+    - You're practically glowing with magnificence.
+    - I'm genuinely impressed by your stunning looks.
+    - That's the face of a leading man, not a guard.
+    - You belong on magazine covers, not patrol routes.
+    - Such elegance in the way you stand.
+    - I'm overwhelmed by how attractive you are.
+    - You have the grace of a dancer and the strength of a lion.
+    - Those cheekbones are absolutely perfect.
+    - I'm humbled to be in the presence of such beauty.
+    - You must have admirers lining up around the block.
+    - That's a face that launches a thousand ships.
+    - I'm genuinely dazzled by your appearance.
+    - You have an aura of sophistication about you.
+    - Such poise, such elegance, I'm captivated.
+    - You're what they call devastatingly handsome.
+    - I find myself speechless at your beauty.
+    - You have the looks of royalty, truly.
+    - That's a million dollar smile right there.
+    - I'm charmed beyond words by your presence.
+    - You're like a work of art come to life.
+    - Such striking features, I'm genuinely impressed.
+    - You have the face of a hero, not a villain catcher.
+    - I'm absolutely smitten by your good looks.
+    - That's the kind of beauty that stops traffic.
+    - You're breathtakingly gorgeous, if I may say so.
+    - I'm in the presence of true physical perfection.
+    - Those features belong in a portrait gallery.
+    - You have an enchanting presence about you.
+    - I'm completely captivated by your appearance.
+    - Such a dignified and attractive figure.
+    - You're impossibly good looking, it's unfair.
+    - I'm genuinely awestruck by your handsomeness.
+    - That's the kind of face poets write about.
+    - You have all the charm in the world.
+    - I'm thoroughly impressed by your striking looks.
+
+# =============================================================================
+# BRIBE 
+# Best for Rosanna (also materialistic), moderate for others
+# =============================================================================
+- intent: bribe
+  examples: |
+    - I can make it worth your while.
+    - Would a small gratuity help smooth things over?
+    - Perhaps we can reach a mutual understanding.
+    - There's a bonus in it for you.
+    - I'm prepared to compensate you for your time.
+    - Consider this a gesture of goodwill.
+    - What would make this easier for both of us?
+    - I believe in rewarding cooperation.
+    - How about we call this a consulting fee?
+    - I have a token of appreciation here.
+    - Everyone benefits from a little extra income.
+    - This could be our little arrangement.
+    - I'm authorized to offer incentives.
+    - Let's discuss a mutually beneficial solution.
+    - I respect your position, here's something for your trouble.
+    - Think of it as a tip for excellent service.
+    - I can ensure your cooperation is well compensated.
+    - We're both professionals, let's be practical.
+    - A small consideration for your discretion.
+    - Your time is valuable, let me acknowledge that.
+    - Perhaps this token changes your perspective.
+    - I'm willing to negotiate favorable terms.
+    - Consider this a performance bonus.
+    - Your professionalism deserves recognition.
+    - Let's make this transaction painless.
+    - I believe in fair compensation for flexibility.
+    - This could solve both our problems.
+    - I'm offering a percentage for your help.
+    - Your silence has considerable value to me.
+    - I can arrange for additional compensation.
+    - This envelope contains our understanding.
+    - I respect the uniform, here's respect for the man.
+    - Your cooperation unlocks opportunities.
+    - Let's not let procedure interfere with prosperity.
+    - I'm prepared to make this worth your consideration.
+    - How does fifty dollars sound to you?
+    - I have cash, name your price.
+    - This money could be yours right now.
+    - I'm willing to pay for safe passage.
+    - Consider this payment for services rendered.
+    - I have funds available for the right arrangement.
+    - What's your going rate for looking the other way?
+    - I can transfer money to your account tonight.
+    - This briefcase has your name on it.
+    - I'm authorized to negotiate a fee.
+    - I'll double whatever they're paying you.
+    - There's two hundred dollars in this envelope.
+    - What's it going to take to make this go away?
+    - I have connections who reward cooperation generously.
+    - Think of your family, this money could help them.
+    - One phone call and money appears in your account.
+    - I work for people who pay well for discretion.
+    - This is clean money, no questions asked.
+    - Your shift ends in an hour, make it a profitable one.
+    - I'm offering you a month's salary right now.
+    - Smart people know when to accept a good deal.
+    - This cash is untraceable, completely safe.
+    - I can make your mortgage problems disappear.
+    - A wise man knows the value of opportunity.
+    - Your commander doesn't need to know about this transaction.
+    - I'm prepared to be very generous with the right person.
+    - This could be the easiest money you ever made.
+    - I have offshore accounts that need spending.
+    - Let's be adults about this, name your figure.
+    - Your kids' college fund just got bigger.
+    - I'm talking life-changing money here.
+    - Five minutes of cooperation, ten years of comfort.
+    - I represent wealthy clients who appreciate loyalty.
+    - This briefcase contains your early retirement.
+    - I can ensure your next promotion.
+    - This amount could solve a lot of problems for you.
+    - I'm offering triple your weekly pay, right now.
+    - The right decision here pays very well.
+    - Consider this an investment in your future.
+
+# =============================================================================
+# PITY
+# Best for Polyanna (gloomy, emo), also works on Susanna/Marianna
+# =============================================================================
+- intent: pity
+  examples: |
+    - I'm just a poor orphan looking for bread.
+    - My cat is sick and I need money for medicine.
+    - Please, I've had a terrible day.
+    - I haven't eaten in three days.
+    - Please, I have children waiting for me at home.
+    - Have mercy on a poor soul.
+    - I'm down on my luck, please don't arrest me.
+    - My mother is dying and I need to buy herbs.
+    - Look at me, do I look like a threat? I'm pathetic.
+    - I'm begging you, give me a break.
+    - Please, sir, can you spare a moment of kindness?
+    - I'm just a victim of circumstance.
+    - I'm not a criminal, I'm just desperate.
+    - I promise I'm just looking for scraps.
+    - I'm too young to go to jail.
+    - Please, I'm just trying to survive.
+    - I'm harmless, look at me shaking.
+    - I have a heavy debt to pay, please understand.
+    - My leg is broken, I can't even run away.
+    - Please, I'm mourning my late wife.
+    - Look at my rags, I have nothing left to take.
+    - I was bullied into doing this, I'm a victim!
+    - I'm cold and I just wanted a warm place to sleep.
+    - My house was destroyed, I have nowhere to go.
+    - Have pity on a cripple.
+    - I'm weeping, can't you see my tears?
+    - I'm so weak from hunger I might faint right now.
+    - Please, my baby needs milk.
+    - I'm not a thief, I'm just a beggar who got lost.
+    - Don't hurt me, I have fragile bones!
+    - I have a heart condition, please don't shock me.
+    - I'm the unluckiest person alive, please don't make it worse.
+    - I have no friends and no home.
+    - I'm just a sad, lonely wanderer.
+    - Please, I'm afraid of small spaces.
+    - My life is a tragedy, spare me this one indignity.
+    - Alright, you caught me. Good job.
+    - I surrender, I have no weapons.
+    - I'm not going to lie, I was trying to steal the chalice.
+    - Fair play, you win this round.
+    - I have no excuse.
+    - Look, I'm just a thief trying to survive.
+    - You got me. I give up.
+    - I admit it, I shouldn't be here.
+    - Fine, I yield.
+    - No tricks, I'm coming out.
+    - I guess my luck ran out.
+    - I am unarmed, don't shoot.
+    - Okay, okay, you got me.
+    - I confess, I'm the intruder.
+    - Hands up, I surrender.
+    - I know when I'm beaten.
+    - You win, I lose.
+    - No lies, I was about to rob the place.
+    - I accept my defeat.
+    - I'm guilty.
+    - You were faster than I expected, I concede.
+    - I'm too tired to run anymore, take me.
+    - I was hoping to get in and out, but I failed.
+    - Good catch, I didn't see you there.
+    - I'm the one you're looking for, let's get this over with.
+    - I fold, show me the cell.
+    - You have me cornered, I won't fight.
+    - I admit, I broke the lock.
+    - I am entirely at your mercy.
+    - No alibis tonight, I'm caught.
+    - I yield to your superior positioning.
+    - Just put the cuffs on me.
+    - I won't insult your intelligence, I'm a thief.
+    - I was stealing, plain and simple.
+    - You successfully intercepted me.
+    - I have no escape plan, I surrender.
+    - I'm done, you have secured the perimeter well.
+    - It was a gamble and I lost.
+    - I am disarming myself now.
+    - Clearly, I am not as stealthy as I thought.
+    - My family will be deported if you arrest me.
+    - I'm too old for the interrogation rooms, have mercy.
+    - I'll never survive the questioning.
+    - Please, my kids are waiting in the car outside.
+    - I'm on my last warning, this will end my career.
+    - I'm already on probation, this is my end.
+    - I owe money to the wrong people already.
+    - My wife is sick, I need to get home with medicine.
+    - I'm running from people worse than you.
+    - I'm not trained to fight back, please.
+    - I haven't slept in days, I'm not thinking straight.
+    - My wife is pregnant, don't take me away.
+    - I'm the sole provider for my family.
+    - I just lost my brother in Berlin.
+    - I have a heart condition, the stress could kill me.
+    - My pension is all I have, don't take it away.
+    - I'm defecting, they'll kill me if you send me back.
+    - I have information, I'm trying to cooperate.
+    - My handler abandoned me, I'm lost.
+    - They told me this route was safe.
+    - I'm claustrophobic, I can't go to a cell.
+    - I have medication I need to take in an hour.
+    - My lawyer will have me out before breakfast.
+    - I have witnesses who will vouch for me.
+
+# =============================================================================
+# LOGIC
+# Best for Susanna (shy, bookworm)
+# =============================================================================
+- intent: logic
+  examples: |
+    - I am allowed here, don't you know?
+    - Technically, I haven't stolen anything yet.
+    - According to protocol 4, you should issue a warning first.
+    - Section 8, Paragraph 2: I have right of way.
+    - The door was unlocked, so legally it's not breaking and entering.
+    - This area is public domain during daylight hours.
+    - I have a signed permit right here.
+    - This is a misunderstanding of jurisdiction.
+    - Logic dictates that if I were a thief, I'd be hiding.
+    - The gate was open, that implies consent.
+    - I have a requisition form 27B/6 stamped by the chancellor.
+    - This hallway is technically common ground.
+    - According to the sundial, my curfew hasn't started.
+    - Check the roster, I'm the new transfer.
+    - I'm conducting a security audit per Directive 9.
+    - Review sub-clause 12: I have right of passage.
+    - This is covered under the Emergency Access Act.
+    - My clearance level is documented in the central registry.
+    - The statute of limitations expired 14 minutes ago.
+    - I invoked Article 3 when I entered.
+    - This falls under conditional immunity protocol.
+    - I filed form 88-A in triplicate last week.
+    - Per the bylaws, I'm exercising my exemption.
+    - The building code permits non-hostile intrusion.
+    - I'm within the bounds of procedural precedent.
+    - This is a jurisdictional grey area, consult your manual.
+    - The charter explicitly allows after-hours entry for contractors.
+    - I'm operating under emergency provisions.
+    - The regulations are ambiguous on this point.
+    - I have documented authorization from the magistrate.
+    - This action is defensible under case law.
+    - You lack the authority to detain me without probable cause.
+    - The evidence is circumstantial at best.
+    - I'm exercising my right to remain in transit.
+    - This citation is invalid without a witness present.
+    - The warrant you have is for a different address.
+    - I'm protected by diplomatic immunity.
+    - You need supervisor approval to arrest me here.
+    - The statute you're citing doesn't apply after 6 PM.
+    - I have legal standing under the merchant guild charter.
+    - This premise is zoned for public access on weekends.
+    - The ordinance you're enforcing was repealed last month.
+    - I claim sanctuary under the old city laws.
+    - You're violating procedure by not reading me my rights.
+    - The burden of proof lies with the accuser.
+    - I'm exempt due to professional licensing.
+    - This falls under the legal doctrine of adverse possession.
+    - You must demonstrate reasonable suspicion first.
+    - The chain of custody for this evidence is broken.
+    - I invoke my right to consult legal counsel before answering.
+    - This detention violates the Fourth Amendment equivalent.
+    - You have no material evidence linking me to a crime.
+    - I'm operating within the bounds of fair use.
+    - The contract I signed supersedes local ordinances.
+    - This is a civil matter, not a criminal one.
+    - You're misinterpreting the penal code.
+    - I demand to see the deed of ownership for this property.
+    - The access agreement is filed with the city clerk.
+    - This is an administrative error, check your database.
+    - I have whistleblower protection under federal statute.
+    - The lease agreement grants me access privileges.
+    - You need a court order to search my belongings.
+    - I'm acting as an agent of the crown.
+    - The licensing agreement allows unlimited site visits.
+    - This is protected by attorney-client privilege.
+    - You're enforcing a policy that contradicts standing law.
+    - The regulatory framework supports my position.
+    - I have registered this as a right of way easement.
+    - This violates the procedural due process clause.
+    - The evidentiary standard has not been met.
+    - I'm following the letter of the law, if not the spirit.
+    - I have diplomatic credentials from the embassy.
+    - My security clearance permits unrestricted access.
+    - This violates the Geneva Convention protocols.
+    - I'm under the protection of diplomatic immunity.
+    - The international access agreements apply here.
+    - I invoke my rights under the Vienna Convention.
+    - You're exceeding your jurisdictional authority.
+    - The clearance exemption applies to intelligence officers.
+    - My travel documents are stamped by the State Department.
+    - This property is in international territory, you can't enforce.
+    - I'm executing a federal warrant.
+    - The deed shows this is embassy grounds.
+    - You need authorization from upstairs to detain me.
+    - I'm protected by parliamentary immunity.
+    - Your authority doesn't extend to visiting dignitaries.
+    - I'm on official government business.
+    - The bilateral agreement grants me access.
+    - This falls under consular protections.
+    - I'm claiming right of transit under treaty law.
+    - Your orders contradict standing protocols.
+    - Check the memorandum from the director's office.
+    - My credentials are verified through proper channels.
+    - This is classified at a level above your clearance.
+    - I'm operating under executive authorization.
+    - The chain of command supports my presence here.
+
+# =============================================================================
+# JOKE
+# Best for: Marianna (energetic, jovial)
+# =============================================================================
+- intent: joke
+  examples: |
+    - I'm not the intruder, I'm the pizza delivery guy!
+    - Did someone order a singing cat?
+    - Is this the line for the buffet?
+    - I thought this was a costume party.
+    - Surprise! You found me!
+    - I'm a ghost! Woooo! You can't see me!
+    - Man, the GPS on these maps is terrible.
+    - I'm looking for the gift shop.
+    - Did I say kidnap? I meant borrow indefinitely.
+    - Don't mind me, I'm just a potted plant.
+    - I think I took a wrong turn at Albuquerque.
+    - I'm playing Hide and Seek, don't tell them where I am.
+    - I'm actually a cardboard cutout, ignore me.
+    - I was told there would be cake.
+    - I'm just a figment of your imagination.
+    - Do I look like a kidnapper? I'm obviously a mime.
+    - I'm auditing the complex for Yelp.
+    - I'm allergic to handcuffs, sorry.
+    - I'm just looking for the save point.
+    - Can we pause? I need a snack break.
+    - I'm the royal jester, surely you recognize the outfit?
+    - I'm a time traveler, what year is this?
+    - I'm collecting dust samples for science.
+    - I'm actually three children in a trench coat.
+    - Do you have a moment to talk about your car's extended warranty?
+    - I'm training for the stealth Olympics.
+    - You didn't see me.
+    - I'm just walking my invisible dog.
+    - I thought this was the exit to the rollercoaster.
+    - I'm strictly here for the ambiance.
+    - This is clearly the tutorial level, go easy on me.
+    - I respawned in the wrong location.
+    - I rolled a critical fail on my stealth check.
+    - I'm grinding XP, don't interrupt.
+    - Can I skip this cutscene?
+    - I'm a paid actor, this is a prank show.
+    - I followed the yellow brick road and ended up here.
+    - I'm cosplaying as a criminal, it's for the convention.
+    - My therapist said I should face my fears, so here I am!
+    - I'm here for the plot twist.
+    - The narrator told me to come this way.
+    - I'm looking for the fast travel point.
+    - Is this a side quest or the main story?
+    - I got a Steam achievement for getting caught.
+    - The loading screen lied about this being safe.
+    - I'm filming a TikTok, you're going viral!
+    - I'm beta-testing this level, found a bug.
+    - The quest marker said to come here.
+    - I'm following the tutorial arrows.
+    - I'm the protagonist, I have plot armor.
+    - This is the non-canon DLC route.
+    - I'm speedrunning, can you move?
+    - I pressed the wrong dialogue option.
+    - The game glitched and teleported me here.
+    - I'm looking for Easter eggs.
+    - This is my first playthrough, be gentle.
+    - I thought friendly fire was disabled.
+    - I'm doing a pacifist run, you can't make me fight.
+    - I haven't saved in an hour, please don't kill me.
+    - The walkthrough didn't mention you'd be here.
+    - I'm playing on easy mode, why is this hard?
+    - I forgot to buy healing items.
+    - Can we co-op this section?
+    - I'm waiting for the patch that fixes this area.
+    - My controller is broken, that's why I'm here.
+    - I alt-tabbed and wandered into the wrong zone.
+    - This is the roguelike mode, I get unlimited tries, right?
+    - I'm collecting all the achievements.
+    - The mini-map was upside down.
+    - I'm the main character, I have plot immunity.
+    - This is just the character creation screen, right?
+    - I'm testing collision detection for the devs.
+    - My character sheet says I have +10 to Persuasion.
+    - I rolled a natural 20 on stealth, clearly.
+    - The quest log told me to come here.
+    - I'm just here for the achievement unlock.
+    - This is a cutscene, you can't attack during cutscenes.
+    - I'm invincible during this dialogue sequence.
+    - The patch notes said this area was safe.
+    - I quick-saved before entering, so this doesn't count.
+    - I'm the protagonist, check the title screen.
+    - I have unlimited continues, this is practice.
+    - The developer commentary mentioned this room.
+    - I'm clipping through the wall, not trespassing.
+    - This is obviously a non-hostile NPC zone.
+    - My controller disconnected, that's why I'm here.
+    - I'm doing a pacifist speedrun, you can't stop me.
+    - The game auto-saved right before this, suspicious.
+    - I have protagonist privileges.
+    - This is the New Game+ playthrough, different rules.
+    - I'm farming reputation points with your faction.
+    - The HUD says I'm in a safe zone.
+    - I'm exploiting a glitch, it's not cheating.
+    - I'm actually a mannequin from the department store window.
+    - I'm your supervisor's supervisor, surprise inspection.
+    - I'm a hologram, you can't arrest projected light.
+    - I'm from the future, this is ancient history to me.
+    - I'm you from an alternate timeline.
+    - I'm testing the new invisible ink, can you see me?
+    - I'm the building inspector, this place violates code.
+    - I'm a method actor researching a role.
+    - I'm allergic to handcuffs, it's a medical condition.
+    - I'm collecting air samples for the science division.
+    - I'm sleepwalking, someone wake me up.
+    - I'm a Life Magazine photographer doing a story.
+    - I'm the new vending machine technician.
+    - I'm looking for the fallout shelter, wrong building?
+    - I'm surveying for the new subway extension.
+
+# =============================================================================
+# AGGRESSION
+# Generally negative, but slight positive for Polyanna and Marianna
+# =============================================================================
+- intent: aggression
+  examples: |
+    - Let me go or you'll regret it.
+    - I know where you live.
+    - Get out of my way before I hurt you.
+    - Touch me and you'll lose that hand.
+    - Do you know who I work for?
+    - If I go down, I'm taking you with me.
+    - Step aside or bleed.
+    - I have a bullet with your name on it.
+    - One wrong move and you're dead.
+    - You're messing with the wrong agent.
+    - My boss will have your head for this.
+    - You are outmatched, step down.
+    - I will burn this whole place down.
+    - Do you value your kneecaps?
+    - I can make you disappear without a trace.
+    - You will be found in a ditch by morning.
+    - I know your captain's darkest secrets.
+    - I am death incarnate, move.
+    - I'll wear your teeth as a necklace.
+    - I will ensure you are dishonorably discharged.
+    - I'm giving you one chance to live.
+    - I have friends in high places who will ruin you.
+    - Walk away and you might survive the night.
+    - You are dumber than a bag of hammers.
+    - Go back to guarding the latrines, it's all you're good for.
+    - You ugly oaf.
+    - You are a disgrace to that uniform.
+    - You smell like a wet dog.
+    - Pathetic little man.
+    - You're just a glorified doorman.
+    - You incompetent buffoon.
+    - Look at you, all dressed up with no brain.
+    - You're just a rent-a-cop.
+    - You are a waste of rations.
+    - You have the intellect of a root vegetable.
+    - You are offensively stupid.
+    - Go home, peasant.
+    - You are a stain on the floor of humanity.
+    - You look like a potato in a helmet.
+    - I'm bored just looking at you.
+    - Who ties your shoelaces for you?
+    - You are as useless as a knitted helmet.
+    - I would insult you, but nature already did.
+    - Your existence is a clerical error.
+    - Nice uniform, do they make it in men's sizes?
+    - You'll be reassigned to the filing department for this.
+    - My organization has reach you can't imagine.
+    - I know where your office is.
+    - You'll be guarding the parking garage by morning.
+    - Touch me and your funding gets cut.
+    - Your superior will hear of your incompetence.
+    - I'll have your security clearance revoked before dawn.
+    - The brass will hear of this insubordination.
+    - You're interfering with classified operations.
+    - I answer to people three levels above you.
+    - You'll regret this when the shift changes.
+    - I know people who make people disappear.
+    - Your uniform won't protect you from my contacts.
+    - One phone call and you're done here.
+    - My handlers will not be pleased with this delay.
+    - You're making enemies in high places.
+    - I have diplomatic immunity, look it up.
+    - Your career just hit a dead end.
+    - You couldn't guard a typing pool.
+    - I've seen store mannequins more alert than you.
+    - You patrol with all the grace of a drunk secretary.
+    - Your mother was a double agent for the other side.
+    - You have the wit of a filing cabinet.
+    - I've met smarter vending machines.
+    - You have the awareness of a concrete wall.
+    - Your IQ is lower than your badge number.
+    - You couldn't spot a spy if they wore a sign.
+    - Your instincts are slower than a teletype machine.
+    - You're the reason they invented remedial training.
+    - You wouldn't last five minutes in the field.
+    - Shut your mouth before I shut it for you.
+    - Get lost before I make you regret this.
+    - Touch me and you'll need a hospital.
+    - I'll break your arm if you grab me again.
+    - You're asking for a beating.
+    - Move aside or get hurt.
+    - I don't have patience for incompetent guards.
+    - You're a joke and everyone knows it.
+    - Try stopping me, I dare you.
+    - You're nothing but a uniform with no spine.
+    - Back off before this gets violent.
+    - You're too weak to stop me anyway.
+    - I'll go through you if I have to.
+    - You're in over your head, fool.
+    - Pathetic excuse for security.
+    - You're worthless at your job.
+    - I've dealt with tougher opponents in my sleep.
+    - You're outclassed and outmatched.
+    - Step back or face the consequences.
+    - You're making a serious mistake.
+    - I'll remember your face when this is over.
+    - You don't want to test me right now.
+    - This is your last warning, get out of my way.
+
+# =============================================================================
+# REGEX PATTERNS 
+# help DIET with distinctive vocabulary per intent
+# =============================================================================
+
+- regex: bribe
+  examples: |
+    - money
+    - pay
+    - dollars
+    - compensat(e|ion)?
+    - deal
+    - offer
+    - worth
+    - price
+    - cash
+    - funds
+    - tip
+    - bonus
+    - expense
+    - envelope
+    - pocket
+
+- regex: flattery
+  examples: |
+    - beautiful
+    - handsome
+    - stunning
+    - gorgeous
+    - magnificent
+    - admire
+    - impressive
+    - dashing
+    - radiant
+    - captivating
+    - exquisite
+    - lovely
+    - attractive
+    - elegant
+    - charming
+
+- regex: aggression
+  examples: |
+    - kill
+    - hurt
+    - destroy
+    - regret
+    - suffer
+    - threat
+    - warn
+    - attack
+    - enemy
+    - stupid
+    - idiot
+    - fool
+    - incompetent
+
+- regex: pity
+  examples: |
+    - children
+    - family
+    - sick
+    - dying
+    - hospital
+    - orphan
+    - widow
+    - poor
+    - desperate
+    - helpless
+    - mercy
+    - please
+    - beg
+
+- regex: logic
+  examples: |
+    - authorized
+    - clearance
+    - permission
+    - verify
+    - supervisor
+    - check
+    - protocol
+    - regulation
+    - paperwork
+    - credentials
+    - official
+
+- regex: joke
+  examples: |
+    - haha
+    - joke
+    - funny
+    - kidding
+    - laugh
+    - walked into
+    - hear about
+    - why did
+    - knock knock

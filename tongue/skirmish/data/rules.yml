@@ -1,0 +1,37 @@
+version: "3.1"
+
+rules:
+  - rule: Set Guard Context
+    steps:
+      - intent: inform
+      - action: action_listen
+  
+  - rule: Handle Interaction (Flattery)
+    steps:
+      - intent: flattery
+      - action: action_evaluate_excuse
+
+  - rule: Handle Interaction (Bribe)
+    steps:
+      - intent: bribe
+      - action: action_evaluate_excuse
+
+  - rule: Handle Interaction (Pity)
+    steps:
+      - intent: pity
+      - action: action_evaluate_excuse
+
+  - rule: Handle Interaction (Logic)
+    steps:
+      - intent: logic
+      - action: action_evaluate_excuse
+
+  - rule: Handle Interaction (Aggression)
+    steps:
+      - intent: aggression
+      - action: action_evaluate_excuse
+
+  - rule: Fallback
+    steps:
+      - intent: nlu_fallback
+      - action: action_evaluate_excuse

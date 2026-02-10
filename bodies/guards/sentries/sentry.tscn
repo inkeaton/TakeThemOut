@@ -34,7 +34,7 @@ target_position = Vector2(0, 0)
 collision_mask = 7
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="." unique_id=211187770]
-radius = 374.38
+radius = 234.93
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=509441090]
 position = Vector2(-5.5631e-06, 10.000008)

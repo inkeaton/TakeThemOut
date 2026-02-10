@@ -49,6 +49,7 @@ func _ready() -> void:
 	# 1. Setup Navigation
 	nav_agent.path_desired_distance = 10.0
 	nav_agent.target_desired_distance = navigation_tolerance
+	nav_agent.max_speed = speed
 	
 	# Connect signals
 	nav_agent.velocity_computed.connect(_on_velocity_computed)

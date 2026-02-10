@@ -1,0 +1,167 @@
+version: "3.1"
+
+nlu:
+# =============================================================================
+# INTENT: COMPLIMENT
+# Structure: "You are [Positive Adjective]" or "I like [Your Attribute]"
+# Key Differentiator: The object of the sentence is HER.
+# =============================================================================
+- intent: compliment
+  examples: |
+    - You look incredible tonight.
+    - You have such a nice smile.
+    - You are really funny.
+    - That dress looks amazing on you.
+    - You are smarter than I expected.
+    - I love your sense of style.
+    - You have mesmerizing eyes.
+    - You are very charming.
+    - I really admire your confidence.
+    - You have a great laugh.
+    - You seem like a really kind person.
+    - You are glowing.
+    - You have excellent taste.
+    - I like how passionate you are.
+    - You are the most interesting person here.
+    - You are beautiful.
+    - You are wonderful company.
+    - Your voice is very soothing.
+    - I think you are fascinating.
+
+# =============================================================================
+# INTENT: CURIOSITY
+# Structure: Questions (Who/What/Where/When/How)
+# Key Differentiator: Ends in a question mark; seeks new information.
+# =============================================================================
+- intent: curiosity
+  examples: |
+    - What do you do for work?
+    - Where did you grow up?
+    - Do you have any siblings?
+    - What is your favorite movie?
+    - How do you spend your weekends?
+    - Tell me about your family.
+    - What are you passionate about?
+    - Have you ever traveled abroad?
+    - What is your dream vacation?
+    - Do you like animals?
+    - What is your favorite food?
+    - Who is your best friend?
+    - What was your childhood like?
+    - Do you believe in ghosts?
+    - What kind of music do you listen to?
+    - Why did you move to this city?
+    - What is your biggest fear?
+    - Tell me a secret.
+
+# =============================================================================
+# INTENT: TALKING_ABOUT_MYSELF (Vulnerability/Self-Disclosure)
+# Structure: "I am...", "I feel...", "My..."
+# Key Differentiator: The subject is YOU (the player). No questions, no judgments of her.
+# =============================================================================
+- intent: talking_about_myself
+  examples: |
+    - I am actually a bit nervous right now.
+    - I work as an architect downtown.
+    - I grew up in a small town nearby.
+    - I love hiking on weekends.
+    - I have a dog named Buster.
+    - My family is really important to me.
+    - I've been feeling a bit lonely lately.
+    - I am looking for a serious relationship.
+    - I enjoy cooking, even if I'm bad at it.
+    - I had a rough day at the office.
+    - I am really happy to be here.
+    - I feel like I can be open with you.
+    - I used to play the guitar in college.
+    - My favorite memory is a trip to Japan.
+    - I am an open book, usually.
+    - I sometimes struggle with anxiety.
+    - I value honesty above everything else.
+    - I've never been to this restaurant before.
+    - I feel a connection tonight.
+
+# =============================================================================
+# INTENT: TOXICITY
+# Structure: "You are [Negative]", Imperatives ("Shut up"), or Disinterest.
+# Key Differentiator: Negative sentiment words.
+# =============================================================================
+- intent: toxicity
+  examples: |
+    - You are boring.
+    - This date is a waste of time.
+    - You are ugly.
+    - Shut up.
+    - I don't care about what you're saying.
+    - You talk too much.
+    - I want to leave.
+    - You are annoying.
+    - This is stupid.
+    - You dress terribly.
+    - I hate this place.
+    - You are not my type at all.
+    - You are dull.
+    - Stop talking.
+    - You look nothing like your photo.
+    - You are weird.
+    - I'm checking my phone because you're boring.
+    - Whatever.
+    - Go away.
+
+# =============================================================================
+# DATE ASK OBJECTIVE
+# =============================================================================
+
+- intent: ask_objective
+  examples: |
+    - Who is Agent Popo?
+    - Tell me the name of the agent.
+    - What is the real identity of Popo?
+    - I need to know who you are working with.
+    - Give me the contact's name.
+    - Who is the target?
+    - Reveal the name of the operative.
+    - I'm actually here to find out about Popo.
+    - Stop playing around, who is he?
+    - What's the name of the guy?
+
+# =============================================================================
+# REGEX / LOOKUP TABLES
+# Used to help DIETClassifier spot the "Anchor words" for each intent.
+# =============================================================================
+
+- regex: curiosity
+  examples: |
+    - \?
+    - what
+    - who
+    - where
+    - when
+    - how
+    - why
+
+- regex: compliment
+  examples: |
+    - beautiful
+    - pretty
+    - handsome
+    - smart
+    - funny
+    - kind
+    - charming
+    - amazing
+    - wonderful
+
+- regex: toxicity
+  examples: |
+    - boring
+    - ugly
+    - stupid
+    - hate
+    - dumb
+    - waste
+    - annoying
+    - dull
+    - weird
+    - terrible
+

@@ -1,0 +1,378 @@
+[
+  {
+    "text": "You're radiant",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 0.9999943971633911
+    }
+  },
+  {
+    "text": "Your eyes are mesmerizing",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "bribe",
+      "confidence": 0.5617508292198181
+    }
+  },
+  {
+    "text": "It is rare to see someone so fit and capable.",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "bribe",
+      "confidence": 0.9763887524604797
+    }
+  },
+  {
+    "text": "Get out of my way.",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "bribe",
+      "confidence": 0.9983525276184082
+    }
+  },
+  {
+    "text": "You look like a total amateur.",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "flattery",
+      "confidence": 0.7077981233596802
+    }
+  },
+  {
+    "text": "I have no patience for fools.",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "pity",
+      "confidence": 0.9984821677207947
+    }
+  },
+  {
+    "text": "You are beneath my notice.",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "flattery",
+      "confidence": 0.9954081177711487
+    }
+  },
+  {
+    "text": "I can give you 50 dollars to let me escape",
+    "intent": "bribe",
+    "intent_prediction": {
+      "name": "logic",
+      "confidence": 0.7643810510635376
+    }
+  },
+  {
+    "text": "We can work this out without the paperwork.",
+    "intent": "bribe",
+    "intent_prediction": {
+      "name": "logic",
+      "confidence": 0.9907744526863098
+    }
+  },
+  {
+    "text": "I have cash in my pocket right now.",
+    "intent": "bribe",
+    "intent_prediction": {
+      "name": "pity",
+      "confidence": 0.9999303817749023
+    }
+  },
+  {
+    "text": "You are impeding an official investigation.",
+    "intent": "logic",
+    "intent_prediction": {
+      "name": "bribe",
+      "confidence": 0.9690490365028381
+    }
+  },
+  {
+    "text": "I am not trespassing, check the logs.",
+    "intent": "logic",
+    "intent_prediction": {
+      "name": "pity",
+      "confidence": 0.9999837875366211
+    }
+  },
+  {
+    "text": "Alright, you caught me. Good job.",
+    "intent": "pity",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 0.9999258518218994
+    }
+  },
+  {
+    "text": "I admire you",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "pity",
+      "confidence": 0.7884278893470764
+    }
+  },
+  {
+    "text": "You look like a winner.",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 0.9998618364334106
+    }
+  },
+  {
+    "text": "You're repulsive.",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "flattery",
+      "confidence": 0.9973224997520447
+    }
+  },
+  {
+    "text": "Everyone has a price, what is yours?",
+    "intent": "bribe",
+    "intent_prediction": {
+      "name": "flattery",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "Please consult the daily roster.",
+    "intent": "logic",
+    "intent_prediction": {
+      "name": "pity",
+      "confidence": 0.9997878670692444
+    }
+  },
+  {
+    "text": "You look like royalty.",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 0.6660231351852417
+    }
+  },
+  {
+    "text": "Such a distinguished appearance!",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "logic",
+      "confidence": 0.9532695412635803
+    }
+  },
+  {
+    "text": "Do you want to die?",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "pity",
+      "confidence": 0.8091245889663696
+    }
+  },
+  {
+    "text": "Try it and see what happens.",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "bribe",
+      "confidence": 0.9998776912689209
+    }
+  },
+  {
+    "text": "You look like a clown in that uniform.",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "flattery",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "You look like a fraud.",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "flattery",
+      "confidence": 0.9873075485229492
+    }
+  },
+  {
+    "text": "You have the face of a criminal.",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "flattery",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "I've got a stack of bills with your name on it.",
+    "intent": "bribe",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 0.9977172613143921
+    }
+  },
+  {
+    "text": "I have a legal right to be here.",
+    "intent": "logic",
+    "intent_prediction": {
+      "name": "pity",
+      "confidence": 0.996370792388916
+    }
+  },
+  {
+    "text": "I didn't know this was a restricted area.",
+    "intent": "pity",
+    "intent_prediction": {
+      "name": "logic",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "You have the face of an angel.",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "You look like perfection.",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 0.999382734298706
+    }
+  },
+  {
+    "text": "You look like a leader.",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "You look like a work of art.",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 0.9997918009757996
+    }
+  },
+  {
+    "text": "You look like a dream.",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "Back off right now.",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "bribe",
+      "confidence": 0.7568432092666626
+    }
+  },
+  {
+    "text": "I am your worst nightmare.",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "pity",
+      "confidence": 0.8982651233673096
+    }
+  },
+  {
+    "text": "This is a financial offer, not a request.",
+    "intent": "bribe",
+    "intent_prediction": {
+      "name": "pity",
+      "confidence": 0.9010493159294128
+    }
+  },
+  {
+    "text": "My supervisor, Mr. Henderson, can verify this.",
+    "intent": "logic",
+    "intent_prediction": {
+      "name": "pity",
+      "confidence": 0.9999819993972778
+    }
+  },
+  {
+    "text": "I have diplomatic immunity.",
+    "intent": "logic",
+    "intent_prediction": {
+      "name": "pity",
+      "confidence": 0.9777712821960449
+    }
+  },
+  {
+    "text": "This is a restricted area for you, not me.",
+    "intent": "logic",
+    "intent_prediction": {
+      "name": "pity",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "You look like a masterpiece of design.",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 0.9963680505752563
+    }
+  },
+  {
+    "text": "You have the vibe of a champion.",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 0.9995976090431213
+    }
+  },
+  {
+    "text": "You are worthless.",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "flattery",
+      "confidence": 0.9998809099197388
+    }
+  },
+  {
+    "text": "You have a face for radio.",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "flattery",
+      "confidence": 0.9999982118606567
+    }
+  },
+  {
+    "text": "Get lost.",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "pity",
+      "confidence": 0.9896432161331177
+    }
+  },
+  {
+    "text": "I can arrange for additional compensation.",
+    "intent": "bribe",
+    "intent_prediction": {
+      "name": "logic",
+      "confidence": 0.7673607468605042
+    }
+  },
+  {
+    "text": "This envelope contains our understanding.",
+    "intent": "bribe",
+    "intent_prediction": {
+      "name": "logic",
+      "confidence": 0.5453696250915527
+    }
+  },
+  {
+    "text": "Money talks, doesn't it?",
+    "intent": "bribe",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 0.7651541829109192
+    }
+  }
+]

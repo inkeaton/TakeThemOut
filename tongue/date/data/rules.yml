@@ -1,0 +1,37 @@
+version: "3.1"
+
+rules:
+  - rule: Set Guard Context
+    steps:
+      - intent: inform
+      - action: action_listen
+  
+  - rule: Handle Interaction (Flattery)
+    steps:
+      - intent: compliment
+      - action: action_evaluate_date
+
+  - rule: Handle Interaction (Bribe)
+    steps:
+      - intent: toxicity
+      - action: action_evaluate_date
+
+  - rule: Handle Interaction (Pity)
+    steps:
+      - intent: talking_about_myself
+      - action: action_evaluate_date
+
+  - rule: Handle Interaction (Logic)
+    steps:
+      - intent: curiosity
+      - action: action_evaluate_date
+
+  - rule: Fallback
+    steps:
+      - intent: nlu_fallback
+      - action: action_evaluate_date
+      
+  - rule: Handle Interaction (Ask Objective)
+    steps:
+      - intent: ask_objective
+      - action: action_evaluate_date

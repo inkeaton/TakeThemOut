@@ -42,6 +42,8 @@ var _debug_cumulative_score: float = 0.0  # Running total for debug display
 	"rosanna": preload("res://stages/chat/sprites/patrol1_rosanna.png"),
 	"polyanna": preload("res://stages/chat/sprites/patrol3_polyanna.png"),
 	"marianna": preload("res://stages/chat/sprites/patrol4_marianna.png"),
+	"daniele": preload("res://bodies/guards/captains/res/capitan1_daniele.png"),
+	"samuele": preload("res://bodies/guards/captains/res/capitan2_samuele.png"),
 	"unknown": preload("res://stages/chat/sprites/patrol1_rosanna.png")
 }
 
@@ -86,6 +88,7 @@ func configure_bot(guard_name: String) -> void:
 	
 	# 2. Reset UI
 	user_input.editable = true
+	user_input.visible = true  # Restore if previously hidden (captain mode)
 	%SendButton.disabled = false
 	%SendButton.visible = true
 	continue_button.hide()
@@ -97,8 +100,26 @@ func configure_bot(guard_name: String) -> void:
 		log_text_label.clear()
 		_debug_cumulative_score = 0.0
 
-	# 3. Context Switch (Guard vs Date)
-	if current_guard_name == "eugenia":
+	# 3. Context Switch (Captain vs Guard vs Date)
+	if current_guard_name in ["daniele", "samuele"]:
+		current_mode = "CAPTAIN"
+		interrogation_hud.hide()
+		# Hide input — captains don't talk
+		user_input.editable = false
+		user_input.visible = false
+		%SendButton.disabled = true
+		%SendButton.visible = false
+		# Per-captain dismissal line
+		if current_guard_name == "daniele":
+			agent_text_label.text = "[i]I have nothing to tell you. Get lost.[/i]"
+		else:
+			agent_text_label.text = "[i]You're wasting my time. Scram.[/i]"
+		# Show return button immediately
+		continue_button.show()
+		continue_button.grab_focus()
+		return  # Skip Rasa payload — no bot interaction
+		
+	elif current_guard_name == "eugenia":
 		current_mode = "DATE"
 		current_api_url = URL_DATE_BOT # Port 5006
 		_setup_date_mode()
@@ -109,9 +130,10 @@ func configure_bot(guard_name: String) -> void:
 		interrogation_hud.hide()
 		agent_text_label.text = "[i]HALT! Who goes there?[/i]"
 
-	# 4. Inform Rasa (Send invisible payload to set context)
-	var hidden_payload: String = '/inform{"guard_name": "%s"}' % current_guard_name
-	_send_to_rasa(hidden_payload)
+	# 4. Inform Rasa of guard name (Send invisible payload to set context)
+	if current_mode == "GUARD":
+		var hidden_payload: String = '/inform{"guard_name": "%s"}' % current_guard_name
+		_send_to_rasa(hidden_payload)
 
 func _setup_date_mode() -> void:
 	interrogation_hud.show()
@@ -121,6 +143,7 @@ func _setup_date_mode() -> void:
 
 # --- SENDING DATA ---
 func _on_send_pressed(text_submitted: String = "") -> void:
+	if current_mode == "CAPTAIN": return  # Captains don't chat
 	var text: String = user_input.text.strip_edges()
 	if text.is_empty(): return
 	
@@ -189,7 +212,7 @@ func _process_single_message(message: Dictionary) -> void:
 			_update_date_meters(data)
 			
 		# Game Events (Win/Loss)
-		if "game_event" in data:
+		if "game_event" in data and data["game_event"] is String:
 			_handle_game_event(data["game_event"], data)
 
 # --- GUARD MODE LOGIC ---
@@ -261,6 +284,7 @@ func _on_continue_pressed() -> void:
 	# In debug mode, just reset the UI for another round
 	if debug_mode:
 		user_input.editable = true
+		user_input.visible = true
 		%SendButton.disabled = false
 		%SendButton.visible = true
 		continue_button.hide()
@@ -270,9 +294,23 @@ func _on_continue_pressed() -> void:
 	if current_mode == "DATE":
 		# BRANCH A: Go to Ending Screen
 		get_tree().change_scene_to_file("res://stages/ending/ending_screen.tscn")
+	
+	elif current_mode == "CAPTAIN":
+		# BRANCH B: Captain Dismissal — always raises alarm, reduces sympathy
+		GameManager.last_encounter_score = 0.0
+		GameManager.last_encounter_result = "alarm"
 		
+		# Apply negative sympathy to make the captain harder to corrupt
+		var jason_name: String = GameManager.GUARD_NAME_MAP.get(current_guard_name, "")
+		if jason_name != "":
+			var current_delta: float = GameManager.sympathy_updates.get(jason_name, 0.0)
+			GameManager.sympathy_updates[jason_name] = current_delta - 0.3
+			print("Captain sympathy penalty: %s -= 0.3 (total: %s)" % [jason_name, GameManager.sympathy_updates[jason_name]])
+		
+		get_tree().change_scene_to_file("res://stages/maze/test_maze.tscn")
+	
 	else:
-		# BRANCH B: Return to Maze (Guard Logic)
+		# BRANCH C: Return to Maze (Guard Logic)
 		GameManager.last_encounter_score = last_score
 		
 		if last_score > 0:

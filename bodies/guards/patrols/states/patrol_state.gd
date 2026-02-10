@@ -151,7 +151,8 @@ func _navigate_to_nearest_captain() -> void:
 	
 	if captain_name.is_empty():
 		push_warning("patrol_state: No captain found nearby")
-		# Notify mind that no captain was found
+		# Reset messenger flag and notify mind
+		body.is_messenger = false
 		vesna.send_navigation_update("no_captain_found", "")
 		state_machine.change_state_by_name("Idle")
 		return
@@ -196,6 +197,7 @@ func update_physics(_delta: float) -> void:
 			_target_agent_name = ""
 			_target_agent_ref = null
 			body.is_moving = false
+			body.is_messenger = false
 			vesna.send_navigation_update("agent_lost", "")
 			state_machine.change_state_by_name("Idle")
 			return
@@ -218,6 +220,7 @@ func update_physics(_delta: float) -> void:
 			_navigating_to_agent = false
 			_target_agent_name = ""
 			_target_agent_ref = null
+			body.is_messenger = false
 		elif _navigating_to_coords:
 			vesna.send_navigation_update("reached_target", "coords")
 			body.update_debug_label("Arrived at coords")

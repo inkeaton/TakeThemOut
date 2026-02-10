@@ -1,4 +1,11 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
-tongue/
+# /tongue/
+/tongue/venv/
+/tongue/date/models/
+/tongue/date/cache/
+/tongue/date/.rasa/cache/
+/tongue/skirmish/.rasa/cache/
+/tongue/skirmish/models/
+/tongue/skirmish/cache/

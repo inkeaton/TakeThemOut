@@ -1,0 +1,498 @@
+version: "3.1"
+
+nlu:
+# =============================================================================
+# FLATTERY 
+# Focus: Compliments, Admiration, Positive Descriptions
+# Fix: Explicitly teaching that "You look like [Positive Noun]" is Flattery
+# =============================================================================
+- intent: flattery
+  examples: |
+    - You're beautiful
+    - You're stunning
+    - You're magnificent
+    - I admire you
+    - You're impressive
+    - You're dashing
+    - You're radiant
+    - You're captivating
+    - You're exquisite
+    - You're lovely
+    - You're attractive
+    - You look really nice today
+    - You're elegant
+    - You're gorgeous
+    - You're charming
+    - You have such a great smile
+    - Your eyes are mesmerizing
+    - You have a great sense of style
+    - You have a really nice uniform
+    - You look very professional
+    - You have a very commanding presence
+    - You have a very attractive voice
+    - You have a great posture
+    - You have a very impressive physique
+    - You have a very confident demeanor
+    - You have a very charismatic personality
+    - You have a very alluring aura
+    - You are the best patrol guard here
+    - You are the most attractive person in this building
+    - You are the most impressive guard I've ever seen
+    - You look amazing
+    - Only someone as smart as you could catch me.
+    - You look like a true hero.
+    - You have the face of an angel.
+    - You look like a masterpiece of design.
+    - You look like perfection.
+    - You remind me of a movie star.
+    - You look like a model in that uniform.
+    - You look like royalty.
+    - I have never seen such a professional guard.
+    - That uniform fits you impeccably.
+    - I am struck by your elegance.
+    - Your presence is truly commanding.
+    - I must say, you look dashing today.
+    - It is rare to see someone so fit and capable.
+    - Your style is simply flawless.
+    - You look like a winner.
+    - You look like a leader.
+    - You look like a legend.
+    - You look like a work of art.
+    - You look like a dream.
+    - You look like the person in charge.
+    - You look like success.
+
+# =============================================================================
+# AGGRESSION
+# Focus: Insults, Threats, Negative Descriptions
+# Fix: Explicitly teaching that "You look like [Negative Noun]" is Aggression
+# =============================================================================
+- intent: aggression
+  examples: |
+    - Get out of my way.
+    - I will hurt you.
+    - Move or I will make you move.
+    - Touch me and you're dead.
+    - You are an idiot.
+    - Don't you dare touch me.
+    - I'm going to punch you.
+    - You're stupid.
+    - Get lost, you incompetence fool.
+    - I will break your face.
+    - Step aside or bleed.
+    - You are worthless.
+    - I'll kill you if you don't let me go.
+    - You are a disgrace.
+    - Shut your mouth.
+    - I'll destroy you.
+    - You ugly oaf.
+    - Pathetic little guard.
+    - I'll snap you like a twig.
+    - You are weak and pathetic.
+    - Back off right now.
+    - I will end you.
+    - You don't want this fight.
+    - You're messing with the wrong person.
+    - I'm going to wipe the floor with you.
+    - You look like a moron.
+    - You're a waste of space.
+    - Get out of my face.
+    - I'll put you in the hospital.
+    - You are incompetent.
+    - Do you want to die?
+    - I am your worst nightmare.
+    - You can't stop me.
+    - Try it and see what happens.
+    - You're repulsive.
+    - I'm going to smash you.
+    - You look like a coward.
+    - You look like a weakling.
+    - You look like a total amateur.
+    - You look like a mistake.
+    - You look like a clown in that uniform.
+    - You have the personality of a brick.
+    - You are a waste of my time.
+    - You look like you don't know what you're doing.
+    - You look like a disaster.
+    - You look like garbage.
+    - You look like a mess.
+    - You have the personality of a wet mop.
+    - You have a face for radio.
+    - You look like a potato.
+    - Get lost.
+    - Move it.
+    - I will end you.
+    - Don't make me hurt you.
+    - You are disgusting.
+    - I have no patience for fools.
+    - Step aside or else.
+    - You are beneath my notice.
+    - I will crush you.
+    - You look like a fraud.
+    - You look like a loser.
+    - You look like a joke.
+    - You look like an idiot.
+    - You look like trash.
+    - You have the face of a criminal.
+    - You have the vibe of a loser.
+
+# =============================================================================
+# BRIBE 
+# Focus: Transactional, Money, Offers
+# Fix: Added specific phrasing for "Stack of bills" and "Envelope"
+# =============================================================================
+- intent: bribe
+  examples: |
+    - I can ensure your promotion if you let me go.
+    - I have a large sum of money that I can offer you.
+    - I can pay you off to look the other way.
+    - I have connections that can get you a better job.
+    - I can give you a bonus if you let me go.
+    - I can offer you a deal that benefits us both.
+    - I can compensate you for your trouble.
+    - I can make it worth your while to let me go.
+    - I can give you cash under the table if you let me go.
+    - I can offer you a bribe to ignore this.
+    - I can pay you to look the other way.
+    - I can give you money to keep quiet about this.
+    - I can offer you a financial incentive to let me go.
+    - I can give you a tip if you let me go.
+    - I can give you 50 dollars to let me escape
+    - Your shift is almost over, I can pay you to let me go before the next guard comes.
+    - I can fund your next vacation if you let me go.
+    - I can give you a raise if you let me go.
+    - My boss will reward you if you let me go.
+    - I can give you a gift card if you let me go.
+    - I can offer you a cut of my profits if you let me go.
+    - I can give you 50% of my earnings if you let me go.
+    - Would you like to make some money? I can pay you to let me go.
+    - I can make you a rich man.
+    - Here, take this and buy yourself something nice.
+    - Take this, and we can call it even.
+    - I can solve your financial woes.
+    - You can earn yourself a golden retirement if you let me go.
+    - I can pay you a night in the finest bar if you let me go.
+    - I can give you a shopping spree if you let me go.
+    - I can give you a luxury car if you let me go.
+    - I can give you a mansion if you let me go.
+    - I can give you a yacht if you let me go.
+    - I can give you a private jet if you let me go.
+    - I can give you a vacation home if you let me go.
+    - I can give you a penthouse apartment if you let me go.
+    - I can give you a lifetime supply of your favorite things if you let me go.
+    - How about we call this a consulting fee?
+    - I'm offering a percentage for your help.
+    - Your silence has considerable value to me.
+    - I can arrange for additional compensation.
+    - This envelope contains our understanding.
+    - I can make your mortgage problems disappear.
+    - My rich friends will pay you for your loyalty.
+    - This briefcase contains your early retirement.
+    - I have the power to offer incentives. 
+    - Let's make a deal right here.
+    - Everyone has a price, what is yours?
+    - I can grease your palms if you let me pass.
+    - How about a little something for your trouble?
+    - I can make it rain for you.
+    - Let's split the difference, take this cash.
+    - Do you accept tips?
+    - I've got a stack of bills with your name on it.
+    - We can work this out without the paperwork.
+    - Just take the money and look away.
+    - Buying your silence is cheaper than a lawyer.
+    - Here is a little gift for your cooperation.
+    - I have cash in my pocket right now.
+    - This is a financial offer, not a request.
+    - I am offering you payment.
+    - Take the bribe and let me go.
+    - Money talks, doesn't it?
+
+# =============================================================================
+# LOGIC
+# Focus: Bureaucracy, Documents, External Authority, Rules
+# Fix: Added "Diplomatic Immunity" and "Permit" which were confused with Pity
+# =============================================================================
+- intent: logic
+  examples: |
+    - My badge is valid for this sector.
+    - The schedule indicates this area is open to vendors.
+    - Check the visitor log, line 42.
+    - The front desk issued this temporary pass.
+    - Standard operating procedure requires a safety inspection here.
+    - This is a scheduled maintenance visit.
+    - The system shows my clearance code is active.
+    - Refer to email confirmation #5529 from HR.
+    - These documents prove my authorization.
+    - Legal counsel has approved this walkthrough.
+    - The electronic lock accepted my keycard.
+    - Access to this corridor is public during business hours.
+    - Visitor regulations allow transit through the lobby.
+    - My supervisor can verify my presence.
+    - This is purely a jurisdictional dispute.
+    - The paperwork was filed in triplicate yesterday.
+    - Regulation 14-B grants contractor access.
+    - We are conducting a mandatory fire safety audit.
+    - The databanks will confirm my identity.
+    - This is a misunderstanding of company policy.
+    - Look at the expiration date, it is still valid.
+    - I have a work order for the ventilation unit.
+    - Security Protocol 7 overrides your current orders.
+    - I am holding a valid permit.
+    - The administration is aware of my presence.
+    - This area is not classified as restricted.
+    - Verify the QR code on this laminate.
+    - I am strictly following the blue line protocol.
+    - My presence is required for the systems check.
+    - You are impeding an official investigation.
+    - Please consult the daily roster.
+    - I have diplomatic immunity.
+    - This is an authorized unscheduled drill.
+    - My credentials are in order.
+    - Read the text on this clipboard.
+    - The database lists my arrival time.
+    - The system has already cleared me.
+    - This permit is up to date.
+    - The scanner verified my ID.
+    - Access granted by central command.
+    - The regulations are quite clear on this.
+    - This area is designated as public access.
+    - My clearance level is higher than yours.
+    - The roster includes my name.
+    - Security protocols mandate this inspection.
+    - The electronic log proves I scanned in.
+    - This is a standard compliance check.
+    - Refer to the safety guidelines on the wall.
+    - I have a legal right to be here.
+    - My permit is valid and active.
+    - This is a restricted area for you, not me.
+    - Authorization code Alpha-Nine.
+    - I am not trespassing, check the logs.
+
+# =============================================================================
+# PITY
+# =============================================================================
+- intent: pity
+  examples: |
+    - Please, just let me go
+    - I have a family to take care of.
+    - I'm sick and need to get to a hospital.
+    - I'm dying, I just want to see my loved ones.
+    - I'm an orphan, I have no one else.
+    - I'm a widow, I have no one else.
+    - I'm poor, I can't afford to be caught.
+    - I'm desperate, I have no other options.
+    - I'm helpless, I can't defend myself.
+    - Please have mercy on me.
+    - I'm begging you, just let me go.
+    - I have a sick child at home, I need to get back to them.
+    - I'm the sole provider for my family, I can't be caught.
+    - I can't end up in prison.
+    - They forced me to do this, I had no choice.
+    - I'm just trying to survive, please understand.
+    - I was bullied into doing this, I'm a victim!
+    - I'm cold and I just wanted a warm place to sleep.
+    - I entred the wrong building by accident, I didn't mean to trespass.
+    - Alright, you caught me. Good job.
+    - I surrender, I have no weapons.
+    - I have no excuses
+    - Ok, you win, I'm caught. Please don't hurt me.
+    - I'm sorry, I didn't mean to cause any trouble.
+    - I just wanted to find a safe place to hide.
+    - I was just looking for a bathroom, I got lost.
+    - I was sleepwalking, I didn't know where I was.
+    - I was trying to find the exit, I got turned around.
+    - I was trying to find the cafeteria, I got lost.
+    - I was trying to find the gift shop, I got lost.
+    - I was trying to find the parking lot, I got lost.
+    - I was trying to find the lobby, I got lost.
+    - I was trying to find the security office, I got lost.
+    - I was trying to find the rooftop, I got lost.
+    - I was trying to find the basement, I got lost.
+    - You got me. I give up.
+    - I admit it, I shouldn't be here.
+    - Fine, I yield.
+    - No tricks, I'm coming out.
+    - I guess my luck ran out.
+    - I am unarmed, don't shoot.
+    - Okay, okay, you got me.
+    - I confess, I'm the intruder.
+    - Hands up, I surrender.
+    - I know when I'm beaten.
+    - I'm guilty.
+    - You were faster than I expected, I concede.
+    - I'm too tired to run anymore, take me.
+    - I give up, you win.
+    - I'm sorry, I didn't mean to cause any trouble.
+    - I just wanted to find a safe place to hide.
+    - Don't hurt me, please.
+    - I made a terrible mistake.
+    - I am so scared, please don't hurt me.
+    - It was an accident, I swear!
+    - I took a wrong turn and panicked.
+    - I am just a confused tourist.
+    - Please, I am trembling, just let me go.
+    - I don't want any trouble, I'm just lost.
+    - I am not a threat, look at me.
+    - I am just trying to get home to my kids.
+    - I didn't know this was a restricted area.
+    - I am weak and tired, please help.
+    - I'm honestly terrified right now.
+    - I didn't know the rules, I'm sorry.
+    - I'm just a confused civilian.
+    - I don't have a permit, please forgive me.
+    - I entered by mistake.
+    - I'm not supposed to be here, I know.
+
+# =============================================================================
+# REGEX PATTERNS 
+# Updated to catch the new specific vocabulary
+# =============================================================================
+
+- regex: flattery
+  examples: |
+    - beautiful
+    - handsome
+    - stunning
+    - gorgeous
+    - magnificent
+    - admire
+    - impressive
+    - dashing
+    - radiant
+    - captivating
+    - exquisite    
+    - lovely
+    - attractive
+    - elegant
+    - charming
+    - mesmerizing  
+    - striking     
+    - grace        
+    - art          
+    - hero         
+    - angel        
+    - champion     
+    - movie star   
+    - masterpiece  
+    - perfection   
+    - impeccable   
+    - flawless     
+    - winner       # NEW
+    - leader       # NEW
+    - legend       # NEW
+    - dream        # NEW
+    - success      # NEW
+
+- regex: aggression
+  examples: |
+    - kill
+    - hurt
+    - destroy
+    - suffer
+    - threat
+    - warn
+    - attack
+    - stupid
+    - idiot
+    - fool
+    - incompetent
+    - dead
+    - break
+    - smash
+    - bleed
+    - moron      
+    - repulsive  
+    - pathetic   
+    - waste      
+    - disgrace   
+    - ugly       
+    - shut up    
+    - disaster   
+    - garbage    
+    - radio      
+    - mop        
+    - amateur    
+    - mistake    
+    - coward     
+    - weakling   
+    - disgusting 
+    - crush      
+    - fraud      # NEW
+    - loser      # NEW
+    - criminal   # NEW
+    - trash      # NEW
+
+- regex: bribe
+  examples: |
+    - money
+    - pay
+    - dollars
+    - compensat(e|ion)?
+    - deal
+    - offer
+    - worth
+    - price
+    - cash
+    - funds
+    - tip
+    - bonus
+    - expense
+    - envelope
+    - pocket
+    - grease     
+    - rain       
+    - bills      
+    - gift       
+
+- regex: pity
+  examples: |
+    - children
+    - family
+    - sick
+    - dying
+    - hospital
+    - orphan
+    - widow
+    - poor
+    - desperate
+    - helpless
+    - mercy
+    - please
+    - beg
+    - scared     
+    - terrified  
+    - trembling  
+    - accident   
+    - mistake    
+    - panic      
+
+- regex: logic
+  examples: |
+    - authorized
+    - clearance
+    - permission
+    - verify
+    - supervisor
+    - check
+    - protocol
+    - regulation
+    - paperwork
+    - credentials
+    - official
+    - permit
+    - badge
+    - form
+    - list
+    - inspector  
+    - audit      
+    - contractor 
+    - rights     
+    - lawyer     
+    - immunity   
+    - policy     
+    - investigation 
+    - database   
+    - system     
+    - scanner    
+    - compliance 
+    - guidelines

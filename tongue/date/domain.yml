@@ -1,0 +1,42 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - compliment         
+  - curiosity          
+  - talking_about_myself
+  - toxicity                     
+  - ask_objective      
+
+entities:
+  - guard_name
+
+slots:
+  guard_name:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: guard_name
+  ease_score:
+    type: float
+    initial_value: 20.0
+    min_value: 0.0
+    max_value: 100.0
+    mappings:
+      - type: custom
+
+  suspicion_score:
+    type: float
+    initial_value: 0.0
+    min_value: 0.0
+    max_value: 100.0
+    mappings:
+      - type: custom
+
+actions:
+  - action_evaluate_date
+
+responses:
+  utter_greet:
+  - text: "What are we doing here?"

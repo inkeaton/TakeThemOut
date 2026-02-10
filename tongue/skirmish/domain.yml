@@ -1,0 +1,29 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - inform
+  - flattery   
+  - bribe      
+  - pity        
+  - logic       
+  - joke       
+  - aggression  
+
+entities:
+  - guard_name
+
+slots:
+  guard_name:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: guard_name
+
+actions:
+  - action_evaluate_excuse
+
+responses:
+  utter_greet:
+  - text: "HALT! Who goes there?"

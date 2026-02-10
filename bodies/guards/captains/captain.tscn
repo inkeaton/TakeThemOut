@@ -91,10 +91,12 @@ font_color = Color(0, 0, 0, 1)
 [sub_resource type="CircleShape2D" id="CircleShape2D_enb01"]
 radius = 797.64
 
-[node name="Captain" type="CharacterBody2D" unique_id=1481715262 groups=["guards", "patrols"]]
+[node name="Captain" type="CharacterBody2D" unique_id=1481715262 groups=["captains", "guards", "patrols"]]
 scale = Vector2(0.15, 0.15)
 collision_layer = 2
 script = ExtResource("1_enb01")
+speed = 200.0
+acceleration = 200.0
 
 [node name="ScentCast" type="ShapeCast2D" parent="." unique_id=170193669]
 unique_name_in_owner = true
