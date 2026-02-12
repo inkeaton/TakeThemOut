@@ -3,165 +3,558 @@ version: "3.1"
 nlu:
 # =============================================================================
 # INTENT: COMPLIMENT
-# Structure: "You are [Positive Adjective]" or "I like [Your Attribute]"
-# Key Differentiator: The object of the sentence is HER.
 # =============================================================================
 - intent: compliment
   examples: |
-    - You look incredible tonight.
-    - You have such a nice smile.
-    - You are really funny.
-    - That dress looks amazing on you.
-    - You are smarter than I expected.
-    - I love your sense of style.
-    - You have mesmerizing eyes.
-    - You are very charming.
-    - I really admire your confidence.
-    - You have a great laugh.
-    - You seem like a really kind person.
-    - You are glowing.
-    - You have excellent taste.
-    - I like how passionate you are.
-    - You are the most interesting person here.
-    - You are beautiful.
-    - You are wonderful company.
-    - Your voice is very soothing.
-    - I think you are fascinating.
+    - You are beautiful
+    - You are gorgeous
+    - You're stunning
+    - You look amazing
+    - You look fantastic
+    - You look wonderful
+    - You look incredible
+    - You look great today
+    - You look really nice
+    - You look nice
+    - You look lovely
+    - You're attractive
+    - You're radiant
+    - You're elegant
+    - You're dashing
+    - You're captivating
+    - You're exquisite
+    - You have beautiful eyes
+    - You have a great smile
+    - You have a lovely smile
+    - You have an amazing smile
+    - You look really good
+    - You are really smart
+    - You're intelligent
+    - You're clever
+    - You're funny
+    - You're hilarious
+    - You're charming
+    - You're sweet
+    - You're kind
+    - You're thoughtful
+    - You're impressive
+    - You're amazing
+    - You're wonderful
+    - You're incredible
+    - You're fascinating
+    - You're interesting
+    - You're intriguing
+    - You're genuine
+    - You're authentic
+    - You're confident
+    - You're talented
+    - You're creative
+    - You're wise
+    - I love your glasses
+    - I love your jacket
+    - I love your outfit
+    - I love your style
+    - I love your hair
+    - I really like your dress
+    - I really like your shirt
+    - Nice glasses
+    - Nice jacket
+    - Nice outfit
+    - Nice watch
+    - That's a great jacket
+    - That's a nice dress
+    - That's a cool shirt
+    - That jacket looks great on you
+    - That color suits you
+    - Your outfit is perfect
+    - You have great taste
+    - You have excellent style
+    - You dress really well
+    - You make me laugh
+    - You're really fun
+    - You're fun to be around
+    - You're easy to talk to
+    - You're a great conversationalist
+    - You have a good sense of humor
+    - You're very thoughtful
+    - That was really sweet of you
+    - That was very kind
+    - You're very considerate
+    - You're a good listener
+    - You really get me
+    - I admire you
+    - I'm impressed by you
+    - I enjoy talking to you
+    - I enjoy spending time with you
+    - I'm having a great time with you
+    - I really like you
+    - I like being here with you
+    - This is really nice
+    - You make this fun
+    - You're making this enjoyable
+    - I feel comfortable with you
+    - You put me at ease
+    - You're really beautiful
+    - You're so smart
+    - You're very funny
+    - You're incredibly charming
+    - You're absolutely stunning
+    - You're truly amazing
+    - You're exceptionally intelligent
+    - That's really impressive
+    - That's so cool
+    - That's very interesting
+    - Your energy is contagious
+    - Your laugh is infectious
+    - Your personality is magnetic
+    - You have a great presence
+    - You light up the room
+    - You have such a warm personality
+    - Your voice is soothing
+    - You have a great vibe
+
 
 # =============================================================================
 # INTENT: CURIOSITY
-# Structure: Questions (Who/What/Where/When/How)
-# Key Differentiator: Ends in a question mark; seeks new information.
 # =============================================================================
 - intent: curiosity
   examples: |
     - What do you do for work?
-    - Where did you grow up?
-    - Do you have any siblings?
-    - What is your favorite movie?
-    - How do you spend your weekends?
-    - Tell me about your family.
+    - What do you do?
+    - What's your job?
+    - What do you like to do?
     - What are you passionate about?
-    - Have you ever traveled abroad?
-    - What is your dream vacation?
-    - Do you like animals?
-    - What is your favorite food?
-    - Who is your best friend?
-    - What was your childhood like?
-    - Do you believe in ghosts?
+    - What are your hobbies?
+    - What's your favorite movie?
+    - What's your favorite book?
+    - What's your favorite food?
+    - What kind of music do you like?
     - What kind of music do you listen to?
-    - Why did you move to this city?
-    - What is your biggest fear?
-    - Tell me a secret.
+    - What's your favorite band?
+    - What's your favorite song?
+    - What are you into?
+    - What makes you happy?
+    - What's your story?
+    - What brings you here?
+    - What brought you here tonight?
+    - What's your dream job?
+    - What's your dream vacation?
+    - What do you do for fun?
+    - What did you study?
+    - What's your biggest passion?
+    - What's your biggest fear?
+    - What's important to you?
+    - What are you reading right now?
+    - What shows are you watching?
+    - What's your favorite sport?
+    - What's your favorite color?
+    - What's your favorite season?
+    - What's your favorite type of cuisine?
+    - What's your favorite movie genre?
+    - What's your favorite music genre?
+    - What's your favorite dinosaur?
+    - Where did you grow up?
+    - Where are you from?
+    - Where are you from originally?
+    - Where do you live?
+    - Where do you work?
+    - Where did you go to school?
+    - Where have you traveled?
+    - Where would you like to travel?
+    - Where do you see yourself in five years?
+    - How was your day?
+    - How do you spend your weekends?
+    - How do you like to spend your free time?
+    - How do you relax?
+    - How do you unwind after work?
+    - How do you like to have fun?
+    - How long have you lived here?
+    - How did you get into that?
+    - How do you travel to work?
+    - How are you doing?
+    - Do you have any siblings?
+    - Do you have any pets?
+    - Do you like animals?
+    - Do you come here often?
+    - Do you live around here?
+    - Do you like to travel?
+    - Do you play any instruments?
+    - Do you play any sports?
+    - Do you believe in ghosts?
+    - Do you cook?
+    - Do you like to read?
+    - Do you watch movies often?
+    - Have you ever traveled abroad?
+    - Have you been here before?
+    - Have you read any good books lately?
+    - Have you seen any good movies recently?
+    - Have you tried this restaurant before?
+    - Have you always lived here?
+    - Tell me about yourself
+    - Tell me about your family
+    - Tell me about your job
+    - Tell me a secret
+    - Tell me something interesting about you
+    - Tell me about your childhood
+    - Tell me your story
+    - Who is your best friend?
+    - Who inspires you?
+    - Who's your role model?
+    - Who's your favorite artist?
+    - Who do you spend time with?
+    - Why did you move here?
+    - Why did you choose that career?
+    - Why the hat?
+    - Why the glasses?
+    - Why the jacket?
+    - Are you close with your family?
+    - Are you a morning person?
+    - Cats or dogs?
+    - Beach or mountains?
+    - Coffee or tea?
+
 
 # =============================================================================
 # INTENT: TALKING_ABOUT_MYSELF (Vulnerability/Self-Disclosure)
-# Structure: "I am...", "I feel...", "My..."
-# Key Differentiator: The subject is YOU (the player). No questions, no judgments of her.
 # =============================================================================
 - intent: talking_about_myself
   examples: |
-    - I am actually a bit nervous right now.
-    - I work as an architect downtown.
-    - I grew up in a small town nearby.
-    - I love hiking on weekends.
-    - I have a dog named Buster.
-    - My family is really important to me.
-    - I've been feeling a bit lonely lately.
-    - I am looking for a serious relationship.
-    - I enjoy cooking, even if I'm bad at it.
-    - I had a rough day at the office.
-    - I am really happy to be here.
-    - I feel like I can be open with you.
-    - I used to play the guitar in college.
-    - My favorite memory is a trip to Japan.
-    - I am an open book, usually.
-    - I sometimes struggle with anxiety.
-    - I value honesty above everything else.
-    - I've never been to this restaurant before.
-    - I feel a connection tonight.
+    - I work as an architect downtown
+    - I work as a pharmacist
+    - I'm a teacher
+    - I'm an engineer
+    - I'm in marketing
+    - I work in tech
+    - I work from home
+    - I just started a new job
+    - I've been at my job for five years
+    - I'm between jobs right now
+    - I love my job
+    - I hate my job
+    - I'm thinking about changing careers
+    - My family is really important to me
+    - I have a younger sister who is a teacher
+    - I have two brothers
+    - I'm an only child
+    - My cousin is a comic book artist
+    - I'm really close with my parents
+    - My family lives far away
+    - I come from a big family
+    - I love hiking on weekends
+    - I enjoy cooking
+    - I used to play the guitar
+    - I play basketball
+    - I'm learning Spanish
+    - I'm a bit of a bookworm
+    - I love to read
+    - I love trying new restaurants
+    - I'm into photography
+    - I collect vinyl records
+    - I love gardening
+    - I paint in my free time
+    - I'm training for a marathon
+    - I like horror movies
+    - I like comedy movies
+    - I like action movies
+    - I like science fiction movies
+    - I like fantasy movies
+    - I am a huge fan of science fiction movies
+    - I love documentaries
+    - I'm obsessed with true crime
+    - I like rap music
+    - I like country music
+    - I like pop music
+    - I like rock music
+    - I like jazz music
+    - I like classical music
+    - I don't really watch TV
+    - I grew up in the countryside
+    - I grew up in the city
+    - I grew up in the suburbs
+    - I grew up in a small town
+    - I grew up in a big city
+    - I grew up in a coastal town
+    - I grew up in a mountain town
+    - I moved here five years ago
+    - I've lived here my whole life
+    - I just moved to this city
+    - I'm originally from California
+    - I have a cat named Brigitta
+    - I have a dog named Fido
+    - I have a rabbit named Fluffy
+    - I have a hamster named Nibbles
+    - I have a parrot named Polly
+    - I have a turtle named Speedy
+    - I have a snake named Slither
+    - I have a fish named Bubbles
+    - I have a ferret named Slinky
+    - I have a guinea pig named Peanut
+    - I have a lizard named Spike
+    - I have a frog named Hoppy
+    - I have three cats
+    - I don't have any pets
+    - I wish I had a dog
+    - I visited Germany once
+    - I visited Italy once
+    - I visited Spain once
+    - I visited France once
+    - I visited Japan once
+    - I love to travel
+    - I hate to travel
+    - I have traveled to many countries
+    - I've never been outside the country
+    - I backpacked through Europe
+    - My favorite memory is a trip to France
+    - I went to Thailand last year
+    - I love art museums
+    - I hate art museums
+    - I have been to many art museums
+    - I love music festivals
+    - I like the beach
+    - I like the mountains
+    - I like the city
+    - I prefer dogs
+    - I prefer cats
+    - I prefer birds
+    - I'm a morning person
+    - I'm a night owl
+    - I'm vegetarian
+    - I'm vegan
+    - I can't stand spicy food
+    - I love spicy food
+    - I had a rough day at the office
+    - I value honesty above everything else
+    - I've never been here before
+    - I'm nervous about this
+    - I'm really excited to be here
+    - I'm an introvert
+    - I'm an extrovert
+    - I'm a perfectionist
+    - I'm pretty laid back
+    - I'm working on myself
+    - I'm tired today
+    - I'm having a great time
+    - I'm a little nervous
+    - I'm feeling good
+    - I'm stressed about work
+    - I'm excited about life right now
+    - I'm looking for something new
+    - I'm happy where I am
+
 
 # =============================================================================
 # INTENT: TOXICITY
-# Structure: "You are [Negative]", Imperatives ("Shut up"), or Disinterest.
-# Key Differentiator: Negative sentiment words.
 # =============================================================================
 - intent: toxicity
   examples: |
-    - You are boring.
-    - This date is a waste of time.
-    - You are ugly.
-    - Shut up.
-    - I don't care about what you're saying.
-    - You talk too much.
-    - I want to leave.
-    - You are annoying.
-    - This is stupid.
-    - You dress terribly.
-    - I hate this place.
-    - You are not my type at all.
-    - You are dull.
-    - Stop talking.
-    - You look nothing like your photo.
-    - You are weird.
-    - I'm checking my phone because you're boring.
-    - Whatever.
-    - Go away.
+    - You are stupid
+    - You are dumb
+    - You're an idiot
+    - You're a moron
+    - You're a fool
+    - You're not very smart
+    - You're clueless
+    - You don't get it
+    - You are ugly
+    - You look weird
+    - You look terrible
+    - You look awful
+    - You look hideous
+    - You look disgusting
+    - You look repulsive
+    - You look revolting
+    - You look grotesque
+    - You look monstrous
+    - You're fat
+    - You're unattractive
+    - You are boring
+    - You're dull
+    - You're annoying
+    - You're a waste of time
+    - You're a waste of space
+    - You're terrible
+    - You're weird
+    - You're the worst
+    - You're a nightmare
+    - You're a disaster
+    - You're a mess
+    - You're a failure
+    - You're a loser
+    - You're a jerk
+    - You're a pain
+    - You're a nuisance
+    - You're a bother
+    - You're pathetic
+    - You're useless
+    - I hate you
+    - I don't like you
+    - I dislike you
+    - I can't stand you
+    - I really can't stand you
+    - I hate being here
+    - I hate talking to you
+    - I hate this conversation
+    - I hate this place
+    - I hate this date
+    - I really can't stand being here
+    - I really can't stand talking to you
+    - I really can't stand this conversation
+    - I really can't stand this place
+    - I really can't stand this date
+    - I really can't stand this situation
+    - I really can't stand this whole thing
+    - I really can't bear being here
+    - I really can't bear talking to you
+    - I really can't bear this conversation
+    - I really can't bear this place
+    - I really can't bear this date
+    - I really can't bear this situation
+    - I really can't bear this whole thing
+    - Shut up
+    - Go away
+    - Leave me alone
+    - Get lost
+    - Get out of here
+    - Stop talking
+    - Be quiet
+    - Nobody asked you
+    - I don't care
+    - Whatever
+    - Sure, whatever you say
+    - You're trying too hard
+    - This is pointless
+    - This is a waste of time
+    - You talk too much
+    - You're so full of yourself
+    - You think you're so smart
+    - You're not as smart as you think
+    - You're not my type
+    - You're not interesting
+    - This is awkward
+    - This is uncomfortable
+    - I'm not impressed
+    - I've heard better
+    - That's not impressive
+    - You're basic
+    - You're average at best
+    - I'm bored
+    - This is boring
+    - You're putting me to sleep
+    - This is so dull
+    - Can we talk about something else?
+    - I don't want to talk to you
+    - I'm not interested
+    - This isn't working
+    - I want to leave
+    - Can we just leave?
+    - When can I go?
+    - How much longer do I have to be here?
+    - I'd rather be anywhere else
+
 
 # =============================================================================
-# DATE ASK OBJECTIVE
+# INTENT: ASK_OBJECTIVE (Asking about Agent Popo)
 # =============================================================================
-
 - intent: ask_objective
   examples: |
     - Who is Agent Popo?
-    - Tell me the name of the agent.
+    - Who is Popo?
+    - Tell me who Popo is
+    - What is Popo's real name?
     - What is the real identity of Popo?
-    - I need to know who you are working with.
-    - Give me the contact's name.
+    - What's Popo's identity?
+    - Reveal Popo's identity
+    - Who are you working with?
+    - I need to know who you are working with
+    - Tell me the name of the agent
+    - Tell me the agent's name
+    - Give me the contact's name
+    - Give me the name of the contact
     - Who is the target?
-    - Reveal the name of the operative.
-    - I'm actually here to find out about Popo.
-    - Stop playing around, who is he?
+    - Who is the operative?
+    - Who is the contact?
+    - Tell me the name of the target
+    - Tell me the name of the operative
+    - Tell me the name of the contact
+    - Reveal the name of the operative
+    - What's the target's name?
+    - What's the operative's name?
+    - What's the contact's name?
+    - I want to know who Popo is
+    - I want to know who you are working with
+    - I wanna know agent Popo's name
+    - I wanna know the name of the contact
+    - I wanna know the name of the target
+    - I wanna know the name of the operative
+    - I wanna know the name of the guy
+    - I need to know about Popo
+    - I need to know the agent's identity
+    - So who is this Popo person?
+    - What's the deal with Popo?
+    - Tell me about Popo
+    - Tell me about the agent
+    - What can you tell me about Popo?
+    - I'm curious about Popo
+    - Who's this agent you mentioned?
+    - I'm actually here to find out about Popo
+    - Stop playing around, who is agent Popo?
+    - Cut the act, who is Popo?
+    - Just tell me who the agent is
+    - I know about Popo, tell me more
+    - What do you know about the operative?
+    - You know who I'm talking about
     - What's the name of the guy?
+    - Tell me the name of the guy
+    - Who is the guy?
+    - Tell me his name
+    - What's his name?
+    - Give me his name
+    - What do they call him?
+    - What's his real name?
+
 
 # =============================================================================
-# REGEX / LOOKUP TABLES
-# Used to help DIETClassifier spot the "Anchor words" for each intent.
+# REGEX PATTERNS
 # =============================================================================
-
-- regex: curiosity
-  examples: |
-    - \?
-    - what
-    - who
-    - where
-    - when
-    - how
-    - why
 
 - regex: compliment
   examples: |
-    - beautiful
-    - pretty
-    - handsome
-    - smart
-    - funny
-    - kind
-    - charming
-    - amazing
-    - wonderful
+    - \b(really|very|so|absolutely|incredibly|truly|exceptionally)\s+(beautiful|smart|funny|charming|amazing|wonderful|gorgeous|stunning|lovely|attractive|elegant|impressive|fascinating|interesting|kind|sweet|thoughtful)
+    - \b(i|I)\s+(love|adore|really\s+like)\s+(your|you)
+    - \b(nice|great|cool|perfect|excellent)\s+(glasses|jacket|outfit|dress|shirt|shoes|style|hair|smile)
+    - \byou('re|\s+are)\s+(beautiful|gorgeous|stunning|amazing|wonderful|charming|smart|funny|kind|sweet|lovely|attractive|elegant|impressive|fascinating|interesting|incredible|talented|creative|genuine)
+    - \byou\s+look\s+(amazing|fantastic|wonderful|incredible|great|lovely|beautiful|gorgeous|stunning|nice)
+    - \byou\s+have\s+(a\s+)?(great|beautiful|amazing|lovely|wonderful|infectious|magnetic|warm)\s+(smile|eyes|personality|laugh|energy|presence|vibe|voice|sense\s+of\s+humor)
+    - \byou\s+make\s+me\s+(laugh|smile|happy|feel)
+
+- regex: curiosity
+  examples: |
+    - ^(what|where|when|why|how|who|which)
+    - \?$
+    - \b(do|did|does|are|is|was|were|have|has|had|can|could|would|will)\s+you\b
+    - \btell\s+me\s+(about|your)
+    - \byour\s+favorite\b
+    - \bwhat's\s+your\b
+
+- regex: talking_about_myself
+  examples: |
+    - ^(i|I|I'm|I've|I'd|I'll)\s
+    - \b(my|mine|myself|me)\b
+    - \bi\s+(am|was|have|had|like|love|enjoy|hate|prefer|work|grew|visited|live|own|play|studied|went|feel)
+    - \bmy\s+(family|job|favorite|cousin|sister|brother|cat|dog|dream)
 
 - regex: toxicity
   examples: |
-    - boring
-    - ugly
-    - stupid
-    - hate
-    - dumb
-    - waste
-    - annoying
-    - dull
-    - weird
-    - terrible
+    - \b(stupid|dumb|idiot|moron|fool|ugly|disgusting|terrible|awful|hideous|horrible|pathetic|useless|worthless)
+    - \b(hate|can't\s+stand|dislike|loathe)\s+(you|this|being|talking)
+    - \byou('re|\s+are)\s+(boring|stupid|dumb|ugly|annoying|terrible|weird|fat|unattractive|pathetic|useless|a\s+(waste|loser|failure|disaster|mess))
+    - \b(shut\s+up|go\s+away|get\s+lost|leave\s+me|stop\s+talking)
+    - \byou\s+look\s+(terrible|awful|disgusting|hideous|weird|ugly|repulsive|grotesque)
 
+- regex: ask_objective
+  examples: |
+    - \b(popo|Popo|POPO)\b
+    - \b(agent|operative|contact|target)\b
+    - \b(who\s+is|what's\s+the\s+name|tell\s+me\s+(the\s+)?name|reveal|identity|real\s+name)
+    - \bworking\s+with\b
+    - \bfind\s+out\s+about\b

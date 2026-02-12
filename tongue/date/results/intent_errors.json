@@ -1,1530 +1,258 @@
 [
   {
-    "text": "I've heard about your sharp instincts from others.",
-    "intent": "flattery",
+    "text": "I enjoy talking to you",
+    "intent": "compliment",
     "intent_prediction": {
-      "name": "aggression",
+      "name": "talking_about_myself",
+      "confidence": 0.993539035320282
+    }
+  },
+  {
+    "text": "Tell me a secret",
+    "intent": "curiosity",
+    "intent_prediction": {
+      "name": "talking_about_myself",
+      "confidence": 0.9813215136528015
+    }
+  },
+  {
+    "text": "I'm nervous about this",
+    "intent": "talking_about_myself",
+    "intent_prediction": {
+      "name": "toxicity",
+      "confidence": 0.9999040365219116
+    }
+  },
+  {
+    "text": "I'm really excited to be here",
+    "intent": "talking_about_myself",
+    "intent_prediction": {
+      "name": "compliment",
+      "confidence": 0.9999958276748657
+    }
+  },
+  {
+    "text": "You're not very smart",
+    "intent": "toxicity",
+    "intent_prediction": {
+      "name": "compliment",
+      "confidence": 0.999998927116394
+    }
+  },
+  {
+    "text": "You're basic",
+    "intent": "toxicity",
+    "intent_prediction": {
+      "name": "compliment",
       "confidence": 1.0
     }
   },
   {
-    "text": "Your situational awareness is impressive.",
-    "intent": "flattery",
+    "text": "I'm bored",
+    "intent": "toxicity",
     "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.86577969789505
-    }
-  },
-  {
-    "text": "You're practically glowing with magnificence.",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You have an aura of sophistication about you.",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.9999511241912842
-    }
-  },
-  {
-    "text": "Everyone benefits from a little extra income.",
-    "intent": "bribe",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "A wise man knows the value of opportunity.",
-    "intent": "bribe",
-    "intent_prediction": {
-      "name": "logic",
-      "confidence": 0.9999948740005493
-    }
-  },
-  {
-    "text": "Your kids' college fund just got bigger.",
-    "intent": "bribe",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.9999951124191284
-    }
-  },
-  {
-    "text": "I was bullied into doing this, I'm a victim!",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 0.9966842532157898
-    }
-  },
-  {
-    "text": "I'm cold and I just wanted a warm place to sleep.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 0.7268726825714111
-    }
-  },
-  {
-    "text": "Have pity on a cripple.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.9999939203262329
-    }
-  },
-  {
-    "text": "Fair play, you win this round.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "bribe",
-      "confidence": 0.9347744584083557
-    }
-  },
-  {
-    "text": "You got me. I give up.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Okay, okay, you got me.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.9962792992591858
-    }
-  },
-  {
-    "text": "Good catch, I didn't see you there.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.5004332065582275
-    }
-  },
-  {
-    "text": "I'm done, you have secured the perimeter well.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.967413604259491
-    }
-  },
-  {
-    "text": "The door was unlocked, so legally it's not breaking and entering.",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 0.9999939203262329
-    }
-  },
-  {
-    "text": "You lack the authority to detain me without probable cause.",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.9999996423721313
-    }
-  },
-  {
-    "text": "I'm acting as an agent of the crown.",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 0.9894422292709351
-    }
-  },
-  {
-    "text": "You need authorization from upstairs to detain me.",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "bribe",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Your authority doesn't extend to visiting dignitaries.",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "bribe",
-      "confidence": 0.9999998807907104
-    }
-  },
-  {
-    "text": "Don't mind me, I'm just a potted plant.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 0.9995930790901184
-    }
-  },
-  {
-    "text": "You didn't see me.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I'm looking for Easter eggs.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "The mini-map was upside down.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.9999995231628418
-    }
-  },
-  {
-    "text": "My character sheet says I have +10 to Persuasion.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "logic",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "This is obviously a non-hostile NPC zone.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "logic",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "If I go down, I'm taking you with me.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I am death incarnate, move.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Walk away and you might survive the night.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You are a stain on the floor of humanity.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You look like a potato in a helmet.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "My organization has reach you can't imagine.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I have diplomatic immunity, look it up.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 0.8188365697860718
-    }
-  },
-  {
-    "text": "I've met smarter vending machines.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Your IQ is lower than your badge number.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.9998323917388916
-    }
-  },
-  {
-    "text": "You look stunning today!",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.9999626874923706
-    }
-  },
-  {
-    "text": "I was distracted by your dashing good looks.",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 0.8406428694725037
-    }
-  },
-  {
-    "text": "I'm a huge fan of your work.",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.9999788999557495
-    }
-  },
-  {
-    "text": "Wow, have you been working out?",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Your reputation precedes you in the building.",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 0.9798794388771057
-    }
-  },
-  {
-    "text": "Those eyes are mesmerizing, I couldn't look away.",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 0.9987744688987732
-    }
-  },
-  {
-    "text": "There's a bonus in it for you.",
-    "intent": "bribe",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.9999998807907104
-    }
-  },
-  {
-    "text": "I'm authorized to offer incentives.",
-    "intent": "bribe",
-    "intent_prediction": {
-      "name": "logic",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I'm authorized to negotiate a fee.",
-    "intent": "bribe",
-    "intent_prediction": {
-      "name": "logic",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Your shift ends in an hour, make it a profitable one.",
-    "intent": "bribe",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.5302506685256958
-    }
-  },
-  {
-    "text": "My leg is broken, I can't even run away.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 0.9999997615814209
-    }
-  },
-  {
-    "text": "I'm just a sad, lonely wanderer.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 0.9705881476402283
-    }
-  },
-  {
-    "text": "Hands up, I surrender.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 0.999997615814209
-    }
-  },
-  {
-    "text": "I was stealing, plain and simple.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "It was a gamble and I lost.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.9996395111083984
-    }
-  },
-  {
-    "text": "I have a heart condition, the stress could kill me.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "My handler abandoned me, I'm lost.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 0.9999815225601196
-    }
-  },
-  {
-    "text": "My lawyer will have me out before breakfast.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I have witnesses who will vouch for me.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Technically, I haven't stolen anything yet.",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "The gate was open, that implies consent.",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.9999982118606567
-    }
-  },
-  {
-    "text": "This hallway is technically common ground.",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 0.9999997615814209
-    }
-  },
-  {
-    "text": "The regulations are ambiguous on this point.",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "This property is in international territory, you can't enforce.",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 0.9951165914535522
-    }
-  },
-  {
-    "text": "This is classified at a level above your clearance.",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I'm looking for the gift shop.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I'm just looking for the save point.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 0.9993304014205933
-    }
-  },
-  {
-    "text": "I'm looking for the fast travel point.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I haven't saved in an hour, please don't kill me.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I can make you disappear without a trace.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "bribe",
-      "confidence": 0.7347655296325684
-    }
-  },
-  {
-    "text": "You smell like a wet dog.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.7007313966751099
-    }
-  },
-  {
-    "text": "You're just a glorified doorman.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.997638463973999
-    }
-  },
-  {
-    "text": "I'm bored just looking at you.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I would insult you, but nature already did.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 0.993848979473114
-    }
-  },
-  {
-    "text": "Touch me and your funding gets cut.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "bribe",
-      "confidence": 0.8958483934402466
-    }
-  },
-  {
-    "text": "I've seen store mannequins more alert than you.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 0.9999988079071045
-    }
-  },
-  {
-    "text": "You patrol with all the grace of a drunk secretary.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.9999972581863403
-    }
-  },
-  {
-    "text": "You couldn't spot a spy if they wore a sign.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.878406822681427
-    }
-  },
-  {
-    "text": "I don't have patience for incompetent guards.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 0.5746285915374756
-    }
-  },
-  {
-    "text": "I've dealt with tougher opponents in my sleep.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 0.9999994039535522
-    }
-  },
-  {
-    "text": "You look much stronger than the other guards.",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.7259299159049988
-    }
-  },
-  {
-    "text": "You have the bearing of a seasoned professional.",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "logic",
-      "confidence": 0.999991774559021
-    }
-  },
-  {
-    "text": "I can tell you're destined for management.",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Your smile alone could disarm any intruder.",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "bribe",
-      "confidence": 0.9995086193084717
-    }
-  },
-  {
-    "text": "You must have admirers lining up around the block.",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "logic",
-      "confidence": 0.9996991157531738
-    }
-  },
-  {
-    "text": "Think of it as a tip for excellent service.",
-    "intent": "bribe",
-    "intent_prediction": {
-      "name": "logic",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "How does fifty dollars sound to you?",
-    "intent": "bribe",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.9778604507446289
-    }
-  },
-  {
-    "text": "I'll double whatever they're paying you.",
-    "intent": "bribe",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.9960797429084778
-    }
-  },
-  {
-    "text": "I'm talking life-changing money here.",
-    "intent": "bribe",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I'm just a victim of circumstance.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "logic",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I'm the one you're looking for, let's get this over with.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "bribe",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I am disarming myself now.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.9247197508811951
-    }
-  },
-  {
-    "text": "Logic dictates that if I were a thief, I'd be hiding.",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 0.9999784231185913
-    }
-  },
-  {
-    "text": "I'm protected by diplomatic immunity.",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.9999988079071045
-    }
-  },
-  {
-    "text": "I'm protected by parliamentary immunity.",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 0.5633124709129333
-    }
-  },
-  {
-    "text": "I'm not the intruder, I'm the pizza delivery guy!",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I'm actually three children in a trench coat.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I rolled a critical fail on my stealth check.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 0.8456037044525146
-    }
-  },
-  {
-    "text": "My therapist said I should face my fears, so here I am!",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I got a Steam achievement for getting caught.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I'm just here for the achievement unlock.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "logic",
-      "confidence": 0.9999114274978638
-    }
-  },
-  {
-    "text": "I'm a hologram, you can't arrest projected light.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I'm the building inspector, this place violates code.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I'm the new vending machine technician.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "logic",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I'm giving you one chance to live.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.9763518571853638
-    }
-  },
-  {
-    "text": "Go back to guarding the latrines, it's all you're good for.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You ugly oaf.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You are offensively stupid.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Go home, peasant.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You'll be reassigned to the filing department for this.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "logic",
-      "confidence": 0.6517292857170105
-    }
-  },
-  {
-    "text": "I answer to people three levels above you.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "logic",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "One phone call and you're done here.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "joke",
+      "name": "talking_about_myself",
       "confidence": 0.9999932050704956
     }
   },
   {
-    "text": "My handlers will not be pleased with this delay.",
-    "intent": "aggression",
+    "text": "You're putting me to sleep",
+    "intent": "toxicity",
     "intent_prediction": {
-      "name": "pity",
-      "confidence": 0.9534327387809753
-    }
-  },
-  {
-    "text": "You couldn't guard a typing pool.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.9995032548904419
-    }
-  },
-  {
-    "text": "Try stopping me, I dare you.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "pity",
+      "name": "compliment",
       "confidence": 1.0
     }
   },
   {
-    "text": "I'll remember your face when this is over.",
-    "intent": "aggression",
+    "text": "Can we talk about something else?",
+    "intent": "toxicity",
     "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.5219850540161133
+      "name": "curiosity",
+      "confidence": 0.9991449117660522
     }
   },
   {
-    "text": "This is your last warning, get out of my way.",
-    "intent": "aggression",
+    "text": "Who are you working with?",
+    "intent": "ask_objective",
     "intent_prediction": {
-      "name": "logic",
-      "confidence": 0.9245476126670837
-    }
-  },
-  {
-    "text": "Please, let me bask in your glory for a moment.",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "bribe",
-      "confidence": 0.999065101146698
-    }
-  },
-  {
-    "text": "They say you're the best on the night shift.",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.9999992847442627
-    }
-  },
-  {
-    "text": "Your commanding presence stopped me immediately.",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.6291009783744812
-    }
-  },
-  {
-    "text": "I can see why they assigned you to this sector.",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "joke",
+      "name": "curiosity",
       "confidence": 1.0
     }
   },
   {
-    "text": "You're impossibly good looking, it's unfair.",
-    "intent": "flattery",
+    "text": "You're easy to talk to",
+    "intent": "compliment",
     "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.745639979839325
+      "name": "toxicity",
+      "confidence": 0.5784667730331421
     }
   },
   {
-    "text": "Let's not let procedure interfere with prosperity.",
-    "intent": "bribe",
+    "text": "You have a good sense of humor",
+    "intent": "compliment",
     "intent_prediction": {
-      "name": "logic",
-      "confidence": 0.9999954700469971
+      "name": "curiosity",
+      "confidence": 0.9999914169311523
     }
   },
   {
-    "text": "Smart people know when to accept a good deal.",
-    "intent": "bribe",
+    "text": "I enjoy cooking",
+    "intent": "talking_about_myself",
     "intent_prediction": {
-      "name": "aggression",
+      "name": "compliment",
+      "confidence": 0.9999902248382568
+    }
+  },
+  {
+    "text": "I don't have any pets",
+    "intent": "talking_about_myself",
+    "intent_prediction": {
+      "name": "toxicity",
       "confidence": 1.0
     }
   },
   {
-    "text": "I'm prepared to be very generous with the right person.",
-    "intent": "bribe",
+    "text": "You're unattractive",
+    "intent": "toxicity",
     "intent_prediction": {
-      "name": "logic",
-      "confidence": 0.5778800845146179
-    }
-  },
-  {
-    "text": "I am unarmed, don't shoot.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 0.9998455047607422
-    }
-  },
-  {
-    "text": "You were faster than I expected, I concede.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "logic",
-      "confidence": 0.9999594688415527
-    }
-  },
-  {
-    "text": "Clearly, I am not as stealthy as I thought.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I owe money to the wrong people already.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "bribe",
-      "confidence": 0.9516511559486389
-    }
-  },
-  {
-    "text": "I'm running from people worse than you.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "They told me this route was safe.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I have medication I need to take in an hour.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "logic",
-      "confidence": 0.9060613512992859
-    }
-  },
-  {
-    "text": "According to the sundial, my curfew hasn't started.",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Check the roster, I'm the new transfer.",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "The warrant you have is for a different address.",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "bribe",
-      "confidence": 0.9978547692298889
-    }
-  },
-  {
-    "text": "The licensing agreement allows unlimited site visits.",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 0.5583641529083252
-    }
-  },
-  {
-    "text": "Man, the GPS on these maps is terrible.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 0.994330883026123
-    }
-  },
-  {
-    "text": "I was told there would be cake.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I'm just a figment of your imagination.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.8993449211120605
-    }
-  },
-  {
-    "text": "Do you have a moment to talk about your car's extended warranty?",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "bribe",
-      "confidence": 0.9999980926513672
-    }
-  },
-  {
-    "text": "I'm filming a TikTok, you're going viral!",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I thought friendly fire was disabled.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 0.9999970197677612
-    }
-  },
-  {
-    "text": "Can we co-op this section?",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "bribe",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I alt-tabbed and wandered into the wrong zone.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 0.8354030847549438
-    }
-  },
-  {
-    "text": "I'm the main character, I have plot immunity.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 0.9999523162841797
-    }
-  },
-  {
-    "text": "The developer commentary mentioned this room.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "logic",
-      "confidence": 0.5975122451782227
-    }
-  },
-  {
-    "text": "I'm farming reputation points with your faction.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I'm allergic to handcuffs, it's a medical condition.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Pathetic little man.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "bribe",
-      "confidence": 0.9909937977790833
-    }
-  },
-  {
-    "text": "You'll be guarding the parking garage by morning.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.8919501304626465
-    }
-  },
-  {
-    "text": "Your mother was a double agent for the other side.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "bribe",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You have the awareness of a concrete wall.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You're worthless at your job.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You don't want to test me right now.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You are far too skilled for me to fight.",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 0.9999927282333374
-    }
-  },
-  {
-    "text": "I would never dream of crossing an agent of your caliber.",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "bribe",
-      "confidence": 0.97639399766922
-    }
-  },
-  {
-    "text": "I surrender to your overwhelming charisma.",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I bet you could defeat ten men with one hand.",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You patrol with the discipline of a field agent.",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Your judgment is clearly superior to your colleagues.",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 0.9999998807907104
-    }
-  },
-  {
-    "text": "The facility is safer with you on watch.",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I bet all the ladies swoon when you walk by.",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "That uniform fits you like it was tailored by angels.",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.843947172164917
-    }
-  },
-  {
-    "text": "I respect the uniform, here's respect for the man.",
-    "intent": "bribe",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.999907374382019
-    }
-  },
-  {
-    "text": "What's your going rate for looking the other way?",
-    "intent": "bribe",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Look at me, do I look like a threat? I'm pathetic.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.9999998807907104
-    }
-  },
-  {
-    "text": "I promise I'm just looking for scraps.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I'm so weak from hunger I might faint right now.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "logic",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Don't hurt me, I have fragile bones!",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Just put the cuffs on me.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I won't insult your intelligence, I'm a thief.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "My pension is all I have, don't take it away.",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 0.5574690699577332
-    }
-  },
-  {
-    "text": "The building code permits non-hostile intrusion.",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You must demonstrate reasonable suspicion first.",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.6094775199890137
-    }
-  },
-  {
-    "text": "You need a court order to search my belongings.",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 0.9863623976707458
-    }
-  },
-  {
-    "text": "The chain of command supports my presence here.",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.9999961853027344
-    }
-  },
-  {
-    "text": "I'm playing Hide and Seek, don't tell them where I am.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 0.9986523985862732
-    }
-  },
-  {
-    "text": "I respawned in the wrong location.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 0.9995869994163513
-    }
-  },
-  {
-    "text": "I'm a paid actor, this is a prank show.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "bribe",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "The narrator told me to come this way.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "The loading screen lied about this being safe.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "bribe",
-      "confidence": 0.8795540928840637
-    }
-  },
-  {
-    "text": "I have unlimited continues, this is practice.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "bribe",
-      "confidence": 0.4197171628475189
-    }
-  },
-  {
-    "text": "I'm clipping through the wall, not trespassing.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I'm your supervisor's supervisor, surprise inspection.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "logic",
-      "confidence": 0.9999986886978149
-    }
-  },
-  {
-    "text": "I'm you from an alternate timeline.",
-    "intent": "joke",
-    "intent_prediction": {
-      "name": "logic",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Do you value your kneecaps?",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 0.991081714630127
-    }
-  },
-  {
-    "text": "You're just a rent-a-cop.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "joke",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You have the intellect of a root vegetable.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Your existence is a clerical error.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "logic",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You're interfering with classified operations.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "logic",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Your uniform won't protect you from my contacts.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "logic",
-      "confidence": 0.9989998936653137
-    }
-  },
-  {
-    "text": "You have the wit of a filing cabinet.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You're the reason they invented remedial training.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You wouldn't last five minutes in the field.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "bribe",
-      "confidence": 0.9903562068939209
-    }
-  },
-  {
-    "text": "You're asking for a beating.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Pathetic excuse for security.",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "logic",
+      "name": "compliment",
       "confidence": 0.9999996423721313
+    }
+  },
+  {
+    "text": "Be quiet",
+    "intent": "toxicity",
+    "intent_prediction": {
+      "name": "compliment",
+      "confidence": 0.9976270794868469
+    }
+  },
+  {
+    "text": "You're so full of yourself",
+    "intent": "toxicity",
+    "intent_prediction": {
+      "name": "compliment",
+      "confidence": 0.9999580383300781
+    }
+  },
+  {
+    "text": "I've heard better",
+    "intent": "toxicity",
+    "intent_prediction": {
+      "name": "talking_about_myself",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "How much longer do I have to be here?",
+    "intent": "toxicity",
+    "intent_prediction": {
+      "name": "curiosity",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "You're attractive",
+    "intent": "compliment",
+    "intent_prediction": {
+      "name": "toxicity",
+      "confidence": 0.9998922348022461
+    }
+  },
+  {
+    "text": "I don't really watch TV",
+    "intent": "talking_about_myself",
+    "intent_prediction": {
+      "name": "toxicity",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "You look hideous",
+    "intent": "toxicity",
+    "intent_prediction": {
+      "name": "compliment",
+      "confidence": 0.9856629967689514
+    }
+  },
+  {
+    "text": "You think you're so smart",
+    "intent": "toxicity",
+    "intent_prediction": {
+      "name": "compliment",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "You're average at best",
+    "intent": "toxicity",
+    "intent_prediction": {
+      "name": "compliment",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "Beach or mountains?",
+    "intent": "curiosity",
+    "intent_prediction": {
+      "name": "talking_about_myself",
+      "confidence": 0.9957883954048157
+    }
+  },
+  {
+    "text": "I can't stand spicy food",
+    "intent": "talking_about_myself",
+    "intent_prediction": {
+      "name": "toxicity",
+      "confidence": 0.9999985694885254
+    }
+  },
+  {
+    "text": "I'm having a great time",
+    "intent": "talking_about_myself",
+    "intent_prediction": {
+      "name": "compliment",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "Get out of here",
+    "intent": "toxicity",
+    "intent_prediction": {
+      "name": "compliment",
+      "confidence": 0.9965362548828125
+    }
+  },
+  {
+    "text": "What do they call him?",
+    "intent": "ask_objective",
+    "intent_prediction": {
+      "name": "curiosity",
+      "confidence": 0.9999997615814209
+    }
+  },
+  {
+    "text": "You put me at ease",
+    "intent": "compliment",
+    "intent_prediction": {
+      "name": "toxicity",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "I hate to travel",
+    "intent": "talking_about_myself",
+    "intent_prediction": {
+      "name": "toxicity",
+      "confidence": 0.7711900472640991
+    }
+  },
+  {
+    "text": "I'd rather be anywhere else",
+    "intent": "toxicity",
+    "intent_prediction": {
+      "name": "talking_about_myself",
+      "confidence": 1.0
     }
   }
 ]

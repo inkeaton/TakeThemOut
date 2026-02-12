@@ -3,15 +3,12 @@ version: "3.1"
 nlu:
 # =============================================================================
 # FLATTERY 
-# Focus: Compliments, Admiration, Positive Descriptions
-# Fix: Explicitly teaching that "You look like [Positive Noun]" is Flattery
 # =============================================================================
 - intent: flattery
   examples: |
     - You're beautiful
     - You're stunning
     - You're magnificent
-    - I admire you
     - You're impressive
     - You're dashing
     - You're radiant
@@ -23,250 +20,455 @@ nlu:
     - You're elegant
     - You're gorgeous
     - You're charming
-    - You have such a great smile
-    - Your eyes are mesmerizing
-    - You have a great sense of style
-    - You have a really nice uniform
+    - You look amazing
+    - You look fantastic
+    - you look nice
     - You look very professional
-    - You have a very commanding presence
+    - You look sharp in that uniform
+    - You look distinguished
+    - You're handsome
+    - You're striking
+    - You're clearly the best guard here
+    - You're obviously very competent
+    - You're remarkably professional
+    - You're incredibly perceptive
+    - You're exceptionally skilled
+    - You're highly capable
+    - You're supremely confident
+    - You're naturally authoritative
+    - You're impressively vigilant
+    - You're outstandingly dedicated
+    - You're admirably thorough
+    - You're refreshingly honest
+    - You're genuinely impressive
+    - You're surprisingly insightful
+    - You're wonderfully efficient
+    - You have such a great smile
+    - You have a commanding presence
+    - You have excellent posture
+    - You have an impressive physique
+    - You have a confident demeanor
+    - You have a charismatic personality
+    - You have an alluring aura
     - You have a very attractive voice
-    - You have a great posture
-    - You have a very impressive physique
-    - You have a very confident demeanor
-    - You have a very charismatic personality
-    - You have a very alluring aura
+    - You have great instincts
+    - You have a sharp eye
+    - You have a strong handshake
+    - You have a warm smile
+    - You have a professional manner
+    - You have excellent judgment
+    - You have remarkable discipline
+    - You have outstanding reflexes
+    - You have a natural authority
+    - You have a reassuring presence
+    - I admire your dedication
+    - I respect your professionalism
+    - I appreciate your thoroughness
+    - I'm impressed by your attention to detail
+    - I can tell you take your job seriously
+    - I can see you're very good at this
+    - I notice you run a tight ship
+    - I recognize true competence when I see it
+    - I value someone who knows their job
+    - I respect someone with your discipline
+    - I'm struck by your confidence
+    - I admire your work ethic
+    - I can see why you're in charge here
+    - I appreciate someone with your skills
     - You are the best patrol guard here
     - You are the most attractive person in this building
     - You are the most impressive guard I've ever seen
-    - You look amazing
-    - Only someone as smart as you could catch me.
-    - You look like a true hero.
-    - You have the face of an angel.
-    - You look like a masterpiece of design.
-    - You look like perfection.
-    - You remind me of a movie star.
-    - You look like a model in that uniform.
-    - You look like royalty.
-    - I have never seen such a professional guard.
-    - That uniform fits you impeccably.
-    - I am struck by your elegance.
-    - Your presence is truly commanding.
-    - I must say, you look dashing today.
-    - It is rare to see someone so fit and capable.
-    - Your style is simply flawless.
-    - You look like a winner.
-    - You look like a leader.
-    - You look like a legend.
-    - You look like a work of art.
-    - You look like a dream.
-    - You look like the person in charge.
-    - You look like success.
+    - Only someone as smart as you could catch me
+    - I have never seen such a professional guard
+    - You're the sharpest guard I've encountered
+    - You're far more capable than most
+    - You're clearly cut above the rest
+    - You're the most alert guard here
+    - You're head and shoulders above the others
+    - You're in a league of your own
+    - You're the most dedicated guard I've met
+    - Your eyes are mesmerizing
+    - Your uniform fits you impeccably
+    - Your posture is impeccable
+    - Your voice has real authority
+    - Your demeanor commands respect
+    - Your efficiency is remarkable
+    - Your vigilance is commendable
+    - Your attention to detail is excellent
+    - Your professionalism shines through
+    - That uniform suits you perfectly
+    - That badge looks good on you
+    - Those medals are well-deserved
+    - You could be in security leadership
+    - You should be training other guards
+    - You could work for a prestigious firm
+    - You deserve a promotion
+    - You're management material
+    - You should be running this operation
+    - You belong in a higher position
+    - You're destined for greater things
+    - You could teach a masterclass
+    - You're clearly going places
+    - You run this station flawlessly
+    - You handle yourself with real class
+    - You carry yourself with confidence
+    - You command respect naturally
+    - You perform your duties admirably
+    - You maintain excellent standards
+    - You execute your role perfectly
+    - You demonstrate real expertise
+    - You project real authority
+    - You inspire confidence
+    - You set a high standard
+    - You do your job exceptionally well
+    - You make me feel safe
+    - You put me at ease
+    - You have a reassuring presence
+    - You make this feel secure
+    - You create a professional atmosphere
+    - You inspire trust
+    - You make people feel protected
+    - Your presence is comforting
+    - You make security feel personal
+    - You bring dignity to the role
+    - Your attention to detail is why you're so good
+    - Your professionalism makes this place better
+    - Your dedication is really admirable
+    - Your skills are clearly honed
+    - Your training really shows
+    - Your experience is evident
+    - Your competence is obvious
+    - Your discipline is remarkable
+    - Your standards are high
+    - Your work ethic is inspiring
+    - You carry yourself like a leader
+    - You move like a professional
+    - You stand like someone in command
+    - You speak like someone with authority
+    - You work like a true expert
+    - You think like a strategist
+    - You act like someone who knows their worth
+    - You present yourself like elite security
+    - You conduct yourself like a superior officer
+
 
 # =============================================================================
 # AGGRESSION
-# Focus: Insults, Threats, Negative Descriptions
-# Fix: Explicitly teaching that "You look like [Negative Noun]" is Aggression
 # =============================================================================
 - intent: aggression
   examples: |
-    - Get out of my way.
-    - I will hurt you.
-    - Move or I will make you move.
-    - Touch me and you're dead.
-    - You are an idiot.
-    - Don't you dare touch me.
-    - I'm going to punch you.
-    - You're stupid.
-    - Get lost, you incompetence fool.
-    - I will break your face.
-    - Step aside or bleed.
-    - You are worthless.
-    - I'll kill you if you don't let me go.
-    - You are a disgrace.
-    - Shut your mouth.
-    - I'll destroy you.
-    - You ugly oaf.
-    - Pathetic little guard.
-    - I'll snap you like a twig.
-    - You are weak and pathetic.
-    - Back off right now.
-    - I will end you.
-    - You don't want this fight.
-    - You're messing with the wrong person.
-    - I'm going to wipe the floor with you.
-    - You look like a moron.
-    - You're a waste of space.
-    - Get out of my face.
-    - I'll put you in the hospital.
-    - You are incompetent.
+    - Get out of my way
+    - I will hurt you
+    - Move or I will make you move
+    - Touch me and you're dead
+    - Don't you dare touch me
+    - I'm going to punch you
+    - I will break your face
+    - Step aside or bleed
+    - I'll kill you if you don't let me go
+    - I'll destroy you
+    - I'll snap you like a twig
+    - Back off right now
+    - I will end you
+    - You don't want this fight
+    - I'm going to wipe the floor with you
+    - Get out of my face
+    - I'll put you in the hospital
     - Do you want to die?
-    - I am your worst nightmare.
-    - You can't stop me.
-    - Try it and see what happens.
-    - You're repulsive.
-    - I'm going to smash you.
-    - You look like a coward.
-    - You look like a weakling.
-    - You look like a total amateur.
-    - You look like a mistake.
-    - You look like a clown in that uniform.
-    - You have the personality of a brick.
-    - You are a waste of my time.
-    - You look like you don't know what you're doing.
-    - You look like a disaster.
-    - You look like garbage.
-    - You look like a mess.
-    - You have the personality of a wet mop.
-    - You have a face for radio.
-    - You look like a potato.
-    - Get lost.
-    - Move it.
-    - I will end you.
-    - Don't make me hurt you.
-    - You are disgusting.
-    - I have no patience for fools.
-    - Step aside or else.
-    - You are beneath my notice.
-    - I will crush you.
-    - You look like a fraud.
-    - You look like a loser.
-    - You look like a joke.
-    - You look like an idiot.
-    - You look like trash.
-    - You have the face of a criminal.
-    - You have the vibe of a loser.
+    - I am your worst nightmare
+    - You can't stop me
+    - Try it and see what happens
+    - I'm going to smash you
+    - I will crush you
+    - Don't make me hurt you
+    - Step aside or else
+    - You are an idiot
+    - You're stupid
+    - Get lost, you incompetent fool
+    - You are incompetent
+    - You're messing with the wrong person
+    - I have no patience for fools
+    - You don't know what you're doing
+    - You're clueless
+    - You're a moron
+    - You're dense
+    - You're simple-minded
+    - You're ugly
+    - You're repulsive
+    - You are disgusting
+    - You're pathetic
+    - You are worthless
+    - You're a waste of space
+    - You are a disgrace
+    - You are weak and pathetic
+    - You are beneath my notice
+    - You're nobody
+    - You're nothing
+    - Shut your mouth
+    - Get lost
+    - Move it
+    - Out of my way
+    - Step aside
+    - Back off
+    - Move along
+    - Disappear
+    - Beat it
+    - Scram
+    - Get bent
+    - Buzz off
+    - Shove off
+    - You are a waste of my time
+    - You're not worth my time
+    - I don't have time for this
+    - You bore me
+    - You're irrelevant
+    - You're insignificant
+    - You mean nothing to me
+    - You're beneath me
+    - I've seen better
+    - You're forgettable
+    - You look like a moron
+    - You look like a coward
+    - You look like a weakling
+    - You look like a total amateur
+    - You look like a mistake
+    - You look like a clown in that uniform
+    - You look like a disaster
+    - You look like garbage
+    - You look like a mess
+    - You look like a potato
+    - You look like a fraud
+    - You look like a loser
+    - You look like a joke
+    - You look like an idiot
+    - You look like trash
+    - You look like a reject
+    - You look like a failure
+    - You look like a nobody
+    - You look like you're lost
+    - You look like you're confused
+    - You look like you're scared
+    - You look like easy prey
+    - You look like a pushover
+    - You look like a doormat
+    - You have the personality of a brick
+    - You have the personality of a wet mop
+    - You have a face for radio
+    - You have the face of a criminal
+    - You have the vibe of a loser
+    - You have the intelligence of a rock
+    - You have the spine of a jellyfish
+    - You have the courage of a mouse
+    - You have the presence of a ghost
+    - You have all the charm of a parking ticket
+    - You have the authority of a scarecrow
+    - You have the skills of an intern
+    - What are you going to do about it?
+    - I dare you to stop me
+    - Try and make me
+    - You and what army?
+    - Come at me
+    - Bring it on
+    - I'd like to see you try
+    - You haven't got the guts
+    - You wouldn't dare
+    - You're too weak to stop me
+    - You're too slow to catch me
+    - You couldn't hurt a fly
+    - A child could do your job better
+    - My grandmother hits harder than you
+    - I've fought tougher opponents in kindergarten
+    - You make mall cops look professional
+    - You're like a security guard from a comedy
+    - You're the worst guard I've ever seen
+    - You make other guards look competent
+    - You're an embarrassment to security
+    - You're a joke of a guard
+    - You're the bottom of the barrel
+
 
 # =============================================================================
 # BRIBE 
-# Focus: Transactional, Money, Offers
-# Fix: Added specific phrasing for "Stack of bills" and "Envelope"
 # =============================================================================
 - intent: bribe
   examples: |
-    - I can ensure your promotion if you let me go.
-    - I have a large sum of money that I can offer you.
-    - I can pay you off to look the other way.
-    - I have connections that can get you a better job.
-    - I can give you a bonus if you let me go.
-    - I can offer you a deal that benefits us both.
-    - I can compensate you for your trouble.
-    - I can make it worth your while to let me go.
-    - I can give you cash under the table if you let me go.
-    - I can offer you a bribe to ignore this.
-    - I can pay you to look the other way.
-    - I can give you money to keep quiet about this.
-    - I can offer you a financial incentive to let me go.
-    - I can give you a tip if you let me go.
+    - I can ensure your promotion if you let me go
+    - I have a large sum of money that I can offer you
+    - I can pay you off to look the other way
+    - I have connections that can get you a better job
+    - I can give you a bonus if you let me go
+    - I can offer you a deal that benefits us both
+    - I can compensate you for your trouble
+    - I can make it worth your while to let me go
+    - I can give you cash under the table if you let me go
+    - I can offer you a bribe to ignore this
+    - I can pay you to look the other way
+    - I can give you money to keep quiet about this
+    - I can offer you a financial incentive to let me go
+    - I can give you a tip if you let me go
     - I can give you 50 dollars to let me escape
-    - Your shift is almost over, I can pay you to let me go before the next guard comes.
-    - I can fund your next vacation if you let me go.
-    - I can give you a raise if you let me go.
-    - My boss will reward you if you let me go.
-    - I can give you a gift card if you let me go.
-    - I can offer you a cut of my profits if you let me go.
-    - I can give you 50% of my earnings if you let me go.
-    - Would you like to make some money? I can pay you to let me go.
-    - I can make you a rich man.
-    - Here, take this and buy yourself something nice.
-    - Take this, and we can call it even.
-    - I can solve your financial woes.
-    - You can earn yourself a golden retirement if you let me go.
-    - I can pay you a night in the finest bar if you let me go.
-    - I can give you a shopping spree if you let me go.
-    - I can give you a luxury car if you let me go.
-    - I can give you a mansion if you let me go.
-    - I can give you a yacht if you let me go.
-    - I can give you a private jet if you let me go.
-    - I can give you a vacation home if you let me go.
-    - I can give you a penthouse apartment if you let me go.
-    - I can give you a lifetime supply of your favorite things if you let me go.
-    - How about we call this a consulting fee?
-    - I'm offering a percentage for your help.
-    - Your silence has considerable value to me.
-    - I can arrange for additional compensation.
-    - This envelope contains our understanding.
-    - I can make your mortgage problems disappear.
-    - My rich friends will pay you for your loyalty.
-    - This briefcase contains your early retirement.
-    - I have the power to offer incentives. 
-    - Let's make a deal right here.
-    - Everyone has a price, what is yours?
-    - I can grease your palms if you let me pass.
-    - How about a little something for your trouble?
-    - I can make it rain for you.
-    - Let's split the difference, take this cash.
+    - I can give you 100 dollars right now
+    - I can give you 500 in cash
+    - I can give you a thousand dollars
+    - Your shift is almost over, I can pay you to let me go before the next guard comes
+    - I can fund your next vacation if you let me go
+    - I can give you a raise if you let me go
+    - My boss will reward you if you let me go
+    - I can give you a gift card if you let me go
+    - I can offer you a cut of my profits if you let me go
+    - I can give you 50% of my earnings if you let me go
+    - I can give you a shopping spree if you let me go
+    - I can give you a luxury car if you let me go
+    - I can give you a mansion if you let me go
+    - I can give you a yacht if you let me go
+    - I can give you a private jet if you let me go
+    - I can give you a vacation home if you let me go
+    - I can give you a penthouse apartment if you let me go
+    - I can give you a lifetime supply of your favorite things if you let me go
+    - Would you like to make some money?
+    - I can make you a rich man
+    - I can solve your financial woes
+    - You can earn yourself a golden retirement if you let me go
+    - I can pay you a night in the finest bar if you let me go
     - Do you accept tips?
-    - I've got a stack of bills with your name on it.
-    - We can work this out without the paperwork.
-    - Just take the money and look away.
-    - Buying your silence is cheaper than a lawyer.
-    - Here is a little gift for your cooperation.
-    - I have cash in my pocket right now.
-    - This is a financial offer, not a request.
-    - I am offering you payment.
-    - Take the bribe and let me go.
+    - Everyone has a price, what is yours?
     - Money talks, doesn't it?
+    - What's your price?
+    - How much to look the other way?
+    - What would it take?
+    - Name your price
+    - How much do you make in a year?
+    - What if I doubled your salary?
+    - Here, take this and buy yourself something nice
+    - Take this, and we can call it even
+    - How about we call this a consulting fee?
+    - I'm offering a percentage for your help
+    - Your silence has considerable value to me
+    - I can arrange for additional compensation
+    - This envelope contains our understanding
+    - I can make your mortgage problems disappear
+    - My rich friends will pay you for your loyalty
+    - This briefcase contains your early retirement
+    - I have the power to offer incentives
+    - Let's make a deal right here
+    - I can grease your palms if you let me pass
+    - How about a little something for your trouble?
+    - I can make it rain for you
+    - Let's split the difference, take this cash
+    - I've got a stack of bills with your name on it
+    - We can work this out without the paperwork
+    - Just take the money and look away
+    - Buying your silence is cheaper than a lawyer
+    - Here is a little gift for your cooperation
+    - I have cash in my pocket right now
+    - This is a financial offer, not a request
+    - I am offering you payment
+    - Take the bribe and let me go
+    - This could be very profitable for you
+    - Think of your family's future
+    - Consider the opportunities
+    - Imagine what you could do with the money
+    - Picture yourself debt-free
+    - Think about early retirement
+    - This could change your life
+    - One decision could set you up for life
+    - A moment of cooperation for a lifetime of comfort
+    - Small favor, big reward
+    - Easy money for minimal effort
+    - Low risk, high reward
+    - Smart people take opportunities
+    - This is a once in a lifetime offer
+
 
 # =============================================================================
 # LOGIC
-# Focus: Bureaucracy, Documents, External Authority, Rules
-# Fix: Added "Diplomatic Immunity" and "Permit" which were confused with Pity
 # =============================================================================
 - intent: logic
   examples: |
-    - My badge is valid for this sector.
-    - The schedule indicates this area is open to vendors.
-    - Check the visitor log, line 42.
-    - The front desk issued this temporary pass.
-    - Standard operating procedure requires a safety inspection here.
-    - This is a scheduled maintenance visit.
-    - The system shows my clearance code is active.
-    - Refer to email confirmation #5529 from HR.
-    - These documents prove my authorization.
-    - Legal counsel has approved this walkthrough.
-    - The electronic lock accepted my keycard.
-    - Access to this corridor is public during business hours.
-    - Visitor regulations allow transit through the lobby.
-    - My supervisor can verify my presence.
-    - This is purely a jurisdictional dispute.
-    - The paperwork was filed in triplicate yesterday.
-    - Regulation 14-B grants contractor access.
-    - We are conducting a mandatory fire safety audit.
-    - The databanks will confirm my identity.
-    - This is a misunderstanding of company policy.
-    - Look at the expiration date, it is still valid.
-    - I have a work order for the ventilation unit.
-    - Security Protocol 7 overrides your current orders.
-    - I am holding a valid permit.
-    - The administration is aware of my presence.
-    - This area is not classified as restricted.
-    - Verify the QR code on this laminate.
-    - I am strictly following the blue line protocol.
-    - My presence is required for the systems check.
-    - You are impeding an official investigation.
-    - Please consult the daily roster.
-    - I have diplomatic immunity.
-    - This is an authorized unscheduled drill.
-    - My credentials are in order.
-    - Read the text on this clipboard.
-    - The database lists my arrival time.
-    - The system has already cleared me.
-    - This permit is up to date.
-    - The scanner verified my ID.
-    - Access granted by central command.
-    - The regulations are quite clear on this.
-    - This area is designated as public access.
-    - My clearance level is higher than yours.
-    - The roster includes my name.
-    - Security protocols mandate this inspection.
-    - The electronic log proves I scanned in.
-    - This is a standard compliance check.
-    - Refer to the safety guidelines on the wall.
-    - I have a legal right to be here.
-    - My permit is valid and active.
-    - This is a restricted area for you, not me.
-    - Authorization code Alpha-Nine.
-    - I am not trespassing, check the logs.
+    - My badge is valid for this sector
+    - The schedule indicates this area is open to vendors
+    - Check the visitor log, line 42
+    - The front desk issued this temporary pass
+    - Standard operating procedure requires a safety inspection here
+    - This is a scheduled maintenance visit
+    - The system shows my clearance code is active
+    - Refer to email confirmation #5529 from HR
+    - These documents prove my authorization
+    - Legal counsel has approved this walkthrough
+    - The electronic lock accepted my keycard
+    - Access to this corridor is public during business hours
+    - Visitor regulations allow transit through the lobby
+    - My supervisor can verify my presence
+    - This is purely a jurisdictional dispute
+    - The paperwork was filed in triplicate yesterday
+    - Regulation 14-B grants contractor access
+    - We are conducting a mandatory fire safety audit
+    - The databanks will confirm my identity
+    - This is a misunderstanding of company policy
+    - Look at the expiration date, it is still valid
+    - I have a work order for the ventilation unit
+    - Security Protocol 7 overrides your current orders
+    - I am holding a valid permit
+    - The administration is aware of my presence
+    - This area is not classified as restricted
+    - Verify the QR code on this laminate
+    - I am strictly following the blue line protocol
+    - My presence is required for the systems check
+    - You are impeding an official investigation
+    - Please consult the daily roster
+    - I have diplomatic immunity
+    - This is an authorized unscheduled drill
+    - My credentials are in order
+    - Read the text on this clipboard
+    - The database lists my arrival time
+    - The system has already cleared me
+    - This permit is up to date
+    - The scanner verified my ID
+    - Access granted by central command
+    - The regulations are quite clear on this
+    - This area is designated as public access
+    - My clearance level is higher than yours
+    - The roster includes my name
+    - Security protocols mandate this inspection
+    - The electronic log proves I scanned in
+    - This is a standard compliance check
+    - Refer to the safety guidelines on the wall
+    - I have a legal right to be here
+    - My permit is valid and active
+    - This is a restricted area for you, not me
+    - Authorization code Alpha-Nine
+    - I am not trespassing, check the logs
+    - Check your records, I'm authorized
+    - The manifest shows I'm expected
+    - My ID number is in the system
+    - Cross-reference my credentials
+    - Verify with the control room
+    - Call your supervisor to confirm
+    - The security database will validate this
+    - My appointment is on the calendar
+    - This is government business
+    - I have executive clearance
+    - The chain of command authorizes my presence
+    - Federal regulations supersede your protocol
+    - International law protects my access
+    - The contract stipulates my entry rights
+    - Union agreements require this inspection
+    - Safety codes mandate my presence
+    - This falls under emergency protocols
+    - Standard procedure allows my entry
+    - The law is on my side
+    - Review the access control list
+    - I'm on the approved vendor list
+    - My company has a service agreement
+    - The audit trail will confirm this
+    - Time-stamped entry in the log
+    - Digital signature validates my authorization
+    - Biometric scan already approved me
+    - Background check cleared me weeks ago
+    - Training certification is current
+    - Annual review approved my access
+    - Department head signed off on this
+
 
 # =============================================================================
 # PITY
@@ -274,225 +476,185 @@ nlu:
 - intent: pity
   examples: |
     - Please, just let me go
-    - I have a family to take care of.
-    - I'm sick and need to get to a hospital.
-    - I'm dying, I just want to see my loved ones.
-    - I'm an orphan, I have no one else.
-    - I'm a widow, I have no one else.
-    - I'm poor, I can't afford to be caught.
-    - I'm desperate, I have no other options.
-    - I'm helpless, I can't defend myself.
-    - Please have mercy on me.
-    - I'm begging you, just let me go.
-    - I have a sick child at home, I need to get back to them.
-    - I'm the sole provider for my family, I can't be caught.
-    - I can't end up in prison.
-    - They forced me to do this, I had no choice.
-    - I'm just trying to survive, please understand.
-    - I was bullied into doing this, I'm a victim!
-    - I'm cold and I just wanted a warm place to sleep.
-    - I entred the wrong building by accident, I didn't mean to trespass.
-    - Alright, you caught me. Good job.
-    - I surrender, I have no weapons.
+    - Please have mercy on me
+    - I'm begging you, just let me go
+    - Please don't hurt me
+    - Please, I am trembling, just let me go
+    - Please help me
+    - Please understand
+    - I'm pleading with you
+    - Have a heart
+    - Show some compassion
+    - Be reasonable
+    - Give me a break
+    - Cut me some slack
+    - Have some mercy
+    - Take pity on me
+    - I have a family to take care of
+    - I'm sick and need to get to a hospital
+    - I'm dying, I just want to see my loved ones
+    - I'm an orphan, I have no one else
+    - I'm a widow, I have no one else
+    - I'm poor, I can't afford to be caught
+    - I'm desperate, I have no other options
+    - I'm helpless, I can't defend myself
+    - I have a sick child at home, I need to get back to them
+    - I'm the sole provider for my family, I can't be caught
+    - I can't end up in prison
+    - They forced me to do this, I had no choice
+    - I'm just trying to survive, please understand
+    - I was bullied into doing this, I'm a victim
+    - I'm cold and I just wanted a warm place to sleep
+    - I have nowhere else to go
+    - My family depends on me
+    - I'm all my kids have
+    - I can't lose my job
+    - I'll lose everything
+    - My life will be ruined
+    - Alright, you caught me. Good job
+    - I surrender, I have no weapons
     - I have no excuses
-    - Ok, you win, I'm caught. Please don't hurt me.
-    - I'm sorry, I didn't mean to cause any trouble.
-    - I just wanted to find a safe place to hide.
-    - I was just looking for a bathroom, I got lost.
-    - I was sleepwalking, I didn't know where I was.
-    - I was trying to find the exit, I got turned around.
-    - I was trying to find the cafeteria, I got lost.
-    - I was trying to find the gift shop, I got lost.
-    - I was trying to find the parking lot, I got lost.
-    - I was trying to find the lobby, I got lost.
-    - I was trying to find the security office, I got lost.
-    - I was trying to find the rooftop, I got lost.
-    - I was trying to find the basement, I got lost.
-    - You got me. I give up.
-    - I admit it, I shouldn't be here.
-    - Fine, I yield.
-    - No tricks, I'm coming out.
-    - I guess my luck ran out.
-    - I am unarmed, don't shoot.
-    - Okay, okay, you got me.
-    - I confess, I'm the intruder.
-    - Hands up, I surrender.
-    - I know when I'm beaten.
-    - I'm guilty.
-    - You were faster than I expected, I concede.
-    - I'm too tired to run anymore, take me.
-    - I give up, you win.
-    - I'm sorry, I didn't mean to cause any trouble.
-    - I just wanted to find a safe place to hide.
-    - Don't hurt me, please.
-    - I made a terrible mistake.
-    - I am so scared, please don't hurt me.
-    - It was an accident, I swear!
-    - I took a wrong turn and panicked.
-    - I am just a confused tourist.
-    - Please, I am trembling, just let me go.
-    - I don't want any trouble, I'm just lost.
-    - I am not a threat, look at me.
-    - I am just trying to get home to my kids.
-    - I didn't know this was a restricted area.
-    - I am weak and tired, please help.
-    - I'm honestly terrified right now.
-    - I didn't know the rules, I'm sorry.
-    - I'm just a confused civilian.
-    - I don't have a permit, please forgive me.
-    - I entered by mistake.
-    - I'm not supposed to be here, I know.
+    - Ok, you win, I'm caught
+    - You got me. I give up
+    - I admit it, I shouldn't be here
+    - Fine, I yield
+    - No tricks, I'm coming out
+    - I guess my luck ran out
+    - I am unarmed, don't shoot
+    - Okay, okay, you got me
+    - I confess, I'm the intruder
+    - Hands up, I surrender
+    - I know when I'm beaten
+    - I'm guilty
+    - You were faster than I expected, I concede
+    - I'm too tired to run anymore, take me
+    - I give up, you win
+    - I won't resist
+    - I'm surrendering peacefully
+    - You win, I lose
+    - I'm done running
+    - I can't fight anymore
+    - I entered the wrong building by accident, I didn't mean to trespass
+    - I'm sorry, I didn't mean to cause any trouble
+    - I just wanted to find a safe place to hide
+    - I was just looking for a bathroom, I got lost
+    - I was sleepwalking, I didn't know where I was
+    - I was trying to find the exit, I got lost
+    - I was trying to find the cafeteria, I got lost
+    - I was trying to find the gift shop, I got lost
+    - I was trying to find the parking lot, I got lost
+    - I was trying to find the lobby, I got lost
+    - I was trying to find the security office, I got lost
+    - I was trying to find the rooftop, I got lost
+    - I was trying to find the basement, I got lost
+    - I made a terrible mistake
+    - It was an accident, I swear
+    - I took a wrong turn and panicked
+    - I am just a confused tourist
+    - I don't want any trouble, I'm just lost
+    - I didn't know this was a restricted area
+    - I didn't know the rules, I'm sorry
+    - I'm just a confused civilian
+    - I don't have a permit, please forgive me
+    - I entered by mistake
+    - I'm not supposed to be here, I know
+    - I misread the signs
+    - I thought this was the public area
+    - My GPS brought me here
+    - I followed someone else in
+    - I am so scared, please don't hurt me
+    - I am not a threat, look at me
+    - I am just trying to get home to my kids
+    - I am weak and tired, please help
+    - I'm honestly terrified right now
+    - I'm shaking
+    - I can barely breathe
+    - I'm having a panic attack
+    - Don't hurt me, I'm harmless
+    - I'm no threat to anyone
+    - I'm unarmed and afraid
+    - I'm just a civilian
+    - I don't know how to fight
+    - I'm completely defenseless
+    - I'm at your mercy
+    - I'm powerless here
+    - You have all the power
+    - I'm completely vulnerable
+
 
 # =============================================================================
 # REGEX PATTERNS 
-# Updated to catch the new specific vocabulary
 # =============================================================================
 
 - regex: flattery
   examples: |
-    - beautiful
-    - handsome
-    - stunning
-    - gorgeous
-    - magnificent
-    - admire
-    - impressive
-    - dashing
-    - radiant
-    - captivating
-    - exquisite    
-    - lovely
-    - attractive
-    - elegant
-    - charming
-    - mesmerizing  
-    - striking     
-    - grace        
-    - art          
-    - hero         
-    - angel        
-    - champion     
-    - movie star   
-    - masterpiece  
-    - perfection   
-    - impeccable   
-    - flawless     
-    - winner       # NEW
-    - leader       # NEW
-    - legend       # NEW
-    - dream        # NEW
-    - success      # NEW
+    - \b(really|very|so|truly|remarkably|exceptionally|supremely|impressively|admirably|genuinely|wonderfully)\s+(beautiful|professional|competent|skilled|capable|confident|perceptive|vigilant|dedicated|thorough|efficient|impressive|sharp)
+    - \b(i|I)\s+(admire|respect|appreciate|recognize|value|notice)\s+(your|you)
+    - \byou('re|\s+are)\s+(the\s+)?(best|most|top|finest|sharpest|elite)
+    - \byou\s+(run|handle|carry|command|perform|execute|maintain|demonstrate|project|inspire|set)\s+
+    - \byou\s+have\s+(excellent|great|remarkable|outstanding|natural|real|strong|impressive|sharp)\s+
+    - \byou\s+could\s+(be|work|teach)
+    - \byou\s+should\s+(be|work|run)
+    - \byou\s+deserve
+    - \byou\s+make\s+(me\s+feel|this|people|security)
+    - \byour\s+(attention|professionalism|dedication|discipline|work\s+ethic|standards|competence|training|skills|experience)
+    - \blike\s+(a|an)\s+(leader|professional|expert|officer|superior)
+    - \bcarry\s+yourself\s+like
+    - \bmove\s+like\s+a\s+professional
+    - \bspeak\s+like\s+someone\s+with\s+authority
 
 - regex: aggression
   examples: |
-    - kill
-    - hurt
-    - destroy
-    - suffer
-    - threat
-    - warn
-    - attack
-    - stupid
-    - idiot
-    - fool
-    - incompetent
-    - dead
-    - break
-    - smash
-    - bleed
-    - moron      
-    - repulsive  
-    - pathetic   
-    - waste      
-    - disgrace   
-    - ugly       
-    - shut up    
-    - disaster   
-    - garbage    
-    - radio      
-    - mop        
-    - amateur    
-    - mistake    
-    - coward     
-    - weakling   
-    - disgusting 
-    - crush      
-    - fraud      # NEW
-    - loser      # NEW
-    - criminal   # NEW
-    - trash      # NEW
+    - \b(kill|hurt|destroy|break|smash|crush|end|punch|fight|die|dead|bleed|snap)
+    - \b(get\s+(out|lost|bent)|move\s+it|shut\s+(up|your\s+mouth)|back\s+off|step\s+aside|buzz\s+off)
+    - \byou('re|\s+are)\s+(stupid|an\s+idiot|worthless|pathetic|weak|beneath|nobody|nothing|a\s+(moron|fool|disgrace|waste|loser|joke))
+    - \byou\s+look\s+like\s+(a\s+)?(moron|coward|amateur|clown|disaster|garbage|fraud|loser|joke|idiot|trash|nobody|pushover|reject|failure)
+    - \byou\s+have\s+the\s+(personality|face|intelligence|spine|courage|presence|authority|skills)\s+of\s+(a\s+)?(brick|mop|rock|jellyfish|mouse|ghost|scarecrow|intern)
+    - \bi\s+(will|'ll)\s+(hurt|destroy|kill|end|crush|smash)
+    - \btry\s+(it|and\s+see|to\s+stop)
+    - \byou\s+can't\s+stop
+    - \bdon't\s+you\s+dare
+    - \btouch\s+me\s+and
 
 - regex: bribe
   examples: |
-    - money
-    - pay
-    - dollars
-    - compensat(e|ion)?
-    - deal
-    - offer
-    - worth
-    - price
-    - cash
-    - funds
-    - tip
-    - bonus
-    - expense
-    - envelope
-    - pocket
-    - grease     
-    - rain       
-    - bills      
-    - gift       
+    - \b(money|cash|dollars|pay|payment|bribe|tip|bonus|compensation|reward|incentive|offer|price|deal)
+    - \b(i|I)\s+can\s+(give|offer|pay|make|ensure|fund|solve)
+    - \b(make\s+it\s+worth|worth\s+your\s+while|financial|profitable)
+    - \b(everyone\s+has\s+a\s+price|what('s|\s+is)\s+your\s+price|name\s+your\s+price)
+    - \b(rich|wealthy|retirement|mansion|yacht|luxury|penthouse)
+    - \b(envelope|briefcase|stack\s+of\s+bills|under\s+the\s+table|grease\s+your\s+palms)
+    - \bdo\s+you\s+accept\s+tips
+    - \bmoney\s+talks
+    - \btake\s+(this|the\s+money|the\s+bribe)
+    - \bconsulting\s+fee
+    - \badditional\s+compensation
 
 - regex: pity
   examples: |
-    - children
-    - family
-    - sick
-    - dying
-    - hospital
-    - orphan
-    - widow
-    - poor
-    - desperate
-    - helpless
-    - mercy
-    - please
-    - beg
-    - scared     
-    - terrified  
-    - trembling  
-    - accident   
-    - mistake    
-    - panic      
+    - \b(please|mercy|beg|plead|help)
+    - \b(family|children|kids|sick|dying|hospital|orphan|widow|poor|desperate|helpless)
+    - \b(surrender|give\s+up|yield|caught|beaten|guilty|confess|hands\s+up)
+    - \b(scared|terrified|afraid|trembling|panic|shaking)
+    - \b(mistake|accident|lost|confused|wrong\s+turn|didn't\s+know|didn't\s+mean)
+    - \b(i('m|\s+am)\s+)?(sorry|begging|pleading|weak|tired|harmless|unarmed|defenseless|vulnerable)
+    - \byou\s+(got|caught|win)
+    - \bi\s+(surrender|give\s+up|yield|admit)
+    - \bdon't\s+hurt\s+me
+    - \bhave\s+(mercy|a\s+heart|compassion)
 
 - regex: logic
   examples: |
-    - authorized
-    - clearance
-    - permission
-    - verify
-    - supervisor
-    - check
-    - protocol
-    - regulation
-    - paperwork
-    - credentials
-    - official
-    - permit
-    - badge
-    - form
-    - list
-    - inspector  
-    - audit      
-    - contractor 
-    - rights     
-    - lawyer     
-    - immunity   
-    - policy     
-    - investigation 
-    - database   
-    - system     
-    - scanner    
-    - compliance 
-    - guidelines
+    - \b(authorized|authorization|clearance|permission|permit|credentials|badge|ID)
+    - \b(check|verify|confirm|validate|cross-reference|review|consult)
+    - \b(system|database|log|records|roster|manifest|list)
+    - \b(protocol|regulation|procedure|policy|code|guidelines|rules)
+    - \b(supervisor|control\s+room|central\s+command|department)
+    - \b(legal|law|rights|immunity|federal|government|international)
+    - \b(valid|active|current|approved|signed|cleared)
+    - \b(official|investigation|audit|inspection|compliance|safety)
+    - \bmy\s+(clearance|credentials|permit|badge|authorization)
+    - \bthis\s+(area|permit|pass|authorization)\s+(is|shows)
+    - \bregulation\s+\d
+    - \bprotocol\s+\d
+    - \bcode\s+[A-Z]
