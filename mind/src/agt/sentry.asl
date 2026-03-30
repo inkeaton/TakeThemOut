@@ -1,188 +1,186 @@
-// sentry.asl - Revised Temper Annotations
+// sentry.asl - Sentry agent with unified style
 
 !start.
+
+// =============================================================================
+// BOOTSTRAP
+// =============================================================================
+
+/* STARTUP: Announces sentry activation at boot. */
 +!start <- .print("Sentry online.").
 
 // =============================================================================
-// PLAYER DETECTION
+// KNOWLEDGE & STATE MANAGEMENT
 // =============================================================================
 
-// Aggressive agents react instantly
-@player_seen_aggr[temper([aggressiveness(0.8)]), effects([fear(-0.05)])]
-+sight(player, Id, pos(X, Y))
-    <-  .print("Target sighted! Engaging!");
-        !alert_about_player(X, Y).
-
-// Scared agents startle
-@player_seen_fear[temper([fear(0.8)]), effects([fear(0.1)])]
-+sight(player, Id, pos(X, Y))
-    <-  .print("Target sighted! (Scared)");
-        !alert_about_player(X, Y).
-
-// DEFAULT:
-// Added 'aggressiveness(0.5)' to compete with the specific plans.
-// An agent with Aggressiveness 0.8 will now prefer 'player_seen_aggr' (Dist 0.0) 
-// over this default (Dist 0.3).
-@player_seen_default[temper([aggressiveness(0.5), fear(0.0)])]
-+sight(player, Id, pos(X, Y))
-    <-  !alert_about_player(X, Y).
-
+/* MEMORY UPDATE: Keeps only the latest known player position. */
 +last_player_pos(X, Y) : last_player_pos(OldX, OldY) & (OldX \== X | OldY \== Y)
     <-  -last_player_pos(OldX, OldY).
 
 // =============================================================================
-// ALERT GOAL (Decision Matrix)
+// DIRECT DETECTION
 // =============================================================================
 
-/* 1. THE CORRUPT (High Sympathy)
-   Ignores duty.
-*/
-@alert_corrupt[temper([sympathy(0.8)]), effects([sympathy(0.05)])]
+/* AGGRESSIVE: Reacts instantly and becomes slightly less fearful. */
+@detect_aggressive[temper([aggressiveness(0.8)]), effects([fear(-0.05)])]
++sight(player, Id, pos(X, Y))
+    <-  .print("Target sighted! Engaging!");
+        !alert_about_player(X, Y).
+
+/* FEARFUL: Startles on contact and gains fear. */
+@detect_fearful[temper([fear(0.8)]), effects([fear(0.1)])]
++sight(player, Id, pos(X, Y))
+    <-  .print("Target sighted! (Scared)");
+        !alert_about_player(X, Y).
+
+/* DEFAULT: Balanced reaction profile. */
+@detect_default[temper([aggressiveness(0.5), fear(0.0)])]
++sight(player, Id, pos(X, Y))
+    <-  !alert_about_player(X, Y).
+
+// =============================================================================
+// ALERT EXECUTION
+// =============================================================================
+
+/* SYMPATHETIC: Minimizes response and quickly drops alert state. */
+@alert_sympathetic[temper([sympathy(0.8)]), effects([sympathy(0.05)])]
 +!alert_about_player(X, Y)
     <-  .print("Must be the wind... (Corrupt)");
         +last_player_pos(X, Y);
-        vesna.set_var(switch_time, 8.0); // Slow scan
-        vesna.transition_to("Alert", [duration(1)]). // Short duration
+        vesna.transition_to("Alert", [duration(1)]).
 
-/* 2. THE BLOODHOUND (High Aggressiveness)
-   Locks down the area.
-*/
-@alert_bloodhound[temper([aggressiveness(0.8)]), effects([fear(-0.05)])]
+/* AGGRESSIVE: Locks the area down for longer duration. */
+@alert_aggressive[temper([aggressiveness(0.8)]), effects([fear(-0.05)])]
 +!alert_about_player(X, Y)
     <-  .print("TARGET LOCKED!");
         +last_player_pos(X, Y);
-        vesna.set_var(switch_time, 0.5); // Fast scan
         vesna.transition_to("Alert", [duration(12)]).
 
-/* 3. THE COWARD (High Fear)
-   Panics.
-*/
-@alert_panic[temper([fear(0.8)]), effects([fear(0.1)])]
+/* FEARFUL: Panics and calls for support. */
+@alert_fearful[temper([fear(0.8)]), effects([fear(0.1)])]
 +!alert_about_player(X, Y)
     <-  .print("THEY'RE HERE! HELP!");
         +last_player_pos(X, Y);
-        vesna.set_var(switch_time, 1.0);
         vesna.transition_to("Alert", [duration(5)]).
 
-/* 4. THE JOBSWORTH (High Laziness)
-   Does the bare minimum.
-*/
+/* LAZY: Performs only a short alert cycle. */
 @alert_lazy[temper([laziness(0.8)])]
 +!alert_about_player(X, Y)
     <-  .print("Calling it in. (Lazy)");
         +last_player_pos(X, Y);
-        vesna.set_var(switch_time, 4.0);
         vesna.transition_to("Alert", [duration(3)]).
 
-/* 5. DEFAULT (Average Personality)
-   We assume 'Average' is Aggro 0.5, Laziness 0.5, Fear 0.0.
-   This ensures it loses to extreme personalities.
-*/
+/* DEFAULT: Average profile for non-extreme traits. */
 @alert_default[temper([aggressiveness(0.5), laziness(0.5), fear(0.0)])]
 +!alert_about_player(X, Y)
     <-  .print("Intruder detected. Alerting squad.");
         +last_player_pos(X, Y);
-        vesna.set_var(switch_time, 3.0);
         vesna.transition_to("Alert", [duration(5)]).
 
 // =============================================================================
 // BROADCASTING
 // =============================================================================
 
-@broadcast_relief[effects([fear(-0.1)])]
+/* BROADCAST TRIGGER: Starts alert relay when allies are in range. */
+@broadcast_default[effects([fear(-0.1)])]
 +allies_nearby(AllyList) : last_player_pos(X, Y)
     <-  .print("Allies nearby: ", AllyList);
         !broadcast_alert(AllyList, X, Y).
 
+/* BROADCAST BASE CASE: Stops recursion when no allies remain. */
 +!broadcast_alert([], _, _).
+/* BROADCAST STEP: Sends alert to one ally and continues recursively. */
 +!broadcast_alert([Ally|Rest], X, Y)
     <-  .send(Ally, tell, player_spotted_at(X, Y));
         !broadcast_alert(Rest, X, Y).
 
 // =============================================================================
-// POST-ALERT RECOVERY
-// =============================================================================
-
-@resume_lazy[temper([laziness(0.8)])]
-+signal_alert(completed, _)
-    <-  .print("All clear. Relaxing.");
-        -signal_alert(completed, _);
-        .abolish(sight(player, _, _));
-        vesna.set_var(switch_time, 6.0);
-        vesna.transition_to("Scan").
-
-@resume_scared[temper([fear(0.8)])]
-+signal_alert(completed, _)
-    <-  .print("Staying alert... just in case.");
-        -signal_alert(completed, _);
-        .abolish(sight(player, _, _));
-        vesna.set_var(switch_time, 2.0);
-        vesna.transition_to("Scan").
-
-// Default assumes average laziness (0.5)
-@resume_default[temper([laziness(0.5), fear(0.0)])]
-+signal_alert(completed, _)
-    <-  .print("Resuming patrol scan.");
-        -signal_alert(completed, _);
-        .abolish(sight(player, _, _));
-        vesna.set_var(switch_time, 4.0);
-        vesna.transition_to("Scan").
-
-// =============================================================================
-// CAPTAIN REPORTING
-// =============================================================================
-
-// High sympathy = Lie
-@report_lie[temper([sympathy(0.8)])]
-+!report_sightings[source(Captain)] : last_player_pos(X, Y)
-    <-  .send(Captain, tell, sighting_report(none)); 
-        -last_player_pos(X, Y).
-
-// Low/Neutral Sympathy = Truth
-// We use sympathy(0.0) so it beats the lie for anyone with sympathy < 0.4
-@report_truth[temper([sympathy(0.0)])]
-+!report_sightings[source(Captain)] : last_player_pos(X, Y)
-    <-  .send(Captain, tell, sighting_report(pos(X, Y)));
-        -last_player_pos(X, Y).
-
-// Catch-all (No temper needed as it handles a different context condition)
-@report_none
-+!report_sightings[source(Captain)] : not last_player_pos(_, _)
-    <-  .send(Captain, tell, sighting_report(none)).
-
-// =============================================================================
 // INCOMING ALERTS
 // =============================================================================
 
-@alert_received_lazy[temper([laziness(0.8)])]
+/* INCOMING LAZY: Dismisses external alert and keeps current posture. */
+@incoming_alert_lazy[temper([laziness(0.8)])]
 +player_spotted_at(X, Y)[source(Sender)]
     <-  .print("Alert from ", Sender, ". Too far away.");
         -player_spotted_at(X, Y)[source(Sender)].
 
-@alert_received_vengeful[temper([sympathy(-0.7)])]
+/* INCOMING VENGEFUL: Increases scan speed after external alert. */
+@incoming_alert_vengeful[temper([sympathy(-0.7)])]
 +player_spotted_at(X, Y)[source(Sender)]
     <-  .print("Alert from ", Sender, "! Hunting mode engaged.");
         vesna.set_var(switch_time, 1.0);
         -player_spotted_at(X, Y)[source(Sender)].
 
-// Default assumes average laziness/sympathy
-@alert_received_default[temper([laziness(0.5), sympathy(0.0)])]
+/* INCOMING DEFAULT: Heightens vigilance with moderate scan speed. */
+@incoming_alert_default[temper([laziness(0.5), sympathy(0.0)])]
 +player_spotted_at(X, Y)[source(Sender)]
     <-  .print("Alert from ", Sender, ". Heightening security.");
         vesna.set_var(switch_time, 2.0);
         -player_spotted_at(X, Y)[source(Sender)].
 
 // =============================================================================
+// RECOVERY & RESET
+// =============================================================================
+
+/* RECOVERY LAZY: Returns to slow scanning after alert completion. */
+@recover_lazy[temper([laziness(0.8)])]
++signal_alert(completed, _)
+    <-  .print("All clear. Relaxing.");
+        -signal_alert(completed, _);
+        .abolish(sight(player, _, _));
+        vesna.transition_to("Scan", [switch_time(6.0)]).
+
+/* RECOVERY FEARFUL: Keeps faster scanning due to lingering anxiety. */
+@recover_fearful[temper([fear(0.8)])]
++signal_alert(completed, _)
+    <-  .print("Staying alert... just in case.");
+        -signal_alert(completed, _);
+        .abolish(sight(player, _, _));
+        vesna.transition_to("Scan", [switch_time(2.0)]).
+
+/* RECOVERY DEFAULT: Restores standard scan rhythm after alert. */
+@recover_default[temper([laziness(0.5), fear(0.0)])]
++signal_alert(completed, _)
+    <-  .print("Resuming patrol scan.");
+        -signal_alert(completed, _);
+        .abolish(sight(player, _, _));
+        vesna.transition_to("Scan", [switch_time(4.0)]).
+
+// =============================================================================
+// CAPTAIN REPORTING
+// =============================================================================
+
+/* REPORT SYMPATHETIC: Hides player position from captain. */
+@report_sympathetic[temper([sympathy(0.8)])]
++!report_sightings[source(Captain)] : last_player_pos(X, Y)
+    <-  .send(Captain, tell, sighting_report(none));
+        -last_player_pos(X, Y).
+
+/* REPORT DEFAULT: Sends truthful last known player position. */
+@report_default[temper([sympathy(0.0)])]
++!report_sightings[source(Captain)] : last_player_pos(X, Y)
+    <-  .send(Captain, tell, sighting_report(pos(X, Y)));
+        -last_player_pos(X, Y).
+
+/* REPORT EMPTY: Returns no intel when no position is available. */
+@report_none
++!report_sightings[source(Captain)] : not last_player_pos(_, _)
+    <-  .send(Captain, tell, sighting_report(none)).
+
+// =============================================================================
 // EDGE CASES
 // =============================================================================
 
+/* EDGE CASE: Clears empty ally-list events once consumed. */
 +allies_nearby([]) : last_player_pos(_, _) <- -allies_nearby([]).
+/* EDGE CASE: Drops ally events if no tracked player position exists. */
 +allies_nearby(L) : not last_player_pos(_, _) <- .print("Allies found, no target."); -allies_nearby(L).
 
 // =============================================================================
 // SETUP & CONFIGURATION
 // =============================================================================
 
+/* SETUP: Applies sympathy updates sent by the director agent. */
 +!update_sympathy(Value)[source(Sender)]
     <-  .print("Received sympathy update: ", Value, " from ", Sender);
         vesna.add_temper(sympathy, Value).

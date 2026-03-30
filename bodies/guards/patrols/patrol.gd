@@ -129,32 +129,6 @@ func _on_vesna_manager_command_received(command: Dictionary) -> void:
 	if type == "transition_to":
 		_handle_transition_to(data)
 		return
-	
-	# Legacy command support (for backward compatibility)
-	match type:
-		"patrol":
-			# Block if chasing
-			if is_chasing:
-				Messages.print_message("Ignoring patrol command while chasing", "Patrol")
-				return
-			state_machine.change_state_by_name("Patrol", data)
-			
-		"chase":
-			if data.get("type", "") == "start":
-				is_chasing = true
-				state_machine.change_state_by_name("Chase", data)
-				
-		"investigate":
-			state_machine.change_state_by_name("Investigate", data)
-		
-		"move_to":
-			# Block if chasing
-			if is_chasing:
-				Messages.print_message("Ignoring move_to command while chasing", "Patrol")
-				return
-			# Use Patrol state with coordinates (unified)
-			var patrol_data = {"target": {"x": data.get("pos_x", 0), "y": data.get("pos_y", 0)}}
-			state_machine.change_state_by_name("Patrol", patrol_data)
 
 ## Handles the transition_to command from the mind.
 func _handle_transition_to(data: Dictionary) -> void:

@@ -13,8 +13,10 @@ func enter(_msg: Dictionary = {}) -> void:
 	body.vision_cone.monitoring = true
 	body.vision_cone.modulate = Color.WHITE
 	
+	# Use passed switch_time or keep the @export default
+	switch_time = _msg.get("switch_time", switch_time)
 	_timer = switch_time
-	Messages.print_message("Scanning...", "Sentry")
+	Messages.print_message("Scanning (%.1fs interval)..." % switch_time, "Sentry")
 
 func update_physics(delta: float) -> void:
 	# Handle Rotation Logic

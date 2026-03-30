@@ -3,63 +3,65 @@
 !start_patrol.
 
 // =============================================================================
+// BOOTSTRAP
+// =============================================================================
+
+/* STARTUP: Announces patrol activation and enters patrol state. */
++!start_patrol <- .print("Starting patrol."); vesna.transition_to("Patrol", [target("next")]).
+
+// =============================================================================
 // KNOWLEDGE & STATE MANAGEMENT
 // =============================================================================
 
-// Initial beliefs - track agent state across behaviors
-consecutive_failures(0).      // How many times target was lost in a row
-is_chasing(no).               // Currently in chase/track mode
-responding_to_alert(no).      // Currently moving toward an alert location
-is_messenger(no).             // Currently acting as messenger to captain
-messenger_target(none).       // Which captain to report to
-messenger_report_pos(none).   // Player position to report
-messenger_sent(no).           // Whether a messenger was already dispatched this chase
+consecutive_failures(0).
+is_chasing(no).
+responding_to_alert(no).
+is_messenger(no).
+messenger_target(none).
+messenger_report_pos(none).
+messenger_sent(no).
 
-// Supersede patterns (State Management)
-// Automatically retract old values when a belief is updated
+/* STATE UPDATE: Keeps a single authoritative chase-state value. */
 +is_chasing(S) : is_chasing(Old) & Old \== S <- -is_chasing(Old).
+/* STATE UPDATE: Keeps one alert-response state at a time. */
 +responding_to_alert(S) : responding_to_alert(Old) & Old \== S <- -responding_to_alert(Old).
+/* STATE UPDATE: Keeps one messenger-state value at a time. */
 +is_messenger(S) : is_messenger(Old) & Old \== S <- -is_messenger(Old).
+/* STATE UPDATE: Stores only the latest observed player position. */
 +last_player_pos(X, Y) : last_player_pos(OldX, OldY) & (OldX \== X | OldY \== Y) <- -last_player_pos(OldX, OldY).
+/* STATE UPDATE: Stores only the latest consecutive-failure counter. */
 +consecutive_failures(N) : consecutive_failures(Old) & Old \== N <- -consecutive_failures(Old).
 
 // =============================================================================
-// PATROL LOOP
+// MAIN ROLE LOOP
 // =============================================================================
 
-+!start_patrol <- .print("Starting patrol."); vesna.transition_to("Patrol", [target("next")]).
-
+/* LOOP ENTRY: Patrol cycle starts by choosing next movement strategy. */
 +!patrol <- !decide_next_step.
 
-/* DECISION LOGIC:
-   - Scared: Freeze or Backtrack.
-   - Aggressive: Backtrack (Check Six).
-   - Default: Forward.
-*/
-
-@step_scared[temper([fear(0.8)])]
+/* STEP FEARFUL: Holds position when the environment feels unsafe. */
+@step_fearful[temper([fear(0.8)])]
 +!decide_next_step
     <-  .print("Too quiet... I'm holding position.");
         .wait(4000);
         !decide_next_step.
 
-@step_paranoid[temper([aggressiveness(0.8), fear(0.4)])]
+/* STEP AGGRESSIVE: Occasionally backtracks to check rear approach. */
+@step_aggressive[temper([aggressiveness(0.8), fear(0.4)])]
 +!decide_next_step : .random(R) & R < 0.3
     <-  .print("Checking my six! (Aggressive Check)");
         vesna.transition_to("Patrol", [target("prev")]).
 
-/* DEFAULT:
-   Represents "Average" personality.
-   An aggressive agent (0.8) is closer to 'step_paranoid' (Dist 0.0) than 'step_default' (Dist 0.3).
-*/
+/* STEP DEFAULT: Advances toward the next patrol waypoint. */
 @step_default[temper([aggressiveness(0.5), laziness(0.5), fear(0.0)])]
 +!decide_next_step
     <-  vesna.transition_to("Patrol", [target("next")]).
 
 // =============================================================================
-// REST BEHAVIOR (Waypoint Arrival)
+// WAYPOINT ARRIVAL & REST
 // =============================================================================
 
+/* WAYPOINT ARRIVAL: Rests at waypoint, then resumes patrol loop. */
 @navigation_waypoint[effects([fear(-0.02)])]
 +navigation(reached, Waypoint) : is_chasing(no) & responding_to_alert(no) & is_messenger(no)
     <-  .print("Reached ", Waypoint);
@@ -67,59 +69,61 @@ messenger_sent(no).           // Whether a messenger was already dispatched this
         !rest_at_waypoint;
         !patrol.
 
-// Ignore nav events in other states
+/* WAYPOINT IGNORE: Discards waypoint events while busy in other modes. */
 +navigation(reached, W) : is_chasing(yes) | responding_to_alert(yes) | is_messenger(yes)
     <- -navigation(reached, W).
 
-/* REST LOGIC */
-
-@rest_corrupt[temper([sympathy(0.8)])]
+/* REST SYMPATHETIC: Takes a long break instead of rotating quickly. */
+@rest_sympathetic[temper([sympathy(0.8)])]
 +!rest_at_waypoint
     <-  .print("Taking a smoke break. (Corrupt)");
         .wait(8000).
 
+/* REST LAZY: Stays paused longer before moving again. */
 @rest_lazy[temper([laziness(0.8)])]
 +!rest_at_waypoint
     <-  .print("Ugh, feet hurt. Resting.");
         .wait(6000).
 
-@rest_vigilant[temper([aggressiveness(0.8)])]
+/* REST AGGRESSIVE: Minimizes rest duration to keep pressure high. */
+@rest_aggressive[temper([aggressiveness(0.8)])]
 +!rest_at_waypoint
     <-  .print("Sector clear. Moving.");
         .wait(500).
 
-// DEFAULT: Added sympathy(0.0) so it loses to Corrupt(0.8) for sympathetic agents
+/* REST DEFAULT: Uses a short neutral rest cadence at waypoint. */
 @rest_default[temper([aggressiveness(0.5), laziness(0.5), fear(0.0), sympathy(0.0)])]
 +!rest_at_waypoint
     <-  .wait(2000).
 
 // =============================================================================
-// INTEL REPORTING (Responding to Captain)
+// INTEL REPORTING
 // =============================================================================
 
-@report_corrupt[temper([sympathy(0.8)])]
+/* REPORT SYMPATHETIC: Hides target intel from captain. */
+@report_sympathetic[temper([sympathy(0.8)])]
 +!report_sightings[source(Captain)] : last_player_pos(X, Y)
     <-  .print("Lying to Captain (Corrupt)");
         .send(Captain, tell, sighting_report(none));
         -last_player_pos(X, Y).
 
-// DEFAULT: Added sympathy(0.0)
+/* REPORT DEFAULT: Sends truthful last known player position. */
 @report_default[temper([aggressiveness(0.5), laziness(0.5), fear(0.0), sympathy(0.0)])]
 +!report_sightings[source(Captain)] : last_player_pos(X, Y)
     <-  .print("Reporting sighting to ", Captain);
         .send(Captain, tell, sighting_report(pos(X, Y)));
         -last_player_pos(X, Y).
 
-/* No intel to report - Context specific, no temper needed */
+/* REPORT EMPTY: Returns none when no intel is available. */
 @report_none
 +!report_sightings[source(Captain)] : not last_player_pos(_, _)
     <-  .send(Captain, tell, sighting_report(none)).
 
 // =============================================================================
-// CHASE BEHAVIOR
+// DIRECT DETECTION & CHASE
 // =============================================================================
 
-// First sighting: switch to chase mode, drop patrol intentions
+/* CHASE TRIGGER: Enters chase mode on first player contact. */
 @chase_trigger[effects([fear(0.05)])]
 +sight(player, Id, pos(X, Y)) : is_chasing(no)
     <-  .print("CONTACT!");
@@ -129,55 +133,39 @@ messenger_sent(no).           // Whether a messenger was already dispatched this
         +last_player_pos(X, Y);
         !start_chase.
 
-// Already chasing: just update the player's last known position
+/* CHASE UPDATE: Refreshes last known position while already chasing. */
 +sight(player, Id, pos(X, Y)) : is_chasing(yes)
     <-  -last_player_pos(_, _); +last_player_pos(X, Y).
 
-/* CHASE LOGIC
-   Patience determines how many navigation cycles before giving up.
-   - Corrupt: barely tries (patience 2), gains sympathy for letting player go
-   - Relentless: hostile & aggressive, won't stop (patience 25)
-   - Lazy: minimal effort (patience 5)
-   - Default: standard pursuit (patience 10)
-*/
-
-/* 1. THE CORRUPT (High Sympathy)
-   Feigns effort, gives up almost immediately.
-   Effect: becomes even more sympathetic over time.
-*/
-@chase_corrupt[temper([sympathy(0.8)]), effects([sympathy(0.05)])]
+/* CHASE SYMPATHETIC: Feigns pursuit with very low patience. */
+@chase_sympathetic[temper([sympathy(0.8)]), effects([sympathy(0.05)])]
 +!start_chase
     <-  .print("Oh no, he's fast... (Feigning effort)");
         vesna.transition_to("Chase", [patience(2)]).
 
-/* 2. THE RELENTLESS (Low Sympathy + High Aggression)
-   Maximum persistence - never stops hunting.
-*/
-@chase_relentless[temper([sympathy(-0.8), aggressiveness(0.8)]), effects([fear(-0.05)])]
+/* CHASE VENGEFUL: Pursues relentlessly with high persistence. */
+@chase_vengeful[temper([sympathy(-0.8), aggressiveness(0.8)]), effects([fear(-0.05)])]
 +!start_chase
     <-  .print("YOU CAN'T HIDE!");
         vesna.transition_to("Chase", [patience(25)]).
 
-/* 3. THE LAZY
-   Does the bare minimum.
-*/
+/* CHASE LAZY: Performs short pursuit before giving up. */
 @chase_lazy[temper([laziness(0.8)])]
 +!start_chase
     <-  .print("I'll check, but I'm not running.");
         vesna.transition_to("Chase", [patience(5)]).
 
-// DEFAULT: Added sympathy(0.0)
+/* CHASE DEFAULT: Uses standard pursuit patience and behavior. */
 @chase_default[temper([aggressiveness(0.5), laziness(0.5), fear(0.0), sympathy(0.0)])]
 +!start_chase
     <-  .print("Engaging target.");
         vesna.transition_to("Chase", [patience(10)]).
 
 // =============================================================================
-// RECOVERY (Target Lost -> Investigate)
+// RECOVERY & RESET
 // =============================================================================
 
-// When the Godot body loses sight of the player, it sends target_lost.
-// The agent increments failure count and investigates the area.
+/* TARGET LOST: Increments failure count and starts area investigation. */
 @target_lost_trigger[effects([fear(0.05)])]
 +target_lost(pos(X, Y), Reason) : consecutive_failures(N)
     <-  .print("Target lost at ", X, ",", Y);
@@ -185,38 +173,31 @@ messenger_sent(no).           // Whether a messenger was already dispatched this
         -consecutive_failures(N); +consecutive_failures(N+1);
         !investigate_area.
 
-/* INVESTIGATE LOGIC
-   'points' = number of random investigation spots to check.
-   - Corrupt: barely looks (1 point)
-   - Lazy: minimal effort (1 point)
-   - Vengeful: thorough search (8 points)
-   - Default: standard sweep (3 points)
-*/
-
-@recover_corrupt[temper([sympathy(0.8)])]
+/* RECOVER SYMPATHETIC: Performs minimal follow-up investigation. */
+@recover_sympathetic[temper([sympathy(0.8)])]
 +!investigate_area
     <-  .print("Gone. Oh well. (Corrupt)");
         vesna.transition_to("Investigate", [points(1)]).
 
+/* RECOVER LAZY: Performs short low-effort sweep. */
 @recover_lazy[temper([laziness(0.8)])]
 +!investigate_area
     <-  .print("Probably gone.");
         vesna.transition_to("Investigate", [points(1)]).
 
+/* RECOVER VENGEFUL: Performs wider and more persistent sweep. */
 @recover_vengeful[temper([sympathy(-0.8)])]
 +!investigate_area
     <-  .print("I know you're here somewhere...");
         vesna.transition_to("Investigate", [points(8)]).
 
-// DEFAULT: Added sympathy(0.0)
+/* RECOVER DEFAULT: Performs standard investigation pattern. */
 @recover_default[temper([aggressiveness(0.5), laziness(0.5), fear(0.0), sympathy(0.0)])]
 +!investigate_area
     <-  .print("Scanning area.");
         vesna.transition_to("Investigate", [points(3)]).
 
-// Investigation complete: full state reset and return to normal patrol.
-// Clears all chase-related beliefs and resets messenger_sent so a new
-// messenger can be dispatched next chase.
+/* INVESTIGATION DONE: Resets chase state and resumes patrol cycle. */
 @investigation_done[effects([fear(-0.05)])]
 +signal_investigation(complete, Reason)
     <-  .print("Area secure.");
@@ -234,9 +215,7 @@ messenger_sent(no).           // Whether a messenger was already dispatched this
 // MESSENGER SYSTEM
 // =============================================================================
 
-// RECRUITMENT: A chasing patrol with nearby allies recruits one as a messenger
-// to report the player's position to the nearest captain.
-// Only recruits once per chase (messenger_sent flag).
+/* MESSENGER RECRUIT: Assigns the first nearby ally to report intel. */
 +allies_nearby(AllyList) : is_chasing(yes) & last_player_pos(X, Y) & not .empty(AllyList) & messenger_sent(no)
     <-  .nth(0, AllyList, FirstAlly);
         .print("Recruiting ", FirstAlly, " as messenger.");
@@ -244,8 +223,7 @@ messenger_sent(no).           // Whether a messenger was already dispatched this
         -messenger_sent(no); +messenger_sent(yes);
         -allies_nearby(AllyList).
 
-// ACCEPTANCE: Ally accepts messenger duty if idle (not chasing, not already a messenger).
-// Drops patrol intentions and navigates to nearest captain via Godot's find_captain.
+/* MESSENGER ACCEPT: Idle ally accepts duty and seeks nearest captain. */
 @messenger_accept[temper([fear(0.0)])]
 +!become_messenger(pos(X, Y))[source(Sender)] : is_chasing(no) & is_messenger(no)
     <-  .print("Messenger duty accepted. Finding Captain.");
@@ -254,14 +232,15 @@ messenger_sent(no).           // Whether a messenger was already dispatched this
         .drop_intention(patrol);
         vesna.transition_to("Patrol", [target("find_captain")]).
 
-// REJECTION: Can't accept if busy chasing or already a messenger
+/* MESSENGER REJECT: Declines messenger request while actively chasing. */
 +!become_messenger(_)[source(Sender)] : is_chasing(yes)
     <- .send(Sender, tell, messenger_rejected(busy)).
+
+/* MESSENGER REJECT: Declines messenger request while already assigned. */
 +!become_messenger(_)[source(Sender)] : is_messenger(yes)
     <- .send(Sender, tell, messenger_rejected(already_messenger)).
 
-// SUCCESS: Reached the captain - deliver intel, reset messenger state on both
-// Jason side (beliefs) and Godot side (body.is_messenger via set_var), then resume patrol.
+/* MESSENGER SUCCESS: Delivers intel to captain and returns to patrol. */
 +navigation(reached_agent, Captain) : is_messenger(yes) & messenger_report_pos(pos(X, Y))
     <-  .print("Reporting to ", Captain);
         -navigation(reached_agent, Captain);
@@ -272,8 +251,7 @@ messenger_sent(no).           // Whether a messenger was already dispatched this
         vesna.transition_to("Patrol", [target("resume")]);
         !patrol.
 
-// FALLBACK: No captain found in scene (none in "captains" group or all too far).
-// Abort messenger duty and resume normal patrol.
+/* MESSENGER FALLBACK: Aborts duty when no captain can be located. */
 +navigation(no_captain_found, _) : is_messenger(yes)
     <-  .print("No captain found. Aborting messenger duty.");
         -navigation(no_captain_found, _);
@@ -283,7 +261,7 @@ messenger_sent(no).           // Whether a messenger was already dispatched this
         vesna.transition_to("Patrol", [target("resume")]);
         !patrol.
 
-// FALLBACK: Captain node was destroyed or became invalid during navigation.
+/* MESSENGER FALLBACK: Aborts duty when captain target becomes invalid. */
 +navigation(agent_lost, _) : is_messenger(yes)
     <-  .print("Lost captain during navigation. Aborting messenger duty.");
         -navigation(agent_lost, _);
@@ -297,43 +275,41 @@ messenger_sent(no).           // Whether a messenger was already dispatched this
 // INCOMING ALERTS
 // =============================================================================
 
-/* Alert response varies by personality:
-   - Corrupt: delays 3 seconds before responding (drags feet)
-   - Default: responds immediately
-*/
-@alert_respond_corrupt[temper([sympathy(0.8)])]
+/* ALERT RESPOND SYMPATHETIC: Delays response before reacting to squad alert. */
+@alert_respond_sympathetic[temper([sympathy(0.8)])]
 +player_spotted_at(X, Y)[source(Sender)] : is_chasing(no)
     <-  .print("Alert from ", Sender, ". I'll get there... eventually.");
-        .wait(3000); // Drag feet
+        .wait(3000);
         !respond_to_alert(X, Y).
 
-// DEFAULT: Added sympathy(0.0)
+/* ALERT RESPOND DEFAULT: Immediately redirects toward alerted position. */
 @alert_respond_default[temper([aggressiveness(0.5), laziness(0.5), fear(0.0), sympathy(0.0)])]
 +player_spotted_at(X, Y)[source(Sender)] : is_chasing(no)
     <-  .print("Alert from ", Sender, "! Intercepting.");
         !respond_to_alert(X, Y).
 
-// Shared alert response: drop everything and navigate to reported position
+/* ALERT HANDLER: Drops active intentions and navigates to reported coords. */
 +!respond_to_alert(X, Y)
     <-  .drop_all_intentions;
         +last_player_pos(X, Y);
         -responding_to_alert(no); +responding_to_alert(yes);
         vesna.transition_to("Patrol", [target(coords(X, Y))]).
 
-// Cleanup rules: discard stale alerts and ally reports
+/* ALERT CLEANUP: Removes stale alert beliefs after handling. */
 +player_spotted_at(X, Y) <- -player_spotted_at(X, Y).
+
+/* ALERT CLEANUP: Removes stale ally-scan beliefs after handling. */
 +allies_nearby(L) <- -allies_nearby(L).
-// Arrived at alert location: investigate the area
-+navigation(reached_target, _) : is_chasing(no) 
+
+/* ALERT ARRIVAL: Starts quick investigation on reaching alert position. */
++navigation(reached_target, _) : is_chasing(no)
     <- -navigation(reached_target, _); vesna.transition_to("Investigate", [points(2)]).
 
 // =============================================================================
 // SETUP & CONFIGURATION
 // =============================================================================
 
-// Received from the director agent after Rasa skirmish dialogue.
-// Adjusts the patrol's sympathy mood, which influences plan selection
-// (e.g., corrupt vs default behavior).
+/* SETUP: Applies sympathy updates received from director setup phase. */
 +!update_sympathy(Value)[source(Sender)]
     <-  .print("Received sympathy update: ", Value, " from ", Sender);
         vesna.add_temper(sympathy, Value).

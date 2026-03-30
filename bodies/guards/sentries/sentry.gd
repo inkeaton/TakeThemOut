@@ -82,12 +82,6 @@ func _on_vesna_mind_command(intention: Dictionary) -> void:
 	match action_type:
 		"transition_to":
 			_handle_transition_to(data)
-		
-		"alert":
-			# Legacy support - treat as transition to Alert
-			if data.get("type", "") == "start":
-				state_machine.change_state_by_name("Alert")
-		
 		"set_var":
 			_handle_set_var(data)
 

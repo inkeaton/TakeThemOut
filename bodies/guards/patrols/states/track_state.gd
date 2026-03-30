@@ -13,8 +13,6 @@ var current_max_crumbs: int = 5
 var scent_cast: ShapeCast2D 
 
 func enter(_msg: Dictionary = {}) -> void:
-	# FIX: Lazy Initialization
-	# We grab the node the first time we enter this state.
 	if not scent_cast:
 		scent_cast = body.get_node("%ScentCast")
 
