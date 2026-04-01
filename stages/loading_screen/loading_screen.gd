@@ -1,10 +1,21 @@
+## LoadingScreen: Boots external AI services and gates entry to the maze until ready.
+## Role: scene-controller
+## Responsibilities:
+## - Start guard/date Rasa core and action servers through `ServerManager`.
+## - Poll service health endpoints and display readiness status.
+## - Transition to maze scene only when both bots are reachable.
+## Dependencies:
+## - `ServerManager` autoload for process lifecycle and health checks.
 extends Control
 
+# --- State ---
 @onready var status_label: Label = %StatusLabel
 var guard_ready: bool = false
 var date_ready: bool = false
 var _is_polling: bool = false
 var _transitioning: bool = false
+
+# --- Lifecycle ---
 
 func _ready() -> void:
 	# 0. Kill any orphan Rasa processes left from a previous crash
@@ -16,6 +27,8 @@ func _ready() -> void:
 	
 	# 2. Start Polling Loop — checks both bots
 	_check_status_loop()
+
+# --- Health Polling ---
 
 func _check_status_loop() -> void:
 	# Ping Guard Bot (5005)
@@ -75,4 +88,4 @@ func _proceed_to_maze() -> void:
 	_transitioning = true
 	status_label.text = "Connection Established!"
 	await get_tree().create_timer(1.0).timeout
-	get_tree().change_scene_to_file("res://stages/maze/test_maze.tscn")
+	get_tree().change_scene_to_file("res://stages/maze/maze_2.tscn")

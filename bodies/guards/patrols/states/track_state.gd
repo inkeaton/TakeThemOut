@@ -1,17 +1,26 @@
-# TrackState.gd
+## TrackState: Follows player scent crumbs after losing direct visual contact.
+## Role: state
+## Responsibilities:
+## - Evaluate crumb trail continuity with patience-limited tracking.
+## - Report target loss reasons back to the mind when tracking fails.
+## - Keep ally scan active during tracking for squad coordination.
+## Dependencies:
+## - Requires `%ScentCast` node and `vesna.send_target_lost` bridge API.
 extends State
 
+# --- Configuration ---
 @export_group("Settings")
 @export var default_max_crumbs: int = 5
 
-# Internal State
+# --- State ---
 var last_crumb_timestamp: int = 0
 var crumbs_tracked_count: int = 0 
 var current_max_crumbs: int = 5
 
-# FIX: Remove @onready. We will assign this in enter() when 'body' is guaranteed to exist.
+# Initialized lazily in `enter` when body references are guaranteed.
 var scent_cast: ShapeCast2D 
 
+# --- Lifecycle ---
 func enter(_msg: Dictionary = {}) -> void:
 	if not scent_cast:
 		scent_cast = body.get_node("%ScentCast")
@@ -28,6 +37,7 @@ func enter(_msg: Dictionary = {}) -> void:
 	# Apply patience settings if passed, otherwise default
 	current_max_crumbs = _msg.get("patience", default_max_crumbs)
 
+# --- Physics Update ---
 func update_physics(_delta: float) -> void:
 	# Scan for idle patrol allies who could help coordinate
 	body.scan_for_chase_allies()
@@ -90,6 +100,7 @@ func update_physics(_delta: float) -> void:
 		Messages.print_message("End of trail. Reporting...", "Patrol")
 		_fail_to_idle("end_of_trail")
 
+# --- Failure Handling ---
 func _fail_to_idle(reason: String) -> void:
 	# Transition to IDLE state and send report
 	vesna.send_target_lost(body.global_position, reason)

@@ -1,14 +1,25 @@
+## ChatInterface: Runs interrogation/date chat flow and bridges UI with Rasa responses.
+## Role: scene-controller
+## Responsibilities:
+## - Route player messages to guard/date Rasa endpoints and parse response payloads.
+## - Apply gameplay outcomes to `GameManager` (sympathy, alarm, date success/failure).
+## - Drive mode-specific UI behavior for guard, captain, and date interactions.
+## Dependencies:
+## - `GameManager` autoload for persistent run data.
+## - Local `HTTPRequest` node bound to Rasa REST webhook endpoints.
 extends Control
 
-# --- CONFIGURATION ---
+# --- Configuration ---
 const URL_GUARD_BOT: String = "http://localhost:5005/webhooks/rest/webhook"
 const URL_DATE_BOT: String  = "http://localhost:5006/webhooks/rest/webhook"
 
-# --- SIGNALS ---
+# --- Signals ---
+@warning_ignore("unused_signal")
 signal interrogation_won(secret_info: String)
+@warning_ignore("unused_signal")
 signal interrogation_failed
 
-# --- NODES (MAIN UI) ---
+# --- Nodes (Main UI) ---
 @onready var agent_sprite: TextureRect = %AgentSprite
 @onready var agent_name_label: Label = %AgentNameLabel
 @onready var agent_text_label: RichTextLabel = %AgentText
@@ -16,18 +27,18 @@ signal interrogation_failed
 @onready var http_request: HTTPRequest = %RasaRequest
 @onready var continue_button: Button = %ContinueButton # The "Return to Maze" button
 
-# --- NODES (LOG WINDOW) ---
+# --- Nodes (Log Window) ---
 @onready var log_window: PanelContainer = %LogWindow
 @onready var log_text_label: RichTextLabel = %LogText
 @onready var show_log_btn: Button = %LogButton
 @onready var close_log_btn: Button = %CloseLogButton
 
-# --- NODES (INTERROGATION HUD) ---
+# --- Nodes (Interrogation HUD) ---
 @onready var interrogation_hud: Control = %InterrogationHUD
 @onready var ease_bar: ProgressBar = %EaseBar
 @onready var suspicion_bar: ProgressBar = %SuspicionBar
 
-# --- STATE ---
+# --- State ---
 var current_guard_name: String = "unknown"
 var current_mode: String = "GUARD" # "GUARD" or "DATE"
 var current_api_url: String = URL_GUARD_BOT
@@ -35,7 +46,7 @@ var last_score: float = 0.0
 var debug_mode: bool = false  # When true: no input locking, no scene changes, score shown inline
 var _debug_cumulative_score: float = 0.0  # Running total for debug display
 
-# --- ASSETS ---
+# --- Assets ---
 @export var guard_sprites: Dictionary = {
 	"eugenia": preload("res://stages/chat/sprites/target_eugenia.png"),
 	"susanna": preload("res://stages/chat/sprites/patrol2_susanna.png"),
@@ -74,7 +85,7 @@ func _ready() -> void:
 		# Fallback for testing/debugging the scene directly
 		agent_text_label.text = "[i]Debug Mode: Select a bot from debug menu[/i]"
 
-# --- SETUP ENCOUNTER ---
+# --- Setup Encounter ---
 func configure_bot(guard_name: String) -> void:
 	current_guard_name = guard_name.to_lower()
 	
@@ -141,8 +152,8 @@ func _setup_date_mode() -> void:
 	tween.tween_property(ease_bar, "value", 20.0, 0.5)
 	tween.tween_property(suspicion_bar, "value", 0.0, 0.5)
 
-# --- SENDING DATA ---
-func _on_send_pressed(text_submitted: String = "") -> void:
+# --- Sending Data ---
+func _on_send_pressed(_text_submitted: String = "") -> void:
 	if current_mode == "CAPTAIN": return  # Captains don't chat
 	var text: String = user_input.text.strip_edges()
 	if text.is_empty(): return
@@ -162,7 +173,7 @@ func _send_to_rasa(message_text: String) -> void:
 	# Send to the correctly selected API URL (5005 or 5006)
 	http_request.request(current_api_url, headers, HTTPClient.METHOD_POST, body)
 
-# --- RECEIVING DATA ---
+# --- Receiving Data ---
 func _on_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
 	if result != HTTPRequest.RESULT_SUCCESS or response_code != 200:
 		agent_text_label.text = "[color=red]Error: Cannot reach brain.[/color]"
@@ -215,7 +226,7 @@ func _process_single_message(message: Dictionary) -> void:
 		if "game_event" in data and data["game_event"] is String:
 			_handle_game_event(data["game_event"], data)
 
-# --- GUARD MODE LOGIC ---
+# --- Guard Mode Logic ---
 func _end_skirmish_turn() -> void:
 	# Lock input to prevent spamming
 	user_input.editable = false
@@ -226,11 +237,11 @@ func _end_skirmish_turn() -> void:
 	continue_button.show()
 	continue_button.grab_focus()
 
-func _handle_guard_visuals(score: float) -> void:
+func _handle_guard_visuals(_score: float) -> void:
 	# Optional: Add visual feedback for guard score (e.g. Flash Screen Green/Red)
 	pass 
 
-# --- DATE MODE LOGIC ---
+# --- Date Mode Logic ---
 func _update_date_meters(data: Dictionary) -> void:
 	var ease_val: float = data.get("ease_score", 0.0)
 	var sus_val: float = data.get("suspicion_score", 0.0)
@@ -245,7 +256,7 @@ func _update_date_meters(data: Dictionary) -> void:
 		agent_sprite.modulate = Color(1, 0.3, 0.3) 
 		flash.tween_property(agent_sprite, "modulate", Color.WHITE, 0.3)
 
-# --- DATE MODE EVENT HANDLING ---
+# --- Date Mode Event Handling ---
 func _handle_game_event(event_name: String, data: Dictionary) -> void:
 	match event_name:
 		"date_success":
@@ -279,7 +290,7 @@ func _end_date_encounter() -> void:
 	continue_button.show()
 	continue_button.grab_focus()
 
-# --- EXIT LOGIC (BRANCHING) ---
+# --- Exit Logic (Branching) ---
 func _on_continue_pressed() -> void:
 	# In debug mode, just reset the UI for another round
 	if debug_mode:
@@ -307,7 +318,7 @@ func _on_continue_pressed() -> void:
 			GameManager.sympathy_updates[jason_name] = current_delta - 0.3
 			print("Captain sympathy penalty: %s -= 0.3 (total: %s)" % [jason_name, GameManager.sympathy_updates[jason_name]])
 		
-		get_tree().change_scene_to_file("res://stages/maze/test_maze.tscn")
+		get_tree().change_scene_to_file("res://stages/maze/maze_2.tscn")
 	
 	else:
 		# BRANCH C: Return to Maze (Guard Logic)
@@ -326,9 +337,9 @@ func _on_continue_pressed() -> void:
 			GameManager.sympathy_updates[jason_name] = current_delta + last_score
 			print("Sympathy update queued: %s += %s (total: %s)" % [jason_name, last_score, GameManager.sympathy_updates[jason_name]])
 
-		get_tree().change_scene_to_file("res://stages/maze/test_maze.tscn")
+		get_tree().change_scene_to_file("res://stages/maze/maze_2.tscn")
 
-# --- LOGIC UTILS ---
+# --- Logic Utilities ---
 func _add_to_log(sender: String, text: String) -> void:
 	var color: String = "white"
 	if sender == "You": 

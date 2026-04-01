@@ -1,5 +1,13 @@
+## PatrolIdleState: Holds patrol body in place while awaiting mind-driven transitions.
+## Role: state
+## Responsibilities:
+## - Stop movement and clear chase lock when entered.
+## - Keep vision logic available while not autonomously transitioning.
+## Dependencies:
+## - Receives transition commands from mind via body command handlers.
 extends State
 
+# --- Behavior ---
 ## Idle state: Patrol waits for mind instructions.
 ## Vision remains enabled - can still detect player.
 ## All state exits are controlled by mind via transition_to.

@@ -1,6 +1,15 @@
+## ServerManager: Orchestrates Rasa and Jason service lifecycle for the game runtime.
+## Role: autoload
+## Responsibilities:
+## - Start, monitor, and stop Rasa core/action servers and the Jason mind process.
+## - Manage readiness handshake with the director agent over WebSocket `:9200`.
+## - Relay setup payloads from Godot to the director during maze initialization.
+## Dependencies:
+## - `ProjectSettings.globalize_path` for runtime paths.
+## - `HTTPRequest`, `TCPServer`, and `WebSocketPeer` for service health and signaling.
 extends Node
 
-# --- CONFIGURATION ---
+# --- Configuration ---
 # We use globalize_path to get the absolute OS path (e.g. C:/Users/.../tongue/skirmish)
 
 var SKIRMISH_BOT_PATH: String = ProjectSettings.globalize_path("res://tongue/skirmish")
@@ -14,10 +23,10 @@ var VENV_PATH_UNIX: String = ProjectSettings.globalize_path("res://tongue/venv/b
 # Log directory for server output (user://logs/ → ~/.local/share/godot/.../logs/)
 var LOG_DIR: String = ProjectSettings.globalize_path("user://logs")
 
-# --- SIGNALS ---
+# --- Signals ---
 signal jason_service_ready() # Emitted when Java connects to 9200
 
-# --- STATE ---
+# --- State ---
 var pids: Dictionary = {
 	"guard_core": -1, "guard_action": -1,
 	"date_core": -1, "date_action": -1,
@@ -87,7 +96,7 @@ func _notification(what):
 		stop_all_servers()
 		get_tree().quit()
 
-# --- JASON (GRADLE) COMMANDS ---
+# --- Jason (Gradle) Commands ---
 
 func start_jason_server() -> void:
 	if pids.jason_mind != -1:
@@ -131,7 +140,7 @@ func stop_jason_server() -> void:
 	readiness_ws.close()
 	readiness_server.stop()
 
-# --- START COMMANDS ---
+# --- Start Commands ---
 
 func start_guard_servers() -> void:
 	print("--- Starting Skirmish (Guard) Servers ---")
@@ -153,7 +162,7 @@ func start_date_servers() -> void:
 	# 2. Start Action Server (Port 5056)
 	pids.date_action = _spawn_rasa_process(DATE_BOT_PATH, ["run", "actions", "--port", "5056"])
 
-# --- PROCESS SPAWNER ---
+# --- Process Spawner ---
 
 func _spawn_rasa_process(working_dir: String, args: Array) -> int:
 	# We run python via bash, cd-ing into the bot directory first.
@@ -187,7 +196,7 @@ func _spawn_rasa_process(working_dir: String, args: Array) -> int:
 		
 	return pid
 
-# --- DIRECTOR COMMUNICATION ---
+# --- Director Communication ---
 # Send a JSON message to the director (ready_agent) over the port 9200 WebSocket
 func send_to_director(data: Dictionary) -> void:
 	if readiness_ws.get_ready_state() == WebSocketPeer.STATE_OPEN:
@@ -197,7 +206,7 @@ func send_to_director(data: Dictionary) -> void:
 	else:
 		printerr("ServerManager: Cannot send to director — WebSocket not open.")
 
-# --- STOP COMMANDS ---
+# --- Stop Commands ---
 
 func stop_all_servers() -> void:
 	print("--- Stopping All Servers ---")
@@ -208,7 +217,7 @@ func stop_all_servers() -> void:
 			OS.kill(pid)
 			pids[key] = -1
 
-# --- ORPHAN CLEANUP ---
+# --- Orphan Cleanup ---
 # Kill any leftover processes on Rasa ports from a previous crash/forced exit
 func kill_orphans_on_ports(ports: Array = [5005, 5006, 5055, 5056]) -> void:
 	if OS.get_name() == "Windows":
@@ -219,7 +228,7 @@ func kill_orphans_on_ports(ports: Array = [5005, 5006, 5055, 5056]) -> void:
 		OS.execute("fuser", ["-k", "%s/tcp" % port])
 	print("--- Orphan cleanup done ---")
 
-# --- HEALTH CHECK ---
+# --- Health Check ---
 
 func check_server_health(port: int = 5005, callback: Callable = Callable()) -> void:
 	var http = HTTPRequest.new()

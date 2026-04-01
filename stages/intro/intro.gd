@@ -1,11 +1,22 @@
+## IntroController: Handles intro menu interactions and transitions into game startup flow.
+## Role: scene-controller
+## Responsibilities:
+## - Connect intro UI buttons to start/quit actions.
+## - Transition to loading scene for service initialization.
+## - Ensure mouse visibility when entering from gameplay scenes.
+## Dependencies:
+## - `ServerManager` autoload for global shutdown on quit.
 extends Control
 
-# Adjust this path if your loading screen is in a different folder
+# --- Configuration ---
+# Adjust this path if your loading screen is in a different folder.
 const LOADING_SCREEN_PATH: String = "res://stages/loading_screen/LoadingScreen.tscn"
 
+# --- Nodes ---
 @onready var start_button: Button = %StartButton
 @onready var quit_button: Button = %QuitButton
 
+# --- Lifecycle ---
 func _ready() -> void:
 	# Connect buttons
 	start_button.pressed.connect(_on_start_pressed)
@@ -13,6 +24,8 @@ func _ready() -> void:
 	
 	# Ensure the mouse is visible if you came from a hidden-mouse gameplay section
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+# --- Actions ---
 
 func _on_start_pressed() -> void:
 	print("Starting Game Sequence...")

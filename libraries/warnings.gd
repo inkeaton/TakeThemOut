@@ -1,10 +1,20 @@
+## Warnings: Centralized warning logger for rich console output and debugger visibility.
+## Role: utility
+## Responsibilities:
+## - Emit formatted warning messages with origin metadata.
+## - Mirror warnings to Godot debugger through `push_warning`.
+## - Provide helper for abstract-method-not-overridden notifications.
+## Dependencies:
+## - Uses `print_rich` and `push_warning` from Godot runtime.
 class_name Warnings extends RefCounted
 
+# --- Warning Helpers ---
 static func print_warning(message : String, origin : String):
-	# Print the colored text
+	# Print colored warning text in the output console.
 	print_rich("[color=Goldenrod][b][WARNING][/b] - from [u]%s[/u][/color]: %s" % [origin, message])
-	# Also push to the Godot Debugger tab so you don't miss it
+	# Mirror warning to the Godot Debugger panel.
 	push_warning("%s: %s" % [origin, message])
 
+# --- Abstract Contract Helper ---
 static func not_defined(method_name : String, origin : String):
-	print_warning("Il metodo astratto \"[u]%s()[/u]\" non è stato ridefinito" % method_name, origin)
+	print_warning("Abstract method \"[u]%s()[/u]\" was not overridden" % method_name, origin)

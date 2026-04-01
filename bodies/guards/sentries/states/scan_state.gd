@@ -1,10 +1,24 @@
+## SentryScanState: Runs active visual scanning with periodic viewpoint rotation.
+## Role: state
+## Responsibilities:
+## - Enable sentry vision cone and scanning posture.
+## - Rotate viewpoint on a configurable interval.
+## - Maintain scan cadence until mind transitions state.
+## Dependencies:
+## - Uses `body.rotate_viewpoint()` and vision cone nodes.
 extends State
 
+# --- Behavior ---
 ## Scan state: Vision enabled, actively scanning for players.
 ## On player detection, body transitions to Idle and notifies mind.
 
+# --- Configuration ---
 @export var switch_time: float = 2.0
+
+# --- State ---
 var _timer: float = 0.0
+
+# --- Lifecycle ---
 
 func enter(_msg: Dictionary = {}) -> void:
 	body.update_debug_label("Scanning...")
@@ -18,6 +32,7 @@ func enter(_msg: Dictionary = {}) -> void:
 	_timer = switch_time
 	Messages.print_message("Scanning (%.1fs interval)..." % switch_time, "Sentry")
 
+# --- Physics Update ---
 func update_physics(delta: float) -> void:
 	# Handle Rotation Logic
 	_timer -= delta

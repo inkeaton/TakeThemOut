@@ -1,3 +1,12 @@
+## PatrolBody: Executes patrol guard movement, sensing, and mind-commanded state transitions.
+## Role: npc-body
+## Responsibilities:
+## - Run patrol/chase/tracking physics and perception loops.
+## - Receive `transition_to` and `set_var` commands from the mind bridge.
+## - Discover ally patrols and nearest captain for messenger coordination.
+## Dependencies:
+## - `StateMachine`, `NavigationAgent2D`, and child sensors (`VisionCone`, `ScentCast`, `AllyScanner`).
+## - `VesnaManager` for JSON message exchange with Jason mind agents.
 extends CharacterBody2D
 
 # --- Configuration ---
@@ -75,7 +84,7 @@ func _on_hand_body_entered(body: Node2D) -> void:
 	if not is_chasing:
 		return
 	
-	var chat_name = personality_name if personality_name != "" else name
+	var chat_name: String = personality_name if personality_name != "" else str(name)
 	Messages.print_message("CAUGHT the player! Triggering encounter as '%s'" % chat_name, "Patrol")
 	get_tree().current_scene.trigger_encounter(chat_name)
 
@@ -111,7 +120,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_velocity_computed(safe_velocity: Vector2) -> void:
 	var current_delta = get_physics_process_delta_time()
-	velocity = velocity.move_toward(safe_velocity, acceleration * current_delta)
+	velocity = safe_velocity
 	move_and_slide()
 
 # --- Command Handling ---
@@ -251,6 +260,8 @@ func scan_for_chase_allies() -> void:
 		
 		# Only detect other patrols (not sentries, captains, etc.)
 		if not collider.is_in_group("patrols"):
+			continue
+		if collider.is_in_group("captains"):
 			continue
 		
 		# Only recruit patrols NOT already in Chase/Track state

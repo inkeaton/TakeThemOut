@@ -1,6 +1,14 @@
+## TestMazeController: Orchestrates maze runtime flow, mind startup, and chat return handling.
+## Role: scene-controller
+## Responsibilities:
+## - Start/stop Jason mind process when entering/leaving maze scene.
+## - Block gameplay until mind readiness signal is received.
+## - Relay accumulated sympathy updates to the director at startup.
+## Dependencies:
+## - `ServerManager` and `GameManager` autoloads.
 extends Node2D
 
-# --- NODES ---
+# --- Nodes ---
 @onready var player: CharacterBody2D = %Player
 
 # UI Nodes (Make sure you added these to a CanvasLayer in your scene!)
@@ -8,29 +16,25 @@ extends Node2D
 @onready var loading_label: Label = %LoadingLabel
 
 func _ready() -> void:
-	# -------------------------------------------------------------------------
-	# 1. GAMEPLAY: Handle Return from Chat
-	# -------------------------------------------------------------------------
+	# 1. Gameplay: handle return from chat.
 	if GameManager.last_encounter_result != "":
 		_handle_return_from_chat()
 	
 	# Clear data so we don't re-trigger it on a simple reload
 	GameManager.reset_encounter_data()
 
-	# -------------------------------------------------------------------------
-	# 2. INFRASTRUCTURE: Start the Mind (Jason/Gradle)
-	# -------------------------------------------------------------------------
+	# 2. Infrastructure: start the mind (Jason/Gradle).
 	# We must start the server every time we enter the maze to ensure clean connection.
 	ServerManager.start_jason_server()
 	
-	# If Java is already connected (rare, but possible), just go.
+	# If Java is already connected (rare), proceed immediately.
 	# Otherwise, pause and wait for the handshake.
 	if ServerManager.is_jason_ready:
 		_on_mind_ready()
 	else:
 		_enter_loading_state()
 
-# --- JASON LOADING LOGIC ---
+# --- Jason Loading Logic ---
 
 func _enter_loading_state() -> void:
 	print("Waiting for Jason Mind to boot...")
@@ -65,7 +69,7 @@ func _on_mind_ready() -> void:
 	if ServerManager.jason_service_ready.is_connected(_on_mind_ready):
 		ServerManager.jason_service_ready.disconnect(_on_mind_ready)
 
-# --- SYMPATHY RELAY ---
+# --- Sympathy Relay ---
 
 func _send_sympathy_updates() -> void:
 	var payload: Array = GameManager.get_sympathy_payload()
@@ -85,10 +89,10 @@ func _send_sympathy_updates() -> void:
 	ServerManager.send_to_director(setup_msg)
 	print("Sent sympathy updates to director: ", payload)
 
-# --- ENCOUNTER LOGIC ---
+# --- Encounter Logic ---
 
 func trigger_encounter(guard_name: String) -> void:
-	print("⚔️ Encounter triggered with: ", guard_name)
+	print("Encounter triggered with: ", guard_name)
 	
 	# 1. Setup Data for the Chat Scene
 	GameManager.target_guard_name = guard_name
@@ -99,17 +103,8 @@ func trigger_encounter(guard_name: String) -> void:
 
 func _handle_return_from_chat() -> void:
 	print("Returned from chat. Result: ", GameManager.last_encounter_result)
-	
-	if GameManager.last_encounter_result == "pacified":
-		print("   -> Guard was pacified.")
-		# Gameplay Idea: You could delete the specific guard here if you tracked their name/path
-		# For now, we just proceed.
-		
-	elif GameManager.last_encounter_result == "alarm":
-		print("   -> ALARM TRIGGERED!")
-		# Gameplay Idea: Increase difficulty or spawn reinforcements
 
-# --- CLEANUP ---
+# --- Cleanup ---
 
 func _exit_tree() -> void:
 	# CRITICAL: Stop the Jason server when we leave the maze.

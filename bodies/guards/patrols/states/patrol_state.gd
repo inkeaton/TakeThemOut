@@ -1,5 +1,14 @@
+## PatrolState: Handles waypoint, coordinate, and agent-target navigation for patrol bodies.
+## Role: state
+## Responsibilities:
+## - Translate mind targets into concrete navigation behavior.
+## - Track dynamic agent targets and report navigation outcomes to the mind.
+## - Support messenger captain-discovery and fallback signaling.
+## Dependencies:
+## - Injected `body`, `nav_agent`, and `vesna` from `StateMachine`.
 extends State
 
+# --- Configuration ---
 ## Patrol state: Handles both waypoint navigation and coordinate navigation.
 ## Unified from previous Patrol + Travel states.
 ## On arrival, transitions to Idle and notifies mind.
@@ -9,6 +18,7 @@ extends State
 ## Leave empty to use all waypoints from the global "waypoints" group (backward compatibility)
 @export var waypoint_parents: Array[NodePath] = []
 
+# --- State ---
 var current_waypoint_index: int = -1 
 var sorted_waypoints: Array[Node2D] = []
 
@@ -21,6 +31,7 @@ var _navigating_to_agent: bool = false
 var _target_agent_name: String = ""
 var _target_agent_ref: Node2D = null  # Reference to target agent for continuous tracking
 
+# --- Lifecycle ---
 func enter(msg: Dictionary = {}) -> void:
 	# If this is the first run, cache waypoints
 	if sorted_waypoints.is_empty():
@@ -35,6 +46,7 @@ func enter(msg: Dictionary = {}) -> void:
 	else:
 		body.update_debug_label("Patrolling")
 
+# --- Waypoint Cache ---
 func _cache_waypoints() -> void:
 	# Option 1: Use assigned waypoint parent nodes (multiple zones supported)
 	if not waypoint_parents.is_empty():
@@ -71,6 +83,7 @@ func _cache_waypoints() -> void:
 	else:
 		Messages.print_message("Cached %d waypoints from global group" % sorted_waypoints.size(), "Patrol")
 
+# --- Target Resolution ---
 func _handle_action(action: String) -> void:
 	_navigating_to_coords = false  # Waypoint navigation
 	match action:
@@ -124,6 +137,7 @@ func _handle_target(target) -> void:
 	else:
 		push_warning("patrol_state: Unknown target type: %s" % str(target))
 
+# --- Agent Navigation ---
 ## Navigate to an agent by name (for messenger system)
 ## Stores reference to agent for continuous tracking in update_physics()
 func _navigate_to_agent(agent_name: String) -> void:
@@ -164,6 +178,7 @@ func _navigate_to_nearest_captain() -> void:
 	# Use the standard agent navigation
 	_navigate_to_agent(captain_name)
 
+# --- Waypoint Navigation ---
 func move_cyclic(direction: int) -> void:
 	_navigating_to_coords = false  # Waypoint navigation
 	if sorted_waypoints.is_empty(): return
@@ -178,13 +193,15 @@ func move_cyclic(direction: int) -> void:
 	nav_agent.target_position = target_node.global_position
 	body.is_moving = true
 
-# If we receive a command while ALREADY in this state
+# --- Command Refresh ---
+# If we receive a command while already in this state.
 func enter_with_command(msg: Dictionary) -> void:
 	if msg.has("target"):
 		_handle_target(msg["target"])
 	elif msg.has("action"):
 		_handle_action(msg["action"])
 
+# --- Physics Update ---
 func update_physics(_delta: float) -> void:
 	# Continuously update target position when tracking an agent
 	if _navigating_to_agent:

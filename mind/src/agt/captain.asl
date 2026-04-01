@@ -269,6 +269,10 @@ responding_to_alert(no).
 /* REPORT IGNORE: Discards external report-sightings requests for captain. */
 +!report_sightings[source(_)].
 
+/* MESSENGER REJECT: Captains do not accept messenger-role reassignment. */
++!become_messenger(_)[source(Sender)]
+    <- .send(Sender, tell, messenger_rejected(not_patrol_role)).
+
 // =============================================================================
 // SETUP & CONFIGURATION
 // =============================================================================

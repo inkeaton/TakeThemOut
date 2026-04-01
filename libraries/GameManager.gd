@@ -1,14 +1,22 @@
+## GameManager: Stores cross-scene run state for encounters, sympathy deltas, and ending outcomes.
+## Role: autoload
+## Responsibilities:
+## - Persist encounter context between maze, chat, and ending scenes.
+## - Aggregate sympathy updates to be relayed to Jason setup messages.
+## - Provide name mapping between chat display names and Jason agent names.
+## Dependencies:
+## - Consumed by `stages/maze/test_maze.gd` and `stages/chat/chat_interface.gd`.
 extends Node
 
-# --- DATA PASSED FROM MAZE TO CHAT ---
+# --- Maze To Chat Data ---
 var target_guard_name: String = ""
 
-# --- DATA PASSED FROM CHAT TO MAZE (Guards) ---
+# --- Chat To Maze Data (Guards) ---
 var last_encounter_score: float = 0.0
 var last_encounter_result: String = "" 
 var pacified_guards: Array[String] = []
 
-# --- SYMPATHY UPDATES (Accumulated across encounters, sent to Jason on maze reload) ---
+# --- Sympathy Updates (Across Encounters) ---
 # Maps Jason agent name → cumulative sympathy delta  (e.g. {"patrol_rosanna": 0.4})
 var sympathy_updates: Dictionary = {}
 
@@ -31,7 +39,7 @@ func get_sympathy_payload() -> Array:
 			result.append({"agent": agent_name, "value": delta})
 	return result
 
-# --- DATA PASSED FROM CHAT TO ENDING (Date) ---
+# --- Chat To Ending Data (Date) ---
 var final_game_outcome: String = "" # "win" or "loss"
 var recovered_secret: String = ""   # The info you stole (e.g., "Luca")
 

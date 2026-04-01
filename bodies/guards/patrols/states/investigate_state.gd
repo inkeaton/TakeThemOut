@@ -1,11 +1,22 @@
-# InvestigateState.gd
+## InvestigateState: Performs local area sweep after chase/alert loss events.
+## Role: state
+## Responsibilities:
+## - Generate navigable investigation points around current position.
+## - Move through points sequentially and report completion to the mind.
+## - Return control to idle state after sweep completion.
+## Dependencies:
+## - Uses `NavigationServer2D` map queries and `vesna.send_event` reporting.
 extends State
 
+# --- Configuration ---
 @export var investigation_radius: float = 400.0
 @export var default_points: int = 3
 
+# --- State ---
 var points_to_visit: Array[Vector2] = []
 var current_index: int = 0
+
+# --- Lifecycle ---
 
 func enter(msg: Dictionary = {}) -> void:
 	var count = msg.get("points", default_points)
@@ -18,6 +29,7 @@ func enter(msg: Dictionary = {}) -> void:
 	if not points_to_visit.is_empty():
 		_move_to_next()
 
+# --- Point Generation ---
 func generate_points(count: int) -> void:
 	points_to_visit.clear()
 	var map_rid = nav_agent.get_navigation_map()
@@ -33,6 +45,8 @@ func generate_points(count: int) -> void:
 	
 	Messages.print_message("Generated %d investigation points." % points_to_visit.size(), "Patrol")
 
+
+# --- Physics Update ---
 func update_physics(_delta: float) -> void:
 	# Wait for arrival
 	if not nav_agent.is_navigation_finished():
@@ -44,6 +58,7 @@ func update_physics(_delta: float) -> void:
 	else:
 		_finish_investigation()
 
+# --- Movement Helpers ---
 func _move_to_next() -> void:
 	var pt = points_to_visit[current_index]
 	nav_agent.target_position = pt
@@ -54,6 +69,8 @@ func _move_to_next() -> void:
 	
 	current_index += 1
 
+
+# --- Completion ---
 func _finish_investigation() -> void:
 	body.update_debug_label("Investigation Done.")
 	Messages.print_message("Investigation complete.", "Patrol")

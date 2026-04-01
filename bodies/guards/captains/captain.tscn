@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dgu6wes1oogep"]
 
 [ext_resource type="Script" uid="uid://bx0as15oxe7rs" path="res://bodies/guards/captains/captain.gd" id="1_enb01"]
+[ext_resource type="Texture2D" uid="uid://ccmo4yb75gaij" path="res://stages/maze/res/paper28.png" id="2_enb01"]
 [ext_resource type="Material" uid="uid://cyutonnakdbcg" path="res://bodies/player/res/lineboil.tres" id="2_hdb5i"]
 [ext_resource type="Texture2D" uid="uid://bamyjvt4puf7k" path="res://bodies/guards/captains/res/capitan1_daniele.png" id="3_enb01"]
 [ext_resource type="Script" uid="uid://tn1u48npidyk" path="res://bodies/guards/vesnaManager.gd" id="4_bqy8f"]
@@ -131,6 +132,12 @@ collision_mask = 134
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="VisionCone" unique_id=1040574097]
 polygon = PackedVector2Array(1050, -650, 1050, 650, 153.333, 320, -150, 320, -320, 100, -320, -100, -150, -320, 160, -320)
+
+[node name="TextureRect" type="Polygon2D" parent="VisionCone/CollisionPolygon2D" unique_id=391334264]
+modulate = Color(1, 0.6313726, 0.6313726, 0.6666667)
+texture = ExtResource("2_enb01")
+polygon = PackedVector2Array(1053.3333, -646.6666, 1053.3333, 653.3333, -6.6666665, 0)
+uv = PackedVector2Array(1007.5996, 662.5605, 917.1035, 1903.6487, 25.07129, 985.76044)
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1460783650]
 material = ExtResource("2_hdb5i")

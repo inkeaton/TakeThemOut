@@ -1,14 +1,27 @@
+## SentryAlertState: Executes short alert phase, scans allies, and reports completion.
+## Role: state
+## Responsibilities:
+## - Suspend normal vision and perform ally proximity scan.
+## - Send ally list to mind to propagate alert network behavior.
+## - Emit alert completion signal and return to idle.
+## Dependencies:
+## - Uses `alert_scanner` and `vesna.send_allies_found` / `vesna.send_signal`.
 extends State
 
+# --- Behavior ---
 ## Alert state: Vision disabled, scans for allies, notifies mind.
 ## On timeout, transitions to Idle and notifies mind.
 
+# --- Configuration ---
 @export var alert_duration: float = 5.0
+
+# --- State ---
 var _timer: float = 0.0
 
-# FIX: Remove @onready. We initialize this lazily.
+# Initialized lazily on first `enter` call.
 var alert_scanner: ShapeCast2D 
 
+# --- Lifecycle ---
 func enter(_msg: Dictionary = {}) -> void:
 	body.update_debug_label("ALERT!")
 	# FIX: Assign reference here, the first time we enter the state
@@ -28,11 +41,13 @@ func enter(_msg: Dictionary = {}) -> void:
 	var duration = _msg.get("duration", alert_duration)
 	_timer = duration
 
+# --- Physics Update ---
 func update_physics(delta: float) -> void:
 	_timer -= delta
 	if _timer <= 0:
 		_finish_alert()
 
+# --- Helpers ---
 func _perform_scan() -> void:
 	alert_scanner.enabled = true
 	alert_scanner.force_shapecast_update()
@@ -51,6 +66,8 @@ func _perform_scan() -> void:
 	Messages.print_message("Found allies: " + str(ally_names), "Sentry")
 	vesna.send_allies_found(ally_names)
 
+
+# --- Completion ---
 func _finish_alert() -> void:
 	alert_scanner.enabled = false
 	vesna.send_signal("alert", "completed", "Alert sequence finished")

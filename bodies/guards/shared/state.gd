@@ -1,26 +1,34 @@
-# State.gd
+## State: Base state contract for guard state-machine nodes.
+## Role: state
+## Responsibilities:
+## - Define lifecycle hooks used by all concrete guard states.
+## - Store injected references to body, navigation agent, and mind bridge.
+## Dependencies:
+## - Injected by `bodies/guards/shared/state_machine.gd`.
 class_name State
 extends Node
 
-# References injected by the StateMachine
+# --- Injected References ---
+# References injected by the state machine.
 var body: CharacterBody2D
 var nav_agent: NavigationAgent2D
 var vesna: VesnaManager
 var state_machine: StateMachine
 
-# Called when the state becomes active
-# msg: Optional dictionary to pass data (e.g., {"points": 3} or {"patience": 5})
+# --- Lifecycle Hooks ---
+# Called when the state becomes active.
+# `msg` can contain optional runtime data (e.g., {"points": 3} or {"patience": 5}).
 func enter(_msg: Dictionary = {}) -> void:
 	pass
 
-# Called when the state is replaced
+# Called when the state is replaced.
 func exit() -> void:
 	pass
 
-# Corresponds to _physics_process
+# Corresponds to `_physics_process`.
 func update_physics(_delta: float) -> void:
 	pass
 
-# Corresponds to _process (optional)
+# Corresponds to `_process` (optional).
 func update(_delta: float) -> void:
 	pass

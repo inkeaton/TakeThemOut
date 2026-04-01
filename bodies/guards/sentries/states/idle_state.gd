@@ -1,5 +1,13 @@
+## SentryIdleState: Keeps sentry passive while waiting for explicit mind instructions.
+## Role: state
+## Responsibilities:
+## - Disable vision cone and active monitoring.
+## - Hold position until a transition command is received.
+## Dependencies:
+## - Transitioned by mind through `transition_to` commands.
 extends State
 
+# --- Behavior ---
 ## Idle state: Vision disabled, waiting for mind instructions only.
 ## No autonomous transitions - mind controls all exits from this state.
 

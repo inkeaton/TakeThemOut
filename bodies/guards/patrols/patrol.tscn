@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://62bib23hxt5c"]
 
 [ext_resource type="Material" uid="uid://cyutonnakdbcg" path="res://bodies/player/res/lineboil.tres" id="2_aopm4"]
+[ext_resource type="Texture2D" uid="uid://ccmo4yb75gaij" path="res://stages/maze/res/paper28.png" id="2_gts74"]
 [ext_resource type="Texture2D" uid="uid://bmjs63b1lkfp0" path="res://bodies/guards/patrols/res/patrol4_marianna.png" id="2_j4i18"]
 [ext_resource type="Script" uid="uid://bkf5ponw7u0pp" path="res://bodies/guards/patrols/patrol.gd" id="2_vnkut"]
 [ext_resource type="Script" uid="uid://tn1u48npidyk" path="res://bodies/guards/vesnaManager.gd" id="4_aopm4"]
@@ -95,7 +96,6 @@ font_color = Color(0, 0, 0, 1)
 scale = Vector2(0.15, 0.15)
 collision_layer = 2
 script = ExtResource("2_vnkut")
-speed = 200.0
 acceleration = 200.0
 
 [node name="ScentCast" type="ShapeCast2D" parent="." unique_id=170193669]
@@ -139,6 +139,12 @@ collision_mask = 134
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="VisionCone" unique_id=1040574097]
 polygon = PackedVector2Array(1050, -650, 1050, 650, 153.333, 320, -150, 320, -320, 100, -320, -100, -150, -320, 160, -320)
 
+[node name="TextureRect" type="Polygon2D" parent="VisionCone/CollisionPolygon2D" unique_id=1326020923]
+modulate = Color(1, 0.6313726, 0.6313726, 0.6666667)
+texture = ExtResource("2_gts74")
+polygon = PackedVector2Array(1053.3333, -646.6666, 1053.3333, 653.3333, -6.6666665, 0)
+uv = PackedVector2Array(1007.5996, 662.5605, 917.1035, 1903.6487, 25.07129, 985.76044)
+
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1460783650]
 material = ExtResource("2_aopm4")
 texture = ExtResource("2_j4i18")
@@ -154,7 +160,7 @@ libraries/ = SubResource("AnimationLibrary_yh7se")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=45141480]
 path_postprocessing = 1
 avoidance_enabled = true
-radius = 50.0
+radius = 100.0
 debug_enabled = true
 
 [node name="VesnaManager" type="Node2D" parent="." unique_id=1491732810]

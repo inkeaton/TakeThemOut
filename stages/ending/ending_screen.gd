@@ -1,10 +1,19 @@
-# ending_screen.gd
+## EndingScreen: Presents final mission outcome and terminates runtime services on quit.
+## Role: scene-controller
+## Responsibilities:
+## - Display win/loss messaging based on persisted game outcome.
+## - Show recovered secret data on successful run.
+## - Stop all external services when quitting the application.
+## Dependencies:
+## - `GameManager` and `ServerManager` autoloads.
 extends Control
 
+# --- Nodes ---
 @onready var title_label: Label = %TitleLabel
 @onready var details_label: Label = %DetailsLabel
 @onready var quit_btn: Button = %QuitButton
 
+# --- Lifecycle ---
 func _ready() -> void:
 	quit_btn.pressed.connect(func():
 		ServerManager.stop_all_servers()

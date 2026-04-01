@@ -1,66 +1,77 @@
+## Player: Handles user-driven movement, animation direction, and breadcrumb trail spawning.
+## Role: npc-body
+## Responsibilities:
+## - Compute movement vectors from input and apply friction/resistance.
+## - Update directional animation state from input sector.
+## - Drop timed breadcrumb nodes used by guard tracking behavior.
+## Dependencies:
+## - `crumb_scene` packed scene and a runtime `Crumbs` container node.
+## - Animation nodes under `$AnimationTree/AnimationPlayer`.
 class_name Player
 extends CharacterBody2D
 
-#//////////////////////////////////////////////////////////////////////////////#
-
-@export_category("Physics") #//////////////////////////////////////////////////#
-## Base Movement Speed
+# --- Physics Configuration ---
+@export_category("Physics")
+## Base movement speed.
 @export var DEFAULT_SPEED: float = 50.0
 
-## Movement factor, use to modify speed
+## Movement multiplier used to derive runtime speed.
 var speed_factor: float = 1.0 :
 	set(new_factor):
 		speed_factor = new_factor
 		speed = DEFAULT_SPEED * speed_factor
 
-## Current speed
+## Runtime speed value.
 @onready var speed: float = DEFAULT_SPEED * speed_factor
 
-## Weight of the object, used for knockback
+## Base weight used for knockback interactions.
 @export var DEFAULT_WEIGHT: float = 100
 
-## Weight factor, use to modify weight
+## Weight multiplier used to derive runtime weight.
 var weight_factor: float = 1.0:
 	set(new_factor):
 		weight_factor = new_factor
 		weight = DEFAULT_WEIGHT * weight_factor
 
-## Current Weight
+## Runtime weight value.
 @onready var weight: float = DEFAULT_WEIGHT * weight_factor
 
-## How much the floor slows us down
+## Surface resistance multiplier.
 var resistance: float = 1.0:
 	set(new_resistance):
 		resistance = clampf(new_resistance, 0, INF)
 
-## How much we slide on the floor
+## Sliding factor used during velocity interpolation.
 var friction: float = 100:
 	get():
 		return friction * speed/100
 
-# Used ofr determing movemnt directions
+# Used for determining movement direction sectors.
 const SECTOR_ANGLE := TAU / 8
 
-## Last pressed direction
+## Last non-zero movement direction from input.
 var last_dpad_direction: Vector2 = Vector2.ZERO
 
-# --- BREADCRUMBS SYSTEM ---
+# --- Breadcrumbs Configuration ---
 @export_category("Breadcrumbs")
 @export var crumb_scene : PackedScene 
 @export var crumb_spacing: float = 30.0 
 @export var max_crumbs_in_world : int = 50
 
+# --- Breadcrumbs State ---
 var crumb_container : Node = null 
 var last_crumb_pos: Vector2 = Vector2.ZERO
+
+# --- Lifecycle ---
 
 func _ready() -> void:
 	$AnimationTree/AnimationPlayer.current_animation = "walk_down"
 	
-	# FIX: Defer the crumb setup to the next frame to avoid "Parent is busy" error
+	# Defer setup by one frame to avoid tree-lock timing issues.
 	call_deferred("_setup_crumb_container")
 
 func _setup_crumb_container() -> void:
-	# This runs one frame later, when the Scene Tree is unlocked
+	# Runs on the next frame when the scene tree is unlocked.
 	var scene_root = get_tree().current_scene
 	
 	if not scene_root.has_node("Crumbs"):
@@ -70,8 +81,10 @@ func _setup_crumb_container() -> void:
 	else:
 		crumb_container = scene_root.get_node("Crumbs")
 	
-	# Now that container exists, drop the first crumb
+	# Container is ready; place the first crumb.
 	drop_crumb()
+
+# --- Physics Loop ---
 
 func _physics_process(_delta: float) -> void:
 	compute_movement()
@@ -81,26 +94,26 @@ func _physics_process(_delta: float) -> void:
 		drop_crumb()
 
 func drop_crumb() -> void:
-	# Safety Check: If setup isn't finished or scene is missing, abort
+	# Skip if setup is incomplete.
 	if not crumb_scene or not crumb_container: 
 		return
 	
 	last_crumb_pos = global_position
 	
-	# Instantiate Node
+	# Instantiate and register crumb.
 	var new_crumb = crumb_scene.instantiate()
 	new_crumb.global_position = global_position
 	new_crumb.add_to_group("crumb")  # Singular to match patrol detection
 	crumb_container.add_child(new_crumb)
 
-#//////////////////////////////////////////////////////////////////////////////#
+# --- Gameplay Helpers ---
 
 func die() -> void:
 	Messages.print_message("I'm dead :(", name)
 	self.queue_free()
 
 func compute_animations(dpad_direction: Vector2 = Vector2.ZERO) -> void:
-	var anim_string: String = "idle"
+	var _anim_string: String = "idle"
 	
 	if dpad_direction != Vector2.ZERO:
 		var ang = dpad_direction.angle()
@@ -109,13 +122,13 @@ func compute_animations(dpad_direction: Vector2 = Vector2.ZERO) -> void:
 	
 		match int(floor((ang + SECTOR_ANGLE * 0.5) / SECTOR_ANGLE)):
 			0, 1, 2: # Right / East
-				anim_string = "walk"
+				_anim_string = "walk"
 				$Sprite.flip_h = false
 			3, 4, 5: # Left / West (Mirrored)
-				anim_string = "walk"
+				_anim_string = "walk"
 				$Sprite.flip_h = true
 			6, 7: # Up (if you had specific side-up animations)
-				anim_string = "walk_up"
+				_anim_string = "walk_up"
 				$Sprite.flip_h = false
 
 ## Compute movement generated by user input
@@ -128,7 +141,7 @@ func compute_input_movement() -> Vector2:
 		
 	return dpad_direction * speed
 
-## Compute actual movement
+## Computes final movement vector after friction/resistance adjustment.
 func compute_movement():
 	var input_velocity = compute_input_movement() 
 	var abstract_velocity = input_velocity

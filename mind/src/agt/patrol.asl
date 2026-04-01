@@ -20,6 +20,7 @@ is_messenger(no).
 messenger_target(none).
 messenger_report_pos(none).
 messenger_sent(no).
+messenger_failed(no).
 
 /* STATE UPDATE: Keeps a single authoritative chase-state value. */
 +is_chasing(S) : is_chasing(Old) & Old \== S <- -is_chasing(Old).
@@ -27,6 +28,8 @@ messenger_sent(no).
 +responding_to_alert(S) : responding_to_alert(Old) & Old \== S <- -responding_to_alert(Old).
 /* STATE UPDATE: Keeps one messenger-state value at a time. */
 +is_messenger(S) : is_messenger(Old) & Old \== S <- -is_messenger(Old).
+/* STATE UPDATE: Keeps one messenger-failure lock value at a time. */
++messenger_failed(S) : messenger_failed(Old) & Old \== S <- -messenger_failed(Old).
 /* STATE UPDATE: Stores only the latest observed player position. */
 +last_player_pos(X, Y) : last_player_pos(OldX, OldY) & (OldX \== X | OldY \== Y) <- -last_player_pos(OldX, OldY).
 /* STATE UPDATE: Stores only the latest consecutive-failure counter. */
@@ -129,6 +132,8 @@ messenger_sent(no).
     <-  .print("CONTACT!");
         -is_chasing(no); +is_chasing(yes);
         -responding_to_alert(_); +responding_to_alert(no);
+        -messenger_sent(_); +messenger_sent(no);
+        -messenger_failed(_); +messenger_failed(no);
         .drop_intention(patrol);
         +last_player_pos(X, Y);
         !start_chase.
@@ -207,6 +212,7 @@ messenger_sent(no).
         -last_player_pos(_, _);
         -consecutive_failures(_); +consecutive_failures(0);
         -messenger_sent(_); +messenger_sent(no);
+        -messenger_failed(_); +messenger_failed(no);
         .abolish(sight(player, _, _));
         vesna.transition_to("Patrol", [target("resume")]);
         !patrol.
@@ -216,7 +222,7 @@ messenger_sent(no).
 // =============================================================================
 
 /* MESSENGER RECRUIT: Assigns the first nearby ally to report intel. */
-+allies_nearby(AllyList) : is_chasing(yes) & last_player_pos(X, Y) & not .empty(AllyList) & messenger_sent(no)
++allies_nearby(AllyList) : is_chasing(yes) & last_player_pos(X, Y) & not .empty(AllyList) & messenger_sent(no) & messenger_failed(no)
     <-  .nth(0, AllyList, FirstAlly);
         .print("Recruiting ", FirstAlly, " as messenger.");
         .send(FirstAlly, achieve, become_messenger(pos(X, Y)));
@@ -240,6 +246,17 @@ messenger_sent(no).
 +!become_messenger(_)[source(Sender)] : is_messenger(yes)
     <- .send(Sender, tell, messenger_rejected(already_messenger)).
 
+/* MESSENGER FAIL: Locks messenger dispatch for this chase after rejection. */
++messenger_rejected(Reason)[source(Ally)] : messenger_sent(yes) & messenger_failed(no) & is_chasing(yes)
+    <-  .print("Messenger rejected by ", Ally, " (", Reason, "). No retry this chase.");
+        -messenger_rejected(Reason)[source(Ally)];
+        -messenger_failed(no); +messenger_failed(yes);
+        -messenger_sent(_); +messenger_sent(no).
+
+/* MESSENGER CLEANUP: Removes stale rejection beliefs when not relevant. */
++messenger_rejected(Reason)[source(Ally)]
+    <- -messenger_rejected(Reason)[source(Ally)].
+
 /* MESSENGER SUCCESS: Delivers intel to captain and returns to patrol. */
 +navigation(reached_agent, Captain) : is_messenger(yes) & messenger_report_pos(pos(X, Y))
     <-  .print("Reporting to ", Captain);
@@ -257,6 +274,8 @@ messenger_sent(no).
         -navigation(no_captain_found, _);
         -is_messenger(yes); +is_messenger(no);
         -messenger_report_pos(_); +messenger_report_pos(none);
+        -messenger_failed(no); +messenger_failed(yes);
+        -messenger_sent(_); +messenger_sent(no);
         vesna.set_var(is_messenger, false);
         vesna.transition_to("Patrol", [target("resume")]);
         !patrol.
@@ -267,6 +286,8 @@ messenger_sent(no).
         -navigation(agent_lost, _);
         -is_messenger(yes); +is_messenger(no);
         -messenger_report_pos(_); +messenger_report_pos(none);
+        -messenger_failed(no); +messenger_failed(yes);
+        -messenger_sent(_); +messenger_sent(no);
         vesna.set_var(is_messenger, false);
         vesna.transition_to("Patrol", [target("resume")]);
         !patrol.
