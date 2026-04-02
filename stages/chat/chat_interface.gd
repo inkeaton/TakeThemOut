@@ -12,6 +12,7 @@ extends Control
 # --- Configuration ---
 const URL_GUARD_BOT: String = "http://localhost:5005/webhooks/rest/webhook"
 const URL_DATE_BOT: String  = "http://localhost:5006/webhooks/rest/webhook"
+const CHAT_SENDER_ID: String = "godot_player"
 
 # --- Signals ---
 @warning_ignore("unused_signal")
@@ -164,7 +165,7 @@ func _on_send_pressed(_text_submitted: String = "") -> void:
 
 func _send_to_rasa(message_text: String) -> void:
 	var data: Dictionary = {
-		"sender": "godot_player",
+		"sender": CHAT_SENDER_ID,
 		"message": message_text
 	}
 	var headers: PackedStringArray = ["Content-Type: application/json"]
@@ -193,6 +194,15 @@ func _on_request_completed(result: int, response_code: int, _headers: PackedStri
 			_process_single_message(message)
 
 func _process_single_message(message: Dictionary) -> void:
+	if message.is_empty():
+		return
+
+	if current_mode == "GUARD" and not _validate_guard_payload(message):
+		return
+
+	if current_mode == "DATE" and not _validate_date_payload(message):
+		return
+
 	# 1. Text Update
 	if "text" in message:
 		agent_text_label.text = message["text"]
@@ -225,6 +235,70 @@ func _process_single_message(message: Dictionary) -> void:
 		# Game Events (Win/Loss)
 		if "game_event" in data and data["game_event"] is String:
 			_handle_game_event(data["game_event"], data)
+
+func _validate_guard_payload(message: Dictionary) -> bool:
+	if not ("text" in message or "custom" in message):
+		return true
+
+	if not ("custom" in message):
+		return true
+
+	if not (message["custom"] is Dictionary):
+		_fail_fast("Guard response missing valid 'custom' payload.")
+		return false
+
+	var data: Dictionary = message["custom"]
+	if not ("sympathy_score" in data) or not (data["sympathy_score"] is float or data["sympathy_score"] is int):
+		_fail_fast("Guard payload missing numeric 'sympathy_score'.")
+		return false
+
+	if not ("detected_intent" in data) or not (data["detected_intent"] is String):
+		_fail_fast("Guard payload missing string 'detected_intent'.")
+		return false
+
+	return true
+
+func _validate_date_payload(message: Dictionary) -> bool:
+	if not ("text" in message or "custom" in message):
+		return true
+
+	if not ("custom" in message):
+		return true
+
+	if not (message["custom"] is Dictionary):
+		_fail_fast("Date response missing valid 'custom' payload.")
+		return false
+
+	var data: Dictionary = message["custom"]
+	if not ("ease_score" in data) or not (data["ease_score"] is float or data["ease_score"] is int):
+		_fail_fast("Date payload missing numeric 'ease_score'.")
+		return false
+
+	if not ("suspicion_score" in data) or not (data["suspicion_score"] is float or data["suspicion_score"] is int):
+		_fail_fast("Date payload missing numeric 'suspicion_score'.")
+		return false
+
+	if not ("delta_suspicion" in data) or not (data["delta_suspicion"] is float or data["delta_suspicion"] is int):
+		_fail_fast("Date payload missing numeric 'delta_suspicion'.")
+		return false
+
+	if "detected_intent" in data and not (data["detected_intent"] is String):
+		_fail_fast("Date payload has invalid 'detected_intent' type.")
+		return false
+
+	if "game_event" in data and not (data["game_event"] is String):
+		_fail_fast("Date payload has invalid 'game_event' type.")
+		return false
+
+	return true
+
+func _fail_fast(reason: String) -> void:
+	push_error("Chat payload contract violation: %s" % reason)
+	agent_text_label.text = "[color=red]Protocol error: %s[/color]" % reason
+	user_input.editable = false
+	%SendButton.disabled = true
+	%SendButton.visible = false
+	continue_button.hide()
 
 # --- Guard Mode Logic ---
 func _end_skirmish_turn() -> void:

@@ -2,188 +2,155 @@ from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+from .data_skirmish import (
+    DEFAULT_GUARD_NAME,
+    INTENT_WEIGHT_FACTOR,
+    SENTIMENT_WEIGHT_FACTOR,
+    SCORE_MIN,
+    SCORE_MAX,
+    SUCCESS_THRESHOLD,
+    FALLBACK_INTENT,
+    UNKNOWN_RESPONSE,
+    PERSONALITY_PROFILES,
+    RESPONSES,
+)
 
+
+# Skirmish evaluator action.
+# Processing flow per turn:
+# 1) detect intent and tone,
+# 2) score using guard personality weights,
+# 3) map score to success/failure response,
+# 4) return strict payload for Godot contract.
 class ActionEvaluateExcuse(Action):
     def name(self) -> Text:
         return "action_evaluate_excuse"
 
     def __init__(self):
         self.analyzer = SentimentIntensityAnalyzer()
-        
-        # personality weights
-        self.PERSONALITY_PROFILES = {
-            "rosanna": { 
-                "intent_weights": {"flattery": 1.0, "bribe": 0.5, "pity": -0.5, "logic": 0.2, "aggression": -1.0},
-                "sentiment_direction": 1 
-            },
-            "susanna": { 
-                "intent_weights": {"flattery": 0.2, "bribe": -0.5, "pity": 0.8, "logic": 0.9, "aggression": -1.0},
-                "sentiment_direction": 1
-            },
-            "polyanna": { 
-                "intent_weights": {"flattery": -0.8, "bribe": -0.5, "pity": 0.7, "logic": -0.2, "aggression": 0.4},
-                # polyanna has sentiment analysis inverted
-                "sentiment_direction": -1 
-            },
-            "marianna": { 
-                "intent_weights": {"flattery": 0.6, "bribe": 0.2, "pity": -0.8, "logic": -0.6, "aggression": -0.5},
-                "sentiment_direction": 1
-            },
-        }
+        self.PERSONALITY_PROFILES = PERSONALITY_PROFILES
+        self.RESPONSES = RESPONSES
+        self._validate_config()
 
-        # responses
-        self.RESPONSES = {
-            "rosanna": {
-                "flattery": {
-                    True:  "(Rosanna preens, checking her reflection.) Oh, stop it. Actually, don't. You can go in.",
-                    False: "(Rosanna rolls her eyes.) You're trying too hard, darling. It's pathetic."
-                },
-                "bribe": {
-                    True:  "(Rosanna snatches the offering.) Well, I suppose I can look the other way just this once.",
-                    False: "(Rosanna looks offended.) Is that all? My dignity costs more than that."
-                },
-                "aggression": {
-                    True:  "(Rosanna looks surprised.) Okay, okay! No need to shout. Just go.",
-                    False: "(Rosanna glares icy daggers.) Excuse me? Do you know who I am? Security!"
-                },
-                "pity": {
-                    True:  "(Rosanna sighs dramatically.) Fine, you're ruining my makeup with this sad story.",
-                    False: "(Rosanna yawns.) tragedy is so last season. Not my problem."
-                },
-                "logic": {
-                    True:  "(Rosanna checks her nails.) If the paperwork says so, fine. Just hurry up.",
-                    False: "(Rosanna waves you off.) Bore someone else with the details."
-                }
-            },
-            "susanna": {
-                "flattery": {
-                    True:  "(Susanna blushes deeply.) O-oh... you really think so? Um, okay, you can pass.",
-                    False: "(Susanna hides her face.) Please don't look at me like that... it's uncomfortable."
-                },
-                "bribe": {
-                    True:  "(Susanna looks around nervously.) I... I shouldn't... but I really need this. Go, quickly!",
-                    False: "(Susanna shakes her head frantically.) No! That's against the rules! I can't!"
-                },
-                "aggression": {
-                    True:  "(Susanna trembles.) P-please don't hurt me! Just take whatever you want!",
-                    False: "(Susanna squeaks.) Eek! G-guard! Help! This person is scary!"
-                },
-                "pity": {
-                    True:  "(Susanna's eyes water.) Oh no, that's awful. Of course you can come in. Here, take a tissue.",
-                    False: "(Susanna looks confused.) I... I don't know if I can help you with that."
-                },
-                "logic": {
-                    True:  "(Susanna nods aggressively.) Yes! The rules say this is allowed. Please proceed.",
-                    False: "(Susanna frowns at the paper.) I don't think this form is signed correctly... I'm sorry."
-                }
-            },
-            "polyanna": {
-                "flattery": {
-                    True:  "(Polyanna sighs.) I guess even a broken clock is right twice a day. Go in.",
-                    False: "(Polyanna sneers.) Your fake compliments are empty. Like my soul."
-                },
-                "bribe": {
-                    True:  "(Polyanna takes it without looking.) Material possessions are fleeting. But fine.",
-                    False: "(Polyanna drops the money.) I can't be bought. I'm already owned by the darkness."
-                },
-                "aggression": {
-                    True:  "(Polyanna nods slowly.) Finally, someone who understands pain. Proceed.",
-                    False: "(Polyanna stares into the void.) Your anger is shallow. Come back when you've really suffered."
-                },
-                "pity": {
-                    True:  "(Polyanna looks at you.) Life is suffering. We are all alone. Go ahead.",
-                    False: "(Polyanna shrugs.) Cry me a river. We're all dying anyway."
-                },
-                "logic": {
-                    True:  "(Polyanna shrugs.) Rules are just a construct to control the chaos. Whatever.",
-                    False: "(Polyanna ignores you.) Order is an illusion."
-                }
-            },
-            "marianna": {
-                "flattery": {
-                    True:  "(Marianna beams.) Aww! You are too sweet! Get in here, you charmer!",
-                    False: "(Marianna tilts her head.) Eh, a bit much, don't you think?"
-                },
-                "bribe": {
-                    True:  "(Marianna winks.) Ooh, lunch is on you today! Thanks, buddy!",
-                    False: "(Marianna laughs.) Nice try, but I'm not that cheap!"
-                },
-                "aggression": {
-                    True:  "(Marianna salutes.) Whoa, tough guy! Alright, alright, you're the boss!",
-                    False: "(Marianna stops smiling.) Hey, chill out! No bad vibes allowed here."
-                },
-                "pity": {
-                    True:  "(Marianna pats your back.) Oh, buddy! cheer up! Go inside and have a cookie!",
-                    False: "(Marianna frowns.) Don't be such a downer. You're killing the mood."
-                },
-                "logic": {
-                    True:  "(Marianna salutes playfully.) Aye aye captain! Everything looks... boringly correct!",
-                    False: "(Marianna groans.) Paperwork? Seriously? Booooooring."
-                }
-            }
-        }
+    def _validate_config(self) -> None:
+        # Fail fast on malformed static data so runtime scoring stays deterministic.
+        if DEFAULT_GUARD_NAME not in self.PERSONALITY_PROFILES:
+            raise RuntimeError("Skirmish config error: DEFAULT_GUARD_NAME not found in PERSONALITY_PROFILES.")
+        if DEFAULT_GUARD_NAME not in self.RESPONSES:
+            raise RuntimeError("Skirmish config error: DEFAULT_GUARD_NAME not found in RESPONSES.")
+        for guard_name, profile in self.PERSONALITY_PROFILES.items():
+            if "intent_weights" not in profile or not isinstance(profile["intent_weights"], dict):
+                raise RuntimeError(f"Skirmish config error: '{guard_name}' missing intent_weights.")
+            if "sentiment_direction" not in profile or not isinstance(profile["sentiment_direction"], (int, float)):
+                raise RuntimeError(f"Skirmish config error: '{guard_name}' missing sentiment_direction.")
+        for guard_name, responses in self.RESPONSES.items():
+            if FALLBACK_INTENT not in responses:
+                raise RuntimeError(f"Skirmish config error: '{guard_name}' missing fallback intent '{FALLBACK_INTENT}'.")
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        # get current guard (rosanna default)
+        # Guard identity drives both intent weights and response voice.
         guard_name = tracker.get_slot("guard_name")
-        if not guard_name: guard_name = "rosanna"
+        if not guard_name:
+            guard_name = DEFAULT_GUARD_NAME
         
-        # get input text and intent
+        # Parse NLU output for semantic intent and confidence.
         user_text = tracker.latest_message.get('text', "")
         intent_data = tracker.latest_message.get('intent', {})
         last_intent = intent_data.get('name') if intent_data else "unknown"
         intent_confidence = intent_data.get('confidence', 0.0)
 
-        # sentiment analysis
+        # Sentiment contributes to persuasion strength via profile direction.
         sentiment = self.analyzer.polarity_scores(user_text)
         raw_tone = sentiment['compound']
 
-        # get personality profile for guard
+        # Unknown guards intentionally fall back to default profile.
         profile = self.PERSONALITY_PROFILES.get(guard_name.lower(), self.PERSONALITY_PROFILES["rosanna"])
         
-        # compute intent score and sentiment impact
+        # Intent score captures tactic fit; sentiment impact captures delivery tone.
         intent_score = profile["intent_weights"].get(last_intent, 0.0)
         sentiment_impact = raw_tone * profile["sentiment_direction"]
         
-        # compute final score and bound it
-        final_score = (intent_score * 0.7) + (sentiment_impact * 0.3)
-        final_score = max(-1.0, min(1.0, final_score))
+        # Weighted blend stays normalized to a fixed gameplay range.
+        final_score = (intent_score * INTENT_WEIGHT_FACTOR) + (sentiment_impact * SENTIMENT_WEIGHT_FACTOR)
+        final_score = max(SCORE_MIN, min(SCORE_MAX, final_score))
         
-        # compute if it's a success or failure
-        success = final_score > 0.0
+        # Single threshold defines pass/fail outcome for dialogue branch selection.
+        success = final_score > SUCCESS_THRESHOLD
         
-        # get response, rosanna with logic is default
-        guard_responses = self.RESPONSES.get(guard_name.lower(), self.RESPONSES["rosanna"])
-        intent_responses = guard_responses.get(last_intent, guard_responses.get("logic")) # Default to logic if intent unknown
-        response_text = intent_responses.get(success, "...")
+        # Fallback chain: guard -> fallback intent -> unknown response.
+        guard_responses = self.RESPONSES.get(guard_name.lower(), self.RESPONSES[DEFAULT_GUARD_NAME])
+        intent_responses = guard_responses.get(last_intent, guard_responses.get(FALLBACK_INTENT))
+        response_text = intent_responses.get(success, UNKNOWN_RESPONSE)
 
-        # confusion fallback
+        # NLU fallback always returns explicit confusion feedback.
         if last_intent == "nlu_fallback":
              response_text = f"({guard_name.capitalize()} looks confused.) I have no idea what you are saying."
-    
-        # log results
-        print("\n" + "="*50)
-        print(f"SKIRMISH ANALYSIS")
-        print("="*50)
+
+        self._log(
+            guard_name,
+            user_text,
+            last_intent,
+            intent_confidence,
+            raw_tone,
+            intent_score,
+            sentiment_impact,
+            final_score,
+            success,
+        )
+
+        # Output payload is consumed by Godot as a strict contract.
+        custom_data = {
+            "sympathy_score": round(final_score, 2),
+            "detected_intent": last_intent,
+            "guard_name": guard_name
+        }
+        self._validate_output_contract(response_text, custom_data)
+
+        dispatcher.utter_message(
+            text=response_text,
+            json_message=custom_data
+        )
+        return []
+
+    @staticmethod
+    def _log(guard_name: str, user_text: str, last_intent: str, intent_confidence: float,
+             raw_tone: float, intent_score: float, sentiment_impact: float,
+             final_score: float, success: bool) -> None:
+        print("\n" + "=" * 50)
+        print("SKIRMISH ANALYSIS")
+        print("=" * 50)
         print(f"Guard:       {guard_name}")
         print(f"Input:      '{user_text}'")
         print(f"Intent:      {last_intent} (Confidence: {intent_confidence:.2f})")
         print(f"Tone:        {raw_tone:.2f}")
-        print(f"Score Calc:  [Intent: {intent_score}] * 0.7 + [Tone: {sentiment_impact:.2f}] * 0.3")
+        print(
+            f"Score Calc:  [Intent: {intent_score}] * {INTENT_WEIGHT_FACTOR} "
+            f"+ [Tone: {sentiment_impact:.2f}] * {SENTIMENT_WEIGHT_FACTOR}"
+        )
         print(f"Final Score: {final_score:.2f}")
         print(f"Outcome:     {'SUCCESS' if success else 'FAILURE'}")
-        print("="*50 + "\n")
+        print("=" * 50 + "\n")
 
-        # send final result
-        dispatcher.utter_message(
-            text=response_text,
-            json_message={
-                "sympathy_score":   round(final_score, 2), 
-                "detected_intent":  last_intent,
-                "guard_name":       guard_name
-            }
-        )
-        return []
+    @staticmethod
+    def _validate_output_contract(response_text: Text, custom_data: Dict[Text, Any]) -> None:
+        # Contract mirrors Godot-side validators; raise immediately on drift.
+        if not isinstance(response_text, str) or response_text == "":
+            raise ValueError("Skirmish output contract violation: 'text' must be a non-empty string.")
+
+        if not isinstance(custom_data, dict):
+            raise ValueError("Skirmish output contract violation: 'custom' must be a dictionary.")
+
+        sympathy_score = custom_data.get("sympathy_score")
+        if not isinstance(sympathy_score, (int, float)):
+            raise ValueError("Skirmish output contract violation: 'sympathy_score' must be numeric.")
+
+        detected_intent = custom_data.get("detected_intent")
+        if not isinstance(detected_intent, str) or detected_intent == "":
+            raise ValueError("Skirmish output contract violation: 'detected_intent' must be a non-empty string.")
+
+        guard_name = custom_data.get("guard_name")
+        if not isinstance(guard_name, str) or guard_name == "":
+            raise ValueError("Skirmish output contract violation: 'guard_name' must be a non-empty string.")
