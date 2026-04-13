@@ -1,12 +1,4 @@
 ## VesnaManager: Body-side WebSocket bridge used by guard agents to communicate with the mind.
-## Role: utility
-## Responsibilities:
-## - Accept and maintain local WebSocket connection with Jason mind agent.
-## - Emit incoming command dictionaries to body scripts.
-## - Send typed perception/event/navigation payloads to the mind.
-## Dependencies:
-## - `TCPServer` and `WebSocketPeer`.
-## - `Messages` and `Warnings` logging utilities.
 extends Node
 class_name VesnaManager
 

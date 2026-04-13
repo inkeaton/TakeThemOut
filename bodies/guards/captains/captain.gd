@@ -1,9 +1,4 @@
 ## CaptainBody: Specializes patrol body behavior with captain-specific sighting reaction.
-## Role: npc-body
-## Responsibilities:
-## - Reuse patrol body movement/state logic.
-## - Override player reaction messaging and alert posture for captains.
-## Dependencies:
 ## - Inherits from `bodies/guards/patrols/patrol.gd`.
 extends "res://bodies/guards/patrols/patrol.gd"
 

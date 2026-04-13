@@ -1,12 +1,4 @@
 ## ChatInterface: Runs interrogation/date chat flow and bridges UI with Rasa responses.
-## Role: scene-controller
-## Responsibilities:
-## - Route player messages to guard/date Rasa endpoints and parse response payloads.
-## - Apply gameplay outcomes to `GameManager` (sympathy, alarm, date success/failure).
-## - Drive mode-specific UI behavior for guard, captain, and date interactions.
-## Dependencies:
-## - `GameManager` autoload for persistent run data.
-## - Local `HTTPRequest` node bound to Rasa REST webhook endpoints.
 extends Control
 
 # --- Configuration ---
@@ -325,7 +317,7 @@ func _update_date_meters(data: Dictionary) -> void:
 	tween.tween_property(ease_bar, "value", ease_val, 0.6)
 	tween.tween_property(suspicion_bar, "value", sus_val, 0.6)
 	
-	if delta_sus > 0:
+	if delta_sus > 10.0:
 		var flash = create_tween()
 		agent_sprite.modulate = Color(1, 0.3, 0.3) 
 		flash.tween_property(agent_sprite, "modulate", Color.WHITE, 0.3)
@@ -383,7 +375,6 @@ func _on_continue_pressed() -> void:
 	elif current_mode == "CAPTAIN":
 		# BRANCH B: Captain Dismissal — always raises alarm, reduces sympathy
 		GameManager.last_encounter_score = 0.0
-		GameManager.last_encounter_result = "alarm"
 		
 		# Apply negative sympathy to make the captain harder to corrupt
 		var jason_name: String = GameManager.GUARD_NAME_MAP.get(current_guard_name, "")
@@ -399,10 +390,7 @@ func _on_continue_pressed() -> void:
 		GameManager.last_encounter_score = last_score
 		
 		if last_score > 0:
-			GameManager.last_encounter_result = "pacified"
 			GameManager.pacified_guards.append(current_guard_name)
-		else:
-			GameManager.last_encounter_result = "alarm"
 		
 		# Accumulate sympathy delta for the encountered guard's Jason agent
 		var jason_name: String = GameManager.GUARD_NAME_MAP.get(current_guard_name, "")

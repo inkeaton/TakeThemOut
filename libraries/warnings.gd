@@ -1,11 +1,4 @@
 ## Warnings: Centralized warning logger for rich console output and debugger visibility.
-## Role: utility
-## Responsibilities:
-## - Emit formatted warning messages with origin metadata.
-## - Mirror warnings to Godot debugger through `push_warning`.
-## - Provide helper for abstract-method-not-overridden notifications.
-## Dependencies:
-## - Uses `print_rich` and `push_warning` from Godot runtime.
 class_name Warnings extends RefCounted
 
 # --- Warning Helpers ---

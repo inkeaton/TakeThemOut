@@ -1,14 +1,11 @@
 version: "3.1"
 
 intents:
-  - greet
-  - goodbye
   - inform
   - flattery   
   - bribe      
   - pity        
-  - logic       
-  - joke       
+  - logic          
   - aggression  
 
 entities:

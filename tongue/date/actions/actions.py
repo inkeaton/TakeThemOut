@@ -18,13 +18,15 @@ from .data_date import (
 # Date evaluator action.
 # Processing flow per turn:
 # 1) detect intent and sentiment,
-# 2) compute ease/suspicion deltas from phase + state modifiers,
+# 2) compute ease/suspicion deltas from phase (+ optional tone effect),
 # 3) resolve win/fail gating,
 # 4) emit strict payload consumed by Godot HUD/event logic.
 class ActionEvaluateDate(Action):
+    # Returns the action name used by Rasa in domain/rules.
     def name(self) -> Text:
         return "action_evaluate_date"
 
+    # Loads static config/constants and validates them once at startup.
     def __init__(self):
         self.analyzer = SentimentIntensityAnalyzer()
         self.PROFILE = DEFAULT_DATE_PROFILE
@@ -37,6 +39,7 @@ class ActionEvaluateDate(Action):
         self.FALLBACK_RESPONSE = FALLBACK_RESPONSE
         self._validate_config()
 
+    # Ensures required config sections and phase tables exist before runtime.
     def _validate_config(self) -> None:
         # Validate static data once at startup to avoid runtime config drift.
         if "intent_phase_effects" not in self.PROFILE:
@@ -47,16 +50,13 @@ class ActionEvaluateDate(Action):
             for phase in ["cold", "warm", "close"]:
                 if phase not in self.PROFILE["intent_phase_effects"][intent]:
                     raise RuntimeError(f"Date config error: intent '{intent}' missing phase '{phase}'.")
-        if "state_modifiers" not in self.PROFILE:
-            raise RuntimeError("Date config error: missing 'state_modifiers'.")
-        if "high_suspicion_threshold" not in self.PROFILE["state_modifiers"]:
-            raise RuntimeError("Date config error: missing high_suspicion_threshold.")
         if "tone" not in self.PROFILE or "trust_scale" not in self.PROFILE["tone"]:
             raise RuntimeError("Date config error: missing tone config.")
         for phase in ["cold", "warm", "close"]:
             if phase not in self.TRUST_PHASES:
                 raise RuntimeError(f"Date config error: missing trust phase '{phase}'.")
 
+    # Runs one Date turn: score update, outcome resolution, payload emission.
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
@@ -72,13 +72,16 @@ class ActionEvaluateDate(Action):
         tone_score = sentiment["compound"]
 
         # Persistent state carried in slots across turns.
-        trust = tracker.get_slot("ease_score") or 20.0
-        suspicion = tracker.get_slot("suspicion_score") or 0.0
+        trust_slot = tracker.get_slot("ease_score")
+        suspicion_slot = tracker.get_slot("suspicion_score")
+        # this avoids the 0.0 = None bug
+        trust = 20.0 if trust_slot is None else float(trust_slot)
+        suspicion = 0.0 if suspicion_slot is None else float(suspicion_slot)
         start_trust = trust
         start_sus = suspicion
 
-        d_trust, d_sus, modifier_msg, rule_name = self._compute_deltas(
-            last_intent, trust, suspicion, tone_score
+        d_trust, d_sus, phase_name = self._compute_deltas(
+            last_intent, trust, tone_score
         )
 
         # Clamp scores to gameplay-safe bounds before resolving outcomes.
@@ -90,7 +93,7 @@ class ActionEvaluateDate(Action):
             trust,
             suspicion,
             d_trust,
-            modifier_msg,
+            phase_name,
         )
 
         if game_event == "date_success":
@@ -109,12 +112,11 @@ class ActionEvaluateDate(Action):
             start_sus,
             suspicion,
             d_sus,
-            modifier_msg,
-            rule_name,
+            phase_name,
             game_event,
         )
 
-        # Strict contract for Godot: HUD meters + optional game event metadata.
+        # Godot Payload
         custom_data = {
             "ease_score": trust,
             "suspicion_score": suspicion,
@@ -131,6 +133,7 @@ class ActionEvaluateDate(Action):
         dispatcher.utter_message(text=response_text, json_message=custom_data)
         return [SlotSet("ease_score", trust), SlotSet("suspicion_score", suspicion)]
 
+    # Maps current trust/ease to the active relationship phase.
     def _phase_for_trust(self, trust: float) -> str:
         # Relationship phase is derived from current ease/trust.
         if trust < self.TRUST_PHASES["cold"]["max"]:
@@ -139,7 +142,8 @@ class ActionEvaluateDate(Action):
             return "warm"
         return "close"
 
-    def _compute_deltas(self, intent: str, trust: float, sus: float, tone: float):
+    # Computes trust/suspicion deltas from phase profile plus tone effect.
+    def _compute_deltas(self, intent: str, trust: float, tone: float):
         # Base effect: intent table indexed by current phase.
         phase_name = self._phase_for_trust(trust)
         phase_effect = self.PROFILE["intent_phase_effects"].get(intent, {}).get(
@@ -155,30 +159,9 @@ class ActionEvaluateDate(Action):
         if intent in tone_cfg.get("enabled_intents", []):
             d_trust += tone * float(tone_cfg["trust_scale"])
 
-        # State modifiers adapt risk/reward to current suspicion/ease pressure.
-        state_cfg = self.PROFILE["state_modifiers"]
-        intent_state_cfg = state_cfg.get("by_intent", {}).get(intent, {})
+        return d_trust, d_sus, phase_name
 
-        if sus >= float(state_cfg["high_suspicion_threshold"]):
-            hs_mod = intent_state_cfg.get("high_suspicion")
-            if hs_mod:
-                d_trust += float(hs_mod.get("trust", 0.0))
-                d_sus += float(hs_mod.get("suspicion", 0.0))
-
-        if trust >= float(state_cfg["high_ease_threshold"]):
-            he_mod = intent_state_cfg.get("high_ease")
-            if he_mod:
-                d_trust += float(he_mod.get("trust", 0.0))
-                d_sus += float(he_mod.get("suspicion", 0.0))
-
-        if trust < float(state_cfg["low_ease_threshold"]):
-            le_mod = intent_state_cfg.get("low_ease")
-            if le_mod:
-                d_trust += float(le_mod.get("trust", 0.0))
-                d_sus += float(le_mod.get("suspicion", 0.0))
-
-        return d_trust, d_sus, phase_name, "profile"
-
+    # Resolves response text and optional end-state event for this turn.
     def _resolve_outcome(self, intent: str, trust: float, sus: float,
                          d_trust: float, phase_name: str):
         # Objective ask can directly trigger mission success if trust/suspicion gate passes.
@@ -192,13 +175,10 @@ class ActionEvaluateDate(Action):
 
         intent_responses = self.RESPONSES.get(intent, {})
 
-        # Response tone bucket mirrors current social pressure and turn quality.
-        high_suspicion_threshold = float(self.PROFILE["state_modifiers"]["high_suspicion_threshold"])
-        if sus >= high_suspicion_threshold:
-            tone_key = "high_suspicion"
-        elif d_trust >= 4.0:
+        # Response tone bucket follows turn quality only.
+        if d_trust >= 10.0:
             tone_key = "good"
-        elif d_trust <= -4.0:
+        elif d_trust <= -10.0:
             tone_key = "bad"
         else:
             tone_key = "neutral"
@@ -212,29 +192,31 @@ class ActionEvaluateDate(Action):
 
         return text, None
 
+    # Clamps a numeric value to an inclusive range.
     @staticmethod
     def _clamp(value: float, lo: float, hi: float) -> float:
         return max(lo, min(hi, value))
 
+    # Prints a compact debug trace for one Date turn.
     @staticmethod
     def _log(user_text, intent, confidence, tone,
              start_trust, trust, d_trust, start_sus, sus, d_sus,
-             modifier, rule_name, game_event):
+             phase_name, game_event):
         print("\n" + "=" * 50)
         print("  DATING ANALYSIS")
         print("=" * 50)
         print(f"Input:     '{user_text}'")
         print(f"Intent:     {intent} (Confidence: {confidence:.2f})")
         print(f"Tone:       {tone:.2f}")
-        print(f"Rule:       {rule_name}")
         print(f"Trust:      {start_trust:.1f} -> {trust:.1f} (Delta: {d_trust:+.1f})")
         print(f"Suspicion:  {start_sus:.1f} -> {sus:.1f} (Delta: {d_sus:+.1f})")
-        if modifier:
-            print(f"Modifier:   {modifier}")
+        if phase_name:
+            print(f"Phase:      {phase_name}")
         if game_event:
             print(f"Outcome:    EVENT -> {game_event}")
         print("=" * 50 + "\n")
 
+    # Validates action output contract before sending payload to Godot.
     @staticmethod
     def _validate_output_contract(response_text: Text, custom_data: Dict[Text, Any]) -> None:
         # Keep producer-side checks aligned with Godot consumer-side validators.

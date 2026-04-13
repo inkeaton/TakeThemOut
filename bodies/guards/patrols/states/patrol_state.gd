@@ -1,11 +1,4 @@
 ## PatrolState: Handles waypoint, coordinate, and agent-target navigation for patrol bodies.
-## Role: state
-## Responsibilities:
-## - Translate mind targets into concrete navigation behavior.
-## - Track dynamic agent targets and report navigation outcomes to the mind.
-## - Support messenger captain-discovery and fallback signaling.
-## Dependencies:
-## - Injected `body`, `nav_agent`, and `vesna` from `StateMachine`.
 extends State
 
 # --- Configuration ---
@@ -71,7 +64,7 @@ func _cache_waypoints() -> void:
 			Messages.print_message("Cached %d waypoints from %d zone(s)" % [sorted_waypoints.size(), waypoint_parents.size()], "Patrol")
 			return
 	
-	# Option 2: Fallback to global "waypoints" group (backward compatibility)
+	# Option 2: Fallback to global "waypoints" group
 	var raw_nodes = get_tree().get_nodes_in_group("waypoints")
 	for node in raw_nodes:
 		if node is Node2D:
@@ -167,7 +160,7 @@ func _navigate_to_nearest_captain() -> void:
 		push_warning("patrol_state: No captain found nearby")
 		# Reset messenger flag and notify mind
 		body.is_messenger = false
-		vesna.send_navigation_update("no_captain_found", "")
+		vesna.send_navigation_update("no_captain_found", "none")
 		state_machine.change_state_by_name("Idle")
 		return
 	
@@ -215,7 +208,7 @@ func update_physics(_delta: float) -> void:
 			_target_agent_ref = null
 			body.is_moving = false
 			body.is_messenger = false
-			vesna.send_navigation_update("agent_lost", "")
+			vesna.send_navigation_update("agent_lost", "none")
 			state_machine.change_state_by_name("Idle")
 			return
 	

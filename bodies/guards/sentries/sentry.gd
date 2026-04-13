@@ -1,11 +1,4 @@
 ## SentryBody: Executes sentry sensing logic and mind-commanded state transitions.
-## Role: npc-body
-## Responsibilities:
-## - Run line-of-sight detection and scanning state updates.
-## - Dispatch sighting payloads to the mind bridge.
-## - Apply `transition_to` and `set_var` commands from mind.
-## Dependencies:
-## - `StateMachine`, `VesnaManager`, and sentry sensor nodes.
 extends CharacterBody2D
 
 # --- Configuration ---
@@ -53,7 +46,6 @@ func rotate_viewpoint() -> void:
 	current_look_index = (current_look_index + 1) % look_angles.size()
 	var new_angle = look_angles[current_look_index]
 	vision_cone.rotation_degrees = new_angle
-	# Optional: Rotate sprite or play animation here based on angle
 	
 func check_line_of_sight() -> void:
 	var current_time = Time.get_ticks_msec()

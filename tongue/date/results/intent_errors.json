@@ -1,162 +1,26 @@
 [
   {
-    "text": "I enjoy talking to you",
+    "text": "I'm impressed by you",
     "intent": "compliment",
     "intent_prediction": {
-      "name": "talking_about_myself",
-      "confidence": 0.993539035320282
+      "name": "toxicity",
+      "confidence": 0.9989765882492065
     }
   },
   {
-    "text": "Tell me a secret",
+    "text": "I like being here with you",
+    "intent": "compliment",
+    "intent_prediction": {
+      "name": "ask_objective",
+      "confidence": 0.9549205899238586
+    }
+  },
+  {
+    "text": "Tell me about yourself",
     "intent": "curiosity",
     "intent_prediction": {
-      "name": "talking_about_myself",
-      "confidence": 0.9813215136528015
-    }
-  },
-  {
-    "text": "I'm nervous about this",
-    "intent": "talking_about_myself",
-    "intent_prediction": {
-      "name": "toxicity",
-      "confidence": 0.9999040365219116
-    }
-  },
-  {
-    "text": "I'm really excited to be here",
-    "intent": "talking_about_myself",
-    "intent_prediction": {
-      "name": "compliment",
-      "confidence": 0.9999958276748657
-    }
-  },
-  {
-    "text": "You're not very smart",
-    "intent": "toxicity",
-    "intent_prediction": {
-      "name": "compliment",
-      "confidence": 0.999998927116394
-    }
-  },
-  {
-    "text": "You're basic",
-    "intent": "toxicity",
-    "intent_prediction": {
-      "name": "compliment",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I'm bored",
-    "intent": "toxicity",
-    "intent_prediction": {
-      "name": "talking_about_myself",
-      "confidence": 0.9999932050704956
-    }
-  },
-  {
-    "text": "You're putting me to sleep",
-    "intent": "toxicity",
-    "intent_prediction": {
-      "name": "compliment",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Can we talk about something else?",
-    "intent": "toxicity",
-    "intent_prediction": {
-      "name": "curiosity",
-      "confidence": 0.9991449117660522
-    }
-  },
-  {
-    "text": "Who are you working with?",
-    "intent": "ask_objective",
-    "intent_prediction": {
-      "name": "curiosity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You're easy to talk to",
-    "intent": "compliment",
-    "intent_prediction": {
-      "name": "toxicity",
-      "confidence": 0.5784667730331421
-    }
-  },
-  {
-    "text": "You have a good sense of humor",
-    "intent": "compliment",
-    "intent_prediction": {
-      "name": "curiosity",
-      "confidence": 0.9999914169311523
-    }
-  },
-  {
-    "text": "I enjoy cooking",
-    "intent": "talking_about_myself",
-    "intent_prediction": {
-      "name": "compliment",
-      "confidence": 0.9999902248382568
-    }
-  },
-  {
-    "text": "I don't have any pets",
-    "intent": "talking_about_myself",
-    "intent_prediction": {
-      "name": "toxicity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You're unattractive",
-    "intent": "toxicity",
-    "intent_prediction": {
-      "name": "compliment",
-      "confidence": 0.9999996423721313
-    }
-  },
-  {
-    "text": "Be quiet",
-    "intent": "toxicity",
-    "intent_prediction": {
-      "name": "compliment",
-      "confidence": 0.9976270794868469
-    }
-  },
-  {
-    "text": "You're so full of yourself",
-    "intent": "toxicity",
-    "intent_prediction": {
-      "name": "compliment",
-      "confidence": 0.9999580383300781
-    }
-  },
-  {
-    "text": "I've heard better",
-    "intent": "toxicity",
-    "intent_prediction": {
-      "name": "talking_about_myself",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "How much longer do I have to be here?",
-    "intent": "toxicity",
-    "intent_prediction": {
-      "name": "curiosity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You're attractive",
-    "intent": "compliment",
-    "intent_prediction": {
-      "name": "toxicity",
-      "confidence": 0.9998922348022461
+      "name": "ask_objective",
+      "confidence": 0.5281943082809448
     }
   },
   {
@@ -168,59 +32,11 @@
     }
   },
   {
-    "text": "You look hideous",
+    "text": "I'd rather be anywhere else",
     "intent": "toxicity",
     "intent_prediction": {
-      "name": "compliment",
-      "confidence": 0.9856629967689514
-    }
-  },
-  {
-    "text": "You think you're so smart",
-    "intent": "toxicity",
-    "intent_prediction": {
-      "name": "compliment",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You're average at best",
-    "intent": "toxicity",
-    "intent_prediction": {
-      "name": "compliment",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Beach or mountains?",
-    "intent": "curiosity",
-    "intent_prediction": {
-      "name": "talking_about_myself",
-      "confidence": 0.9957883954048157
-    }
-  },
-  {
-    "text": "I can't stand spicy food",
-    "intent": "talking_about_myself",
-    "intent_prediction": {
-      "name": "toxicity",
-      "confidence": 0.9999985694885254
-    }
-  },
-  {
-    "text": "I'm having a great time",
-    "intent": "talking_about_myself",
-    "intent_prediction": {
-      "name": "compliment",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Get out of here",
-    "intent": "toxicity",
-    "intent_prediction": {
-      "name": "compliment",
-      "confidence": 0.9965362548828125
+      "name": "curiosity",
+      "confidence": 0.9282997846603394
     }
   },
   {
@@ -228,12 +44,116 @@
     "intent": "ask_objective",
     "intent_prediction": {
       "name": "curiosity",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "That's a cool shirt",
+    "intent": "compliment",
+    "intent_prediction": {
+      "name": "toxicity",
+      "confidence": 0.7727827429771423
+    }
+  },
+  {
+    "text": "I'm having a great time with you",
+    "intent": "compliment",
+    "intent_prediction": {
+      "name": "talking_about_myself",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "I'm a morning person",
+    "intent": "talking_about_myself",
+    "intent_prediction": {
+      "name": "curiosity",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "I'm really excited to be here",
+    "intent": "talking_about_myself",
+    "intent_prediction": {
+      "name": "compliment",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "You're unattractive",
+    "intent": "toxicity",
+    "intent_prediction": {
+      "name": "compliment",
       "confidence": 0.9999997615814209
     }
   },
   {
-    "text": "You put me at ease",
+    "text": "Be quiet",
+    "intent": "toxicity",
+    "intent_prediction": {
+      "name": "compliment",
+      "confidence": 0.9999972581863403
+    }
+  },
+  {
+    "text": "You're so full of yourself",
+    "intent": "toxicity",
+    "intent_prediction": {
+      "name": "curiosity",
+      "confidence": 0.961571455001831
+    }
+  },
+  {
+    "text": "How much longer do I have to be here?",
+    "intent": "toxicity",
+    "intent_prediction": {
+      "name": "curiosity",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "You're hilarious",
     "intent": "compliment",
+    "intent_prediction": {
+      "name": "toxicity",
+      "confidence": 0.5977011919021606
+    }
+  },
+  {
+    "text": "You're interesting",
+    "intent": "compliment",
+    "intent_prediction": {
+      "name": "toxicity",
+      "confidence": 0.9953427314758301
+    }
+  },
+  {
+    "text": "You're easy to talk to",
+    "intent": "compliment",
+    "intent_prediction": {
+      "name": "toxicity",
+      "confidence": 0.9999985694885254
+    }
+  },
+  {
+    "text": "You're so smart",
+    "intent": "compliment",
+    "intent_prediction": {
+      "name": "toxicity",
+      "confidence": 0.9999998807907104
+    }
+  },
+  {
+    "text": "Tell me something interesting about you",
+    "intent": "curiosity",
+    "intent_prediction": {
+      "name": "toxicity",
+      "confidence": 0.9502696394920349
+    }
+  },
+  {
+    "text": "I don't have any pets",
+    "intent": "talking_about_myself",
     "intent_prediction": {
       "name": "toxicity",
       "confidence": 1.0
@@ -244,14 +164,118 @@
     "intent": "talking_about_myself",
     "intent_prediction": {
       "name": "toxicity",
-      "confidence": 0.7711900472640991
+      "confidence": 0.9947090148925781
     }
   },
   {
-    "text": "I'd rather be anywhere else",
+    "text": "I value honesty above everything else",
+    "intent": "talking_about_myself",
+    "intent_prediction": {
+      "name": "toxicity",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "You look repulsive",
+    "intent": "toxicity",
+    "intent_prediction": {
+      "name": "compliment",
+      "confidence": 0.9999321699142456
+    }
+  },
+  {
+    "text": "You look monstrous",
+    "intent": "toxicity",
+    "intent_prediction": {
+      "name": "compliment",
+      "confidence": 0.9999998807907104
+    }
+  },
+  {
+    "text": "I'm bored",
     "intent": "toxicity",
     "intent_prediction": {
       "name": "talking_about_myself",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "Who are you working with?",
+    "intent": "ask_objective",
+    "intent_prediction": {
+      "name": "curiosity",
+      "confidence": 0.9998544454574585
+    }
+  },
+  {
+    "text": "I'm obsessed with true crime",
+    "intent": "talking_about_myself",
+    "intent_prediction": {
+      "name": "ask_objective",
+      "confidence": 0.9920976161956787
+    }
+  },
+  {
+    "text": "I can't stand spicy food",
+    "intent": "talking_about_myself",
+    "intent_prediction": {
+      "name": "toxicity",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "That's not impressive",
+    "intent": "toxicity",
+    "intent_prediction": {
+      "name": "compliment",
+      "confidence": 0.9708994626998901
+    }
+  },
+  {
+    "text": "You're basic",
+    "intent": "toxicity",
+    "intent_prediction": {
+      "name": "compliment",
+      "confidence": 0.9967837333679199
+    }
+  },
+  {
+    "text": "When can I go?",
+    "intent": "toxicity",
+    "intent_prediction": {
+      "name": "curiosity",
+      "confidence": 0.999998927116394
+    }
+  },
+  {
+    "text": "You're attractive",
+    "intent": "compliment",
+    "intent_prediction": {
+      "name": "toxicity",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "This is uncomfortable",
+    "intent": "toxicity",
+    "intent_prediction": {
+      "name": "compliment",
+      "confidence": 0.9993554949760437
+    }
+  },
+  {
+    "text": "I've heard better",
+    "intent": "toxicity",
+    "intent_prediction": {
+      "name": "talking_about_myself",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "You're average at best",
+    "intent": "toxicity",
+    "intent_prediction": {
+      "name": "compliment",
       "confidence": 1.0
     }
   }

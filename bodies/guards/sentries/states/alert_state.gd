@@ -1,11 +1,4 @@
 ## SentryAlertState: Executes short alert phase, scans allies, and reports completion.
-## Role: state
-## Responsibilities:
-## - Suspend normal vision and perform ally proximity scan.
-## - Send ally list to mind to propagate alert network behavior.
-## - Emit alert completion signal and return to idle.
-## Dependencies:
-## - Uses `alert_scanner` and `vesna.send_allies_found` / `vesna.send_signal`.
 extends State
 
 # --- Behavior ---
@@ -24,13 +17,12 @@ var alert_scanner: ShapeCast2D
 # --- Lifecycle ---
 func enter(_msg: Dictionary = {}) -> void:
 	body.update_debug_label("ALERT!")
-	# FIX: Assign reference here, the first time we enter the state
 	if not alert_scanner:
 		alert_scanner = body.alert_scanner
 
 	Messages.print_message("Alert sequence triggered!", "Sentry")
 	
-	# 1. Disable normal vision (focusing on comms)
+	# 1. Disable normal vision
 	body.vision_cone.visible = false
 	body.vision_cone.monitoring = false
 	

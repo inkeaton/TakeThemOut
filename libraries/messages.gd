@@ -1,10 +1,4 @@
 ## Messages: Centralized rich-text logging helpers for gameplay and debug output.
-## Role: utility
-## Responsibilities:
-## - Emit consistent formatted runtime messages across systems.
-## - Provide variable and JSON pretty-print helpers for diagnostics.
-## Dependencies:
-## - Uses `print_rich` and `JSON.stringify` available in Godot runtime.
 class_name Messages extends RefCounted
 
 # --- Formatted Message Helpers ---

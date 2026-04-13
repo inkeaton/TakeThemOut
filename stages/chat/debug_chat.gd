@@ -1,11 +1,4 @@
 ## DebugChatController: Provides quick guard/date switching for local chat debugging.
-## Role: scene-controller
-## Responsibilities:
-## - Force chat interface into debug mode.
-## - Bind debug buttons to target-speaker switching.
-## - Keep focus on chat input after each debug switch.
-## Dependencies:
-## - Child `ChatInterface` node exposing `configure_bot` and `debug_mode`.
 extends Node2D
 
 # --- Nodes ---

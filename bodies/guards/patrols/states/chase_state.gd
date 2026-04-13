@@ -1,11 +1,4 @@
 ## ChaseState: Executes active pursuit behavior while target remains visible.
-## Role: state
-## Responsibilities:
-## - Maintain high-frequency path refresh toward current player position.
-## - Keep chase lock enabled on the patrol body.
-## - Trigger transition to `Track` when visual contact is lost.
-## Dependencies:
-## - Uses `body.target_player`, `nav_agent`, and `state_machine`.
 extends State
 
 # --- Configuration ---

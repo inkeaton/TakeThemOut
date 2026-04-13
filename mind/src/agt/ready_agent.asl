@@ -1,9 +1,4 @@
-// =============================================================================
-// FILE: ready_agent.asl
-// DESCRIPTION: Director agent that signals Godot when the mind is ready, and 
-//              distributes initial sympathy/temper setups to the other agents.
-// DEPENDENCIES: Godot connection (vesna.signal_ready).
-// =============================================================================
+// ready_agent.asl
 
 !start.
 

@@ -1,11 +1,4 @@
 ## LoadingScreen: Boots external AI services and gates entry to the maze until ready.
-## Role: scene-controller
-## Responsibilities:
-## - Start guard/date Rasa core and action servers through `ServerManager`.
-## - Poll service health endpoints and display readiness status.
-## - Transition to maze scene only when both bots are reachable.
-## Dependencies:
-## - `ServerManager` autoload for process lifecycle and health checks.
 extends Control
 
 # --- State ---
@@ -45,7 +38,7 @@ func _check_status_loop() -> void:
 		http_date.request_completed.connect(_on_date_ping)
 		http_date.request("http://localhost:5006")
 	
-	# If both already ready (unlikely on first call), proceed immediately
+	# If both already ready proceed immediately
 	if guard_ready and date_ready:
 		_proceed_to_maze()
 

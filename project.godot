@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="TakeThemOut"
-run/main_scene="uid://j3t0toej2ldq"
+run/main_scene="uid://jn1hkm5p1u06"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -23,6 +23,10 @@ config/icon="res://icon.svg"
 
 GameManager="*uid://btgq06725ed2u"
 ServerManager="*uid://dvklw1o5kyo1n"
+
+[debug]
+
+file_logging/log_path="res://logs/godot.log"
 
 [display]
 

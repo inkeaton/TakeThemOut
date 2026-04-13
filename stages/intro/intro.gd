@@ -1,11 +1,4 @@
 ## IntroController: Handles intro menu interactions and transitions into game startup flow.
-## Role: scene-controller
-## Responsibilities:
-## - Connect intro UI buttons to start/quit actions.
-## - Transition to loading scene for service initialization.
-## - Ensure mouse visibility when entering from gameplay scenes.
-## Dependencies:
-## - `ServerManager` autoload for global shutdown on quit.
 extends Control
 
 # --- Configuration ---

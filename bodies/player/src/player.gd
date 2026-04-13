@@ -1,12 +1,4 @@
 ## Player: Handles user-driven movement, animation direction, and breadcrumb trail spawning.
-## Role: npc-body
-## Responsibilities:
-## - Compute movement vectors from input and apply friction/resistance.
-## - Update directional animation state from input sector.
-## - Drop timed breadcrumb nodes used by guard tracking behavior.
-## Dependencies:
-## - `crumb_scene` packed scene and a runtime `Crumbs` container node.
-## - Animation nodes under `$AnimationTree/AnimationPlayer`.
 class_name Player
 extends CharacterBody2D
 
@@ -127,7 +119,7 @@ func compute_animations(dpad_direction: Vector2 = Vector2.ZERO) -> void:
 			3, 4, 5: # Left / West (Mirrored)
 				_anim_string = "walk"
 				$Sprite.flip_h = true
-			6, 7: # Up (if you had specific side-up animations)
+			6, 7: # Up
 				_anim_string = "walk_up"
 				$Sprite.flip_h = false
 

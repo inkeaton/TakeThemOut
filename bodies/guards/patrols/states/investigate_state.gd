@@ -1,11 +1,4 @@
 ## InvestigateState: Performs local area sweep after chase/alert loss events.
-## Role: state
-## Responsibilities:
-## - Generate navigable investigation points around current position.
-## - Move through points sequentially and report completion to the mind.
-## - Return control to idle state after sweep completion.
-## Dependencies:
-## - Uses `NavigationServer2D` map queries and `vesna.send_event` reporting.
 extends State
 
 # --- Configuration ---

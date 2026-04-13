@@ -1,11 +1,4 @@
 ## TrackState: Follows player scent crumbs after losing direct visual contact.
-## Role: state
-## Responsibilities:
-## - Evaluate crumb trail continuity with patience-limited tracking.
-## - Report target loss reasons back to the mind when tracking fails.
-## - Keep ally scan active during tracking for squad coordination.
-## Dependencies:
-## - Requires `%ScentCast` node and `vesna.send_target_lost` bridge API.
 extends State
 
 # --- Configuration ---

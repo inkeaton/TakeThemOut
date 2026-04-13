@@ -1,16 +1,8 @@
 ## ServerManager: Orchestrates Rasa and Jason service lifecycle for the game runtime.
-## Role: autoload
-## Responsibilities:
-## - Start, monitor, and stop Rasa core/action servers and the Jason mind process.
-## - Manage readiness handshake with the director agent over WebSocket `:9200`.
-## - Relay setup payloads from Godot to the director during maze initialization.
-## Dependencies:
-## - `ProjectSettings.globalize_path` for runtime paths.
-## - `HTTPRequest`, `TCPServer`, and `WebSocketPeer` for service health and signaling.
 extends Node
 
 # --- Configuration ---
-# We use globalize_path to get the absolute OS path (e.g. C:/Users/.../tongue/skirmish)
+# We use globalize_path to get the absolute OS path (e.g. /home/.../tongue/skirmish)
 
 var SKIRMISH_BOT_PATH: String = ProjectSettings.globalize_path("res://tongue/skirmish")
 var DATE_BOT_PATH: String  = ProjectSettings.globalize_path("res://tongue/date")
@@ -21,7 +13,7 @@ var VENV_PATH_WIN: String = ProjectSettings.globalize_path("res://tongue/venv/Sc
 var VENV_PATH_UNIX: String = ProjectSettings.globalize_path("res://tongue/venv/bin/python")
 
 # Log directory for server output (user://logs/ → ~/.local/share/godot/.../logs/)
-var LOG_DIR: String = ProjectSettings.globalize_path("user://logs")
+var LOG_DIR: String = ProjectSettings.globalize_path("res://logs/")
 
 # --- Signals ---
 signal jason_service_ready() # Emitted when Java connects to 9200

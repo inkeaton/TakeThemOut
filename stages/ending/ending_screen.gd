@@ -1,11 +1,4 @@
 ## EndingScreen: Presents final mission outcome and terminates runtime services on quit.
-## Role: scene-controller
-## Responsibilities:
-## - Display win/loss messaging based on persisted game outcome.
-## - Show recovered secret data on successful run.
-## - Stop all external services when quitting the application.
-## Dependencies:
-## - `GameManager` and `ServerManager` autoloads.
 extends Control
 
 # --- Nodes ---

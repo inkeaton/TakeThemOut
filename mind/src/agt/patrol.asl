@@ -1,4 +1,4 @@
-// patrol.asl - Patrol agent with Full Temper System
+// patrol.asl
 
 !start_patrol.
 
@@ -22,17 +22,22 @@ messenger_report_pos(none).
 messenger_sent(no).
 messenger_failed(no).
 
-/* STATE UPDATE: Keeps a single authoritative chase-state value. */
+/* Keeps a single authoritative chase-state value. */
 +is_chasing(S) : is_chasing(Old) & Old \== S <- -is_chasing(Old).
-/* STATE UPDATE: Keeps one alert-response state at a time. */
+
+/* Keeps one alert-response state at a time. */
 +responding_to_alert(S) : responding_to_alert(Old) & Old \== S <- -responding_to_alert(Old).
-/* STATE UPDATE: Keeps one messenger-state value at a time. */
+
+/* Keeps one messenger-state value at a time. */
 +is_messenger(S) : is_messenger(Old) & Old \== S <- -is_messenger(Old).
-/* STATE UPDATE: Keeps one messenger-failure lock value at a time. */
+
+/* Keeps one messenger-failure lock value at a time. */
 +messenger_failed(S) : messenger_failed(Old) & Old \== S <- -messenger_failed(Old).
-/* STATE UPDATE: Stores only the latest observed player position. */
+
+/* Stores only the latest observed player position. */
 +last_player_pos(X, Y) : last_player_pos(OldX, OldY) & (OldX \== X | OldY \== Y) <- -last_player_pos(OldX, OldY).
-/* STATE UPDATE: Stores only the latest consecutive-failure counter. */
+
+/* Stores only the latest consecutive-failure counter. */
 +consecutive_failures(N) : consecutive_failures(Old) & Old \== N <- -consecutive_failures(Old).
 
 // =============================================================================
@@ -126,9 +131,24 @@ messenger_failed(no).
 // DIRECT DETECTION & CHASE
 // =============================================================================
 
+/* CHASE MESSENGER INTERRUPT: Cancels messenger duty cleanly before engaging target. */
+@chase_messenger_interrupt[effects([fear(0.05)])]
++sight(player, Id, pos(X, Y)) : is_chasing(no) & is_messenger(yes)
+    <-  .print("CONTACT during messenger duty. Aborting report and engaging target.");
+        -is_messenger(yes); +is_messenger(no);
+        -messenger_report_pos(_); +messenger_report_pos(none);
+        vesna.set_var(is_messenger, false);
+        -messenger_sent(_); +messenger_sent(no);
+        -messenger_failed(_); +messenger_failed(no);
+        -responding_to_alert(_); +responding_to_alert(no);
+        -is_chasing(no); +is_chasing(yes);
+        .drop_intention(patrol);
+        +last_player_pos(X, Y);
+        !start_chase.
+
 /* CHASE TRIGGER: Enters chase mode on first player contact. */
 @chase_trigger[effects([fear(0.05)])]
-+sight(player, Id, pos(X, Y)) : is_chasing(no)
++sight(player, Id, pos(X, Y)) : is_chasing(no) & is_messenger(no)
     <-  .print("CONTACT!");
         -is_chasing(no); +is_chasing(yes);
         -responding_to_alert(_); +responding_to_alert(no);

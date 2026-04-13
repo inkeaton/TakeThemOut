@@ -1,4 +1,4 @@
-// captain.asl - Captain Agent with Full Temper System
+// captain.asl
 
 !start_patrol.
 
@@ -17,15 +17,19 @@ consecutive_failures(0).
 is_chasing(no).
 responding_to_alert(no).
 
-/* STATE UPDATE: Keeps a single authoritative chase-state value. */
+/* Keeps a single authoritative chase-state value. */
 +is_chasing(S) : is_chasing(Old) & Old \== S <- -is_chasing(Old).
-/* STATE UPDATE: Keeps one alert-response state at a time. */
+
+/* Keeps one alert-response state at a time. */
 +responding_to_alert(S) : responding_to_alert(Old) & Old \== S <- -responding_to_alert(Old).
-/* STATE UPDATE: Stores only the latest known player position. */
+
+/* Stores only the latest known player position. */
 +last_player_pos(X, Y) : last_player_pos(OldX, OldY) & (OldX \== X | OldY \== Y) <- -last_player_pos(OldX, OldY).
-/* STATE UPDATE: Stores only the latest known alert position. */
+
+/* Stores only the latest known alert position. */
 +last_alert_pos(X, Y) : last_alert_pos(OldX, OldY) & (OldX \== X | OldY \== Y) <- -last_alert_pos(OldX, OldY).
-/* STATE UPDATE: Stores only the latest consecutive-failure counter. */
+
+/* Stores only the latest consecutive-failure counter. */
 +consecutive_failures(N) : consecutive_failures(Old) & Old \== N <- -consecutive_failures(Old).
 
 // =============================================================================

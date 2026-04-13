@@ -1,12 +1,4 @@
 ## PatrolBody: Executes patrol guard movement, sensing, and mind-commanded state transitions.
-## Role: npc-body
-## Responsibilities:
-## - Run patrol/chase/tracking physics and perception loops.
-## - Receive `transition_to` and `set_var` commands from the mind bridge.
-## - Discover ally patrols and nearest captain for messenger coordination.
-## Dependencies:
-## - `StateMachine`, `NavigationAgent2D`, and child sensors (`VisionCone`, `ScentCast`, `AllyScanner`).
-## - `VesnaManager` for JSON message exchange with Jason mind agents.
 extends CharacterBody2D
 
 # --- Configuration ---

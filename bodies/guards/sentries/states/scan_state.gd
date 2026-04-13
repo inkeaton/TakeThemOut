@@ -1,11 +1,4 @@
 ## SentryScanState: Runs active visual scanning with periodic viewpoint rotation.
-## Role: state
-## Responsibilities:
-## - Enable sentry vision cone and scanning posture.
-## - Rotate viewpoint on a configurable interval.
-## - Maintain scan cadence until mind transitions state.
-## Dependencies:
-## - Uses `body.rotate_viewpoint()` and vision cone nodes.
 extends State
 
 # --- Behavior ---

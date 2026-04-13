@@ -323,23 +323,46 @@ public class VesnaAgent extends Agent{
 
 	/**
      * Handles navigation updates.
-     * Expected JSON data: { "status": "reached", "waypoint": "m1_a" }
-     * Creates belief: navigation(reached, m1_a)
+	 * Expected JSON data: { "status": "reached", "waypoint": "m1_a" }
+	 * Creates belief: navigation(Status, Waypoint)
      */
 	
 	private void handleNavigation( JSONObject data ) {
-        String status = data.getString( "status" );
-        String waypoint = data.getString( "waypoint" );
+		// `status` is required for routing ASL plans; reject malformed messages early.
+		String status = data.optString( "status", "" ).trim();
+		// `waypoint` is optional in some fallback events; normalize through a safe default.
+		String waypointRaw = data.optString( "waypoint", "none" ).trim();
 
-        // Create the literal: navigation( status, waypoint )
-        // We use createAtom because 'reached' and 'm1_a' are valid Prolog atoms.
-        Literal navBelief = createLiteral( "navigation", 
-                                           createAtom( status ), 
-                                           createAtom( waypoint ) );
+		if ( status.isEmpty() ) {
+			logger.warning( "navigation message missing status: " + data );
+			return;
+		}
+
+		// Guard against empty-string waypoint values coming from body-side fallback paths.
+		if ( waypointRaw.isEmpty() ) {
+			waypointRaw = "none";
+		}
+
+		// Build the second navigation argument using the safest Jason term type:
+		// - numeric index -> NumberTerm
+		// - valid atom token -> AtomTerm
+		// - any other token -> StringTerm (keeps message usable instead of failing)
+		Term waypointTerm;
+		if ( waypointRaw.matches( "-?\\d+" ) ) {
+			waypointTerm = createNumber( Long.parseLong( waypointRaw ) );
+		} else if ( waypointRaw.matches( "[a-z][a-zA-Z0-9_]*" ) ) {
+			waypointTerm = createAtom( waypointRaw );
+		} else {
+			waypointTerm = createString( waypointRaw );
+		}
+
+		Literal navBelief = createLiteral( "navigation",
+										   createAtom( status ),
+										   waypointTerm );
 
         try {
             // Check if belief exists to avoid duplicates, or just add it.
-            // Note: In ASL, we will remove it after processing to handle loops.
+            // In ASL, we will remove it after processing to handle loops.
             addBel( navBelief );
         } catch ( Exception e ) {
             e.printStackTrace();

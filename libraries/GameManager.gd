@@ -5,7 +5,7 @@
 ## - Aggregate sympathy updates to be relayed to Jason setup messages.
 ## - Provide name mapping between chat display names and Jason agent names.
 ## Dependencies:
-## - Consumed by `stages/maze/test_maze.gd` and `stages/chat/chat_interface.gd`.
+## - Consumed by `stages/maze/test2.gd` and `stages/chat/chat_interface.gd`.
 extends Node
 
 # --- Maze To Chat Data ---
@@ -13,7 +13,6 @@ var target_guard_name: String = ""
 
 # --- Chat To Maze Data (Guards) ---
 var last_encounter_score: float = 0.0
-var last_encounter_result: String = "" 
 var pacified_guards: Array[String] = []
 
 # --- Sympathy Updates (Across Encounters) ---
@@ -46,4 +45,3 @@ var recovered_secret: String = ""   # The info you stole (e.g., "Luca")
 func reset_encounter_data() -> void:
 	target_guard_name = ""
 	last_encounter_score = 0.0
-	last_encounter_result = ""

@@ -1,14 +1,6 @@
 [
   {
-    "text": "I can tell you take your job seriously",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "bribe",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I notice you run a tight ship",
+    "text": "You move like a professional",
     "intent": "flattery",
     "intent_prediction": {
       "name": "aggression",
@@ -16,27 +8,459 @@
     }
   },
   {
-    "text": "I can see why you're in charge here",
-    "intent": "flattery",
+    "text": "Get lost",
+    "intent": "aggression",
     "intent_prediction": {
-      "name": "bribe",
-      "confidence": 0.999460756778717
+      "name": "pity",
+      "confidence": 0.9999998807907104
     }
   },
   {
-    "text": "You should be running this operation",
-    "intent": "flattery",
+    "text": "Beat it",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "pity",
+      "confidence": 0.9779490232467651
+    }
+  },
+  {
+    "text": "Scram",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "flattery",
+      "confidence": 0.9187687039375305
+    }
+  },
+  {
+    "text": "Come at me",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "pity",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "I've fought tougher opponents in kindergarten",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "pity",
+      "confidence": 0.9999998807907104
+    }
+  },
+  {
+    "text": "This could be very profitable for you",
+    "intent": "bribe",
+    "intent_prediction": {
+      "name": "flattery",
+      "confidence": 0.9999998807907104
+    }
+  },
+  {
+    "text": "Be reasonable",
+    "intent": "pity",
+    "intent_prediction": {
+      "name": "flattery",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "I won't resist",
+    "intent": "pity",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "I thought this was the public area",
+    "intent": "pity",
     "intent_prediction": {
       "name": "logic",
       "confidence": 1.0
     }
   },
   {
-    "text": "You run this station flawlessly",
+    "text": "You have all the power",
+    "intent": "pity",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 0.5883805155754089
+    }
+  },
+  {
+    "text": "You're dashing",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 0.9995179176330566
+    }
+  },
+  {
+    "text": "you look nice",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 0.8852391242980957
+    }
+  },
+  {
+    "text": "I can see you're very good at this",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "bribe",
+      "confidence": 0.9999998807907104
+    }
+  },
+  {
+    "text": "I can see why you're in charge here",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "bribe",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "You're in a league of your own",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "bribe",
+      "confidence": 0.8904545307159424
+    }
+  },
+  {
+    "text": "Those medals are well-deserved",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "pity",
+      "confidence": 0.9999911785125732
+    }
+  },
+  {
+    "text": "I've seen better",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "pity",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "You make mall cops look professional",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "flattery",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "Do you accept tips?",
+    "intent": "bribe",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 0.9992565512657166
+    }
+  },
+  {
+    "text": "I have the power to offer incentives",
+    "intent": "bribe",
+    "intent_prediction": {
+      "name": "pity",
+      "confidence": 0.9999839067459106
+    }
+  },
+  {
+    "text": "I have diplomatic immunity",
+    "intent": "logic",
+    "intent_prediction": {
+      "name": "pity",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "My clearance level is higher than yours",
+    "intent": "logic",
+    "intent_prediction": {
+      "name": "bribe",
+      "confidence": 0.7134432792663574
+    }
+  },
+  {
+    "text": "I have executive clearance",
+    "intent": "logic",
+    "intent_prediction": {
+      "name": "flattery",
+      "confidence": 0.8619415163993835
+    }
+  },
+  {
+    "text": "I didn't know this was a restricted area",
+    "intent": "pity",
+    "intent_prediction": {
+      "name": "logic",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "You deserve a promotion",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "bribe",
+      "confidence": 0.9996418952941895
+    }
+  },
+  {
+    "text": "You're dense",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "flattery",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "You have all the charm of a parking ticket",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "pity",
+      "confidence": 0.9997565150260925
+    }
+  },
+  {
+    "text": "What are you going to do about it?",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "bribe",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "Bring it on",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "flattery",
+      "confidence": 0.998772919178009
+    }
+  },
+  {
+    "text": "My grandmother hits harder than you",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "bribe",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "Picture yourself debt-free",
+    "intent": "bribe",
+    "intent_prediction": {
+      "name": "flattery",
+      "confidence": 0.729822039604187
+    }
+  },
+  {
+    "text": "This is a restricted area for you, not me",
+    "intent": "logic",
+    "intent_prediction": {
+      "name": "pity",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "Show some compassion",
+    "intent": "pity",
+    "intent_prediction": {
+      "name": "flattery",
+      "confidence": 0.9999808073043823
+    }
+  },
+  {
+    "text": "I'm sick and need to get to a hospital",
+    "intent": "pity",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "I'll lose everything",
+    "intent": "pity",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "You're magnificent",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 0.9999998807907104
+    }
+  },
+  {
+    "text": "You're head and shoulders above the others",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "That badge looks good on you",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 0.9999686479568481
+    }
+  },
+  {
+    "text": "You're management material",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "You could teach a masterclass",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "You're simple-minded",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "flattery",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "A child could do your job better",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "bribe",
+      "confidence": 0.999994158744812
+    }
+  },
+  {
+    "text": "What would it take?",
+    "intent": "bribe",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "Here, take this and buy yourself something nice",
+    "intent": "bribe",
+    "intent_prediction": {
+      "name": "flattery",
+      "confidence": 0.9932720065116882
+    }
+  },
+  {
+    "text": "I've got a stack of bills with your name on it",
+    "intent": "bribe",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 0.9999955892562866
+    }
+  },
+  {
+    "text": "Think of your family's future",
+    "intent": "bribe",
+    "intent_prediction": {
+      "name": "flattery",
+      "confidence": 0.9999997615814209
+    }
+  },
+  {
+    "text": "Smart people take opportunities",
+    "intent": "bribe",
+    "intent_prediction": {
+      "name": "flattery",
+      "confidence": 0.8242098093032837
+    }
+  },
+  {
+    "text": "I have a legal right to be here",
+    "intent": "logic",
+    "intent_prediction": {
+      "name": "pity",
+      "confidence": 0.9326006174087524
+    }
+  },
+  {
+    "text": "The manifest shows I'm expected",
+    "intent": "logic",
+    "intent_prediction": {
+      "name": "pity",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "Have a heart",
+    "intent": "pity",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 0.9999998807907104
+    }
+  },
+  {
+    "text": "Take pity on me",
+    "intent": "pity",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 0.9870479702949524
+    }
+  },
+  {
+    "text": "I don't know how to fight",
+    "intent": "pity",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 0.9999942779541016
+    }
+  },
+  {
+    "text": "I can tell you take your job seriously",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "bribe",
+      "confidence": 0.6531134843826294
+    }
+  },
+  {
+    "text": "I recognize true competence when I see it",
     "intent": "flattery",
     "intent_prediction": {
       "name": "logic",
-      "confidence": 0.9837411642074585
+      "confidence": 0.9999841451644897
+    }
+  },
+  {
+    "text": "You're destined for greater things",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 0.889247715473175
+    }
+  },
+  {
+    "text": "You put me at ease",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "pity",
+      "confidence": 0.9999855756759644
+    }
+  },
+  {
+    "text": "You think like a strategist",
+    "intent": "flattery",
+    "intent_prediction": {
+      "name": "aggression",
+      "confidence": 0.999901294708252
     }
   },
   {
@@ -44,11 +468,35 @@
     "intent": "aggression",
     "intent_prediction": {
       "name": "pity",
-      "confidence": 0.9999996423721313
+      "confidence": 1.0
     }
   },
   {
-    "text": "I am your worst nightmare",
+    "text": "You're insignificant",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "flattery",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "You're forgettable",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "flattery",
+      "confidence": 0.9999406337738037
+    }
+  },
+  {
+    "text": "You have the personality of a brick",
+    "intent": "aggression",
+    "intent_prediction": {
+      "name": "flattery",
+      "confidence": 0.9998655319213867
+    }
+  },
+  {
+    "text": "Try and make me",
     "intent": "aggression",
     "intent_prediction": {
       "name": "pity",
@@ -56,19 +504,11 @@
     }
   },
   {
-    "text": "You're repulsive",
+    "text": "You and what army?",
     "intent": "aggression",
     "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.9999998807907104
-    }
-  },
-  {
-    "text": "You're too slow to catch me",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 0.9999997615814209
+      "name": "bribe",
+      "confidence": 0.9999914169311523
     }
   },
   {
@@ -88,403 +528,19 @@
     }
   },
   {
-    "text": "Your silence has considerable value to me",
-    "intent": "bribe",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.9941098690032959
-    }
-  },
-  {
-    "text": "I have the power to offer incentives",
+    "text": "I have cash in my pocket right now",
     "intent": "bribe",
     "intent_prediction": {
       "name": "pity",
-      "confidence": 1.0
+      "confidence": 0.9997962117195129
     }
   },
   {
-    "text": "This is a misunderstanding of company policy",
+    "text": "Please consult the daily roster",
     "intent": "logic",
     "intent_prediction": {
       "name": "pity",
-      "confidence": 0.9999992847442627
-    }
-  },
-  {
-    "text": "Be reasonable",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Alright, you caught me. Good job",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You look amazing",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I recognize true competence when I see it",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You're in a league of your own",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.9999945163726807
-    }
-  },
-  {
-    "text": "You carry yourself like a leader",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "bribe",
-      "confidence": 0.9996945858001709
-    }
-  },
-  {
-    "text": "You conduct yourself like a superior officer",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "bribe",
-      "confidence": 0.573495090007782
-    }
-  },
-  {
-    "text": "I have no patience for fools",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 0.9999983310699463
-    }
-  },
-  {
-    "text": "You're simple-minded",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Shut your mouth",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.9681035876274109
-    }
-  },
-  {
-    "text": "Beat it",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 0.9999997615814209
-    }
-  },
-  {
-    "text": "I don't have time for this",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 0.9999940395355225
-    }
-  },
-  {
-    "text": "Try and make me",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "My grandmother hits harder than you",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.6819785833358765
-    }
-  },
-  {
-    "text": "I've fought tougher opponents in kindergarten",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 0.9999997615814209
-    }
-  },
-  {
-    "text": "You're like a security guard from a comedy",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.9544458389282227
-    }
-  },
-  {
-    "text": "This is purely a jurisdictional dispute",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You are impeding an official investigation",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I misread the signs",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "logic",
-      "confidence": 0.9999910593032837
-    }
-  },
-  {
-    "text": "I don't know how to fight",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.838341474533081
-    }
-  },
-  {
-    "text": "That badge looks good on you",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.9999992847442627
-    }
-  },
-  {
-    "text": "Those medals are well-deserved",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.9975606203079224
-    }
-  },
-  {
-    "text": "You deserve a promotion",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "bribe",
-      "confidence": 0.9998856782913208
-    }
-  },
-  {
-    "text": "I will break your face",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I'll kill you if you don't let me go",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "bribe",
-      "confidence": 0.9999995231628418
-    }
-  },
-  {
-    "text": "You're dense",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You're insignificant",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You're the worst guard I've ever seen",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.9409238696098328
-    }
-  },
-  {
-    "text": "I have connections that can get you a better job",
-    "intent": "bribe",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.999996542930603
-    }
-  },
-  {
-    "text": "This could be very profitable for you",
-    "intent": "bribe",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.9879065752029419
-    }
-  },
-  {
-    "text": "Picture yourself debt-free",
-    "intent": "bribe",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.9997854828834534
-    }
-  },
-  {
-    "text": "The manifest shows I'm expected",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Department head signed off on this",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "bribe",
-      "confidence": 0.9444119930267334
-    }
-  },
-  {
-    "text": "I didn't know this was a restricted area",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "logic",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You put me at ease",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You bring dignity to the role",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You're messing with the wrong person",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.9330633282661438
-    }
-  },
-  {
-    "text": "You're clueless",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.9969788789749146
-    }
-  },
-  {
-    "text": "You are disgusting",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I've seen better",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You have all the charm of a parking ticket",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You and what army?",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "bribe",
-      "confidence": 0.9944272041320801
-    }
-  },
-  {
-    "text": "Come at me",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "A child could do your job better",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.9974316954612732
-    }
-  },
-  {
-    "text": "I've got a stack of bills with your name on it",
-    "intent": "bribe",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I have a legal right to be here",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "I'll lose everything",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 1.0
+      "confidence": 0.9999884366989136
     }
   },
   {
@@ -492,127 +548,7 @@
     "intent": "pity",
     "intent_prediction": {
       "name": "logic",
-      "confidence": 0.9999629259109497
-    }
-  },
-  {
-    "text": "I thought this was the public area",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "logic",
       "confidence": 1.0
-    }
-  },
-  {
-    "text": "You're dashing",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.9999880790710449
-    }
-  },
-  {
-    "text": "You look distinguished",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You think like a strategist",
-    "intent": "flattery",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You're nothing",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.5589434504508972
-    }
-  },
-  {
-    "text": "Get lost",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You mean nothing to me",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You're forgettable",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 0.9999998807907104
-    }
-  },
-  {
-    "text": "You make mall cops look professional",
-    "intent": "aggression",
-    "intent_prediction": {
-      "name": "flattery",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Here, take this and buy yourself something nice",
-    "intent": "bribe",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 0.5983796715736389
-    }
-  },
-  {
-    "text": "I have diplomatic immunity",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 0.9981654286384583
-    }
-  },
-  {
-    "text": "This is a restricted area for you, not me",
-    "intent": "logic",
-    "intent_prediction": {
-      "name": "pity",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Have a heart",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.9999343156814575
-    }
-  },
-  {
-    "text": "Give me a break",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "You have all the power",
-    "intent": "pity",
-    "intent_prediction": {
-      "name": "aggression",
-      "confidence": 0.9998310804367065
     }
   }
 ]

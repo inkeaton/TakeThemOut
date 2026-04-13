@@ -1,10 +1,4 @@
-## State: Base state contract for guard state-machine nodes.
-## Role: state
-## Responsibilities:
-## - Define lifecycle hooks used by all concrete guard states.
-## - Store injected references to body, navigation agent, and mind bridge.
-## Dependencies:
-## - Injected by `bodies/guards/shared/state_machine.gd`.
+## State: Base state for guard state-machine nodes.
 class_name State
 extends Node
 

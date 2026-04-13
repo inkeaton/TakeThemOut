@@ -23,15 +23,18 @@ from .data_skirmish import (
 # 3) map score to success/failure response,
 # 4) return strict payload for Godot contract.
 class ActionEvaluateExcuse(Action):
+    # Returns the action name registered in the Rasa domain.
     def name(self) -> Text:
         return "action_evaluate_excuse"
 
+    # Loads runtime helpers and static config, then validates config shape.
     def __init__(self):
         self.analyzer = SentimentIntensityAnalyzer()
         self.PERSONALITY_PROFILES = PERSONALITY_PROFILES
         self.RESPONSES = RESPONSES
         self._validate_config()
 
+    # Validates static skirmish config to fail fast on malformed data.
     def _validate_config(self) -> None:
         # Fail fast on malformed static data so runtime scoring stays deterministic.
         if DEFAULT_GUARD_NAME not in self.PERSONALITY_PROFILES:
@@ -47,6 +50,7 @@ class ActionEvaluateExcuse(Action):
             if FALLBACK_INTENT not in responses:
                 raise RuntimeError(f"Skirmish config error: '{guard_name}' missing fallback intent '{FALLBACK_INTENT}'.")
 
+    # Executes one guard skirmish turn and emits a strict Godot payload.
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
@@ -87,7 +91,7 @@ class ActionEvaluateExcuse(Action):
 
         # NLU fallback always returns explicit confusion feedback.
         if last_intent == "nlu_fallback":
-             response_text = f"({guard_name.capitalize()} looks confused.) I have no idea what you are saying."
+            response_text = f"({guard_name.capitalize()} looks confused.) I have no idea what you are saying."
 
         self._log(
             guard_name,
@@ -115,6 +119,7 @@ class ActionEvaluateExcuse(Action):
         )
         return []
 
+    # Prints a compact debug trace for one skirmish evaluation.
     @staticmethod
     def _log(guard_name: str, user_text: str, last_intent: str, intent_confidence: float,
              raw_tone: float, intent_score: float, sentiment_impact: float,
@@ -134,6 +139,7 @@ class ActionEvaluateExcuse(Action):
         print(f"Outcome:     {'SUCCESS' if success else 'FAILURE'}")
         print("=" * 50 + "\n")
 
+    # Validates response text and custom payload before dispatch to Godot.
     @staticmethod
     def _validate_output_contract(response_text: Text, custom_data: Dict[Text, Any]) -> None:
         # Contract mirrors Godot-side validators; raise immediately on drift.

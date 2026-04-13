@@ -13,10 +13,7 @@ import org.json.JSONObject;
  * 
  * Sends: { "type": "set_var", "data": { "name": "...", "value": ... } }
  * 
- * Usage examples:
- *   vesna.set_var(switch_time, 1.0)   // Set scan rate
- *   vesna.set_var(speed, 150)         // Set movement speed
- *   vesna.set_var(alert_mode, true)   // Set boolean flag
+ * Usage example: vesna.set_var(switch_time, 1.0)   // Set scan rate
  */
 public class set_var extends DefaultInternalAction {
 

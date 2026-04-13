@@ -1,4 +1,4 @@
-// sentry.asl - Sentry agent with unified style
+// sentry.asl
 
 !start.
 
@@ -31,6 +31,7 @@
 @detect_fearful[temper([fear(0.8)]), effects([fear(0.1)])]
 +sight(player, Id, pos(X, Y))
     <-  .print("Target sighted! (Scared)");
+        .wait(500); // Simulate a brief panic delay
         !alert_about_player(X, Y).
 
 /* DEFAULT: Balanced reaction profile. */
@@ -81,8 +82,15 @@
 // BROADCASTING
 // =============================================================================
 
-/* BROADCAST TRIGGER: Starts alert relay when allies are in range. */
-@broadcast_default[effects([fear(-0.1)])]
+/* BROADCAST SYMPATHETIC: Does not alert others. */
+@broadcast_sympathetic[temper([sympathy(0.6)]), effects([sympathy(0.05)])]
++allies_nearby(AllyList) : last_player_pos(X, Y)
+    <-  .print("Allies nearby: ", AllyList);
+        .print("Deciding not to alert allies due to sympathy.");
+        !broadcast_alert(AllyList, X, Y).
+
+/* BROADCAST DEFAULT: Starts alert relay when allies are in range. */
+@broadcast_default[temper([sympathy(0.0)]), effects([fear(-0.1)])]
 +allies_nearby(AllyList) : last_player_pos(X, Y)
     <-  .print("Allies nearby: ", AllyList);
         !broadcast_alert(AllyList, X, Y).

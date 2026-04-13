@@ -11,7 +11,7 @@ pipeline:
     # creates feature vectors using spacy's pre-trained ones
   - name: SpacyFeaturizer
     pooling: "mean"  
-    # creates feature vectors by averaging token vectors and looking at the overall sentence structure
+    # improves feature vectors by averaging token vectors and looking at the overall sentence structure
   - name: LexicalSyntacticFeaturizer
     # counts word n-grams to capture specific phrases and patterns
   - name: CountVectorsFeaturizer

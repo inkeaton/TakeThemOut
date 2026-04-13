@@ -1,11 +1,4 @@
 ## StateMachine: Coordinates state lifecycle and dependency injection for guard bodies.
-## Role: utility
-## Responsibilities:
-## - Inject `body`, `nav_agent`, and `vesna` references into child states.
-## - Maintain current active state and route transition requests.
-## - Forward physics updates to the active state.
-## Dependencies:
-## - Child nodes extending `State`.
 class_name StateMachine
 extends Node
 

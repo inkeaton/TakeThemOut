@@ -1,10 +1,4 @@
 ## Crumb: Lightweight trail marker dropped by the player for patrol tracking.
-## Role: utility
-## Responsibilities:
-## - Store creation timestamp used by patrol tracking logic.
-## - Self-destruct after a short lifetime to limit world clutter.
-## Dependencies:
-## - Consumed by patrol tracking state via group membership and timestamp reads.
 class_name Crumb
 extends Area2D
 

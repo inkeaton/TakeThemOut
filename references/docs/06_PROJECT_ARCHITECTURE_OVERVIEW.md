@@ -60,7 +60,7 @@ The project is a 3-layer game AI stack:
    - **CAPTAIN** (`daniele`, `samuele`) → no Rasa call, immediate dismissal branch
 4. On exit from chat:
    - Returns to maze (guard/captain) or ending screen (date)
-   - Updates `GameManager` state (`last_encounter_result`, sympathy deltas, date outcome)
+  - Updates `GameManager` state (sympathy deltas, date outcome)
 
 ### D. Next maze load
 

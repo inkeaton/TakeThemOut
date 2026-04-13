@@ -10,14 +10,12 @@ import org.json.JSONObject;
  * Internal Action: vesna.signal_ready
  * 
  * Sends a "signal_ready" message to the Godot body (ServerManager on port 9200),
- * informing it that the Jason mind has fully initialized and all agents are running.
+ * informing it that the Jason mind has initialized.
  * 
  * Takes no arguments.
  * 
  * Sends: { "sender": "director", "receiver": "body", "type": "signal_ready", "data": {} }
  * 
- * Usage:
- *   vesna.signal_ready;
  */
 public class signal_ready extends DefaultInternalAction {
 

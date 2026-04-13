@@ -1,11 +1,4 @@
 ## TargetTrigger: Starts the date/chat branch when the player reaches Eugenia's trigger area.
-## Role: scene-controller
-## Responsibilities:
-## - Configure collision behavior for player-only trigger detection.
-## - Set date target context in `GameManager`.
-## - Transition to chat scene through deferred scene switch.
-## Dependencies:
-## - `GameManager` autoload and `Player` class type checks.
 extends Area2D
 
 # --- Behavior ---

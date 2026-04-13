@@ -1,11 +1,4 @@
 ## TestMazeController: Orchestrates maze runtime flow, mind startup, and chat return handling.
-## Role: scene-controller
-## Responsibilities:
-## - Start/stop Jason mind process when entering/leaving maze scene.
-## - Block gameplay until mind readiness signal is received.
-## - Relay accumulated sympathy updates to the director at startup.
-## Dependencies:
-## - `ServerManager` and `GameManager` autoloads.
 extends Node2D
 
 # --- Nodes ---
@@ -16,11 +9,7 @@ extends Node2D
 @onready var loading_label: Label = %LoadingLabel
 
 func _ready() -> void:
-	# 1. Gameplay: handle return from chat.
-	if GameManager.last_encounter_result != "":
-		_handle_return_from_chat()
-	
-	# Clear data so we don't re-trigger it on a simple reload
+	# 1. Clear encounter data when entering maze.
 	GameManager.reset_encounter_data()
 
 	# 2. Infrastructure: start the mind (Jason/Gradle).
@@ -100,9 +89,6 @@ func trigger_encounter(guard_name: String) -> void:
 	# 2. Switch Scene (deferred to avoid removing collision nodes during physics callback)
 	# This effectively destroys the current Maze scene, triggering _exit_tree()
 	get_tree().call_deferred("change_scene_to_file", "res://stages/chat/chat_interface.tscn")
-
-func _handle_return_from_chat() -> void:
-	print("Returned from chat. Result: ", GameManager.last_encounter_result)
 
 # --- Cleanup ---
 
