@@ -32,7 +32,7 @@ ServerManager: Listening for Jason readiness on port 9200
 [MESSAGE] - from Patrol: Cached 9 waypoints from 2 zone(s)
 --- Starting Jason Mind (Gradle) ---
 Working Dir: /home/inkeaton/Documenti/Godot/take-them-out/mind
-Spawned Jason Mind (PID: 308800)
+Spawned Jason Mind (PID: 306461)
 Waiting for Jason Mind to boot...
 [MESSAGE] - from NetworkManager: New TCP connection accepted. Handshaking...
 [MESSAGE] - from NetworkManager: WebSocket Handshake complete. Channel OPEN.
@@ -145,18 +145,6 @@ ServerManager: WebSocket handshake on 9200 complete.
 JASON MIND READY! signal_ready received from 'director'.
 Mind Connected. Starting Game.
 No sympathy updates to send.
-[JSON] - from Sent Data:
-{
-    "data": {
-        "status": "reached",
-        "waypoint": "0"
-    },
-    "receiver": "vesna",
-    "sender": "body",
-    "type": "navigation"
-}
-[MESSAGE] - from Patrol: Arrived. Awaiting orders...
-[MESSAGE] - from Patrol: Awaiting orders...
 --- Stopping All Servers ---
-Killing jason_mind (PID: 308800)
+Killing jason_mind (PID: 306461)
 --- Stopping All Servers ---

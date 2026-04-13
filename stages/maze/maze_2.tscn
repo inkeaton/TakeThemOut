@@ -3273,16 +3273,16 @@ remote_path = NodePath("../../Camera2D")
 [node name="LoadingOverlay" type="Sprite2D" parent="Player" unique_id=673894054]
 unique_name_in_owner = true
 visible = false
-position = Vector2(100.00015, 103.333374)
-scale = Vector2(8.020833, 8.363481)
+position = Vector2(3593.333, 1814.9998)
+scale = Vector2(6.6874995, 6.2833767)
 texture = ExtResource("3_ookoc")
 
 [node name="LoadingLabel" type="Label" parent="Player/LoadingOverlay" unique_id=1956325752]
 unique_name_in_owner = true
-offset_left = -363.43997
-offset_top = -144.02054
-offset_right = 356.6027
-offset_bottom = 147.60275
+offset_left = -348.9097
+offset_top = -143.5003
+offset_right = 371.13297
+offset_bottom = 148.12299
 text = "LOADING JASON..."
 label_settings = SubResource("LabelSettings_4ddt3")
 horizontal_alignment = 1

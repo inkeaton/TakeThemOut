@@ -317,7 +317,7 @@ func _update_date_meters(data: Dictionary) -> void:
 	tween.tween_property(ease_bar, "value", ease_val, 0.6)
 	tween.tween_property(suspicion_bar, "value", sus_val, 0.6)
 	
-	if delta_sus > 10.0:
+	if delta_sus > 15.0:
 		var flash = create_tween()
 		agent_sprite.modulate = Color(1, 0.3, 0.3) 
 		flash.tween_property(agent_sprite, "modulate", Color.WHITE, 0.3)
