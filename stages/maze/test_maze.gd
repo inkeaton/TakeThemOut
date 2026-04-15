@@ -1,12 +1,16 @@
 ## TestMazeController: Orchestrates maze runtime flow, mind startup, and chat return handling.
 extends Node2D
 
+# --- Configuration ---
+const JASON_READY_TIMEOUT_SEC: float = 60.0
+
 # --- Nodes ---
 @onready var player: CharacterBody2D = %Player
 
 # UI Nodes (Make sure you added these to a CanvasLayer in your scene!)
 @onready var loading_overlay: Sprite2D = %LoadingOverlay
 @onready var loading_label: Label = %LoadingLabel
+var _waiting_for_mind: bool = false
 
 func _ready() -> void:
 	# 1. Clear encounter data when entering maze.
@@ -27,6 +31,7 @@ func _ready() -> void:
 
 func _enter_loading_state() -> void:
 	print("Waiting for Jason Mind to boot...")
+	_waiting_for_mind = true
 	
 	# Pause the game so guards don't move before they have brains
 	get_tree().paused = true 
@@ -41,8 +46,11 @@ func _enter_loading_state() -> void:
 	if not ServerManager.jason_service_ready.is_connected(_on_mind_ready):
 		ServerManager.jason_service_ready.connect(_on_mind_ready)
 
+	_watch_mind_timeout()
+
 func _on_mind_ready() -> void:
 	print("Mind Connected. Starting Game.")
+	_waiting_for_mind = false
 	
 	# Send any queued sympathy updates to the director (ready_agent)
 	_send_sympathy_updates()
@@ -57,6 +65,19 @@ func _on_mind_ready() -> void:
 	# Cleanup connection
 	if ServerManager.jason_service_ready.is_connected(_on_mind_ready):
 		ServerManager.jason_service_ready.disconnect(_on_mind_ready)
+
+func _watch_mind_timeout() -> void:
+	await get_tree().create_timer(JASON_READY_TIMEOUT_SEC).timeout
+	if not _waiting_for_mind or ServerManager.is_jason_ready:
+		return
+
+	_waiting_for_mind = false
+	push_error("Jason startup timeout: readiness signal not received.")
+	if loading_label:
+		loading_label.text = "AGENTS INIT FAILED (Timeout)"
+	if ServerManager.jason_service_ready.is_connected(_on_mind_ready):
+		ServerManager.jason_service_ready.disconnect(_on_mind_ready)
+	ServerManager.stop_jason_server()
 
 # --- Sympathy Relay ---
 

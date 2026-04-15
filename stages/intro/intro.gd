@@ -2,7 +2,6 @@
 extends Control
 
 # --- Configuration ---
-# Adjust this path if your loading screen is in a different folder.
 const LOADING_SCREEN_PATH: String = "res://stages/loading_screen/LoadingScreen.tscn"
 
 # --- Nodes ---

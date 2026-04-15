@@ -119,19 +119,28 @@ func start_jason_server() -> void:
 	var args = []
 	
 	if OS.get_name() == "Windows":
+		var gradle_wrapper_win: String = MIND_PATH.path_join("gradlew.bat")
+		var gradle_exec: String = "gradle"
+		if FileAccess.file_exists(gradle_wrapper_win):
+			gradle_exec = _quote_windows_path(gradle_wrapper_win)
 		cmd = "cmd"
-		args = ["/C", "cd /d %s && gradlew run" % MIND_PATH]
+		args = ["/C", "cd /d %s && %s run" % [_quote_windows_path(MIND_PATH), gradle_exec]]
 	else:
 		cmd = "bash"
 		args = ["-c", "cd '%s' && exec gradle run" % MIND_PATH]
+
+	print("Jason launch command: %s %s" % [cmd, str(args)])
 	
 	pids.jason_mind = OS.create_process(cmd, args, false) # true = open console for debug
-	print("Spawned Jason Mind (PID: %s)" % pids.jason_mind)
+	if pids.jason_mind == -1:
+		printerr("CRITICAL: Failed to spawn Jason Mind process.")
+	else:
+		print("Spawned Jason Mind (PID: %s)" % pids.jason_mind)
 
 func stop_jason_server() -> void:
 	if pids.jason_mind != -1:
 		print("Stopping Jason Mind...")
-		OS.kill(pids.jason_mind)
+		_terminate_pid(pids.jason_mind)
 		pids.jason_mind = -1
 	# Clean up readiness state
 	is_jason_ready = false
@@ -174,8 +183,10 @@ func _spawn_rasa_process(working_dir: String, args: Array) -> int:
 	
 	if OS.get_name() == "Windows":
 		executable = "cmd"
-		var rasa_cmd = "%s -m rasa %s" % [VENV_PATH_WIN, " ".join(args)]
-		final_args = ["/C", "cd /d %s && %s > \"%s\" 2>&1" % [working_dir, rasa_cmd, log_path]]
+		if not FileAccess.file_exists(VENV_PATH_WIN):
+			printerr("CRITICAL: Windows Python venv not found at: %s" % VENV_PATH_WIN)
+		var rasa_cmd = "%s -m rasa %s" % [_quote_windows_path(VENV_PATH_WIN), " ".join(args)]
+		final_args = ["/C", "cd /d %s && %s > %s 2>&1" % [_quote_windows_path(working_dir), rasa_cmd, _quote_windows_path(log_path)]]
 	else:
 		# Unix: exec replaces bash so PID = real process; redirect output to log
 		executable = "bash"
@@ -213,16 +224,21 @@ func stop_all_servers() -> void:
 		var pid = pids[key]
 		if pid != -1:
 			print("Killing %s (PID: %s)" % [key, pid])
-			OS.kill(pid)
+			_terminate_pid(pid)
 			pids[key] = -1
 
 # --- Orphan Cleanup ---
 # Kill any leftover processes on Rasa ports from a previous crash/forced exit
 func kill_orphans_on_ports(ports: Array = []) -> void:
-	if OS.get_name() == "Windows":
-		return # fuser not available on Windows
 	if ports.is_empty():
 		ports = get_rasa_ports()
+	if OS.get_name() == "Windows":
+		print("--- Cleaning up orphan processes on Windows ports %s ---" % str(ports))
+		for port in ports:
+			var ps_cmd := "Get-NetTCPConnection -LocalPort %d -State Listen -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess | Sort-Object -Unique | ForEach-Object { Stop-Process -Id $_ -Force -ErrorAction SilentlyContinue }" % int(port)
+			OS.execute("powershell", ["-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", ps_cmd])
+		print("--- Windows orphan cleanup done ---")
+		return
 	print("--- Cleaning up orphan processes on ports %s ---" % str(ports))
 	for port in ports:
 		# fuser -k sends SIGKILL to any process listening on the port
@@ -270,3 +286,14 @@ func _build_rasa_core_base_url(port: int) -> String:
 
 func _build_rasa_webhook_url(port: int) -> String:
 	return "http://%s:%d/webhooks/rest/webhook" % [RASA_HOST, port]
+
+func _terminate_pid(pid: int) -> void:
+	if pid == -1:
+		return
+	if OS.get_name() == "Windows":
+		OS.execute("taskkill", ["/PID", str(pid), "/T", "/F"])
+	else:
+		OS.kill(pid)
+
+func _quote_windows_path(path: String) -> String:
+	return "\"%s\"" % path

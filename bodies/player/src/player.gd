@@ -57,7 +57,6 @@ var last_crumb_pos: Vector2 = Vector2.ZERO
 # --- Lifecycle ---
 
 func _ready() -> void:
-	$AnimationTree/AnimationPlayer.current_animation = "walk_down"
 	
 	# Defer setup by one frame to avoid tree-lock timing issues.
 	call_deferred("_setup_crumb_container")

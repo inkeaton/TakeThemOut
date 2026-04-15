@@ -8,15 +8,15 @@ Starting Game Sequence...
 --- Starting Skirmish (Guard) Servers ---
 Working Dir: /home/inkeaton/Documenti/Godot/take-them-out/tongue/skirmish
 Rasa log: /home/inkeaton/Documenti/Godot/take-them-out/logs/rasa_run_enable-api_cors_*_port_8005.log
-Spawned PID 56238 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/skirmish
+Spawned PID 51895 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/skirmish
 Rasa log: /home/inkeaton/Documenti/Godot/take-them-out/logs/rasa_run_actions_port_8055.log
-Spawned PID 56239 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/skirmish
+Spawned PID 51896 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/skirmish
 --- Starting Date (Eugenia) Servers ---
 Working Dir: /home/inkeaton/Documenti/Godot/take-them-out/tongue/date
 Rasa log: /home/inkeaton/Documenti/Godot/take-them-out/logs/rasa_run_enable-api_cors_*_port_8006.log
-Spawned PID 56240 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/date
+Spawned PID 51897 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/date
 Rasa log: /home/inkeaton/Documenti/Godot/take-them-out/logs/rasa_run_actions_port_8056.log
-Spawned PID 56241 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/date
+Spawned PID 51898 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/date
 [MESSAGE] - from NetworkManager: Listening on port 9071
 [MESSAGE] - from Sentry: Scanning (2.0s interval)...
 [MESSAGE] - from NetworkManager: Listening on port 9072
@@ -48,7 +48,7 @@ Spawned PID 56241 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/date
 --- Starting Jason Mind (Gradle) ---
 Working Dir: /home/inkeaton/Documenti/Godot/take-them-out/mind
 Jason launch command: bash ["-c", "cd \'/home/inkeaton/Documenti/Godot/take-them-out/mind\' && exec gradle run"]
-Spawned Jason Mind (PID: 56867)
+Spawned Jason Mind (PID: 52538)
 Waiting for Jason Mind to boot...
 [MESSAGE] - from NetworkManager: New TCP connection accepted. Handshaking...
 [MESSAGE] - from NetworkManager: WebSocket Handshake complete. Channel OPEN.
@@ -161,13 +161,38 @@ ServerManager: WebSocket handshake on 9200 complete.
 JASON MIND READY! signal_ready received from 'director'.
 Mind Connected. Starting Game.
 No sympathy updates to send.
+[JSON] - from Sent Data:
+{
+    "data": {
+        "status": "reached",
+        "waypoint": "0"
+    },
+    "receiver": "vesna",
+    "sender": "body",
+    "type": "navigation"
+}
+[MESSAGE] - from Patrol: Arrived. Awaiting orders...
+[MESSAGE] - from Patrol: Awaiting orders...
 [MESSAGE] - from Patrol: I SEE YOU!
 [JSON] - from Sent Data:
 {
     "data": {
-        "id": 120242311394,
-        "pos_x": 94.6783752441406,
-        "pos_y": 763.084045410156,
+        "id": 112088584420,
+        "pos_x": 100.0,
+        "pos_y": 662.0,
+        "sight": "player"
+    },
+    "receiver": "vesna",
+    "sender": "body",
+    "type": "sight"
+}
+[MESSAGE] - from Patrol: I SEE YOU!
+[JSON] - from Sent Data:
+{
+    "data": {
+        "id": 112088584420,
+        "pos_x": 100.0,
+        "pos_y": 637.0,
         "sight": "player"
     },
     "receiver": "vesna",
@@ -187,31 +212,26 @@ No sympathy updates to send.
     "type": "transition_to"
 }
 [MESSAGE] - from Patrol: Mind orders: Transition to Chase
-[MESSAGE] - from Patrol: Lost visual on target. Switching to Track.
-[JSON] - from Sent Data:
-{
-    "data": {
-        "status": "reached",
-        "waypoint": "0"
-    },
-    "receiver": "vesna",
-    "sender": "body",
-    "type": "navigation"
-}
-[MESSAGE] - from Patrol: Arrived. Awaiting orders...
-[MESSAGE] - from Patrol: Awaiting orders...
-[MESSAGE] - from Patrol: Tracking crumb 1...
-[MESSAGE] - from Patrol: Tracking crumb 2...
-[MESSAGE] - from Patrol: Tracking crumb 3...
-[MESSAGE] - from Patrol: Tracking crumb 4...
 [JSON] - from Received Raw Message:
 {
     "data": {
         "params": {
-            "target": {
-                "x": 94.6783752441406,
-                "y": 763.084045410156
-            }
+            "patience": 5.0
+        },
+        "target_state": "Chase"
+    },
+    "receiver": "body",
+    "sender": "patrol_rosanna",
+    "type": "transition_to"
+}
+[MESSAGE] - from Patrol: Mind orders: Transition to Chase
+[MESSAGE] - from Patrol: Lost visual on target. Switching to Track.
+[MESSAGE] - from Patrol: Tracking crumb 1...
+[JSON] - from Received Raw Message:
+{
+    "data": {
+        "params": {
+            "target": "next"
         },
         "target_state": "Patrol"
     },
@@ -220,15 +240,17 @@ No sympathy updates to send.
     "type": "transition_to"
 }
 [MESSAGE] - from Patrol: Mind orders: Transition to Patrol
-[MESSAGE] - from Patrol: Moving to coordinates (94.67838, 763.084)
+[MESSAGE] - from Patrol: Tracking crumb 2...
+[MESSAGE] - from Patrol: Tracking crumb 3...
+[MESSAGE] - from Patrol: Tracking crumb 4...
 [MESSAGE] - from Patrol: Tracking crumb 5...
 [MESSAGE] - from Patrol: Patience limit (%d). Reporting...
 [JSON] - from Sent Data:
 {
     "data": {
         "event": "target_lost",
-        "pos_x": 149.969696044922,
-        "pos_y": 115.439926147461,
+        "pos_x": 425.660491943359,
+        "pos_y": 153.613494873047,
         "reason": "patience_limit"
     },
     "receiver": "vesna",
@@ -251,6 +273,18 @@ No sympathy updates to send.
 [MESSAGE] - from Patrol: Mind orders: Transition to Investigate
 [MESSAGE] - from Patrol: Generated 1 investigation points.
 [MESSAGE] - from Patrol: Investigating point 1...
+[JSON] - from Sent Data:
+{
+    "data": {
+        "status": "reached",
+        "waypoint": "0"
+    },
+    "receiver": "vesna",
+    "sender": "body",
+    "type": "navigation"
+}
+[MESSAGE] - from Patrol: Arrived. Awaiting orders...
+[MESSAGE] - from Patrol: Awaiting orders...
 [MESSAGE] - from Patrol: Investigation complete.
 [JSON] - from Sent Data:
 {
@@ -302,18 +336,6 @@ No sympathy updates to send.
 }
 [MESSAGE] - from Patrol: Arrived. Awaiting orders...
 [MESSAGE] - from Patrol: Awaiting orders...
-[JSON] - from Sent Data:
-{
-    "data": {
-        "status": "reached",
-        "waypoint": "0"
-    },
-    "receiver": "vesna",
-    "sender": "body",
-    "type": "navigation"
-}
-[MESSAGE] - from Patrol: Arrived. Awaiting orders...
-[MESSAGE] - from Patrol: Awaiting orders...
 [JSON] - from Received Raw Message:
 {
     "data": {
@@ -352,6 +374,20 @@ No sympathy updates to send.
     "type": "transition_to"
 }
 [MESSAGE] - from Patrol: Mind orders: Transition to Patrol
+[MESSAGE] - from Sentry: I SEE YOU! Notifying mind...
+[JSON] - from Sent Data:
+{
+    "data": {
+        "id": 112088584420,
+        "pos_x": 1858.21691894531,
+        "pos_y": 559.209594726562,
+        "sight": "player"
+    },
+    "receiver": "vesna",
+    "sender": "body",
+    "type": "sight"
+}
+[MESSAGE] - from Sentry: Awaiting orders...
 [JSON] - from Received Raw Message:
 {
     "data": {
@@ -365,6 +401,33 @@ No sympathy updates to send.
     "type": "transition_to"
 }
 [MESSAGE] - from Patrol: Mind orders: Transition to Patrol
+[JSON] - from Received Raw Message:
+{
+    "data": {
+        "params": {
+            "duration": 3.0
+        },
+        "target_state": "Alert"
+    },
+    "receiver": "body",
+    "sender": "sentry2",
+    "type": "transition_to"
+}
+[MESSAGE] - from Sentry: Mind orders: Transition to Alert
+[MESSAGE] - from Sentry: Alert sequence triggered!
+[MESSAGE] - from Sentry: Found allies: ["patrol_susanna", "patrol_polyanna"]
+[JSON] - from Sent Data:
+{
+    "data": {
+        "allies": [
+            "patrol_susanna",
+            "patrol_polyanna"
+        ]
+    },
+    "receiver": "vesna",
+    "sender": "body",
+    "type": "allies"
+}
 [JSON] - from Sent Data:
 {
     "data": {
@@ -377,6 +440,49 @@ No sympathy updates to send.
 }
 [MESSAGE] - from Patrol: Arrived. Awaiting orders...
 [MESSAGE] - from Patrol: Awaiting orders...
+[JSON] - from Received Raw Message:
+{
+    "data": {
+        "params": {
+            "target": {
+                "x": 1858.21691894531,
+                "y": 559.209594726562
+            }
+        },
+        "target_state": "Patrol"
+    },
+    "receiver": "body",
+    "sender": "patrol_polyanna",
+    "type": "transition_to"
+}
+[MESSAGE] - from Patrol: Mind orders: Transition to Patrol
+[MESSAGE] - from Patrol: Moving to coordinates (1858.217, 559.2096)
+[JSON] - from Sent Data:
+{
+    "data": {
+        "reason": "Alert sequence finished",
+        "status": "completed",
+        "type": "alert"
+    },
+    "receiver": "vesna",
+    "sender": "body",
+    "type": "signal"
+}
+[MESSAGE] - from Sentry: Awaiting orders...
+[JSON] - from Received Raw Message:
+{
+    "data": {
+        "params": {
+            "switch_time": 4.0
+        },
+        "target_state": "Scan"
+    },
+    "receiver": "body",
+    "sender": "sentry2",
+    "type": "transition_to"
+}
+[MESSAGE] - from Sentry: Mind orders: Transition to Scan
+[MESSAGE] - from Sentry: Scanning (4.0s interval)...
 [JSON] - from Received Raw Message:
 {
     "data": {
@@ -390,70 +496,23 @@ No sympathy updates to send.
     "type": "transition_to"
 }
 [MESSAGE] - from Patrol: Mind orders: Transition to Patrol
-[JSON] - from Sent Data:
-{
-    "data": {
-        "status": "reached",
-        "waypoint": "2"
-    },
-    "receiver": "vesna",
-    "sender": "body",
-    "type": "navigation"
-}
-[MESSAGE] - from Patrol: Arrived. Awaiting orders...
-[MESSAGE] - from Patrol: Awaiting orders...
 [JSON] - from Received Raw Message:
 {
     "data": {
         "params": {
-            "target": "next"
+            "target": {
+                "x": 1858.21691894531,
+                "y": 559.209594726562
+            }
         },
         "target_state": "Patrol"
     },
     "receiver": "body",
-    "sender": "patrol_rosanna",
+    "sender": "patrol_susanna",
     "type": "transition_to"
 }
 [MESSAGE] - from Patrol: Mind orders: Transition to Patrol
-[MESSAGE] - from Patrol: I SEE YOU!
-[JSON] - from Sent Data:
-{
-    "data": {
-        "id": 120242311394,
-        "pos_x": 29.0747623443604,
-        "pos_y": 1360.92529296875,
-        "sight": "player"
-    },
-    "receiver": "vesna",
-    "sender": "body",
-    "type": "sight"
-}
-[MESSAGE] - from Patrol: I SEE YOU!
-[JSON] - from Sent Data:
-{
-    "data": {
-        "id": 120242311394,
-        "pos_x": 29.0747623443604,
-        "pos_y": 1360.92529296875,
-        "sight": "player"
-    },
-    "receiver": "vesna",
-    "sender": "body",
-    "type": "sight"
-}
-[MESSAGE] - from Patrol: I SEE YOU!
-[JSON] - from Sent Data:
-{
-    "data": {
-        "id": 120242311394,
-        "pos_x": 29.0747108459473,
-        "pos_y": 1353.85424804688,
-        "sight": "player"
-    },
-    "receiver": "vesna",
-    "sender": "body",
-    "type": "sight"
-}
+[MESSAGE] - from Patrol: Moving to coordinates (1858.217, 559.2096)
 [JSON] - from Sent Data:
 {
     "data": {
@@ -466,50 +525,62 @@ No sympathy updates to send.
 }
 [MESSAGE] - from Patrol: Arrived. Awaiting orders...
 [MESSAGE] - from Patrol: Awaiting orders...
-[JSON] - from Received Raw Message:
-{
-    "data": {
-        "params": {
-            "patience": 5.0
-        },
-        "target_state": "Chase"
-    },
-    "receiver": "body",
-    "sender": "patrol_rosanna",
-    "type": "transition_to"
-}
-[MESSAGE] - from Patrol: Mind orders: Transition to Chase
-[JSON] - from Received Raw Message:
-{
-    "data": {
-        "params": {
-            "patience": 5.0
-        },
-        "target_state": "Chase"
-    },
-    "receiver": "body",
-    "sender": "patrol_rosanna",
-    "type": "transition_to"
-}
-[MESSAGE] - from Patrol: Mind orders: Transition to Chase
-[MESSAGE] - from Patrol: Lost visual on target. Switching to Track.
 [MESSAGE] - from Patrol: I SEE YOU!
 [JSON] - from Sent Data:
 {
     "data": {
-        "id": 120242311394,
-        "pos_x": 67.9662246704102,
-        "pos_y": 1239.962890625,
+        "id": 112088584420,
+        "pos_x": 1854.07592773438,
+        "pos_y": 705.968994140625,
         "sight": "player"
     },
     "receiver": "vesna",
     "sender": "body",
     "type": "sight"
 }
-[MESSAGE] - from Patrol: CAUGHT the player! Triggering encounter as 'rosanna'
-Encounter triggered with: rosanna
+[MESSAGE] - from Patrol: I SEE YOU!
+[JSON] - from Sent Data:
+{
+    "data": {
+        "id": 112088584420,
+        "pos_x": 1854.07592773438,
+        "pos_y": 705.968994140625,
+        "sight": "player"
+    },
+    "receiver": "vesna",
+    "sender": "body",
+    "type": "sight"
+}
+[JSON] - from Received Raw Message:
+{
+    "data": {
+        "params": {
+            "patience": 2.0
+        },
+        "target_state": "Chase"
+    },
+    "receiver": "body",
+    "sender": "patrol_susanna",
+    "type": "transition_to"
+}
+[MESSAGE] - from Patrol: Mind orders: Transition to Chase
+[MESSAGE] - from Patrol: I SEE YOU!
+[JSON] - from Sent Data:
+{
+    "data": {
+        "id": 112088584420,
+        "pos_x": 1854.07592773438,
+        "pos_y": 705.968994140625,
+        "sight": "player"
+    },
+    "receiver": "vesna",
+    "sender": "body",
+    "type": "sight"
+}
+[MESSAGE] - from Patrol: CAUGHT the player! Triggering encounter as 'susanna'
+Encounter triggered with: susanna
 Stopping Jason Mind...
-Sympathy update queued: patrol_rosanna += 0.96 (total: 0.96)
+Sympathy update queued: patrol_susanna += 0.67 (total: 0.67)
 [MESSAGE] - from NetworkManager: Listening on port 9071
 [MESSAGE] - from Sentry: Scanning (2.0s interval)...
 [MESSAGE] - from NetworkManager: Listening on port 9072
@@ -542,7 +613,7 @@ Sympathy update queued: patrol_rosanna += 0.96 (total: 0.96)
 Working Dir: /home/inkeaton/Documenti/Godot/take-them-out/mind
 ServerManager: Listening for Jason readiness on port 9200
 Jason launch command: bash ["-c", "cd \'/home/inkeaton/Documenti/Godot/take-them-out/mind\' && exec gradle run"]
-Spawned Jason Mind (PID: 59287)
+Spawned Jason Mind (PID: 53423)
 Waiting for Jason Mind to boot...
 [MESSAGE] - from NetworkManager: New TCP connection accepted. Handshaking...
 [MESSAGE] - from NetworkManager: WebSocket Handshake complete. Channel OPEN.
@@ -654,8 +725,8 @@ ServerManager: WebSocket handshake on 9200 complete.
 [MESSAGE] - from Patrol: Mind orders: Transition to Patrol
 JASON MIND READY! signal_ready received from 'director'.
 Mind Connected. Starting Game.
-ServerManager: Sent to director: {"data":{"sympathies":[{"agent":"patrol_rosanna","value":0.96}]},"receiver":"director","sender":"body","type":"setup"}
-Sent sympathy updates to director: [{ "agent": "patrol_rosanna", "value": 0.96 }]
+ServerManager: Sent to director: {"data":{"sympathies":[{"agent":"patrol_susanna","value":0.67}]},"receiver":"director","sender":"body","type":"setup"}
+Sent sympathy updates to director: [{ "agent": "patrol_susanna", "value": 0.67 }]
 [JSON] - from Sent Data:
 {
     "data": {
@@ -693,6 +764,31 @@ Sent sympathy updates to director: [{ "agent": "patrol_rosanna", "value": 0.96 }
 }
 [MESSAGE] - from Patrol: Arrived. Awaiting orders...
 [MESSAGE] - from Patrol: Awaiting orders...
+[JSON] - from Received Raw Message:
+{
+    "data": {
+        "params": {
+            "target": "next"
+        },
+        "target_state": "Patrol"
+    },
+    "receiver": "body",
+    "sender": "patrol_marianna",
+    "type": "transition_to"
+}
+[MESSAGE] - from Patrol: Mind orders: Transition to Patrol
+[JSON] - from Sent Data:
+{
+    "data": {
+        "status": "reached",
+        "waypoint": "0"
+    },
+    "receiver": "vesna",
+    "sender": "body",
+    "type": "navigation"
+}
+[MESSAGE] - from Patrol: Arrived. Awaiting orders...
+[MESSAGE] - from Patrol: Awaiting orders...
 [JSON] - from Sent Data:
 {
     "data": {
@@ -714,301 +810,14 @@ Sent sympathy updates to director: [{ "agent": "patrol_rosanna", "value": 0.96 }
         "target_state": "Patrol"
     },
     "receiver": "body",
-    "sender": "patrol_marianna",
+    "sender": "patrol_rosanna",
     "type": "transition_to"
 }
 [MESSAGE] - from Patrol: Mind orders: Transition to Patrol
-[JSON] - from Received Raw Message:
-{
-    "data": {
-        "params": {
-            "target": "next"
-        },
-        "target_state": "Patrol"
-    },
-    "receiver": "body",
-    "sender": "patrol_susanna",
-    "type": "transition_to"
-}
-[MESSAGE] - from Patrol: Mind orders: Transition to Patrol
-[JSON] - from Sent Data:
-{
-    "data": {
-        "status": "reached",
-        "waypoint": "0"
-    },
-    "receiver": "vesna",
-    "sender": "body",
-    "type": "navigation"
-}
-[MESSAGE] - from Patrol: Arrived. Awaiting orders...
-[MESSAGE] - from Patrol: Awaiting orders...
-[JSON] - from Sent Data:
-{
-    "data": {
-        "status": "reached",
-        "waypoint": "0"
-    },
-    "receiver": "vesna",
-    "sender": "body",
-    "type": "navigation"
-}
-[MESSAGE] - from Patrol: Arrived. Awaiting orders...
-[MESSAGE] - from Patrol: Awaiting orders...
-[MESSAGE] - from Sentry: I SEE YOU! Notifying mind...
-[JSON] - from Sent Data:
-{
-    "data": {
-        "id": 286655516793,
-        "pos_x": 1120.15026855469,
-        "pos_y": 1322.81799316406,
-        "sight": "player"
-    },
-    "receiver": "vesna",
-    "sender": "body",
-    "type": "sight"
-}
-[MESSAGE] - from Sentry: Awaiting orders...
-[JSON] - from Received Raw Message:
-{
-    "data": {
-        "params": {
-            "duration": 12.0
-        },
-        "target_state": "Alert"
-    },
-    "receiver": "body",
-    "sender": "sentry1",
-    "type": "transition_to"
-}
-[MESSAGE] - from Sentry: Mind orders: Transition to Alert
-[MESSAGE] - from Sentry: Alert sequence triggered!
-[MESSAGE] - from Sentry: Found allies: ["patrol_susanna", "patrol_rosanna", "sentry4", "captain_daniele"]
-[JSON] - from Sent Data:
-{
-    "data": {
-        "allies": [
-            "patrol_susanna",
-            "patrol_rosanna",
-            "sentry4",
-            "captain_daniele"
-        ]
-    },
-    "receiver": "vesna",
-    "sender": "body",
-    "type": "allies"
-}
-[JSON] - from Received Raw Message:
-{
-    "data": {
-        "name": "switch_time",
-        "value": 2.0
-    },
-    "type": "set_var"
-}
-[MESSAGE] - from Sentry: Set Scan.switch_time = 2.0
-[JSON] - from Received Raw Message:
-{
-    "data": {
-        "name": "switch_time",
-        "value": 2.0
-    },
-    "type": "set_var"
-}
-[MESSAGE] - from Sentry: Set Scan.switch_time = 2.0
-[JSON] - from Received Raw Message:
-{
-    "data": {
-        "name": "switch_time",
-        "value": 2.0
-    },
-    "type": "set_var"
-}
-[MESSAGE] - from Sentry: Set Scan.switch_time = 2.0
-[JSON] - from Received Raw Message:
-{
-    "data": {
-        "name": "switch_time",
-        "value": 2.0
-    },
-    "type": "set_var"
-}
-[MESSAGE] - from Sentry: Set Scan.switch_time = 2.0
-[JSON] - from Received Raw Message:
-{
-    "data": {
-        "name": "switch_time",
-        "value": 2.0
-    },
-    "type": "set_var"
-}
-[MESSAGE] - from Sentry: Set Scan.switch_time = 2.0
-[JSON] - from Received Raw Message:
-{
-    "data": {
-        "name": "switch_time",
-        "value": 2.0
-    },
-    "type": "set_var"
-}
-[MESSAGE] - from Sentry: Set Scan.switch_time = 2.0
-[JSON] - from Received Raw Message:
-{
-    "data": {
-        "name": "switch_time",
-        "value": 2.0
-    },
-    "type": "set_var"
-}
-[MESSAGE] - from Sentry: Set Scan.switch_time = 2.0
-[JSON] - from Received Raw Message:
-{
-    "data": {
-        "params": {
-            "target": {
-                "x": 1120.15026855469,
-                "y": 1322.81799316406
-            }
-        },
-        "target_state": "Patrol"
-    },
-    "receiver": "body",
-    "sender": "patrol_polyanna",
-    "type": "transition_to"
-}
-[MESSAGE] - from Patrol: Mind orders: Transition to Patrol
-[MESSAGE] - from Patrol: Moving to coordinates (1120.15, 1322.818)
-[JSON] - from Received Raw Message:
-{
-    "data": {
-        "params": {
-            "target": {
-                "x": 1120.15026855469,
-                "y": 1322.81799316406
-            }
-        },
-        "target_state": "Patrol"
-    },
-    "receiver": "body",
-    "sender": "patrol_marianna",
-    "type": "transition_to"
-}
-[MESSAGE] - from Patrol: Mind orders: Transition to Patrol
-[MESSAGE] - from Patrol: Moving to coordinates (1120.15, 1322.818)
-[JSON] - from Received Raw Message:
-{
-    "data": {
-        "params": {
-            "target": {
-                "x": 1120.15026855469,
-                "y": 1322.81799316406
-            }
-        },
-        "target_state": "Patrol"
-    },
-    "receiver": "body",
-    "sender": "captain_daniele",
-    "type": "transition_to"
-}
-[MESSAGE] - from Patrol: Mind orders: Transition to Patrol
-[MESSAGE] - from Patrol: Moving to coordinates (1120.15, 1322.818)
-[JSON] - from Received Raw Message:
-{
-    "data": {
-        "params": {
-            "target": {
-                "x": 1120.15026855469,
-                "y": 1322.81799316406
-            }
-        },
-        "target_state": "Patrol"
-    },
-    "receiver": "body",
-    "sender": "captain_samuele",
-    "type": "transition_to"
-}
-[MESSAGE] - from Patrol: Mind orders: Transition to Patrol
-[MESSAGE] - from Patrol: Moving to coordinates (1120.15, 1322.818)
-[JSON] - from Received Raw Message:
-{
-    "data": {
-        "name": "switch_time",
-        "value": 2.0
-    },
-    "type": "set_var"
-}
-[MESSAGE] - from Sentry: Set Scan.switch_time = 2.0
-[MESSAGE] - from Patrol: I SEE YOU!
-[JSON] - from Sent Data:
-{
-    "data": {
-        "id": 286655516793,
-        "pos_x": 1029.07495117188,
-        "pos_y": 1345.03649902344,
-        "sight": "player"
-    },
-    "receiver": "vesna",
-    "sender": "body",
-    "type": "sight"
-}
-[MESSAGE] - from Patrol: I SEE YOU!
-[JSON] - from Sent Data:
-{
-    "data": {
-        "id": 286655516793,
-        "pos_x": 1029.07495117188,
-        "pos_y": 1345.03649902344,
-        "sight": "player"
-    },
-    "receiver": "vesna",
-    "sender": "body",
-    "type": "sight"
-}
-[JSON] - from Received Raw Message:
-{
-    "data": {
-        "params": {
-            "patience": 2.0
-        },
-        "target_state": "Chase"
-    },
-    "receiver": "body",
-    "sender": "patrol_susanna",
-    "type": "transition_to"
-}
-[MESSAGE] - from Patrol: Mind orders: Transition to Chase
-[MESSAGE] - from Patrol: I SEE YOU!
-[JSON] - from Sent Data:
-{
-    "data": {
-        "id": 286655516793,
-        "pos_x": 1029.07495117188,
-        "pos_y": 1345.03649902344,
-        "sight": "player"
-    },
-    "receiver": "vesna",
-    "sender": "body",
-    "type": "sight"
-}
-[MESSAGE] - from Patrol: I SEE YOU!
-[JSON] - from Sent Data:
-{
-    "data": {
-        "id": 286655516793,
-        "pos_x": 1029.07495117188,
-        "pos_y": 1345.03649902344,
-        "sight": "player"
-    },
-    "receiver": "vesna",
-    "sender": "body",
-    "type": "sight"
-}
-[MESSAGE] - from Patrol: CAUGHT the player! Triggering encounter as 'susanna'
-Encounter triggered with: susanna
-Stopping Jason Mind...
 --- Stopping All Servers ---
-Killing guard_core (PID: 56238)
-Killing guard_action (PID: 56239)
-Killing date_core (PID: 56240)
-Killing date_action (PID: 56241)
+Killing guard_core (PID: 51895)
+Killing guard_action (PID: 51896)
+Killing date_core (PID: 51897)
+Killing date_action (PID: 51898)
+Killing jason_mind (PID: 53423)
 --- Stopping All Servers ---
