@@ -1,0 +1,106 @@
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/rasa/core/tracker_store.py:1044: MovedIn20Warning: Deprecated API features detected! These feature(s) are not compatible with SQLAlchemy 2.0. To prevent incompatible upgrades prior to updating applications, ensure requirements files are pinned to "sqlalchemy<2.0". Set environment variable SQLALCHEMY_WARN_20=1 to show all deprecation warnings.  Set environment variable SQLALCHEMY_SILENCE_UBER_WARNING=1 to silence this message. (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+  Base: DeclarativeMeta = declarative_base()
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/rasa/shared/utils/validation.py:134: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/pkg_resources/__init__.py:3117: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('mpl_toolkits')`.
+Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+  declare_namespace(pkg)
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/pkg_resources/__init__.py:3117: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('ruamel')`.
+Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+  declare_namespace(pkg)
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/sanic_cors/extension.py:39: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  SANIC_VERSION = LooseVersion(sanic_version)
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/tensorflow/lite/python/util.py:52: DeprecationWarning: jax.xla_computation is deprecated. Please use the AOT APIs.
+  from jax import xla_computation as _xla_computation
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/matplotlib/fontconfig_pattern.py:66: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+  ).setParseAction(self._family)
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/matplotlib/fontconfig_pattern.py:127: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+  self._parser.parseString(pattern)
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/matplotlib/fontconfig_pattern.py:134: PyparsingDeprecationWarning: 'resetCache' deprecated - use 'reset_cache'
+  self._parser.resetCache()
+2026-04-15 10:32:15 INFO     root  - Starting Rasa server on http://0.0.0.0:8005
+2026-04-15 10:32:15 INFO     rasa.core.processor  - Loading model models/20260212-165012-curious-parameter.tar.gz...
+2026-04-15 10:32:15 INFO     rasa.nlu.utils.spacy_utils  - Trying to load SpaCy model with name 'en_core_web_lg'.
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/packaging/markers.py:125: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+  VARIABLE.setParseAction(lambda s, l, t: Variable(ALIASES.get(t[0], t[0])))
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/packaging/requirements.py:74: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+  _VERSION_SPEC.setParseAction(lambda s, l, t: t._raw_spec or "")
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/packaging/requirements.py:76: PyparsingDeprecationWarning: 'originalTextFor' deprecated - use 'original_text_for'
+  VERSION_SPEC = originalTextFor(_VERSION_SPEC)("specifier")
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/packaging/requirements.py:94: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+  REQUIREMENT.parseString("x[]")
+2026-04-15 10:32:16 INFO     rasa.nlu.utils.spacy_utils  - Trying to load SpaCy model with name 'en_core_web_lg'.
+2026-04-15 10:32:23 INFO     root  - Rasa server is up and running.
+2026-04-15 10:32:43 ERROR    rasa.core.actions.action  - Failed to run custom action 'action_evaluate_excuse'. Couldn't connect to the server at 'http://localhost:5055/webhook'. Is the server running? Error: Cannot connect to host localhost:5055 ssl:default [Connection refused]
+2026-04-15 10:32:43 ERROR    rasa.core.processor  - Encountered an exception while running action 'action_evaluate_excuse'.Bot will continue, but the actions events are lost. Please check the logs of your action server for more information.
+Traceback (most recent call last):
+  File "/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/aiohttp/connector.py", line 1025, in _wrap_create_connection
+    return await self._loop.create_connection(*args, **kwargs)
+  File "uvloop/loop.pyx", line 2043, in create_connection
+  File "uvloop/loop.pyx", line 2020, in uvloop.loop.Loop.create_connection
+ConnectionRefusedError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/rasa/core/actions/action.py", line 780, in run
+    response: Any = await self.action_endpoint.request(
+  File "/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/rasa/utils/endpoints.py", line 174, in request
+    async with session.request(
+  File "/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/aiohttp/client.py", line 1197, in __aenter__
+    self._resp = await self._coro
+  File "/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/aiohttp/client.py", line 581, in _request
+    conn = await self._connector.connect(
+  File "/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/aiohttp/connector.py", line 544, in connect
+    proto = await self._create_connection(req, traces, timeout)
+  File "/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/aiohttp/connector.py", line 944, in _create_connection
+    _, proto = await self._create_direct_connection(req, traces, timeout)
+  File "/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/aiohttp/connector.py", line 1257, in _create_direct_connection
+    raise last_exc
+  File "/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/aiohttp/connector.py", line 1226, in _create_direct_connection
+    transp, proto = await self._wrap_create_connection(
+  File "/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/aiohttp/connector.py", line 1033, in _wrap_create_connection
+    raise client_error(req.connection_key, exc) from exc
+aiohttp.client_exceptions.ClientConnectorError: Cannot connect to host localhost:5055 ssl:default [Connection refused]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/rasa/core/processor.py", line 982, in _run_action
+    events = await action.run(
+  File "/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/rasa/core/actions/action.py", line 821, in run
+    raise RasaException(
+rasa.shared.exceptions.RasaException: Failed to execute custom action 'action_evaluate_excuse'. Couldn't connect to the server at 'http://localhost:5055/webhook.
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/rasa/core/tracker_store.py:1044: MovedIn20Warning: Deprecated API features detected! These feature(s) are not compatible with SQLAlchemy 2.0. To prevent incompatible upgrades prior to updating applications, ensure requirements files are pinned to "sqlalchemy<2.0". Set environment variable SQLALCHEMY_WARN_20=1 to show all deprecation warnings.  Set environment variable SQLALCHEMY_SILENCE_UBER_WARNING=1 to silence this message. (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+  Base: DeclarativeMeta = declarative_base()
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/rasa/shared/utils/validation.py:134: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/pkg_resources/__init__.py:3117: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('mpl_toolkits')`.
+Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+  declare_namespace(pkg)
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/pkg_resources/__init__.py:3117: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('ruamel')`.
+Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+  declare_namespace(pkg)
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/sanic_cors/extension.py:39: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  SANIC_VERSION = LooseVersion(sanic_version)
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/tensorflow/lite/python/util.py:52: DeprecationWarning: jax.xla_computation is deprecated. Please use the AOT APIs.
+  from jax import xla_computation as _xla_computation
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/matplotlib/fontconfig_pattern.py:66: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+  ).setParseAction(self._family)
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/matplotlib/fontconfig_pattern.py:127: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+  self._parser.parseString(pattern)
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/matplotlib/fontconfig_pattern.py:134: PyparsingDeprecationWarning: 'resetCache' deprecated - use 'reset_cache'
+  self._parser.resetCache()
+2026-04-15 10:33:40 INFO     root  - Starting Rasa server on http://0.0.0.0:8005
+2026-04-15 10:33:41 INFO     rasa.core.processor  - Loading model models/20260212-165012-curious-parameter.tar.gz...
+2026-04-15 10:33:41 INFO     rasa.nlu.utils.spacy_utils  - Trying to load SpaCy model with name 'en_core_web_lg'.
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/packaging/markers.py:125: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+  VARIABLE.setParseAction(lambda s, l, t: Variable(ALIASES.get(t[0], t[0])))
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/packaging/requirements.py:74: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+  _VERSION_SPEC.setParseAction(lambda s, l, t: t._raw_spec or "")
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/packaging/requirements.py:76: PyparsingDeprecationWarning: 'originalTextFor' deprecated - use 'original_text_for'
+  VERSION_SPEC = originalTextFor(_VERSION_SPEC)("specifier")
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/packaging/requirements.py:94: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+  REQUIREMENT.parseString("x[]")
+2026-04-15 10:33:42 INFO     rasa.nlu.utils.spacy_utils  - Trying to load SpaCy model with name 'en_core_web_lg'.
+2026-04-15 10:33:48 INFO     root  - Rasa server is up and running.

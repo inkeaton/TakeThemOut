@@ -2,8 +2,6 @@
 extends Control
 
 # --- Configuration ---
-const URL_GUARD_BOT: String = "http://localhost:5005/webhooks/rest/webhook"
-const URL_DATE_BOT: String  = "http://localhost:5006/webhooks/rest/webhook"
 const CHAT_SENDER_ID: String = "godot_player"
 
 # --- Signals ---
@@ -34,7 +32,7 @@ signal interrogation_failed
 # --- State ---
 var current_guard_name: String = "unknown"
 var current_mode: String = "GUARD" # "GUARD" or "DATE"
-var current_api_url: String = URL_GUARD_BOT
+var current_api_url: String = ""
 var last_score: float = 0.0
 var debug_mode: bool = false  # When true: no input locking, no scene changes, score shown inline
 var _debug_cumulative_score: float = 0.0  # Running total for debug display
@@ -69,6 +67,7 @@ func _ready() -> void:
 	log_window.hide()
 	continue_button.hide()
 	agent_text_label.text = "[i]Waiting...[/i]"
+	current_api_url = ServerManager.get_guard_webhook_url()
 
 	# 5. Check GameManager for Target (Scene Switch Workflow)
 	# (Requires GameManager autoload to be present)
@@ -125,12 +124,12 @@ func configure_bot(guard_name: String) -> void:
 		
 	elif current_guard_name == "eugenia":
 		current_mode = "DATE"
-		current_api_url = URL_DATE_BOT # Port 5006
+		current_api_url = ServerManager.get_date_webhook_url()
 		_setup_date_mode()
 		agent_text_label.text = "..."
 	else:
 		current_mode = "GUARD"
-		current_api_url = URL_GUARD_BOT # Port 5005
+		current_api_url = ServerManager.get_guard_webhook_url()
 		interrogation_hud.hide()
 		agent_text_label.text = "[i]HALT! Who goes there?[/i]"
 

@@ -2,6 +2,21 @@ Godot Engine v4.6.stable.official.89cea1439 - https://godotengine.org
 Vulkan 1.4.335 - Forward+ - Using Device #0: AMD - AMD Radeon RX 7700 XT (RADV NAVI32)
 
 ServerManager: Listening for Jason readiness on port 9200
+Starting Game Sequence...
+--- Cleaning up orphan processes on ports [8005, 8006, 8055, 8056] ---
+--- Orphan cleanup done ---
+--- Starting Skirmish (Guard) Servers ---
+Working Dir: /home/inkeaton/Documenti/Godot/take-them-out/tongue/skirmish
+Rasa log: /home/inkeaton/Documenti/Godot/take-them-out/logs/rasa_run_enable-api_cors_*_port_8005.log
+Spawned PID 22591 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/skirmish
+Rasa log: /home/inkeaton/Documenti/Godot/take-them-out/logs/rasa_run_actions_port_8055.log
+Spawned PID 22592 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/skirmish
+--- Starting Date (Eugenia) Servers ---
+Working Dir: /home/inkeaton/Documenti/Godot/take-them-out/tongue/date
+Rasa log: /home/inkeaton/Documenti/Godot/take-them-out/logs/rasa_run_enable-api_cors_*_port_8006.log
+Spawned PID 22593 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/date
+Rasa log: /home/inkeaton/Documenti/Godot/take-them-out/logs/rasa_run_actions_port_8056.log
+Spawned PID 22594 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/date
 [MESSAGE] - from NetworkManager: Listening on port 9071
 [MESSAGE] - from Sentry: Scanning (2.0s interval)...
 [MESSAGE] - from NetworkManager: Listening on port 9072
@@ -32,7 +47,7 @@ ServerManager: Listening for Jason readiness on port 9200
 [MESSAGE] - from Patrol: Cached 9 waypoints from 2 zone(s)
 --- Starting Jason Mind (Gradle) ---
 Working Dir: /home/inkeaton/Documenti/Godot/take-them-out/mind
-Spawned Jason Mind (PID: 308124)
+Spawned Jason Mind (PID: 23218)
 Waiting for Jason Mind to boot...
 [MESSAGE] - from NetworkManager: New TCP connection accepted. Handshaking...
 [MESSAGE] - from NetworkManager: WebSocket Handshake complete. Channel OPEN.
@@ -142,6 +157,92 @@ ServerManager: WebSocket handshake on 9200 complete.
     "type": "transition_to"
 }
 [MESSAGE] - from Patrol: Mind orders: Transition to Patrol
+JASON MIND READY! signal_ready received from 'director'.
+Mind Connected. Starting Game.
+No sympathy updates to send.
+[JSON] - from Sent Data:
+{
+    "data": {
+        "status": "reached",
+        "waypoint": "0"
+    },
+    "receiver": "vesna",
+    "sender": "body",
+    "type": "navigation"
+}
+[MESSAGE] - from Patrol: Arrived. Awaiting orders...
+[MESSAGE] - from Patrol: Awaiting orders...
+[JSON] - from Received Raw Message:
+{
+    "data": {
+        "params": {
+            "target": "next"
+        },
+        "target_state": "Patrol"
+    },
+    "receiver": "body",
+    "sender": "captain_samuele",
+    "type": "transition_to"
+}
+[MESSAGE] - from Patrol: Mind orders: Transition to Patrol
+[MESSAGE] - from Patrol: I SEE YOU!
+[JSON] - from Sent Data:
+{
+    "data": {
+        "id": 118447149284,
+        "pos_x": 100.0,
+        "pos_y": 92.0,
+        "sight": "player"
+    },
+    "receiver": "vesna",
+    "sender": "body",
+    "type": "sight"
+}
+[JSON] - from Received Raw Message:
+{
+    "data": {
+        "params": {
+            "patience": 5.0
+        },
+        "target_state": "Chase"
+    },
+    "receiver": "body",
+    "sender": "patrol_rosanna",
+    "type": "transition_to"
+}
+[MESSAGE] - from Patrol: Mind orders: Transition to Chase
+[MESSAGE] - from Patrol: I SEE YOU!
+[JSON] - from Sent Data:
+{
+    "data": {
+        "id": 118447149284,
+        "pos_x": 100.0,
+        "pos_y": 92.0,
+        "sight": "player"
+    },
+    "receiver": "vesna",
+    "sender": "body",
+    "type": "sight"
+}
+[MESSAGE] - from Patrol: I SEE YOU!
+[JSON] - from Sent Data:
+{
+    "data": {
+        "id": 118447149284,
+        "pos_x": 100.0,
+        "pos_y": 92.0,
+        "sight": "player"
+    },
+    "receiver": "vesna",
+    "sender": "body",
+    "type": "sight"
+}
+[MESSAGE] - from Patrol: CAUGHT the player! Triggering encounter as 'rosanna'
+Encounter triggered with: rosanna
+Stopping Jason Mind...
 --- Stopping All Servers ---
-Killing jason_mind (PID: 308124)
+Killing guard_core (PID: 22591)
+Killing guard_action (PID: 22592)
+Killing date_core (PID: 22593)
+Killing date_action (PID: 22594)
 --- Stopping All Servers ---

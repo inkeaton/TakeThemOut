@@ -24,19 +24,19 @@ func _ready() -> void:
 # --- Health Polling ---
 
 func _check_status_loop() -> void:
-	# Ping Guard Bot (5005)
+	# Ping Guard Bot
 	if not guard_ready:
 		var http_guard = HTTPRequest.new()
 		add_child(http_guard)
 		http_guard.request_completed.connect(_on_guard_ping)
-		http_guard.request("http://localhost:5005")
+		http_guard.request(ServerManager.get_guard_core_base_url())
 	
-	# Ping Date Bot (5006)
+	# Ping Date Bot
 	if not date_ready:
 		var http_date = HTTPRequest.new()
 		add_child(http_date)
 		http_date.request_completed.connect(_on_date_ping)
-		http_date.request("http://localhost:5006")
+		http_date.request(ServerManager.get_date_core_base_url())
 	
 	# If both already ready proceed immediately
 	if guard_ready and date_ready:

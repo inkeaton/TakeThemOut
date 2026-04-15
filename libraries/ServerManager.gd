@@ -2,6 +2,13 @@
 extends Node
 
 # --- Configuration ---
+# Rasa connection config (single source of truth).
+const RASA_HOST: String = "localhost"
+const GUARD_CORE_PORT: int = 8005
+const DATE_CORE_PORT: int = 8006
+const GUARD_ACTION_PORT: int = 8055
+const DATE_ACTION_PORT: int = 8056
+
 # We use globalize_path to get the absolute OS path (e.g. /home/.../tongue/skirmish)
 
 var SKIRMISH_BOT_PATH: String = ProjectSettings.globalize_path("res://tongue/skirmish")
@@ -138,21 +145,21 @@ func start_guard_servers() -> void:
 	print("--- Starting Skirmish (Guard) Servers ---")
 	print("Working Dir: ", SKIRMISH_BOT_PATH)
 	
-	# 1. Start Rasa Core (Port 5005)
-	pids.guard_core = _spawn_rasa_process(SKIRMISH_BOT_PATH, ["run", "--enable-api", "--cors", "*", "--port", "5005"])
+	# 1. Start Rasa Core
+	pids.guard_core = _spawn_rasa_process(SKIRMISH_BOT_PATH, ["run", "--enable-api", "--cors", "*", "--port", str(GUARD_CORE_PORT)])
 	
-	# 2. Start Action Server (Port 5055)
-	pids.guard_action = _spawn_rasa_process(SKIRMISH_BOT_PATH, ["run", "actions", "--port", "5055"])
+	# 2. Start Action Server
+	pids.guard_action = _spawn_rasa_process(SKIRMISH_BOT_PATH, ["run", "actions", "--port", str(GUARD_ACTION_PORT)])
 
 func start_date_servers() -> void:
 	print("--- Starting Date (Eugenia) Servers ---")
 	print("Working Dir: ", DATE_BOT_PATH)
 	
-	# 1. Start Rasa Core (Port 5006)
-	pids.date_core = _spawn_rasa_process(DATE_BOT_PATH, ["run", "--enable-api", "--cors", "*", "--port", "5006"])
+	# 1. Start Rasa Core
+	pids.date_core = _spawn_rasa_process(DATE_BOT_PATH, ["run", "--enable-api", "--cors", "*", "--port", str(DATE_CORE_PORT)])
 	
-	# 2. Start Action Server (Port 5056)
-	pids.date_action = _spawn_rasa_process(DATE_BOT_PATH, ["run", "actions", "--port", "5056"])
+	# 2. Start Action Server
+	pids.date_action = _spawn_rasa_process(DATE_BOT_PATH, ["run", "actions", "--port", str(DATE_ACTION_PORT)])
 
 # --- Process Spawner ---
 
@@ -211,9 +218,11 @@ func stop_all_servers() -> void:
 
 # --- Orphan Cleanup ---
 # Kill any leftover processes on Rasa ports from a previous crash/forced exit
-func kill_orphans_on_ports(ports: Array = [5005, 5006, 5055, 5056]) -> void:
+func kill_orphans_on_ports(ports: Array = []) -> void:
 	if OS.get_name() == "Windows":
 		return # fuser not available on Windows
+	if ports.is_empty():
+		ports = get_rasa_ports()
 	print("--- Cleaning up orphan processes on ports %s ---" % str(ports))
 	for port in ports:
 		# fuser -k sends SIGKILL to any process listening on the port
@@ -222,7 +231,7 @@ func kill_orphans_on_ports(ports: Array = [5005, 5006, 5055, 5056]) -> void:
 
 # --- Health Check ---
 
-func check_server_health(port: int = 5005, callback: Callable = Callable()) -> void:
+func check_server_health(port: int = GUARD_CORE_PORT, callback: Callable = Callable()) -> void:
 	var http = HTTPRequest.new()
 	add_child(http)
 	
@@ -237,4 +246,27 @@ func check_server_health(port: int = 5005, callback: Callable = Callable()) -> v
 	)
 	
 	# Rasa's health check endpoint is simply the root URL
-	http.request("http://localhost:%s" % port)
+	http.request(_build_rasa_core_base_url(port))
+
+# --- Rasa URL Helpers ---
+
+func get_guard_webhook_url() -> String:
+	return _build_rasa_webhook_url(GUARD_CORE_PORT)
+
+func get_date_webhook_url() -> String:
+	return _build_rasa_webhook_url(DATE_CORE_PORT)
+
+func get_guard_core_base_url() -> String:
+	return _build_rasa_core_base_url(GUARD_CORE_PORT)
+
+func get_date_core_base_url() -> String:
+	return _build_rasa_core_base_url(DATE_CORE_PORT)
+
+func get_rasa_ports() -> Array:
+	return [GUARD_CORE_PORT, DATE_CORE_PORT, GUARD_ACTION_PORT, DATE_ACTION_PORT]
+
+func _build_rasa_core_base_url(port: int) -> String:
+	return "http://%s:%d" % [RASA_HOST, port]
+
+func _build_rasa_webhook_url(port: int) -> String:
+	return "http://%s:%d/webhooks/rest/webhook" % [RASA_HOST, port]
