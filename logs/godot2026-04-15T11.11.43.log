@@ -8,15 +8,15 @@ Starting Game Sequence...
 --- Starting Skirmish (Guard) Servers ---
 Working Dir: /home/inkeaton/Documenti/Godot/take-them-out/tongue/skirmish
 Rasa log: /home/inkeaton/Documenti/Godot/take-them-out/logs/rasa_run_enable-api_cors_*_port_8005.log
-Spawned PID 77252 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/skirmish
+Spawned PID 75989 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/skirmish
 Rasa log: /home/inkeaton/Documenti/Godot/take-them-out/logs/rasa_run_actions_port_8055.log
-Spawned PID 77253 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/skirmish
+Spawned PID 75990 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/skirmish
 --- Starting Date (Eugenia) Servers ---
 Working Dir: /home/inkeaton/Documenti/Godot/take-them-out/tongue/date
 Rasa log: /home/inkeaton/Documenti/Godot/take-them-out/logs/rasa_run_enable-api_cors_*_port_8006.log
-Spawned PID 77254 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/date
+Spawned PID 75991 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/date
 Rasa log: /home/inkeaton/Documenti/Godot/take-them-out/logs/rasa_run_actions_port_8056.log
-Spawned PID 77255 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/date
+Spawned PID 75992 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/date
 [MESSAGE] - from NetworkManager: Listening on port 9071
 [MESSAGE] - from Sentry: Scanning (2.0s interval)...
 [MESSAGE] - from NetworkManager: Listening on port 9072
@@ -48,7 +48,7 @@ Spawned PID 77255 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/date
 --- Starting Jason Mind (Gradle) ---
 Working Dir: /home/inkeaton/Documenti/Godot/take-them-out/mind
 Jason launch command: bash ["-c", "cd \'/home/inkeaton/Documenti/Godot/take-them-out/mind\' && exec gradle run"]
-Spawned Jason Mind (PID: 77876)
+Spawned Jason Mind (PID: 76610)
 Waiting for Jason Mind to boot...
 [MESSAGE] - from NetworkManager: New TCP connection accepted. Handshaking...
 [MESSAGE] - from NetworkManager: WebSocket Handshake complete. Channel OPEN.
@@ -161,22 +161,12 @@ ServerManager: WebSocket handshake on 9200 complete.
 JASON MIND READY! signal_ready received from 'director'.
 Mind Connected. Starting Game.
 No sympathy updates to send.
-[JSON] - from Sent Data:
-{
-    "data": {
-        "status": "reached",
-        "waypoint": "0"
-    },
-    "receiver": "vesna",
-    "sender": "body",
-    "type": "navigation"
-}
-[MESSAGE] - from Patrol: Arrived. Awaiting orders...
-[MESSAGE] - from Patrol: Awaiting orders...
 --- Stopping All Servers ---
-Killing guard_core (PID: 77252)
-Killing guard_action (PID: 77253)
-Killing date_core (PID: 77254)
-Killing date_action (PID: 77255)
-Killing jason_mind (PID: 77876)
+Killing guard_core (PID: 75989)
+Killing guard_action (PID: 75990)
+Killing date_core (PID: 75991)
+Killing date_action (PID: 75992)
+Killing jason_mind (PID: 76610)
 --- Stopping All Servers ---
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+   at: cleanup (core/object/object.cpp:2641)

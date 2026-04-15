@@ -17,7 +17,7 @@ consecutive_failures(0).
 is_chasing(no).
 responding_to_alert(no).
 
-/* Keeps a single authoritative chase-state value. */
+/* Keeps a single chase-state value. */
 +is_chasing(S) : is_chasing(Old) & Old \== S <- -is_chasing(Old).
 
 /* Keeps one alert-response state at a time. */
@@ -94,13 +94,14 @@ responding_to_alert(no).
 +!act_on_intel(Reports) : not .empty(Reports)
     <-  vesna.calc_centroid(Reports, AvgX, AvgY);
         .print("Multiple contacts... Proceeding with caution.");
-        .wait(1500);
+        .wait(3000);
         vesna.transition_to("Patrol", [target(coords(AvgX, AvgY))]).
 
 /* ACT INTERCEPT DEFAULT: Moves to centroid with standard urgency. */
 @act_intercept_default[temper([aggressiveness(0.5), fear(0.0)])]
 +!act_on_intel(Reports) : not .empty(Reports)
     <-  vesna.calc_centroid(Reports, AvgX, AvgY);
+        .wait(1000);
         .print("Converging on target.");
         vesna.transition_to("Patrol", [target(coords(AvgX, AvgY))]).
 

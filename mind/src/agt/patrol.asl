@@ -22,7 +22,7 @@ messenger_report_pos(none).
 messenger_sent(no).
 messenger_failed(no).
 
-/* Keeps a single authoritative chase-state value. */
+/* Keeps a single chase-state value. */
 +is_chasing(S) : is_chasing(Old) & Old \== S <- -is_chasing(Old).
 
 /* Keeps one alert-response state at a time. */

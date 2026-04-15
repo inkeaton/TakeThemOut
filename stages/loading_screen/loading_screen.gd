@@ -83,16 +83,16 @@ func _try_proceed() -> void:
 func _update_status() -> void:
 	var parts: Array[String] = []
 	if guard_ready:
-		parts.append("Guard READY")
+		parts.append("\nGuard READY")
 	else:
-		parts.append("Guard WAIT")
+		parts.append("\nGuard WAIT")
 	if date_ready:
 		parts.append("Date READY")
 	else:
 		parts.append("Date WAIT")
 	var elapsed_sec: float = float(Time.get_ticks_msec() - _startup_started_msec) / 1000.0
 	var timeout_left: int = max(0, int(ceil(RASA_STARTUP_TIMEOUT_SEC - elapsed_sec)))
-	status_label.text = "Waiting for Rasa...  %s  |  Timeout in %ss" % ["  |  ".join(parts), timeout_left]
+	status_label.text = "Waiting for Rasa...  %s  \nTimeout in %ss" % ["  |  ".join(parts), timeout_left]
 
 func _proceed_to_maze() -> void:
 	if _transitioning:
