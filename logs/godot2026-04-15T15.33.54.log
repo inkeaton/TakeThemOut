@@ -8,15 +8,15 @@ Starting Game Sequence...
 --- Starting Skirmish (Guard) Servers ---
 Working Dir: /home/inkeaton/Documenti/Godot/take-them-out/tongue/skirmish
 Rasa log: /home/inkeaton/Documenti/Godot/take-them-out/logs/rasa_run_enable-api_cors_*_port_8005.log
-Spawned PID 54741 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/skirmish
+Spawned PID 77252 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/skirmish
 Rasa log: /home/inkeaton/Documenti/Godot/take-them-out/logs/rasa_run_actions_port_8055.log
-Spawned PID 54742 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/skirmish
+Spawned PID 77253 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/skirmish
 --- Starting Date (Eugenia) Servers ---
 Working Dir: /home/inkeaton/Documenti/Godot/take-them-out/tongue/date
 Rasa log: /home/inkeaton/Documenti/Godot/take-them-out/logs/rasa_run_enable-api_cors_*_port_8006.log
-Spawned PID 54743 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/date
+Spawned PID 77254 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/date
 Rasa log: /home/inkeaton/Documenti/Godot/take-them-out/logs/rasa_run_actions_port_8056.log
-Spawned PID 54744 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/date
+Spawned PID 77255 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/date
 [MESSAGE] - from NetworkManager: Listening on port 9071
 [MESSAGE] - from Sentry: Scanning (2.0s interval)...
 [MESSAGE] - from NetworkManager: Listening on port 9072
@@ -45,18 +45,10 @@ Spawned PID 54744 in /home/inkeaton/Documenti/Godot/take-them-out/tongue/date
 [MESSAGE] - from Patrol: Cached 7 waypoints from 2 zone(s)
 [MESSAGE] - from NetworkManager: Listening on port 9091
 [MESSAGE] - from Patrol: Cached 9 waypoints from 2 zone(s)
-ERROR: Animation not found: "walk_down".
-   at: get_animation (scene/animation/animation_mixer.cpp:416)
-   GDScript backtrace (most recent call first):
-       [0] _ready (res://bodies/player/src/player.gd:60)
-ERROR: Animation not found: walk_down.
-   at: play_section_with_markers (scene/animation/animation_player.cpp:422)
-   GDScript backtrace (most recent call first):
-       [0] _ready (res://bodies/player/src/player.gd:60)
 --- Starting Jason Mind (Gradle) ---
 Working Dir: /home/inkeaton/Documenti/Godot/take-them-out/mind
 Jason launch command: bash ["-c", "cd \'/home/inkeaton/Documenti/Godot/take-them-out/mind\' && exec gradle run"]
-Spawned Jason Mind (PID: 55357)
+Spawned Jason Mind (PID: 77876)
 Waiting for Jason Mind to boot...
 [MESSAGE] - from NetworkManager: New TCP connection accepted. Handshaking...
 [MESSAGE] - from NetworkManager: WebSocket Handshake complete. Channel OPEN.
@@ -181,149 +173,10 @@ No sympathy updates to send.
 }
 [MESSAGE] - from Patrol: Arrived. Awaiting orders...
 [MESSAGE] - from Patrol: Awaiting orders...
-[JSON] - from Received Raw Message:
-{
-    "data": {
-        "params": {
-            "target": "next"
-        },
-        "target_state": "Patrol"
-    },
-    "receiver": "body",
-    "sender": "captain_samuele",
-    "type": "transition_to"
-}
-[MESSAGE] - from Patrol: Mind orders: Transition to Patrol
-[MESSAGE] - from Patrol: I SEE YOU!
-[JSON] - from Sent Data:
-{
-    "data": {
-        "id": 119067906275,
-        "pos_x": 29.0039882659912,
-        "pos_y": 39.0746955871582,
-        "sight": "player"
-    },
-    "receiver": "vesna",
-    "sender": "body",
-    "type": "sight"
-}
-[MESSAGE] - from Patrol: I SEE YOU!
-[JSON] - from Sent Data:
-{
-    "data": {
-        "id": 119067906275,
-        "pos_x": 29.0039882659912,
-        "pos_y": 39.0746955871582,
-        "sight": "player"
-    },
-    "receiver": "vesna",
-    "sender": "body",
-    "type": "sight"
-}
-[JSON] - from Received Raw Message:
-{
-    "data": {
-        "params": {
-            "patience": 5.0
-        },
-        "target_state": "Chase"
-    },
-    "receiver": "body",
-    "sender": "patrol_rosanna",
-    "type": "transition_to"
-}
-[MESSAGE] - from Patrol: Mind orders: Transition to Chase
-[MESSAGE] - from Patrol: Lost visual on target. Switching to Track.
-[MESSAGE] - from Patrol: Tracking crumb 1...
-[MESSAGE] - from Patrol: Tracking crumb 2...
-[MESSAGE] - from Patrol: Tracking crumb 3...
-[MESSAGE] - from Patrol: Tracking crumb 4...
-[JSON] - from Sent Data:
-{
-    "data": {
-        "status": "reached",
-        "waypoint": "0"
-    },
-    "receiver": "vesna",
-    "sender": "body",
-    "type": "navigation"
-}
-[MESSAGE] - from Patrol: Arrived. Awaiting orders...
-[MESSAGE] - from Patrol: Awaiting orders...
-[JSON] - from Sent Data:
-{
-    "data": {
-        "status": "reached",
-        "waypoint": "0"
-    },
-    "receiver": "vesna",
-    "sender": "body",
-    "type": "navigation"
-}
-[MESSAGE] - from Patrol: Arrived. Awaiting orders...
-[MESSAGE] - from Patrol: Awaiting orders...
-[MESSAGE] - from Patrol: Tracking crumb 5...
-[JSON] - from Received Raw Message:
-{
-    "data": {
-        "params": {
-            "target": "next"
-        },
-        "target_state": "Patrol"
-    },
-    "receiver": "body",
-    "sender": "patrol_marianna",
-    "type": "transition_to"
-}
-[MESSAGE] - from Patrol: Mind orders: Transition to Patrol
-[MESSAGE] - from Patrol: Patience limit (%d). Reporting...
-[JSON] - from Sent Data:
-{
-    "data": {
-        "event": "target_lost",
-        "pos_x": 63.6895370483398,
-        "pos_y": 748.725646972656,
-        "reason": "patience_limit"
-    },
-    "receiver": "vesna",
-    "sender": "body",
-    "type": "event"
-}
-[MESSAGE] - from Patrol: Awaiting orders...
-[JSON] - from Received Raw Message:
-{
-    "data": {
-        "params": {
-            "points": 1.0
-        },
-        "target_state": "Investigate"
-    },
-    "receiver": "body",
-    "sender": "patrol_rosanna",
-    "type": "transition_to"
-}
-[MESSAGE] - from Patrol: Mind orders: Transition to Investigate
-[MESSAGE] - from Patrol: Generated 1 investigation points.
-[MESSAGE] - from Patrol: Investigating point 1...
-[MESSAGE] - from Patrol: I SEE YOU!
-[JSON] - from Sent Data:
-{
-    "data": {
-        "id": 119067906275,
-        "pos_x": 116.541946411133,
-        "pos_y": 1115.42260742188,
-        "sight": "player"
-    },
-    "receiver": "vesna",
-    "sender": "body",
-    "type": "sight"
-}
-[MESSAGE] - from Patrol: CAUGHT the player! Triggering encounter as 'rosanna'
-Encounter triggered with: rosanna
-Stopping Jason Mind...
 --- Stopping All Servers ---
-Killing guard_core (PID: 54741)
-Killing guard_action (PID: 54742)
-Killing date_core (PID: 54743)
-Killing date_action (PID: 54744)
+Killing guard_core (PID: 77252)
+Killing guard_action (PID: 77253)
+Killing date_core (PID: 77254)
+Killing date_action (PID: 77255)
+Killing jason_mind (PID: 77876)
 --- Stopping All Servers ---

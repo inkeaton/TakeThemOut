@@ -1,0 +1,66 @@
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/rasa/core/tracker_store.py:1044: MovedIn20Warning: Deprecated API features detected! These feature(s) are not compatible with SQLAlchemy 2.0. To prevent incompatible upgrades prior to updating applications, ensure requirements files are pinned to "sqlalchemy<2.0". Set environment variable SQLALCHEMY_WARN_20=1 to show all deprecation warnings.  Set environment variable SQLALCHEMY_SILENCE_UBER_WARNING=1 to silence this message. (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+  Base: DeclarativeMeta = declarative_base()
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/rasa/shared/utils/validation.py:134: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/pkg_resources/__init__.py:3117: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('mpl_toolkits')`.
+Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+  declare_namespace(pkg)
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/pkg_resources/__init__.py:3117: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('ruamel')`.
+Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+  declare_namespace(pkg)
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/sanic_cors/extension.py:39: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  SANIC_VERSION = LooseVersion(sanic_version)
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/tensorflow/lite/python/util.py:52: DeprecationWarning: jax.xla_computation is deprecated. Please use the AOT APIs.
+  from jax import xla_computation as _xla_computation
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/matplotlib/fontconfig_pattern.py:66: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+  ).setParseAction(self._family)
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/matplotlib/fontconfig_pattern.py:127: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+  self._parser.parseString(pattern)
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/matplotlib/fontconfig_pattern.py:134: PyparsingDeprecationWarning: 'resetCache' deprecated - use 'reset_cache'
+  self._parser.resetCache()
+2026-04-15 15:34:01 INFO     root  - Starting Rasa server on http://0.0.0.0:8006
+2026-04-15 15:34:01 INFO     rasa.core.processor  - Loading model models/20260212-165017-binary-civet.tar.gz...
+2026-04-15 15:34:01 INFO     rasa.nlu.utils.spacy_utils  - Trying to load SpaCy model with name 'en_core_web_lg'.
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/packaging/markers.py:125: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+  VARIABLE.setParseAction(lambda s, l, t: Variable(ALIASES.get(t[0], t[0])))
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/packaging/requirements.py:74: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+  _VERSION_SPEC.setParseAction(lambda s, l, t: t._raw_spec or "")
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/packaging/requirements.py:76: PyparsingDeprecationWarning: 'originalTextFor' deprecated - use 'original_text_for'
+  VERSION_SPEC = originalTextFor(_VERSION_SPEC)("specifier")
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/packaging/requirements.py:94: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+  REQUIREMENT.parseString("x[]")
+2026-04-15 15:34:02 INFO     rasa.nlu.utils.spacy_utils  - Trying to load SpaCy model with name 'en_core_web_lg'.
+2026-04-15 15:34:09 INFO     root  - Rasa server is up and running.
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/rasa/core/tracker_store.py:1044: MovedIn20Warning: Deprecated API features detected! These feature(s) are not compatible with SQLAlchemy 2.0. To prevent incompatible upgrades prior to updating applications, ensure requirements files are pinned to "sqlalchemy<2.0". Set environment variable SQLALCHEMY_WARN_20=1 to show all deprecation warnings.  Set environment variable SQLALCHEMY_SILENCE_UBER_WARNING=1 to silence this message. (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+  Base: DeclarativeMeta = declarative_base()
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/rasa/shared/utils/validation.py:134: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/pkg_resources/__init__.py:3117: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('mpl_toolkits')`.
+Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+  declare_namespace(pkg)
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/pkg_resources/__init__.py:3117: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('ruamel')`.
+Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+  declare_namespace(pkg)
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/sanic_cors/extension.py:39: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  SANIC_VERSION = LooseVersion(sanic_version)
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/tensorflow/lite/python/util.py:52: DeprecationWarning: jax.xla_computation is deprecated. Please use the AOT APIs.
+  from jax import xla_computation as _xla_computation
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/matplotlib/fontconfig_pattern.py:66: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+  ).setParseAction(self._family)
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/matplotlib/fontconfig_pattern.py:127: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+  self._parser.parseString(pattern)
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/matplotlib/fontconfig_pattern.py:134: PyparsingDeprecationWarning: 'resetCache' deprecated - use 'reset_cache'
+  self._parser.resetCache()
+2026-04-18 15:42:07 INFO     root  - Starting Rasa server on http://0.0.0.0:8006
+2026-04-18 15:42:07 INFO     rasa.core.processor  - Loading model models/20260212-165017-binary-civet.tar.gz...
+2026-04-18 15:42:07 INFO     rasa.nlu.utils.spacy_utils  - Trying to load SpaCy model with name 'en_core_web_lg'.
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/packaging/markers.py:125: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+  VARIABLE.setParseAction(lambda s, l, t: Variable(ALIASES.get(t[0], t[0])))
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/packaging/requirements.py:74: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+  _VERSION_SPEC.setParseAction(lambda s, l, t: t._raw_spec or "")
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/packaging/requirements.py:76: PyparsingDeprecationWarning: 'originalTextFor' deprecated - use 'original_text_for'
+  VERSION_SPEC = originalTextFor(_VERSION_SPEC)("specifier")
+/home/inkeaton/Documenti/Godot/take-them-out/tongue/venv/lib/python3.10/site-packages/packaging/requirements.py:94: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+  REQUIREMENT.parseString("x[]")
+2026-04-18 15:42:09 INFO     rasa.nlu.utils.spacy_utils  - Trying to load SpaCy model with name 'en_core_web_lg'.
+2026-04-18 15:42:16 INFO     root  - Rasa server is up and running.
